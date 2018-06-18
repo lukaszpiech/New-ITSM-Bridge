@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Project AppVersion="3.7.14" Type="Standard">
-<version>5</version>
+<version>4</version>
 <Notes>This template is used to migrate System Class CIs and relationships from BMC Remedy ITSM to ServiceNow.
 It can be used with most legacy ITSM versions including 764, 8.1 and 9.1 servers.
 It should be run AFTER the migration of all foundation data (see separate template for this).
@@ -1190,6 +1190,10 @@ R3: Added support for multi-tenancy with company variables; moved CI relationshi
 <LookupField>sys_id</LookupField>
 <NoMatchAction>Set Null</NoMatchAction>
 <MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>u_bmc_reconid</TargetField>
+<SourceField>Reconciliation Identity</SourceField>
 </FieldMapping>
 <FieldMapping Type="Lookup">
 <TargetField>vendor</TargetField>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Project AppVersion="3.7.14" Type="Standard">
-<version>3</version>
+<version>2</version>
 <Notes>This template is used to migrate CI relationships and People/CI relationships from BMC Remedy ITSM to 
 ServiceNow.
 It can be used with most legacy ITSM versions including 764, 8.1 and 9.1 servers.
@@ -23,7 +23,7 @@ R1: Separated from CI templates</Notes>
 <Port>3636</Port>
 </Connection>
 <Connection ConnectionType="Target" ServerType="Service Now">
-<URL>https://dev47087.service-now.com</URL>
+<URL>https://dev54541.service-now.com</URL>
 </Connection>
 <DMDList>
 <DataMappingsDefinition attachmentsOption="0" enabled="No" id="User Reference">

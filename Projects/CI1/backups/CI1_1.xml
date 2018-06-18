@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Project AppVersion="3.7.14" Type="Standard">
-<version>2</version>
+<version>1</version>
 <Notes>This template is used to migrate System Class CIs and relationships from BMC Remedy ITSM to ServiceNow.
 It can be used with most legacy ITSM versions including 764, 8.1 and 9.1 servers.
 It should be run AFTER the migration of all foundation data (see separate template for this).
@@ -25,7 +25,7 @@ R3: Added support for multi-tenant migrations with filtering by company.
 <Port>3636</Port>
 </Connection>
 <Connection ConnectionType="Target" ServerType="Service Now">
-<URL>https://dev47087.service-now.com</URL>
+<URL>https://dev54541.service-now.com</URL>
 </Connection>
 <DMDList>
 <DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="CMDB BIOS Element">
