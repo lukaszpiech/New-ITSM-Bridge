@@ -1,0 +1,21 @@
+      Exec_Log_Level:INFO
+  Exec_Log_Inc_Debug:FALSE
+   Write_Migrate_Rpt:TRUE
+   Migrate_Rpt_Level:ERROR
+  Exec_Update_Option:UPDATE
+  Exec_Create_Option:CREATE
+Business_Hours_Restrict_Action:ABORT
+Missing_Target_Field_Check:FALSE
+Unmapped_Target_Field_Check:FALSE
+ Exec_Migrate_Method:IMPORT_SET
+Exec_Application_Scope:
+Exec_Allow_Import_Set_WS_Creation:TRUE
+Exec_Import_Set_Application:global
+Exec_Use_S2S_Attachment_Migration:TRUE
+Exec_Max_Attach_Size_MB:32
+Exec_Migrate_Chunk_Size:10000
+Exec_Refresh_Object_Cache:FALSE
+Last_Exec_Identifier:
+Last_Migration_Report:
+Last_TC_Report_Folder:
+Last_Diff_Report_Folder:

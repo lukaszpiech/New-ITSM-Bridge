@@ -1,0 +1,1550 @@
+2018/06/16 14:45:34.020 [INFO] Log Level set to Detail
+2018/06/16 14:45:34.020 [INFO] ITSM Bridge version 3.7.14
+2018/06/16 14:45:34.020 [INFO] Execution of INC_PBM version 15
+2018/06/16 14:45:34.020 [INFO] Set Variable Modified Since Date to value '2018-01-01 00:00:00'
+2018/06/16 14:45:34.020 [INFO] Set Variable Single Company to value 'FALSE'
+2018/06/16 14:45:34.020 [INFO] Set Variable Company to value 'Calbro Services'
+2018/06/16 14:45:34.022 [INFO] Execution started... [Execution ID=2018-06-16_14-45 [1]]
+2018/06/16 14:45:34.023 [INFO] Initialisation Step Started...
+2018/06/16 14:45:34.024 [INFO] Source Server Connected
+2018/06/16 14:45:35.365 [INFO] Target Server Connected
+2018/06/16 14:45:35.833 [DETAIL] Remedy Cache Initialisation started...
+2018/06/16 14:45:35.833 [DETAIL] Remedy Cache Initialisation complete
+2018/06/16 14:45:35.833 [INFO] Source Server Cache Initialised
+2018/06/16 14:45:35.833 [DETAIL] Service Now Cache Initialisation started...
+2018/06/16 14:45:35.833 [DETAIL] Service Now Cache Initialisation complete
+2018/06/16 14:45:35.833 [INFO] Target Server Cache Initialised
+2018/06/16 14:45:35.833 [DETAIL] Top Level Project Validation Completed
+2018/06/16 14:45:36.309 [DETAIL] Build Field Map [CTM:People] started...
+2018/06/16 14:45:36.365 [DETAIL] Remedy: Build Field Map [CTM:People] complete, 132 entries
+2018/06/16 14:45:36.365 [INFO] Initialisation 1 of 13 [User Reference] Disabled [Key Mapping Cache Initialised]
+2018/06/16 14:45:36.846 [DETAIL] Build Field Map [sys_user_group] started...
+2018/06/16 14:45:37.811 [DETAIL] SNow: Build Field Type Map started...
+2018/06/16 14:45:39.593 [DETAIL] SNow: Build Field Type Map completed, 142 entries
+2018/06/16 14:45:39.593 [DETAIL] SNow: Build Form Map started...
+2018/06/16 14:46:11.699 [DETAIL] SNow: Build Form Map complete, 2799 entries
+2018/06/16 14:46:11.705 [DETAIL] SNow: Build Field Map [sys_user_group] complete, 19 entries
+2018/06/16 14:46:11.705 [DETAIL] Build Field Map [CTM:Support Group] started...
+2018/06/16 14:46:11.724 [DETAIL] Remedy: Build Field Map [CTM:Support Group] complete, 34 entries
+2018/06/16 14:46:11.724 [INFO] Initialisation 2 of 13 [Group Reference] Disabled [Key Mapping Cache Initialised]
+2018/06/16 14:46:12.182 [DETAIL] Build Field Map [cmn_location] started...
+2018/06/16 14:46:12.888 [DETAIL] SNow: Build Field Map [cmn_location] complete, 24 entries
+2018/06/16 14:46:12.888 [DETAIL] Build Field Map [core_company] started...
+2018/06/16 14:46:14.176 [DETAIL] SNow: Build Field Map [core_company] complete, 44 entries
+2018/06/16 14:46:14.176 [DETAIL] Create SNow Lookup Query: name#!#!Company Name!#!#
+2018/06/16 14:46:14.177 [DETAIL] Build Field Map [SIT:Site] started...
+2018/06/16 14:46:14.192 [DETAIL] Remedy: Build Field Map [SIT:Site] complete, 33 entries
+2018/06/16 14:46:14.192 [DETAIL] Add Project Variable [Site ID [STRING]]
+2018/06/16 14:46:14.192 [DETAIL] Build Field Map [SIT:Site Company Association] started...
+2018/06/16 14:46:14.204 [DETAIL] Remedy: Build Field Map [SIT:Site Company Association] complete, 22 entries
+2018/06/16 14:46:14.206 [DETAIL] Create Remedy Lookup Query: 'Site ID' = ""
+2018/06/16 14:46:14.207 [INFO] Initialisation 3 of 13 [Location Reference] Disabled [Key Mapping Cache Initialised]
+2018/06/16 14:46:14.207 [DETAIL] Build Field Map [HPD:Help Desk] started...
+2018/06/16 14:46:14.273 [DETAIL] Remedy: Build Field Map [HPD:Help Desk] complete, 305 entries
+2018/06/16 14:46:14.289 [DETAIL] Create Remedy Qualification: 'Last Modified Date' > "1/1/2018 1:00:00 AM" AND (0 = 1 AND 'Contact Company' = "Calbro Services" OR 0 = 0)
+2018/06/16 14:46:14.310 [DETAIL] Add Project Variable [name [STRING]]
+2018/06/16 14:46:14.310 [DETAIL] Create SNow Lookup Query: name#!#name#!#
+2018/06/16 14:46:14.310 [DETAIL] Add Project Variable [Assignee Login ID [STRING]]
+2018/06/16 14:46:14.313 [DETAIL] Create Remedy Lookup Query: 'Remedy Login ID' = ""
+2018/06/16 14:46:14.313 [DETAIL] Add Project Variable [Assignee [STRING]]
+2018/06/16 14:46:14.314 [DETAIL] Create SNow Lookup Query: name#!#Assignee#!#^email#!#!Assignee Email!#!#
+2018/06/16 14:46:14.315 [DETAIL] Add Project Variable [Incident Number [STRING]]
+2018/06/16 14:46:14.323 [DETAIL] Create Remedy Lookup Query: 'Incident Number' = ""
+2018/06/16 14:46:14.324 [DETAIL] Add Project Variable [name [STRING]]
+2018/06/16 14:46:14.324 [DETAIL] Add Project Variable [email [STRING]]
+2018/06/16 14:46:14.324 [DETAIL] Create SNow Lookup Query: name#!#name#!#^email#!#email#!#
+2018/06/16 14:46:14.324 [DETAIL] Add Project Variable [Contact Company [STRING]]
+2018/06/16 14:46:14.324 [DETAIL] Create SNow Lookup Query: name#!#Contact Company#!#
+2018/06/16 14:46:14.325 [DETAIL] Add Project Variable [country [STRING]]
+2018/06/16 14:46:14.325 [DETAIL] Add Project Variable [city [STRING]]
+2018/06/16 14:46:14.325 [DETAIL] Add Project Variable [name [STRING]]
+2018/06/16 14:46:14.325 [DETAIL] Create SNow Lookup Query: name#!#name#!#^country#!#country#!#^city#!#city#!#
+2018/06/16 14:46:14.325 [DETAIL] Build Field Map [sys_attachment] started...
+2018/06/16 14:46:14.706 [DETAIL] SNow: Build Field Map [sys_attachment] complete, 17 entries
+2018/06/16 14:46:14.707 [DETAIL] Build Field Map [ecc_queue] started...
+2018/06/16 14:46:15.397 [DETAIL] SNow: Build Field Map [ecc_queue] complete, 23 entries
+2018/06/16 14:46:16.810 [INFO] Initialisation 4 of 13 [Incident] Completed
+2018/06/16 14:46:16.810 [DETAIL] Build Field Map [TMS:Task] started...
+2018/06/16 14:46:16.928 [DETAIL] Remedy: Build Field Map [TMS:Task] complete, 256 entries
+2018/06/16 14:46:16.930 [DETAIL] Create Remedy Qualification: 'RootRequestFormName' = "HPD:Help Desk"
+2018/06/16 14:46:16.935 [DETAIL] Build Field Map [incident_task] started...
+2018/06/16 14:46:17.365 [DETAIL] SNow: Build Field Map [incident_task] complete, 2 entries
+2018/06/16 14:46:17.365 [DETAIL] Build Field Map [task] started...
+2018/06/16 14:46:20.030 [DETAIL] SNow: Build Field Map [task] complete, 66 entries
+2018/06/16 14:46:20.032 [DETAIL] Build Field Map [TMS:WorkInfo] started...
+2018/06/16 14:46:20.050 [DETAIL] Remedy: Build Field Map [TMS:WorkInfo] complete, 31 entries
+2018/06/16 14:46:20.052 [DETAIL] Add Project Variable [name [STRING]]
+2018/06/16 14:46:20.052 [DETAIL] Create SNow Lookup Query: name#!#name#!#
+2018/06/16 14:46:20.053 [DETAIL] Add Project Variable [Task ID [STRING]]
+2018/06/16 14:46:20.056 [DETAIL] Create Remedy Lookup Query: 'TaskOrTaskGroupID' = ""
+2018/06/16 14:46:20.056 [DETAIL] Add Project Variable [Company [STRING]]
+2018/06/16 14:46:20.057 [DETAIL] Create SNow Lookup Query: name#!#Company#!#
+2018/06/16 14:46:20.060 [DETAIL] Add Project Variable [Site [STRING]]
+2018/06/16 14:46:20.060 [DETAIL] Add Project Variable [Company [STRING]]
+2018/06/16 14:46:20.060 [DETAIL] Create SNow Lookup Query: company#!#Company#!#^name#!#Site#!#
+2018/06/16 14:46:20.061 [DETAIL] Add Project Variable [RootRequestID [STRING]]
+2018/06/16 14:46:20.061 [DETAIL] Create SNow Lookup Query: number#!#RootRequestID#!#
+2018/06/16 14:46:20.062 [DETAIL] Add Project Variable [name [STRING]]
+2018/06/16 14:46:20.062 [DETAIL] Add Project Variable [email [STRING]]
+2018/06/16 14:46:20.062 [DETAIL] Create SNow Lookup Query: name#!#name#!#^email#!#email#!#
+2018/06/16 14:46:20.063 [DETAIL] Build Field Map [sys_web_service] started...
+2018/06/16 14:46:20.373 [DETAIL] SNow: Build Field Map [sys_web_service] complete, 9 entries
+2018/06/16 14:46:20.373 [DETAIL] Build Field Map [sys_metadata] started...
+2018/06/16 14:46:21.185 [DETAIL] SNow: Build Field Map [sys_metadata] complete, 20 entries
+2018/06/16 14:46:21.604 [INFO] Synchronising Scripted Web Service [u_itsmb_incident_task_n]
+2018/06/16 14:46:23.284 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_incident_task_n
+   Target Table: incident_task
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: incident_task,task
+--created ws import set: u_itsmb_incident_task_n [incident_task]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_incident_task_n
+   transform field mapping exists: parent -> parent
+   transform field mapping exists: made_sla -> made_sla
+   transform field mapping exists: watch_list -> watch_list
+   skip system field: template_import_log
+   skip system field: target_scope
+   transform field mapping exists: upon_reject -> upon_reject
+   skip system field: sys_updated_on
+   skip system field: target_class_name
+   transform field mapping exists: approval_history -> approval_history
+   skip system field: sys_target_sys_id
+   transform field mapping exists: number -> number
+   skip system field: sys_updated_by
+   transform field mapping exists: user_input -> user_input
+   transform field mapping exists: opened_by -> opened_by
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   transform field mapping exists: state -> state
+   skip system field: target_created_by
+   skip system field: target_sys_id
+   skip system field: sys_created_by
+   transform field mapping exists: order -> order
+   transform field mapping exists: knowledge -> knowledge
+   skip system field: sys_import_row
+   skip system field: sys_row_error
+   transform field mapping exists: closed_at -> closed_at
+   transform field mapping exists: delivery_plan -> delivery_plan
+   transform field mapping exists: cmdb_ci -> cmdb_ci
+   skip system field: target_domain_path
+   transform field mapping exists: impact -> impact
+   transform field mapping exists: work_notes_list -> work_notes_list
+   transform field mapping exists: active -> active
+   transform field mapping exists: business_service -> business_service
+   skip system field: import_set_run
+   transform field mapping exists: priority -> priority
+   transform field mapping exists: time_worked -> time_worked
+   transform field mapping exists: expected_start -> expected_start
+   transform field mapping exists: rejection_goto -> rejection_goto
+   transform field mapping exists: opened_at -> opened_at
+   transform field mapping exists: business_duration -> business_duration
+   transform field mapping exists: group_list -> group_list
+   transform field mapping exists: work_end -> work_end
+   transform field mapping exists: approval_set -> approval_set
+   transform field mapping exists: work_notes -> work_notes
+   transform field mapping exists: wf_activity -> wf_activity
+   transform field mapping exists: short_description -> short_description
+   skip system field: target_mod_count
+   transform field mapping exists: work_start -> work_start
+   transform field mapping exists: correlation_display -> correlation_display
+   transform field mapping exists: delivery_task -> delivery_task
+   transform field mapping exists: assignment_group -> assignment_group
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   transform field mapping exists: additional_assignee_list -> additional_assignee_list
+   transform field mapping exists: description -> description
+   transform field mapping exists: calendar_duration -> calendar_duration
+   skip system field: target_domain
+   transform field mapping exists: close_notes -> close_notes
+   skip system field: sys_class_name
+   transform field mapping exists: closed_by -> closed_by
+   transform field mapping exists: follow_up -> follow_up
+   transform field mapping exists: contact_type -> contact_type
+   transform field mapping exists: urgency -> urgency
+   skip system field: sys_transform_map
+   transform field mapping exists: company -> company
+   transform field mapping exists: reassignment_count -> reassignment_count
+   transform field mapping exists: activity_due -> activity_due
+   transform field mapping exists: assigned_to -> assigned_to
+   transform field mapping exists: variables -> variables
+   transform field mapping exists: comments -> comments
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   transform field mapping exists: approval -> approval
+   transform field mapping exists: sla_due -> sla_due
+   transform field mapping exists: due_date -> due_date
+   transform field mapping exists: comments_and_work_notes -> comments_and_work_notes
+   skip system field: sys_mod_count
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   transform field mapping exists: escalation -> escalation
+   transform field mapping exists: upon_approval -> upon_approval
+   transform field mapping exists: correlation_id -> correlation_id
+   transform field mapping exists: location -> location
+   skip system field: source_id
+   transform field mapping exists: incident -> incident
+   transform field mapping exists: target_domain -> sys_domain
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 14:46:23.284 [INFO] Scripted Web Service is Synchronised [u_itsmb_incident_task_n]
+2018/06/16 14:46:23.284 [DETAIL] Build Field Map [u_itsmb_incident_task_n] started...
+2018/06/16 14:46:25.100 [DETAIL] SNow: Build Field Map [u_itsmb_incident_task_n] complete, 68 entries
+2018/06/16 14:46:25.100 [DETAIL] Build Field Map [sys_import_set_row] started...
+2018/06/16 14:46:26.194 [DETAIL] SNow: Build Field Map [sys_import_set_row] complete, 84 entries
+2018/06/16 14:46:26.655 [INFO] Initialisation 5 of 13 [Incident Task] Completed
+2018/06/16 14:46:26.656 [DETAIL] Build Field Map [HPD:Associations] started...
+2018/06/16 14:46:26.685 [DETAIL] Remedy: Build Field Map [HPD:Associations] complete, 53 entries
+2018/06/16 14:46:26.723 [DETAIL] Create Remedy Qualification: 'Form Name01' = "HPD:Help Desk" AND 'Form Name02' = "HPD:Help Desk" AND 'Request ID02' < 'Request ID01'
+2018/06/16 14:46:26.752 [DETAIL] Add Project Variable [Request ID01 [STRING]]
+2018/06/16 14:46:26.752 [DETAIL] Create SNow Lookup Query: number#!#Request ID01#!#
+2018/06/16 14:46:26.753 [INFO] Synchronising Scripted Web Service [u_itsmb_incident_n]
+2018/06/16 14:46:28.902 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_incident_n
+   Target Table: incident
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: incident,task
+--created ws import set: u_itsmb_incident_n [incident]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_incident_n
+   transform field mapping exists: parent -> parent
+   transform field mapping exists: watch_list -> watch_list
+   transform field mapping exists: caused_by -> caused_by
+   skip system field: template_import_log
+   transform field mapping exists: upon_reject -> upon_reject
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   transform field mapping exists: approval_history -> approval_history
+   transform field mapping exists: number -> number
+   transform field mapping exists: state -> state
+   skip system field: sys_created_by
+   transform field mapping exists: order -> order
+   transform field mapping exists: knowledge -> knowledge
+   skip system field: sys_import_row
+   transform field mapping exists: delivery_plan -> delivery_plan
+   transform field mapping exists: cmdb_ci -> cmdb_ci
+   transform field mapping exists: impact -> impact
+   transform field mapping exists: work_notes_list -> work_notes_list
+   transform field mapping exists: active -> active
+   transform field mapping exists: priority -> priority
+   transform field mapping exists: rejection_goto -> rejection_goto
+   transform field mapping exists: group_list -> group_list
+   transform field mapping exists: business_duration -> business_duration
+   transform field mapping exists: approval_set -> approval_set
+   transform field mapping exists: wf_activity -> wf_activity
+   transform field mapping exists: short_description -> short_description
+   transform field mapping exists: delivery_task -> delivery_task
+   transform field mapping exists: correlation_display -> correlation_display
+   skip system field: target_mod_count
+   transform field mapping exists: work_start -> work_start
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   transform field mapping exists: additional_assignee_list -> additional_assignee_list
+   skip system field: target_domain
+   transform field mapping exists: notify -> notify
+   skip system field: sys_class_name
+   transform field mapping exists: closed_by -> closed_by
+   transform field mapping exists: follow_up -> follow_up
+   transform field mapping exists: parent_incident -> parent_incident
+   transform field mapping exists: reopened_by -> reopened_by
+   transform field mapping exists: reassignment_count -> reassignment_count
+   transform field mapping exists: assigned_to -> assigned_to
+   transform field mapping exists: variables -> variables
+   skip system field: sys_target_table
+   transform field mapping exists: sla_due -> sla_due
+   transform field mapping exists: comments_and_work_notes -> comments_and_work_notes
+   skip system field: sys_import_state
+   transform field mapping exists: upon_approval -> upon_approval
+   transform field mapping exists: escalation -> escalation
+   transform field mapping exists: correlation_id -> correlation_id
+   skip system field: source_id
+   transform field mapping exists: made_sla -> made_sla
+   skip system field: target_class_name
+   transform field mapping exists: child_incidents -> child_incidents
+   transform field mapping exists: hold_reason -> hold_reason
+   skip system field: sys_target_sys_id
+   transform field mapping exists: resolved_by -> resolved_by
+   skip system field: sys_updated_by
+   transform field mapping exists: user_input -> user_input
+   transform field mapping exists: opened_by -> opened_by
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   transform field mapping exists: calendar_stc -> calendar_stc
+   skip system field: sys_row_error
+   transform field mapping exists: closed_at -> closed_at
+   skip system field: target_domain_path
+   transform field mapping exists: business_service -> business_service
+   skip system field: import_set_run
+   transform field mapping exists: rfc -> rfc
+   transform field mapping exists: time_worked -> time_worked
+   transform field mapping exists: expected_start -> expected_start
+   transform field mapping exists: opened_at -> opened_at
+   transform field mapping exists: work_end -> work_end
+   transform field mapping exists: reopened_time -> reopened_time
+   transform field mapping exists: caller_id -> caller_id
+   transform field mapping exists: resolved_at -> resolved_at
+   transform field mapping exists: work_notes -> work_notes
+   transform field mapping exists: subcategory -> subcategory
+   transform field mapping exists: close_code -> close_code
+   transform field mapping exists: assignment_group -> assignment_group
+   transform field mapping exists: business_stc -> business_stc
+   transform field mapping exists: description -> description
+   transform field mapping exists: calendar_duration -> calendar_duration
+   transform field mapping exists: close_notes -> close_notes
+   transform field mapping exists: contact_type -> contact_type
+   transform field mapping exists: incident_state -> incident_state
+   transform field mapping exists: urgency -> urgency
+   transform field mapping exists: problem_id -> problem_id
+   skip system field: sys_transform_map
+   transform field mapping exists: company -> company
+   transform field mapping exists: activity_due -> activity_due
+   transform field mapping exists: severity -> severity
+   transform field mapping exists: comments -> comments
+   skip system field: target_created_on
+   transform field mapping exists: approval -> approval
+   transform field mapping exists: due_date -> due_date
+   skip system field: sys_mod_count
+   transform field mapping exists: reopen_count -> reopen_count
+   skip virtual field: sys_tags
+   transform field mapping exists: location -> location
+   transform field mapping exists: category -> category
+   transform field mapping exists: target_domain -> sys_domain
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 14:46:28.902 [INFO] Scripted Web Service is Synchronised [u_itsmb_incident_n]
+2018/06/16 14:46:28.902 [DETAIL] Build Field Map [u_itsmb_incident_n] started...
+2018/06/16 14:46:30.918 [DETAIL] SNow: Build Field Map [u_itsmb_incident_n] complete, 87 entries
+2018/06/16 14:46:30.918 [DETAIL] Build Field Map [sys_import_set_row] started...
+2018/06/16 14:46:31.768 [DETAIL] SNow: Build Field Map [sys_import_set_row] complete, 103 entries
+2018/06/16 14:46:32.227 [INFO] Initialisation 6 of 13 [Child Incidents] Completed
+2018/06/16 14:46:32.228 [DETAIL] Build Field Map [PBM:Problem Investigation] started...
+2018/06/16 14:46:32.267 [DETAIL] Remedy: Build Field Map [PBM:Problem Investigation] complete, 141 entries
+2018/06/16 14:46:32.274 [DETAIL] Create Remedy Qualification: 'Last Modified Date' > "1/1/2018 1:00:00 AM" AND (0 = 1 AND 'Contact Company' = "Calbro Services" OR 0 = 0)
+2018/06/16 14:46:32.286 [DETAIL] Build Field Map [problem] started...
+2018/06/16 14:46:32.819 [DETAIL] SNow: Build Field Map [problem] complete, 8 entries
+2018/06/16 14:46:32.819 [DETAIL] Build Field Map [task] started...
+2018/06/16 14:46:34.218 [DETAIL] SNow: Build Field Map [task] complete, 72 entries
+2018/06/16 14:46:34.219 [DETAIL] Build Field Map [PBM:Investigation WorkLog] started...
+2018/06/16 14:46:34.233 [DETAIL] Remedy: Build Field Map [PBM:Investigation WorkLog] complete, 48 entries
+2018/06/16 14:46:34.233 [DETAIL] Add Project Variable [name [STRING]]
+2018/06/16 14:46:34.233 [DETAIL] Create SNow Lookup Query: name#!#name#!#
+2018/06/16 14:46:34.234 [DETAIL] Add Project Variable [Assignee Login ID [STRING]]
+2018/06/16 14:46:34.239 [DETAIL] Create Remedy Lookup Query: 'Remedy Login ID' = ""
+2018/06/16 14:46:34.239 [DETAIL] Add Project Variable [Assignee [STRING]]
+2018/06/16 14:46:34.239 [DETAIL] Create SNow Lookup Query: name#!#Assignee#!#^email#!#!Assignee Email!#!#
+2018/06/16 14:46:34.240 [DETAIL] Add Project Variable [Problem Investigation ID [STRING]]
+2018/06/16 14:46:34.243 [DETAIL] Create Remedy Lookup Query: 'Problem Investigation ID' = ""
+2018/06/16 14:46:34.243 [DETAIL] Add Project Variable [Contact Company [STRING]]
+2018/06/16 14:46:34.243 [DETAIL] Create SNow Lookup Query: name#!#Contact Company#!#
+2018/06/16 14:46:34.245 [DETAIL] Add Project Variable [country [STRING]]
+2018/06/16 14:46:34.245 [DETAIL] Add Project Variable [city [STRING]]
+2018/06/16 14:46:34.245 [DETAIL] Add Project Variable [name [STRING]]
+2018/06/16 14:46:34.245 [DETAIL] Create SNow Lookup Query: name#!#name#!#^country#!#country#!#^city#!#city#!#
+2018/06/16 14:46:34.246 [INFO] Synchronising Scripted Web Service [u_itsmb_problem_n]
+2018/06/16 14:46:36.154 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_problem_n
+   Target Table: problem
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: problem,task
+--created ws import set: u_itsmb_problem_n [problem]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_problem_n
+   transform field mapping exists: parent -> parent
+   transform field mapping exists: made_sla -> made_sla
+   transform field mapping exists: watch_list -> watch_list
+   skip system field: template_import_log
+   transform field mapping exists: upon_reject -> upon_reject
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   skip system field: target_class_name
+   transform field mapping exists: approval_history -> approval_history
+   skip system field: sys_target_sys_id
+   transform field mapping exists: number -> number
+   skip system field: sys_updated_by
+   transform field mapping exists: work_around -> work_around
+   transform field mapping exists: opened_by -> opened_by
+   transform field mapping exists: user_input -> user_input
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   transform field mapping exists: state -> state
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   skip system field: sys_created_by
+   transform field mapping exists: order -> order
+   transform field mapping exists: knowledge -> knowledge
+   skip system field: sys_import_row
+   transform field mapping exists: major_problem -> major_problem
+   skip system field: sys_row_error
+   transform field mapping exists: closed_at -> closed_at
+   transform field mapping exists: cmdb_ci -> cmdb_ci
+   transform field mapping exists: delivery_plan -> delivery_plan
+   transform field mapping exists: impact -> impact
+   skip system field: target_domain_path
+   transform field mapping exists: work_notes_list -> work_notes_list
+   transform field mapping exists: active -> active
+   transform field mapping exists: business_service -> business_service
+   skip system field: import_set_run
+   transform field mapping exists: priority -> priority
+   transform field mapping exists: time_worked -> time_worked
+   transform field mapping exists: rfc -> rfc
+   transform field mapping exists: expected_start -> expected_start
+   transform field mapping exists: rejection_goto -> rejection_goto
+   transform field mapping exists: opened_at -> opened_at
+   transform field mapping exists: business_duration -> business_duration
+   transform field mapping exists: group_list -> group_list
+   transform field mapping exists: work_end -> work_end
+   transform field mapping exists: approval_set -> approval_set
+   transform field mapping exists: wf_activity -> wf_activity
+   transform field mapping exists: work_notes -> work_notes
+   transform field mapping exists: short_description -> short_description
+   transform field mapping exists: work_start -> work_start
+   transform field mapping exists: correlation_display -> correlation_display
+   transform field mapping exists: delivery_task -> delivery_task
+   skip system field: target_mod_count
+   transform field mapping exists: assignment_group -> assignment_group
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   transform field mapping exists: known_error -> known_error
+   transform field mapping exists: additional_assignee_list -> additional_assignee_list
+   transform field mapping exists: description -> description
+   transform field mapping exists: calendar_duration -> calendar_duration
+   skip system field: target_domain
+   transform field mapping exists: close_notes -> close_notes
+   skip system field: sys_class_name
+   transform field mapping exists: closed_by -> closed_by
+   transform field mapping exists: follow_up -> follow_up
+   transform field mapping exists: contact_type -> contact_type
+   transform field mapping exists: urgency -> urgency
+   skip system field: sys_transform_map
+   transform field mapping exists: company -> company
+   transform field mapping exists: reassignment_count -> reassignment_count
+   transform field mapping exists: related_incidents -> related_incidents
+   transform field mapping exists: activity_due -> activity_due
+   transform field mapping exists: assigned_to -> assigned_to
+   transform field mapping exists: variables -> variables
+   transform field mapping exists: review_outcome -> review_outcome
+   transform field mapping exists: comments -> comments
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   transform field mapping exists: approval -> approval
+   transform field mapping exists: sla_due -> sla_due
+   transform field mapping exists: problem_state -> problem_state
+   transform field mapping exists: comments_and_work_notes -> comments_and_work_notes
+   transform field mapping exists: due_date -> due_date
+   skip system field: sys_mod_count
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   transform field mapping exists: escalation -> escalation
+   transform field mapping exists: upon_approval -> upon_approval
+   transform field mapping exists: correlation_id -> correlation_id
+   transform field mapping exists: location -> location
+   skip system field: source_id
+   transform field mapping exists: target_domain -> sys_domain
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 14:46:36.154 [INFO] Scripted Web Service is Synchronised [u_itsmb_problem_n]
+2018/06/16 14:46:36.154 [DETAIL] Build Field Map [u_itsmb_problem_n] started...
+2018/06/16 14:46:38.269 [DETAIL] SNow: Build Field Map [u_itsmb_problem_n] complete, 74 entries
+2018/06/16 14:46:38.269 [DETAIL] Build Field Map [sys_import_set_row] started...
+2018/06/16 14:46:40.143 [DETAIL] SNow: Build Field Map [sys_import_set_row] complete, 90 entries
+2018/06/16 14:46:40.599 [INFO] Initialisation 7 of 13 [Problem] Completed
+2018/06/16 14:46:40.626 [DETAIL] Create Remedy Qualification: 'RootRequestFormName' = "PBM:Problem Investigation"
+2018/06/16 14:46:40.679 [DETAIL] Build Field Map [problem_task] started...
+2018/06/16 14:46:40.923 [DETAIL] SNow: Build Field Map [problem_task] complete, 2 entries
+2018/06/16 14:46:40.923 [DETAIL] Build Field Map [task] started...
+2018/06/16 14:46:43.532 [DETAIL] SNow: Build Field Map [task] complete, 66 entries
+2018/06/16 14:46:43.536 [DETAIL] Add Project Variable [name [STRING]]
+2018/06/16 14:46:43.536 [DETAIL] Create SNow Lookup Query: name#!#name#!#
+2018/06/16 14:46:43.540 [DETAIL] Add Project Variable [Task ID [STRING]]
+2018/06/16 14:46:43.542 [DETAIL] Create Remedy Lookup Query: 'TaskOrTaskGroupID' = ""
+2018/06/16 14:46:43.544 [DETAIL] Add Project Variable [RootRequestID [STRING]]
+2018/06/16 14:46:43.544 [DETAIL] Create SNow Lookup Query: number#!#RootRequestID#!#
+2018/06/16 14:46:43.545 [DETAIL] Add Project Variable [Company [STRING]]
+2018/06/16 14:46:43.545 [DETAIL] Create SNow Lookup Query: name#!#Company#!#
+2018/06/16 14:46:43.545 [DETAIL] Add Project Variable [Site [STRING]]
+2018/06/16 14:46:43.546 [DETAIL] Add Project Variable [Company [STRING]]
+2018/06/16 14:46:43.546 [DETAIL] Create SNow Lookup Query: company#!#Company#!#^name#!#Site#!#
+2018/06/16 14:46:43.567 [DETAIL] Add Project Variable [name [STRING]]
+2018/06/16 14:46:43.567 [DETAIL] Add Project Variable [email [STRING]]
+2018/06/16 14:46:43.567 [DETAIL] Create SNow Lookup Query: name#!#name#!#^email#!#email#!#
+2018/06/16 14:46:43.569 [INFO] Synchronising Scripted Web Service [u_itsmb_problem_task_n]
+2018/06/16 14:46:45.297 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_problem_task_n
+   Target Table: problem_task
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: problem_task,task
+--created ws import set: u_itsmb_problem_task_n [problem_task]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_problem_task_n
+   transform field mapping exists: parent -> parent
+   transform field mapping exists: made_sla -> made_sla
+   transform field mapping exists: watch_list -> watch_list
+   skip system field: template_import_log
+   skip system field: target_scope
+   transform field mapping exists: upon_reject -> upon_reject
+   skip system field: sys_updated_on
+   skip system field: target_class_name
+   transform field mapping exists: approval_history -> approval_history
+   skip system field: sys_target_sys_id
+   transform field mapping exists: number -> number
+   transform field mapping exists: problem -> problem
+   skip system field: sys_updated_by
+   transform field mapping exists: opened_by -> opened_by
+   transform field mapping exists: user_input -> user_input
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   transform field mapping exists: state -> state
+   skip system field: target_created_by
+   skip system field: target_sys_id
+   skip system field: sys_created_by
+   transform field mapping exists: order -> order
+   transform field mapping exists: knowledge -> knowledge
+   skip system field: sys_import_row
+   skip system field: sys_row_error
+   transform field mapping exists: closed_at -> closed_at
+   transform field mapping exists: cmdb_ci -> cmdb_ci
+   transform field mapping exists: delivery_plan -> delivery_plan
+   transform field mapping exists: impact -> impact
+   skip system field: target_domain_path
+   transform field mapping exists: work_notes_list -> work_notes_list
+   transform field mapping exists: active -> active
+   transform field mapping exists: business_service -> business_service
+   skip system field: import_set_run
+   transform field mapping exists: priority -> priority
+   transform field mapping exists: time_worked -> time_worked
+   transform field mapping exists: expected_start -> expected_start
+   transform field mapping exists: rejection_goto -> rejection_goto
+   transform field mapping exists: opened_at -> opened_at
+   transform field mapping exists: business_duration -> business_duration
+   transform field mapping exists: group_list -> group_list
+   transform field mapping exists: work_end -> work_end
+   transform field mapping exists: approval_set -> approval_set
+   transform field mapping exists: work_notes -> work_notes
+   transform field mapping exists: wf_activity -> wf_activity
+   transform field mapping exists: short_description -> short_description
+   transform field mapping exists: correlation_display -> correlation_display
+   skip system field: target_mod_count
+   transform field mapping exists: work_start -> work_start
+   transform field mapping exists: delivery_task -> delivery_task
+   transform field mapping exists: assignment_group -> assignment_group
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   transform field mapping exists: additional_assignee_list -> additional_assignee_list
+   transform field mapping exists: description -> description
+   transform field mapping exists: calendar_duration -> calendar_duration
+   skip system field: target_domain
+   transform field mapping exists: close_notes -> close_notes
+   skip system field: sys_class_name
+   transform field mapping exists: closed_by -> closed_by
+   transform field mapping exists: follow_up -> follow_up
+   transform field mapping exists: contact_type -> contact_type
+   transform field mapping exists: urgency -> urgency
+   skip system field: sys_transform_map
+   transform field mapping exists: company -> company
+   transform field mapping exists: reassignment_count -> reassignment_count
+   transform field mapping exists: activity_due -> activity_due
+   transform field mapping exists: assigned_to -> assigned_to
+   transform field mapping exists: variables -> variables
+   transform field mapping exists: comments -> comments
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   transform field mapping exists: sla_due -> sla_due
+   transform field mapping exists: approval -> approval
+   transform field mapping exists: due_date -> due_date
+   transform field mapping exists: comments_and_work_notes -> comments_and_work_notes
+   skip system field: sys_mod_count
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   transform field mapping exists: escalation -> escalation
+   transform field mapping exists: upon_approval -> upon_approval
+   transform field mapping exists: correlation_id -> correlation_id
+   transform field mapping exists: location -> location
+   skip system field: source_id
+   transform field mapping exists: target_domain -> sys_domain
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 14:46:45.297 [INFO] Scripted Web Service is Synchronised [u_itsmb_problem_task_n]
+2018/06/16 14:46:45.297 [DETAIL] Build Field Map [u_itsmb_problem_task_n] started...
+2018/06/16 14:46:47.500 [DETAIL] SNow: Build Field Map [u_itsmb_problem_task_n] complete, 68 entries
+2018/06/16 14:46:47.500 [DETAIL] Build Field Map [sys_import_set_row] started...
+2018/06/16 14:46:48.745 [DETAIL] SNow: Build Field Map [sys_import_set_row] complete, 84 entries
+2018/06/16 14:46:49.200 [INFO] Initialisation 8 of 13 [Problem Task] Completed
+2018/06/16 14:46:49.219 [DETAIL] Create Remedy Qualification: 'Form Name01' = "PBM:Problem Investigation" AND 'Form Name02' = "HPD:Help Desk"
+2018/06/16 14:46:49.239 [DETAIL] Add Project Variable [Request ID01 [STRING]]
+2018/06/16 14:46:49.239 [DETAIL] Create SNow Lookup Query: number#!#Request ID01#!#
+2018/06/16 14:46:49.241 [INFO] Synchronising Scripted Web Service [u_itsmb_incident_n]
+2018/06/16 14:46:51.340 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_incident_n
+   Target Table: incident
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: incident,task
+--created ws import set: u_itsmb_incident_n [incident]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_incident_n
+   transform field mapping exists: parent -> parent
+   transform field mapping exists: watch_list -> watch_list
+   transform field mapping exists: caused_by -> caused_by
+   skip system field: template_import_log
+   transform field mapping exists: upon_reject -> upon_reject
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   transform field mapping exists: approval_history -> approval_history
+   transform field mapping exists: number -> number
+   transform field mapping exists: state -> state
+   skip system field: sys_created_by
+   transform field mapping exists: order -> order
+   transform field mapping exists: knowledge -> knowledge
+   skip system field: sys_import_row
+   transform field mapping exists: delivery_plan -> delivery_plan
+   transform field mapping exists: cmdb_ci -> cmdb_ci
+   transform field mapping exists: impact -> impact
+   transform field mapping exists: work_notes_list -> work_notes_list
+   transform field mapping exists: active -> active
+   transform field mapping exists: priority -> priority
+   transform field mapping exists: rejection_goto -> rejection_goto
+   transform field mapping exists: group_list -> group_list
+   transform field mapping exists: business_duration -> business_duration
+   transform field mapping exists: approval_set -> approval_set
+   transform field mapping exists: wf_activity -> wf_activity
+   transform field mapping exists: short_description -> short_description
+   transform field mapping exists: delivery_task -> delivery_task
+   transform field mapping exists: correlation_display -> correlation_display
+   skip system field: target_mod_count
+   transform field mapping exists: work_start -> work_start
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   transform field mapping exists: additional_assignee_list -> additional_assignee_list
+   skip system field: target_domain
+   transform field mapping exists: notify -> notify
+   skip system field: sys_class_name
+   transform field mapping exists: closed_by -> closed_by
+   transform field mapping exists: follow_up -> follow_up
+   transform field mapping exists: parent_incident -> parent_incident
+   transform field mapping exists: reopened_by -> reopened_by
+   transform field mapping exists: reassignment_count -> reassignment_count
+   transform field mapping exists: assigned_to -> assigned_to
+   transform field mapping exists: variables -> variables
+   skip system field: sys_target_table
+   transform field mapping exists: sla_due -> sla_due
+   transform field mapping exists: comments_and_work_notes -> comments_and_work_notes
+   skip system field: sys_import_state
+   transform field mapping exists: upon_approval -> upon_approval
+   transform field mapping exists: escalation -> escalation
+   transform field mapping exists: correlation_id -> correlation_id
+   skip system field: source_id
+   transform field mapping exists: made_sla -> made_sla
+   skip system field: target_class_name
+   transform field mapping exists: child_incidents -> child_incidents
+   transform field mapping exists: hold_reason -> hold_reason
+   skip system field: sys_target_sys_id
+   transform field mapping exists: resolved_by -> resolved_by
+   skip system field: sys_updated_by
+   transform field mapping exists: user_input -> user_input
+   transform field mapping exists: opened_by -> opened_by
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   transform field mapping exists: calendar_stc -> calendar_stc
+   skip system field: sys_row_error
+   transform field mapping exists: closed_at -> closed_at
+   skip system field: target_domain_path
+   transform field mapping exists: business_service -> business_service
+   skip system field: import_set_run
+   transform field mapping exists: rfc -> rfc
+   transform field mapping exists: time_worked -> time_worked
+   transform field mapping exists: expected_start -> expected_start
+   transform field mapping exists: opened_at -> opened_at
+   transform field mapping exists: work_end -> work_end
+   transform field mapping exists: reopened_time -> reopened_time
+   transform field mapping exists: caller_id -> caller_id
+   transform field mapping exists: resolved_at -> resolved_at
+   transform field mapping exists: work_notes -> work_notes
+   transform field mapping exists: subcategory -> subcategory
+   transform field mapping exists: close_code -> close_code
+   transform field mapping exists: assignment_group -> assignment_group
+   transform field mapping exists: business_stc -> business_stc
+   transform field mapping exists: description -> description
+   transform field mapping exists: calendar_duration -> calendar_duration
+   transform field mapping exists: close_notes -> close_notes
+   transform field mapping exists: contact_type -> contact_type
+   transform field mapping exists: incident_state -> incident_state
+   transform field mapping exists: urgency -> urgency
+   transform field mapping exists: problem_id -> problem_id
+   skip system field: sys_transform_map
+   transform field mapping exists: company -> company
+   transform field mapping exists: activity_due -> activity_due
+   transform field mapping exists: severity -> severity
+   transform field mapping exists: comments -> comments
+   skip system field: target_created_on
+   transform field mapping exists: approval -> approval
+   transform field mapping exists: due_date -> due_date
+   skip system field: sys_mod_count
+   transform field mapping exists: reopen_count -> reopen_count
+   skip virtual field: sys_tags
+   transform field mapping exists: location -> location
+   transform field mapping exists: category -> category
+   transform field mapping exists: target_domain -> sys_domain
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 14:46:51.340 [INFO] Scripted Web Service is Synchronised [u_itsmb_incident_n]
+2018/06/16 14:46:51.804 [INFO] Initialisation 9 of 13 [Incident Related Problem] Completed
+2018/06/16 14:46:51.809 [DETAIL] Build Field Map [PBM:Known Error] started...
+2018/06/16 14:46:51.903 [DETAIL] Remedy: Build Field Map [PBM:Known Error] complete, 115 entries
+2018/06/16 14:46:51.907 [DETAIL] Create Remedy Qualification: 'Last Modified Date' > "1/1/2018 1:00:00 AM" AND (0 = 1 AND 'Company' = "Calbro Services" OR 0 = 0)
+2018/06/16 14:46:51.921 [DETAIL] Build Field Map [PBM:Known Error WorkLog] started...
+2018/06/16 14:46:51.935 [DETAIL] Remedy: Build Field Map [PBM:Known Error WorkLog] complete, 49 entries
+2018/06/16 14:46:51.936 [DETAIL] Add Project Variable [name [STRING]]
+2018/06/16 14:46:51.936 [DETAIL] Create SNow Lookup Query: name#!#name#!#
+2018/06/16 14:46:51.937 [DETAIL] Add Project Variable [Assignee Login [STRING]]
+2018/06/16 14:46:51.940 [DETAIL] Create Remedy Lookup Query: 'Remedy Login ID' = ""
+2018/06/16 14:46:51.940 [DETAIL] Add Project Variable [Assignee [STRING]]
+2018/06/16 14:46:51.940 [DETAIL] Create SNow Lookup Query: name#!#Assignee#!#^email#!#!Assignee Email!#!#
+2018/06/16 14:46:51.941 [DETAIL] Add Project Variable [Known Error ID [STRING]]
+2018/06/16 14:46:51.946 [DETAIL] Create Remedy Lookup Query: 'Known Error ID' = ""
+2018/06/16 14:46:51.946 [DETAIL] Add Project Variable [Company [STRING]]
+2018/06/16 14:46:51.946 [DETAIL] Create SNow Lookup Query: name#!#Company#!#
+2018/06/16 14:46:51.947 [DETAIL] Add Project Variable [Site [STRING]]
+2018/06/16 14:46:51.947 [DETAIL] Add Project Variable [Company [STRING]]
+2018/06/16 14:46:51.947 [DETAIL] Create SNow Lookup Query: company#!#Company#!#^name#!#Site#!#
+2018/06/16 14:46:51.948 [INFO] Synchronising Scripted Web Service [u_itsmb_problem_n]
+2018/06/16 14:46:53.873 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_problem_n
+   Target Table: problem
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: problem,task
+--created ws import set: u_itsmb_problem_n [problem]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_problem_n
+   transform field mapping exists: parent -> parent
+   transform field mapping exists: made_sla -> made_sla
+   transform field mapping exists: watch_list -> watch_list
+   skip system field: template_import_log
+   transform field mapping exists: upon_reject -> upon_reject
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   skip system field: target_class_name
+   transform field mapping exists: approval_history -> approval_history
+   skip system field: sys_target_sys_id
+   transform field mapping exists: number -> number
+   skip system field: sys_updated_by
+   transform field mapping exists: work_around -> work_around
+   transform field mapping exists: opened_by -> opened_by
+   transform field mapping exists: user_input -> user_input
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   transform field mapping exists: state -> state
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   skip system field: sys_created_by
+   transform field mapping exists: order -> order
+   transform field mapping exists: knowledge -> knowledge
+   skip system field: sys_import_row
+   transform field mapping exists: major_problem -> major_problem
+   skip system field: sys_row_error
+   transform field mapping exists: closed_at -> closed_at
+   transform field mapping exists: cmdb_ci -> cmdb_ci
+   transform field mapping exists: delivery_plan -> delivery_plan
+   transform field mapping exists: impact -> impact
+   skip system field: target_domain_path
+   transform field mapping exists: work_notes_list -> work_notes_list
+   transform field mapping exists: active -> active
+   transform field mapping exists: business_service -> business_service
+   skip system field: import_set_run
+   transform field mapping exists: priority -> priority
+   transform field mapping exists: time_worked -> time_worked
+   transform field mapping exists: rfc -> rfc
+   transform field mapping exists: expected_start -> expected_start
+   transform field mapping exists: rejection_goto -> rejection_goto
+   transform field mapping exists: opened_at -> opened_at
+   transform field mapping exists: business_duration -> business_duration
+   transform field mapping exists: group_list -> group_list
+   transform field mapping exists: work_end -> work_end
+   transform field mapping exists: approval_set -> approval_set
+   transform field mapping exists: wf_activity -> wf_activity
+   transform field mapping exists: work_notes -> work_notes
+   transform field mapping exists: short_description -> short_description
+   transform field mapping exists: work_start -> work_start
+   transform field mapping exists: correlation_display -> correlation_display
+   transform field mapping exists: delivery_task -> delivery_task
+   skip system field: target_mod_count
+   transform field mapping exists: assignment_group -> assignment_group
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   transform field mapping exists: known_error -> known_error
+   transform field mapping exists: additional_assignee_list -> additional_assignee_list
+   transform field mapping exists: description -> description
+   transform field mapping exists: calendar_duration -> calendar_duration
+   skip system field: target_domain
+   transform field mapping exists: close_notes -> close_notes
+   skip system field: sys_class_name
+   transform field mapping exists: closed_by -> closed_by
+   transform field mapping exists: follow_up -> follow_up
+   transform field mapping exists: contact_type -> contact_type
+   transform field mapping exists: urgency -> urgency
+   skip system field: sys_transform_map
+   transform field mapping exists: company -> company
+   transform field mapping exists: reassignment_count -> reassignment_count
+   transform field mapping exists: related_incidents -> related_incidents
+   transform field mapping exists: activity_due -> activity_due
+   transform field mapping exists: assigned_to -> assigned_to
+   transform field mapping exists: variables -> variables
+   transform field mapping exists: review_outcome -> review_outcome
+   transform field mapping exists: comments -> comments
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   transform field mapping exists: approval -> approval
+   transform field mapping exists: sla_due -> sla_due
+   transform field mapping exists: problem_state -> problem_state
+   transform field mapping exists: comments_and_work_notes -> comments_and_work_notes
+   transform field mapping exists: due_date -> due_date
+   skip system field: sys_mod_count
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   transform field mapping exists: escalation -> escalation
+   transform field mapping exists: upon_approval -> upon_approval
+   transform field mapping exists: correlation_id -> correlation_id
+   transform field mapping exists: location -> location
+   skip system field: source_id
+   transform field mapping exists: target_domain -> sys_domain
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 14:46:53.873 [INFO] Scripted Web Service is Synchronised [u_itsmb_problem_n]
+2018/06/16 14:46:54.336 [INFO] Initialisation 10 of 13 [Known Errors] Completed
+2018/06/16 14:46:54.342 [DETAIL] Create Remedy Qualification: 'RootRequestFormName' = "PBM:Known Error"
+2018/06/16 14:46:54.356 [DETAIL] Add Project Variable [name [STRING]]
+2018/06/16 14:46:54.356 [DETAIL] Create SNow Lookup Query: name#!#name#!#
+2018/06/16 14:46:54.357 [DETAIL] Add Project Variable [Task ID [STRING]]
+2018/06/16 14:46:54.375 [DETAIL] Create Remedy Lookup Query: 'TaskOrTaskGroupID' = ""
+2018/06/16 14:46:54.375 [DETAIL] Add Project Variable [RootRequestID [STRING]]
+2018/06/16 14:46:54.375 [DETAIL] Create SNow Lookup Query: number#!#RootRequestID#!#
+2018/06/16 14:46:54.378 [DETAIL] Add Project Variable [Company [STRING]]
+2018/06/16 14:46:54.378 [DETAIL] Create SNow Lookup Query: name#!#Company#!#
+2018/06/16 14:46:54.379 [DETAIL] Add Project Variable [Site [STRING]]
+2018/06/16 14:46:54.379 [DETAIL] Add Project Variable [Company [STRING]]
+2018/06/16 14:46:54.380 [DETAIL] Create SNow Lookup Query: company#!#Company#!#^name#!#Site#!#
+2018/06/16 14:46:54.380 [DETAIL] Add Project Variable [name [STRING]]
+2018/06/16 14:46:54.380 [DETAIL] Add Project Variable [email [STRING]]
+2018/06/16 14:46:54.380 [DETAIL] Create SNow Lookup Query: name#!#name#!#^email#!#email#!#
+2018/06/16 14:46:54.381 [INFO] Synchronising Scripted Web Service [u_itsmb_problem_task_n]
+2018/06/16 14:46:56.079 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_problem_task_n
+   Target Table: problem_task
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: problem_task,task
+--created ws import set: u_itsmb_problem_task_n [problem_task]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_problem_task_n
+   transform field mapping exists: parent -> parent
+   transform field mapping exists: made_sla -> made_sla
+   transform field mapping exists: watch_list -> watch_list
+   skip system field: template_import_log
+   skip system field: target_scope
+   transform field mapping exists: upon_reject -> upon_reject
+   skip system field: sys_updated_on
+   skip system field: target_class_name
+   transform field mapping exists: approval_history -> approval_history
+   skip system field: sys_target_sys_id
+   transform field mapping exists: number -> number
+   transform field mapping exists: problem -> problem
+   skip system field: sys_updated_by
+   transform field mapping exists: opened_by -> opened_by
+   transform field mapping exists: user_input -> user_input
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   transform field mapping exists: state -> state
+   skip system field: target_created_by
+   skip system field: target_sys_id
+   skip system field: sys_created_by
+   transform field mapping exists: order -> order
+   transform field mapping exists: knowledge -> knowledge
+   skip system field: sys_import_row
+   skip system field: sys_row_error
+   transform field mapping exists: closed_at -> closed_at
+   transform field mapping exists: cmdb_ci -> cmdb_ci
+   transform field mapping exists: delivery_plan -> delivery_plan
+   transform field mapping exists: impact -> impact
+   skip system field: target_domain_path
+   transform field mapping exists: work_notes_list -> work_notes_list
+   transform field mapping exists: active -> active
+   transform field mapping exists: business_service -> business_service
+   skip system field: import_set_run
+   transform field mapping exists: priority -> priority
+   transform field mapping exists: time_worked -> time_worked
+   transform field mapping exists: expected_start -> expected_start
+   transform field mapping exists: rejection_goto -> rejection_goto
+   transform field mapping exists: opened_at -> opened_at
+   transform field mapping exists: business_duration -> business_duration
+   transform field mapping exists: group_list -> group_list
+   transform field mapping exists: work_end -> work_end
+   transform field mapping exists: approval_set -> approval_set
+   transform field mapping exists: work_notes -> work_notes
+   transform field mapping exists: wf_activity -> wf_activity
+   transform field mapping exists: short_description -> short_description
+   transform field mapping exists: correlation_display -> correlation_display
+   skip system field: target_mod_count
+   transform field mapping exists: work_start -> work_start
+   transform field mapping exists: delivery_task -> delivery_task
+   transform field mapping exists: assignment_group -> assignment_group
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   transform field mapping exists: additional_assignee_list -> additional_assignee_list
+   transform field mapping exists: description -> description
+   transform field mapping exists: calendar_duration -> calendar_duration
+   skip system field: target_domain
+   transform field mapping exists: close_notes -> close_notes
+   skip system field: sys_class_name
+   transform field mapping exists: closed_by -> closed_by
+   transform field mapping exists: follow_up -> follow_up
+   transform field mapping exists: contact_type -> contact_type
+   transform field mapping exists: urgency -> urgency
+   skip system field: sys_transform_map
+   transform field mapping exists: company -> company
+   transform field mapping exists: reassignment_count -> reassignment_count
+   transform field mapping exists: activity_due -> activity_due
+   transform field mapping exists: assigned_to -> assigned_to
+   transform field mapping exists: variables -> variables
+   transform field mapping exists: comments -> comments
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   transform field mapping exists: sla_due -> sla_due
+   transform field mapping exists: approval -> approval
+   transform field mapping exists: due_date -> due_date
+   transform field mapping exists: comments_and_work_notes -> comments_and_work_notes
+   skip system field: sys_mod_count
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   transform field mapping exists: escalation -> escalation
+   transform field mapping exists: upon_approval -> upon_approval
+   transform field mapping exists: correlation_id -> correlation_id
+   transform field mapping exists: location -> location
+   skip system field: source_id
+   transform field mapping exists: target_domain -> sys_domain
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 14:46:56.079 [INFO] Scripted Web Service is Synchronised [u_itsmb_problem_task_n]
+2018/06/16 14:46:56.543 [INFO] Initialisation 11 of 13 [Known Error Tasks] Completed
+2018/06/16 14:46:56.547 [DETAIL] Create Remedy Qualification: 'Form Name01' = "PBM:Known Error" AND 'Form Name02' = "HPD:Help Desk"
+2018/06/16 14:46:56.551 [DETAIL] Add Project Variable [Request ID01 [STRING]]
+2018/06/16 14:46:56.551 [DETAIL] Create SNow Lookup Query: number#!#Request ID01#!#
+2018/06/16 14:46:56.553 [INFO] Synchronising Scripted Web Service [u_itsmb_incident_n]
+2018/06/16 14:46:58.614 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_incident_n
+   Target Table: incident
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: incident,task
+--created ws import set: u_itsmb_incident_n [incident]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_incident_n
+   transform field mapping exists: parent -> parent
+   transform field mapping exists: watch_list -> watch_list
+   transform field mapping exists: caused_by -> caused_by
+   skip system field: template_import_log
+   transform field mapping exists: upon_reject -> upon_reject
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   transform field mapping exists: approval_history -> approval_history
+   transform field mapping exists: number -> number
+   transform field mapping exists: state -> state
+   skip system field: sys_created_by
+   transform field mapping exists: order -> order
+   transform field mapping exists: knowledge -> knowledge
+   skip system field: sys_import_row
+   transform field mapping exists: delivery_plan -> delivery_plan
+   transform field mapping exists: cmdb_ci -> cmdb_ci
+   transform field mapping exists: impact -> impact
+   transform field mapping exists: work_notes_list -> work_notes_list
+   transform field mapping exists: active -> active
+   transform field mapping exists: priority -> priority
+   transform field mapping exists: rejection_goto -> rejection_goto
+   transform field mapping exists: group_list -> group_list
+   transform field mapping exists: business_duration -> business_duration
+   transform field mapping exists: approval_set -> approval_set
+   transform field mapping exists: wf_activity -> wf_activity
+   transform field mapping exists: short_description -> short_description
+   transform field mapping exists: delivery_task -> delivery_task
+   transform field mapping exists: correlation_display -> correlation_display
+   skip system field: target_mod_count
+   transform field mapping exists: work_start -> work_start
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   transform field mapping exists: additional_assignee_list -> additional_assignee_list
+   skip system field: target_domain
+   transform field mapping exists: notify -> notify
+   skip system field: sys_class_name
+   transform field mapping exists: closed_by -> closed_by
+   transform field mapping exists: follow_up -> follow_up
+   transform field mapping exists: parent_incident -> parent_incident
+   transform field mapping exists: reopened_by -> reopened_by
+   transform field mapping exists: reassignment_count -> reassignment_count
+   transform field mapping exists: assigned_to -> assigned_to
+   transform field mapping exists: variables -> variables
+   skip system field: sys_target_table
+   transform field mapping exists: sla_due -> sla_due
+   transform field mapping exists: comments_and_work_notes -> comments_and_work_notes
+   skip system field: sys_import_state
+   transform field mapping exists: upon_approval -> upon_approval
+   transform field mapping exists: escalation -> escalation
+   transform field mapping exists: correlation_id -> correlation_id
+   skip system field: source_id
+   transform field mapping exists: made_sla -> made_sla
+   skip system field: target_class_name
+   transform field mapping exists: child_incidents -> child_incidents
+   transform field mapping exists: hold_reason -> hold_reason
+   skip system field: sys_target_sys_id
+   transform field mapping exists: resolved_by -> resolved_by
+   skip system field: sys_updated_by
+   transform field mapping exists: user_input -> user_input
+   transform field mapping exists: opened_by -> opened_by
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   transform field mapping exists: calendar_stc -> calendar_stc
+   skip system field: sys_row_error
+   transform field mapping exists: closed_at -> closed_at
+   skip system field: target_domain_path
+   transform field mapping exists: business_service -> business_service
+   skip system field: import_set_run
+   transform field mapping exists: rfc -> rfc
+   transform field mapping exists: time_worked -> time_worked
+   transform field mapping exists: expected_start -> expected_start
+   transform field mapping exists: opened_at -> opened_at
+   transform field mapping exists: work_end -> work_end
+   transform field mapping exists: reopened_time -> reopened_time
+   transform field mapping exists: caller_id -> caller_id
+   transform field mapping exists: resolved_at -> resolved_at
+   transform field mapping exists: work_notes -> work_notes
+   transform field mapping exists: subcategory -> subcategory
+   transform field mapping exists: close_code -> close_code
+   transform field mapping exists: assignment_group -> assignment_group
+   transform field mapping exists: business_stc -> business_stc
+   transform field mapping exists: description -> description
+   transform field mapping exists: calendar_duration -> calendar_duration
+   transform field mapping exists: close_notes -> close_notes
+   transform field mapping exists: contact_type -> contact_type
+   transform field mapping exists: incident_state -> incident_state
+   transform field mapping exists: urgency -> urgency
+   transform field mapping exists: problem_id -> problem_id
+   skip system field: sys_transform_map
+   transform field mapping exists: company -> company
+   transform field mapping exists: activity_due -> activity_due
+   transform field mapping exists: severity -> severity
+   transform field mapping exists: comments -> comments
+   skip system field: target_created_on
+   transform field mapping exists: approval -> approval
+   transform field mapping exists: due_date -> due_date
+   skip system field: sys_mod_count
+   transform field mapping exists: reopen_count -> reopen_count
+   skip virtual field: sys_tags
+   transform field mapping exists: location -> location
+   transform field mapping exists: category -> category
+   transform field mapping exists: target_domain -> sys_domain
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 14:46:58.614 [INFO] Scripted Web Service is Synchronised [u_itsmb_incident_n]
+2018/06/16 14:46:59.077 [INFO] Initialisation 12 of 13 [Incident Related Known Error] Completed
+2018/06/16 14:46:59.077 [DETAIL] Create Remedy Qualification: null
+2018/06/16 14:46:59.087 [INFO] Synchronising Scripted Web Service [u_itsmb_incident_n]
+2018/06/16 14:47:01.273 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_incident_n
+   Target Table: incident
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: incident,task
+--created ws import set: u_itsmb_incident_n [incident]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_incident_n
+   transform field mapping exists: parent -> parent
+   transform field mapping exists: watch_list -> watch_list
+   transform field mapping exists: caused_by -> caused_by
+   skip system field: template_import_log
+   transform field mapping exists: upon_reject -> upon_reject
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   transform field mapping exists: approval_history -> approval_history
+   transform field mapping exists: number -> number
+   transform field mapping exists: state -> state
+   skip system field: sys_created_by
+   transform field mapping exists: order -> order
+   transform field mapping exists: knowledge -> knowledge
+   skip system field: sys_import_row
+   transform field mapping exists: delivery_plan -> delivery_plan
+   transform field mapping exists: cmdb_ci -> cmdb_ci
+   transform field mapping exists: impact -> impact
+   transform field mapping exists: work_notes_list -> work_notes_list
+   transform field mapping exists: active -> active
+   transform field mapping exists: priority -> priority
+   transform field mapping exists: rejection_goto -> rejection_goto
+   transform field mapping exists: group_list -> group_list
+   transform field mapping exists: business_duration -> business_duration
+   transform field mapping exists: approval_set -> approval_set
+   transform field mapping exists: wf_activity -> wf_activity
+   transform field mapping exists: short_description -> short_description
+   transform field mapping exists: delivery_task -> delivery_task
+   transform field mapping exists: correlation_display -> correlation_display
+   skip system field: target_mod_count
+   transform field mapping exists: work_start -> work_start
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   transform field mapping exists: additional_assignee_list -> additional_assignee_list
+   skip system field: target_domain
+   transform field mapping exists: notify -> notify
+   skip system field: sys_class_name
+   transform field mapping exists: closed_by -> closed_by
+   transform field mapping exists: follow_up -> follow_up
+   transform field mapping exists: parent_incident -> parent_incident
+   transform field mapping exists: reopened_by -> reopened_by
+   transform field mapping exists: reassignment_count -> reassignment_count
+   transform field mapping exists: assigned_to -> assigned_to
+   transform field mapping exists: variables -> variables
+   skip system field: sys_target_table
+   transform field mapping exists: sla_due -> sla_due
+   transform field mapping exists: comments_and_work_notes -> comments_and_work_notes
+   skip system field: sys_import_state
+   transform field mapping exists: upon_approval -> upon_approval
+   transform field mapping exists: escalation -> escalation
+   transform field mapping exists: correlation_id -> correlation_id
+   skip system field: source_id
+   transform field mapping exists: made_sla -> made_sla
+   skip system field: target_class_name
+   transform field mapping exists: child_incidents -> child_incidents
+   transform field mapping exists: hold_reason -> hold_reason
+   skip system field: sys_target_sys_id
+   transform field mapping exists: resolved_by -> resolved_by
+   skip system field: sys_updated_by
+   transform field mapping exists: user_input -> user_input
+   transform field mapping exists: opened_by -> opened_by
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   transform field mapping exists: calendar_stc -> calendar_stc
+   skip system field: sys_row_error
+   transform field mapping exists: closed_at -> closed_at
+   skip system field: target_domain_path
+   transform field mapping exists: business_service -> business_service
+   skip system field: import_set_run
+   transform field mapping exists: rfc -> rfc
+   transform field mapping exists: time_worked -> time_worked
+   transform field mapping exists: expected_start -> expected_start
+   transform field mapping exists: opened_at -> opened_at
+   transform field mapping exists: work_end -> work_end
+   transform field mapping exists: reopened_time -> reopened_time
+   transform field mapping exists: caller_id -> caller_id
+   transform field mapping exists: resolved_at -> resolved_at
+   transform field mapping exists: work_notes -> work_notes
+   transform field mapping exists: subcategory -> subcategory
+   transform field mapping exists: close_code -> close_code
+   transform field mapping exists: assignment_group -> assignment_group
+   transform field mapping exists: business_stc -> business_stc
+   transform field mapping exists: description -> description
+   transform field mapping exists: calendar_duration -> calendar_duration
+   transform field mapping exists: close_notes -> close_notes
+   transform field mapping exists: contact_type -> contact_type
+   transform field mapping exists: incident_state -> incident_state
+   transform field mapping exists: urgency -> urgency
+   transform field mapping exists: problem_id -> problem_id
+   skip system field: sys_transform_map
+   transform field mapping exists: company -> company
+   transform field mapping exists: activity_due -> activity_due
+   transform field mapping exists: severity -> severity
+   transform field mapping exists: comments -> comments
+   skip system field: target_created_on
+   transform field mapping exists: approval -> approval
+   transform field mapping exists: due_date -> due_date
+   skip system field: sys_mod_count
+   transform field mapping exists: reopen_count -> reopen_count
+   skip virtual field: sys_tags
+   transform field mapping exists: location -> location
+   transform field mapping exists: category -> category
+   transform field mapping exists: target_domain -> sys_domain
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 14:47:01.273 [INFO] Scripted Web Service is Synchronised [u_itsmb_incident_n]
+2018/06/16 14:47:01.733 [INFO] Initialisation 13 of 13 [Incident_Atachment] Completed
+2018/06/16 14:47:01.734 [INFO] ### Initialisation Step Complete
+2018/06/16 14:47:01.735 [INFO] [User Reference] Key Mapping Cache CTM:People -> User [sys_user] Ready.
+2018/06/16 14:47:01.737 [INFO] [Group Reference] Key Mapping Cache CTM:Support Group -> Group [sys_user_group] Ready.
+2018/06/16 14:47:01.739 [INFO] [Location Reference] Key Mapping Cache SIT:Site -> Location [cmn_location] Ready.
+2018/06/16 14:47:01.742 [INFO] [Incident] Key Mapping Cache HPD:Help Desk -> Incident Ready.
+2018/06/16 14:47:01.743 [INFO] [Incident] Migration in progress.
+2018/06/16 14:47:01.743 [DETAIL] [Incident Chunk 0] Data Retrieve Started...
+2018/06/16 14:47:01.779 [DETAIL] [Incident Chunk 0] Data Transform Started...
+2018/06/16 14:47:01.780 [DETAIL] Add Project Variable [number [STRING]]
+2018/06/16 14:47:01.780 [DETAIL] Create SNow Lookup Query: number#!#number#!#
+2018/06/16 14:47:01.871 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:01.871 [DETAIL] [src=SGP000000000009] SNow Qual: name=Backoffice Support
+2018/06/16 14:47:01.871 [DETAIL] [src=SGP000000000009] SNow Qual: name=Backoffice Support
+2018/06/16 14:47:01.871 [DETAIL] [src=SGP000000000009] SNow Qual: name=Backoffice Support
+2018/06/16 14:47:01.871 [DETAIL] [src=SGP000000000011] SNow Qual: name=Service Desk
+2018/06/16 14:47:02.101 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:02.102 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:02.125 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:02.125 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:02.125 [DETAIL] [src=null] SNow Qual: nameISEMPTY^emailISEMPTY
+2018/06/16 14:47:02.125 [DETAIL] [src=null] SNow Qual: nameISEMPTY^emailISEMPTY
+2018/06/16 14:47:02.125 [DETAIL] [src=null] SNow Qual: nameISEMPTY^emailISEMPTY
+2018/06/16 14:47:02.125 [DETAIL] [src=null] SNow Qual: name=Francie Stafford^email=F.Stafford@calbroservices.com
+2018/06/16 14:47:02.552 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:02.552 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:02.575 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:02.591 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:02.591 [DETAIL] [src=PPL000000000015] SNow Qual: name=Michel Dupond^email=M.Dupond@calbroservices.com
+2018/06/16 14:47:02.591 [DETAIL] [src=PPL000000000014] SNow Qual: name=Bob Baxter^email=B.Baxter@calbroservices.com
+2018/06/16 14:47:02.591 [DETAIL] [src=PPL000000000013] SNow Qual: name=Allen Allbrook^email=A.Allbrook@calbroservices.com
+2018/06/16 14:47:02.591 [DETAIL] [src=PPL000000000022] SNow Qual: name=Joe Unser^email=J.Unser@calbroservices.com
+2018/06/16 14:47:02.843 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:02.844 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:02.844 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/16 14:47:02.844 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/16 14:47:02.844 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/16 14:47:02.844 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/16 14:47:03.071 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:03.088 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:03.088 [DETAIL] [src=STE_SOLN0002851] SNow Qual: name=Paris Support Center^country=France^city=Suresnes
+2018/06/16 14:47:03.088 [DETAIL] [src=STE_SOLN0002846] SNow Qual: name=Headquarters, Building 1.31^country=United States^city=New York
+2018/06/16 14:47:03.088 [DETAIL] [src=STE_SOLN0002846] SNow Qual: name=Headquarters, Building 1.31^country=United States^city=New York
+2018/06/16 14:47:03.088 [DETAIL] [src=STE_SOLN0002846] SNow Qual: name=Headquarters, Building 1.31^country=United States^city=New York
+2018/06/16 14:47:03.323 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:03.324 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:03.324 [DETAIL] [src=INC000000000203] SNow Qual: number=INC000000000101
+2018/06/16 14:47:03.324 [DETAIL] [src=INC000000000104] SNow Qual: number=INC000000000004
+2018/06/16 14:47:03.324 [DETAIL] [src=INC000000000103] SNow Qual: number=INC000000000002
+2018/06/16 14:47:03.324 [DETAIL] [src=INC000000000024] SNow Qual: number=INC_CAL_1000022
+2018/06/16 14:47:03.575 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:03.576 [DETAIL] [Incident Chunk 0] Data Update Started...
+2018/06/16 14:47:03.576 [DETAIL] Batch Update of 4 Entries Started
+2018/06/16 14:47:03.576 [DETAIL] Build Field Map [sys_journal_field] started...
+2018/06/16 14:47:03.873 [DETAIL] SNow: Build Field Map [sys_journal_field] complete, 7 entries
+2018/06/16 14:47:04.335 [DETAIL] Pre-Migration Task 0 Complete
+2018/06/16 14:47:05.467 [DETAIL] Update entry complete [src=INC000000000203 tgt=470fe56c37b213005d19dcc773990eae]
+2018/06/16 14:47:05.467 [DETAIL] Update entry complete [src=INC000000000104 tgt=470fe56c37b213005d19dcc773990eaf]
+2018/06/16 14:47:05.467 [DETAIL] Update entry complete [src=INC000000000103 tgt=4f0fe56c37b213005d19dcc773990eaf]
+2018/06/16 14:47:05.467 [DETAIL] Update entry complete [src=INC000000000024 tgt=470fe56c37b213005d19dcc773990eb0]
+2018/06/16 14:47:05.467 [DETAIL] Post-Migration Task 0 Complete
+2018/06/16 14:47:05.468 [DETAIL] [Incident Chunk 0] Attachment Migration Started...
+2018/06/16 14:47:05.468 [DETAIL] Source Attachment Info Loaded [0]
+2018/06/16 14:47:05.468 [DETAIL] Attachment Target Check Complete [new=0 updates=0 duplicates=0]
+2018/06/16 14:47:05.468 [DETAIL] Attachment Processing Queue Counts:- SRC: 0 TGTCHK: 0 GETDATA: 0 MIG: 0 DEL: 0
+2018/06/16 14:47:05.469 [INFO] Migration Completed 
+2018/06/16 14:47:05.469 [INFO] Summary...  Created:0 Updated:4 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 14:47:05.473 [INFO] [Incident Task] Key Mapping Cache TMS:Task -> Incident Task Ready.
+2018/06/16 14:47:05.473 [INFO] [Incident Task] Migration in progress.
+2018/06/16 14:47:05.473 [DETAIL] [Incident Task Chunk 0] Data Retrieve Started...
+2018/06/16 14:47:05.478 [DETAIL] Create Inclusion Query: [Operation=1,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=10000005],Operand Right=[Operand Type=[type=2],Operand=HPD:Help Desk]],Operand Right=<null>],Operand Right=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=10000006],Operand Right=[Operand Type=[type=2],Operand=INC000000000004]],Operand Right=<null>],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=10000006],Operand Right=[Operand Type=[type=2],Operand=INC_CAL_1000022]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=10000006],Operand Right=[Operand Type=[type=2],Operand=INC000000000101]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=10000006],Operand Right=[Operand Type=[type=2],Operand=INC000000000002]],Operand Right=<null>]]]
+2018/06/16 14:47:05.580 [DETAIL] [Incident Task Chunk 0] Data Transform Started...
+2018/06/16 14:47:05.581 [DETAIL] Add Project Variable [number [STRING]]
+2018/06/16 14:47:05.581 [DETAIL] Create SNow Lookup Query: number#!#number#!#
+2018/06/16 14:47:05.603 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:05.603 [DETAIL] [src=SGP000000000010] SNow Qual: name=Frontoffice Support
+2018/06/16 14:47:05.603 [DETAIL] [src=SGP000000000010] SNow Qual: name=Frontoffice Support
+2018/06/16 14:47:06.022 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:06.022 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:06.033 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:06.034 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:06.034 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/16 14:47:06.034 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/16 14:47:06.448 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:06.448 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:06.448 [DETAIL] [src=null] SNow Qual: company=Calbro Services^nameISEMPTY
+2018/06/16 14:47:06.449 [DETAIL] [src=null] SNow Qual: company=Calbro Services^nameISEMPTY
+2018/06/16 14:47:06.914 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:06.914 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:06.914 [DETAIL] [src=null] SNow Qual: number=INC000000000101
+2018/06/16 14:47:06.914 [DETAIL] [src=null] SNow Qual: number=INC000000000004
+2018/06/16 14:47:07.159 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:07.167 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:07.167 [DETAIL] [src=PPL000000000016] SNow Qual: name=Mary Mann^email=M.Mann@calbroservices.com
+2018/06/16 14:47:07.167 [DETAIL] [src=PPL000000000018] SNow Qual: name=Ian Plyment^email=I.Plyment@calbroservices.com
+2018/06/16 14:47:07.584 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:07.584 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:07.584 [DETAIL] [src=TAS000000000209] SNow Qual: number=TAS000000000209
+2018/06/16 14:47:07.584 [DETAIL] [src=TAS000000000109] SNow Qual: number=TAS000000000109
+2018/06/16 14:47:08.009 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:08.009 [DETAIL] [Incident Task Chunk 0] Data Update Started...
+2018/06/16 14:47:08.009 [DETAIL] Batch Update of 2 Entries Started
+2018/06/16 14:47:08.009 [DETAIL] Pre-Migration Task 0 Complete
+2018/06/16 14:47:08.341 [DETAIL] Update entry complete [src=TAS000000000209 tgt=c9a4292437b213005d19dcc773990e79]
+2018/06/16 14:47:08.343 [DETAIL] Update entry complete [src=TAS000000000109 tgt=f3f849a0377213005d19dcc773990ee2]
+2018/06/16 14:47:08.343 [DETAIL] Post-Migration Task 0 Complete
+2018/06/16 14:47:08.343 [DETAIL] [Incident Task Chunk 0] Attachment Migration Started...
+2018/06/16 14:47:08.343 [DETAIL] Source Attachment Info Loaded [2]
+2018/06/16 14:47:08.343 [DETAIL] Attachment Retrieve-Start
+2018/06/16 14:47:08.579 [DETAIL] Target Attachment Info Retrieve [2 attachments of estimated 2 retrieved]
+2018/06/16 14:47:08.579 [DETAIL] Attachment Target Check Complete [new=0 updates=0 duplicates=2]
+2018/06/16 14:47:08.579 [DETAIL] Attachment Processing Queue Counts:- SRC: 0 TGTCHK: 0 GETDATA: 0 MIG: 0 DEL: 0
+2018/06/16 14:47:08.579 [INFO] Migration Completed 
+2018/06/16 14:47:08.580 [INFO] Summary...  Created:0 Updated:2 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 14:47:08.583 [INFO] [Child Incidents] Key Mapping Cache HPD:Associations -> Incident Ready.
+2018/06/16 14:47:08.583 [INFO] [Child Incidents] Migration in progress.
+2018/06/16 14:47:08.583 [DETAIL] [Child Incidents Chunk 0] Data Retrieve Started...
+2018/06/16 14:47:08.583 [DETAIL] Create Inclusion Query: [Operation=1,Operand Left=[Operation=1,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=1000000101],Operand Right=[Operand Type=[type=2],Operand=HPD:Help Desk]],Operand Right=<null>],Operand Right=[Operation=1,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=1000000203],Operand Right=[Operand Type=[type=2],Operand=HPD:Help Desk]],Operand Right=<null>],Operand Right=[Operation=4,Operand Left=[Operation=4,Operand Left=[Operand Type=[type=1],Operand=1000000205],Operand Right=[Operand Type=[type=1],Operand=1000000204]],Operand Right=<null>]]],Operand Right=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=1000000205],Operand Right=[Operand Type=[type=2],Operand=INC000000000004]],Operand Right=<null>],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=1000000205],Operand Right=[Operand Type=[type=2],Operand=INC_CAL_1000022]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=1000000205],Operand Right=[Operand Type=[type=2],Operand=INC000000000101]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=1000000205],Operand Right=[Operand Type=[type=2],Operand=INC000000000002]],Operand Right=<null>]]]
+2018/06/16 14:47:08.685 [DETAIL] [Child Incidents Chunk 0] Data Transform Started...
+2018/06/16 14:47:08.686 [DETAIL] Add Project Variable [number [STRING]]
+2018/06/16 14:47:08.686 [DETAIL] Create SNow Lookup Query: number#!#number#!#
+2018/06/16 14:47:08.686 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:08.686 [DETAIL] [src=null] SNow Qual: number=INC000000000101
+2018/06/16 14:47:09.100 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:09.100 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:09.100 [DETAIL] [src=HAS000000000205] SNow Qual: number=INC000000000002
+2018/06/16 14:47:09.526 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:09.526 [DETAIL] [Child Incidents Chunk 0] Data Update Started...
+2018/06/16 14:47:09.526 [DETAIL] Batch Update of 1 Entries Started
+2018/06/16 14:47:09.526 [DETAIL] Pre-Migration Task 0 Complete
+2018/06/16 14:47:10.010 [DETAIL] Update entry complete [src=HAS000000000205 tgt=4f0fe56c37b213005d19dcc773990eaf]
+2018/06/16 14:47:10.010 [DETAIL] Post-Migration Task 0 Complete
+2018/06/16 14:47:10.013 [INFO] Migration Completed 
+2018/06/16 14:47:10.013 [INFO] Summary...  Created:0 Updated:1 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 14:47:10.017 [INFO] [Problem] Key Mapping Cache PBM:Problem Investigation -> Problem Ready.
+2018/06/16 14:47:10.017 [INFO] [Problem] Migration in progress.
+2018/06/16 14:47:10.017 [DETAIL] [Problem Chunk 0] Data Retrieve Started...
+2018/06/16 14:47:10.132 [DETAIL] [Problem Chunk 0] Data Transform Started...
+2018/06/16 14:47:10.133 [DETAIL] Add Project Variable [number [STRING]]
+2018/06/16 14:47:10.134 [DETAIL] Create SNow Lookup Query: number#!#number#!#
+2018/06/16 14:47:10.135 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:10.143 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:10.143 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:10.153 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:10.154 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:10.154 [DETAIL] [src=null] SNow Qual: name=Ian Plyment^email=I.Plyment@calbroservices.com
+2018/06/16 14:47:10.572 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:10.572 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:10.573 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/16 14:47:10.994 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:10.995 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:10.995 [DETAIL] [src=PBI000000000025] SNow Qual: number=PBI_CAL_1000024
+2018/06/16 14:47:11.412 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:11.412 [DETAIL] [Problem Chunk 0] Data Update Started...
+2018/06/16 14:47:11.412 [DETAIL] Batch Update of 1 Entries Started
+2018/06/16 14:47:11.412 [DETAIL] Pre-Migration Task 0 Complete
+2018/06/16 14:47:11.917 [DETAIL] Update entry complete [src=PBI000000000025 tgt=83c985e0377213005d19dcc773990ec3]
+2018/06/16 14:47:11.917 [DETAIL] Post-Migration Task 0 Complete
+2018/06/16 14:47:11.918 [DETAIL] [Problem Chunk 0] Attachment Migration Started...
+2018/06/16 14:47:11.918 [DETAIL] Source Attachment Info Loaded [0]
+2018/06/16 14:47:11.918 [DETAIL] Attachment Target Check Complete [new=0 updates=0 duplicates=0]
+2018/06/16 14:47:11.918 [DETAIL] Attachment Processing Queue Counts:- SRC: 0 TGTCHK: 0 GETDATA: 0 MIG: 0 DEL: 0
+2018/06/16 14:47:11.919 [INFO] Migration Completed 
+2018/06/16 14:47:11.919 [INFO] Summary...  Created:0 Updated:1 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 14:47:11.922 [INFO] [Problem Task] Key Mapping Cache TMS:Task -> Problem Task Ready.
+2018/06/16 14:47:11.922 [INFO] [Problem Task] Migration in progress.
+2018/06/16 14:47:11.923 [DETAIL] [Problem Task Chunk 0] Data Retrieve Started...
+2018/06/16 14:47:11.925 [DETAIL] Create Inclusion Query: [Operation=1,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=10000005],Operand Right=[Operand Type=[type=2],Operand=PBM:Problem Investigation]],Operand Right=<null>],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=10000006],Operand Right=[Operand Type=[type=2],Operand=PBI_CAL_1000024]],Operand Right=<null>]]
+2018/06/16 14:47:12.024 [DETAIL] [Problem Task Chunk 0] Data Transform Started...
+2018/06/16 14:47:12.024 [DETAIL] [Problem Task Chunk 0] Data Update Started...
+2018/06/16 14:47:12.024 [INFO] Migration Completed 
+2018/06/16 14:47:12.024 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 14:47:12.026 [INFO] [Incident Related Problem] Key Mapping Cache HPD:Associations -> Incident Ready.
+2018/06/16 14:47:12.026 [INFO] [Incident Related Problem] Migration in progress.
+2018/06/16 14:47:12.026 [DETAIL] [Incident Related Problem Chunk 0] Data Retrieve Started...
+2018/06/16 14:47:12.026 [DETAIL] Create Inclusion Query: [Operation=1,Operand Left=[Operation=1,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=1000000101],Operand Right=[Operand Type=[type=2],Operand=PBM:Problem Investigation]],Operand Right=<null>],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=1000000203],Operand Right=[Operand Type=[type=2],Operand=HPD:Help Desk]],Operand Right=<null>]],Operand Right=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=1000000205],Operand Right=[Operand Type=[type=2],Operand=INC000000000004]],Operand Right=<null>],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=1000000205],Operand Right=[Operand Type=[type=2],Operand=INC_CAL_1000022]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=1000000205],Operand Right=[Operand Type=[type=2],Operand=INC000000000101]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=1000000205],Operand Right=[Operand Type=[type=2],Operand=INC000000000002]],Operand Right=<null>]]]
+2018/06/16 14:47:12.044 [DETAIL] [Incident Related Problem Chunk 0] Data Transform Started...
+2018/06/16 14:47:12.044 [DETAIL] Add Project Variable [number [STRING]]
+2018/06/16 14:47:12.044 [DETAIL] Create SNow Lookup Query: number#!#number#!#
+2018/06/16 14:47:12.045 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:12.045 [DETAIL] [src=null] SNow Qual: number=PBI_CAL_1000025
+2018/06/16 14:47:12.045 [DETAIL] [src=null] SNow Qual: number=PBI_CAL_1000024
+2018/06/16 14:47:12.461 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:12.461 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:12.461 [DETAIL] [src=HAS000000000104] SNow Qual: number=INC_CAL_1000022
+2018/06/16 14:47:12.461 [DETAIL] [src=HAS000000000106] SNow Qual: number=INC000000000004
+2018/06/16 14:47:12.710 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:12.710 [DETAIL] [Incident Related Problem Chunk 0] Data Update Started...
+2018/06/16 14:47:12.710 [DETAIL] Batch Update of 2 Entries Started
+2018/06/16 14:47:12.710 [DETAIL] Pre-Migration Task 0 Complete
+2018/06/16 14:47:13.016 [DETAIL] Update entry complete [src=HAS000000000104 tgt=470fe56c37b213005d19dcc773990eb0]
+2018/06/16 14:47:13.016 [DETAIL] Update entry complete [src=HAS000000000106 tgt=470fe56c37b213005d19dcc773990eaf]
+2018/06/16 14:47:13.016 [DETAIL] Post-Migration Task 0 Complete
+2018/06/16 14:47:13.017 [INFO] Migration Completed 
+2018/06/16 14:47:13.017 [INFO] Summary...  Created:0 Updated:2 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 14:47:13.019 [INFO] [Known Errors] Key Mapping Cache PBM:Known Error -> Problem Ready.
+2018/06/16 14:47:13.019 [INFO] [Known Errors] Migration in progress.
+2018/06/16 14:47:13.019 [DETAIL] [Known Errors Chunk 0] Data Retrieve Started...
+2018/06/16 14:47:13.127 [DETAIL] [Known Errors Chunk 0] Data Transform Started...
+2018/06/16 14:47:13.127 [DETAIL] [Known Errors Chunk 0] Data Update Started...
+2018/06/16 14:47:13.127 [INFO] Migration Completed 
+2018/06/16 14:47:13.127 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 14:47:13.128 [INFO] [Known Error Tasks] Key Mapping Cache TMS:Task -> Problem Task Ready.
+2018/06/16 14:47:13.129 [INFO] [Known Error Tasks] Migration in progress.
+2018/06/16 14:47:13.129 [DETAIL] [Known Error Tasks Chunk 0] Data Retrieve Started...
+2018/06/16 14:47:13.129 [DETAIL] [Known Error Tasks Chunk 0] Data Transform Started...
+2018/06/16 14:47:13.129 [DETAIL] [Known Error Tasks Chunk 0] Data Update Started...
+2018/06/16 14:47:13.129 [INFO] Migration Completed 
+2018/06/16 14:47:13.129 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 14:47:13.130 [INFO] [Incident Related Known Error] Key Mapping Cache HPD:Associations -> Incident Ready.
+2018/06/16 14:47:13.131 [INFO] [Incident Related Known Error] Migration in progress.
+2018/06/16 14:47:13.131 [DETAIL] [Incident Related Known Error Chunk 0] Data Retrieve Started...
+2018/06/16 14:47:13.131 [DETAIL] Create Inclusion Query: [Operation=1,Operand Left=[Operation=1,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=1000000101],Operand Right=[Operand Type=[type=2],Operand=PBM:Known Error]],Operand Right=<null>],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=1000000203],Operand Right=[Operand Type=[type=2],Operand=HPD:Help Desk]],Operand Right=<null>]],Operand Right=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=1000000205],Operand Right=[Operand Type=[type=2],Operand=INC000000000004]],Operand Right=<null>],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=1000000205],Operand Right=[Operand Type=[type=2],Operand=INC_CAL_1000022]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=1000000205],Operand Right=[Operand Type=[type=2],Operand=INC000000000101]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=1000000205],Operand Right=[Operand Type=[type=2],Operand=INC000000000002]],Operand Right=<null>]]]
+2018/06/16 14:47:13.149 [DETAIL] [Incident Related Known Error Chunk 0] Data Transform Started...
+2018/06/16 14:47:13.149 [DETAIL] Add Project Variable [number [STRING]]
+2018/06/16 14:47:13.149 [DETAIL] Create SNow Lookup Query: number#!#number#!#
+2018/06/16 14:47:13.150 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:13.150 [DETAIL] [src=null] SNow Qual: number=PKE_CAL_1000002
+2018/06/16 14:47:13.616 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:13.616 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:13.616 [DETAIL] [src=HAS000000000105] SNow Qual: number=INC_CAL_1000022
+2018/06/16 14:47:14.034 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:14.035 [DETAIL] [Incident Related Known Error Chunk 0] Data Update Started...
+2018/06/16 14:47:14.035 [DETAIL] Batch Update of 1 Entries Started
+2018/06/16 14:47:14.035 [DETAIL] Pre-Migration Task 0 Complete
+2018/06/16 14:47:14.512 [DETAIL] Update entry complete [src=HAS000000000105 tgt=470fe56c37b213005d19dcc773990eb0]
+2018/06/16 14:47:14.512 [DETAIL] Post-Migration Task 0 Complete
+2018/06/16 14:47:14.515 [INFO] Migration Completed 
+2018/06/16 14:47:14.518 [INFO] Summary...  Created:0 Updated:1 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 14:47:14.519 [INFO] [Incident_Atachment] Key Mapping Cache HPD:WorkLog -> Incident Ready.
+2018/06/16 14:47:14.519 [INFO] [Incident_Atachment] Migration in progress.
+2018/06/16 14:47:14.519 [DETAIL] [Incident_Atachment Chunk 0] Data Retrieve Started...
+2018/06/16 14:47:14.555 [DETAIL] [Incident_Atachment Chunk 0] Data Transform Started...
+2018/06/16 14:47:14.555 [DETAIL] Add Project Variable [number [STRING]]
+2018/06/16 14:47:14.555 [DETAIL] Create SNow Lookup Query: number#!#number#!#
+2018/06/16 14:47:14.559 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000202] SNow Qual: number=INC000000000101
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000201] SNow Qual: number=INC000000000101
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000104] SNow Qual: number=INC000000000004
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000103] SNow Qual: number=INC000000000004
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000102] SNow Qual: number=INC000000000002
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000101] SNow Qual: number=INC_CAL_1000022
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000001] SNow Qual: number=INC_CAL_1000001
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000002] SNow Qual: number=INC_CAL_1000002
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000003] SNow Qual: number=INC_CAL_1000003
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000004] SNow Qual: number=INC_CAL_1000004
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000005] SNow Qual: number=INC_CAL_1000005
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000006] SNow Qual: number=INC_CAL_1000006
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000007] SNow Qual: number=INC_CAL_1000007
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000008] SNow Qual: number=INC_CAL_1000008
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000009] SNow Qual: number=INC_CAL_1000009
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000010] SNow Qual: number=INC_CAL_1000010
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000011] SNow Qual: number=INC_CAL_1000011
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000012] SNow Qual: number=INC_CAL_1000012
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000013] SNow Qual: number=INC_CAL_1000013
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000014] SNow Qual: number=INC_CAL_1000014
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000015] SNow Qual: number=INC_CAL_1000015
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000016] SNow Qual: number=INC_CAL_1000016
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000017] SNow Qual: number=INC_CAL_1000017
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000018] SNow Qual: number=INC_CAL_1000018
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000019] SNow Qual: number=INC_CAL_1000019
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000020] SNow Qual: number=INC_CAL_1000020
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000021] SNow Qual: number=INC_CAL_1000021
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000022] SNow Qual: number=INC_CAL_1000022
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000023] SNow Qual: number=INC_CAL_1000023
+2018/06/16 14:47:14.559 [DETAIL] [src=WLG000000000024] SNow Qual: number=INC_CAL_1000024
+2018/06/16 14:47:14.560 [DETAIL] [src=WLG000000000025] SNow Qual: number=INC_CAL_1000025
+2018/06/16 14:47:14.930 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 14:47:14.941 [DETAIL] [Incident_Atachment Chunk 0] Data Update Started...
+2018/06/16 14:47:14.942 [DETAIL] Batch Update of 25 Entries Started
+2018/06/16 14:47:14.943 [DETAIL] Pre-Migration Task 0 Complete
+2018/06/16 14:47:15.605 [DETAIL] Update entry complete [src=WLG000000000202 tgt=470fe56c37b213005d19dcc773990eae]
+2018/06/16 14:47:15.605 [DETAIL] Update entry complete [src=WLG000000000104 tgt=470fe56c37b213005d19dcc773990eaf]
+2018/06/16 14:47:15.606 [DETAIL] Update entry complete [src=WLG000000000102 tgt=4f0fe56c37b213005d19dcc773990eaf]
+2018/06/16 14:47:15.607 [DETAIL] Update entry complete [src=WLG000000000101 tgt=470fe56c37b213005d19dcc773990eb0]
+2018/06/16 14:47:15.608 [DETAIL] Update entry complete [src=WLG000000000001 tgt=4f0fe56c37b213005d19dcc773990eb0]
+2018/06/16 14:47:15.609 [DETAIL] Update entry complete [src=WLG000000000002 tgt=470fe56c37b213005d19dcc773990eb1]
+2018/06/16 14:47:15.610 [DETAIL] Update entry complete [src=WLG000000000003 tgt=4f0fe56c37b213005d19dcc773990eb1]
+2018/06/16 14:47:15.610 [DETAIL] Update entry complete [src=WLG000000000004 tgt=470fe56c37b213005d19dcc773990eb2]
+2018/06/16 14:47:15.611 [DETAIL] Update entry complete [src=WLG000000000005 tgt=4f0fe56c37b213005d19dcc773990eb2]
+2018/06/16 14:47:15.612 [DETAIL] Update entry complete [src=WLG000000000006 tgt=470fe56c37b213005d19dcc773990eb3]
+2018/06/16 14:47:15.612 [DETAIL] Update entry complete [src=WLG000000000007 tgt=4f0fe56c37b213005d19dcc773990eb3]
+2018/06/16 14:47:15.613 [DETAIL] Update entry complete [src=WLG000000000008 tgt=470fe56c37b213005d19dcc773990eb4]
+2018/06/16 14:47:15.614 [DETAIL] Update entry complete [src=WLG000000000009 tgt=4f0fe56c37b213005d19dcc773990eb4]
+2018/06/16 14:47:15.615 [DETAIL] Update entry complete [src=WLG000000000010 tgt=470fe56c37b213005d19dcc773990eb5]
+2018/06/16 14:47:15.617 [DETAIL] Update entry complete [src=WLG000000000011 tgt=4f0fe56c37b213005d19dcc773990eb5]
+2018/06/16 14:47:15.854 [DETAIL] Update entry complete [src=WLG000000000012 tgt=470fe56c37b213005d19dcc773990eb6]
+2018/06/16 14:47:15.855 [DETAIL] Update entry complete [src=WLG000000000013 tgt=4f0fe56c37b213005d19dcc773990eb6]
+2018/06/16 14:47:15.857 [DETAIL] Update entry complete [src=WLG000000000014 tgt=470fe56c37b213005d19dcc773990eb7]
+2018/06/16 14:47:15.861 [DETAIL] Update entry complete [src=WLG000000000015 tgt=4f0fe56c37b213005d19dcc773990eb7]
+2018/06/16 14:47:15.862 [DETAIL] Update entry complete [src=WLG000000000016 tgt=470fe56c37b213005d19dcc773990eb8]
+2018/06/16 14:47:15.863 [DETAIL] Update entry complete [src=WLG000000000017 tgt=4f0fe56c37b213005d19dcc773990eb8]
+2018/06/16 14:47:15.864 [DETAIL] Update entry complete [src=WLG000000000018 tgt=470fe56c37b213005d19dcc773990eb9]
+2018/06/16 14:47:15.864 [DETAIL] Update entry complete [src=WLG000000000019 tgt=4f0fe56c37b213005d19dcc773990eb9]
+2018/06/16 14:47:15.865 [DETAIL] Update entry complete [src=WLG000000000020 tgt=c30fe56c37b213005d19dcc773990ecd]
+2018/06/16 14:47:15.865 [DETAIL] Update entry complete [src=WLG000000000021 tgt=cb0fe56c37b213005d19dcc773990ecd]
+2018/06/16 14:47:15.865 [DETAIL] Post-Migration Task 0 Complete
+2018/06/16 14:47:15.866 [DETAIL] Batch Update of 3 Entries Started
+2018/06/16 14:47:15.866 [DETAIL] Pre-Migration Task 0 Complete
+2018/06/16 14:47:16.200 [DETAIL] Update entry complete [src=WLG000000000023 tgt=cb0fe56c37b213005d19dcc773990ece]
+2018/06/16 14:47:16.200 [DETAIL] Update entry complete [src=WLG000000000024 tgt=c30fe56c37b213005d19dcc773990ecf]
+2018/06/16 14:47:16.201 [DETAIL] Update entry complete [src=WLG000000000025 tgt=cb0fe56c37b213005d19dcc773990ecf]
+2018/06/16 14:47:16.201 [DETAIL] Post-Migration Task 0 Complete
+2018/06/16 14:47:16.204 [DETAIL] [Incident_Atachment Chunk 0] Attachment Migration Started...
+2018/06/16 14:47:16.204 [DETAIL] Source Attachment Info Loaded [6]
+2018/06/16 14:47:16.204 [DETAIL] Attachment Retrieve-Start
+2018/06/16 14:47:16.455 [DETAIL] Target Attachment Info Retrieve [4 attachments of estimated 4 retrieved]
+2018/06/16 14:47:16.455 [DETAIL] Attachment Target Check Complete [new=2 updates=0 duplicates=4]
+2018/06/16 14:47:16.455 [DETAIL] Attachment Data Retrieve-Start
+2018/06/16 14:47:16.625 [DETAIL] Attachment Data Retrieve Complete [processed 0]
+2018/06/16 14:47:31.358 [DETAIL] Attachment 28c0b1ec37b213005d19dcc773990e83 added to entry 470fe56c37b213005d19dcc773990eae
+2018/06/16 14:47:31.358 [DETAIL] Large Attachment Migration[payload=4233125]
+2018/06/16 14:47:31.358 [DETAIL] Attachment Data Migration - Start [1 records, payload=523720]
+2018/06/16 14:47:34.562 [DETAIL] Create entry complete [src=15 tgt=bcd0f1ec37b213005d19dcc773990ea0]
+2018/06/16 14:47:34.562 [DETAIL] Attachment Master IP sheet 0.4.2.xlsx added to entry bcd0f1ec37b213005d19dcc773990ea0
+2018/06/16 14:47:34.562 [DETAIL] Attachments Migration Complete [success 2, error 0]
+2018/06/16 14:47:34.562 [DETAIL] Attachment Processing Queue Counts:- SRC: 0 TGTCHK: 0 GETDATA: 0 MIG: 0 DEL: 0
+2018/06/16 14:47:34.570 [INFO] Migration Completed 
+2018/06/16 14:47:34.570 [INFO] Summary...  Created:0 Updated:28 Skipped:3 Errors:0 [Warnings 0]
+2018/06/16 14:47:34.570 [DETAIL] Closing Execution Task...
+2018/06/16 14:47:34.665 [INFO] Execution has completed [Execution ID=2018-06-16_14-45 [1]]
+2018/06/16 14:47:34.665 [INFO] --END OF LOG--

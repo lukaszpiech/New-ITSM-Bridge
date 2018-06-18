@@ -1,0 +1,3 @@
+"Timestamp","Target ID","Source ID","Result","Status","Message"
+"2018/06/17 09:36:02",,"000000000000008","Not Completed","Error","""contract_model"" is a mandatory field"
+"2018/06/17 09:36:02",,"000000000000010","Not Completed","Error","""contract_model"" is a mandatory field"

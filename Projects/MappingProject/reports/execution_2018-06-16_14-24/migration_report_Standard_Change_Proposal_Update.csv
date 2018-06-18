@@ -1,0 +1,2 @@
+"Timestamp","Target ID","Source ID","Result","Status","Message"
+"2018/06/16 14:26:57","2a1ce9a837b213005d19dcc773990efa","CTP000000000087","Not Completed","Error","Operation against file 'std_change_proposal' was aborted by Business Rule 'Validate template_value compliance^2a1ce9a837b213005d19dcc773990efa'. Business Rule Stack:Validate template_value compliance"

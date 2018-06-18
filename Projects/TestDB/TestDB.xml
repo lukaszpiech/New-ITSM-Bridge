@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Project AppVersion="3.7.14" Type="Standard">
+<version>1</version>
+<Connection ConnectionType="Source" ServerType="SQL Server DB">
+<DataSource>localhost</DataSource>
+<Port>1433</Port>
+<DBName>ARSystem</DBName>
+<Schema/>
+</Connection>
+<Connection ConnectionType="Target" ServerType="Service Now">
+<URL>https://dev47087.service-now.com</URL>
+</Connection>
+<DMDList/>
+</Project>

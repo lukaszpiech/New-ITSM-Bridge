@@ -1,0 +1,2703 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Project AppVersion="3.7.14" Type="Standard">
+<version>1</version>
+<Notes>This template is used to migrate Service Request Management data from BMC Remedy ITSM to Service 
+Now.
+It should be run AFTER the migration of any dependent foundation data (see Foundation Template)
+
+Whilst every care has been taken in constucting this template, Service Management Integrations accept no
+liability for the accuracy of the data migration definitions and you should therefore carefully check that the 
+migrations are suitable for your own environment.
+
+Service Management Integrations strongly recommend that you take backups of all sensitive data before
+executing any data migration projects and always run the migration project on a non-production test server
+in the first instance.
+
+Revision History
+
+Rev1:  Changed the Execution Task to use the new instanceID reference mapping 
+	    Changed On Approval and On Rejection field mappings for Approval Steps
+Rev2:  Changed Source Filtering to incorporate Single SRD
+	    Changed Question Choices Mapping to use Join Form as source
+Rev3: Changed mappings for Catalog Item Available For and Not Available for to correct bug with missing
+	   records.
+Rev4: Changed 3 Category mappings to use SRM:Categories_base form to allow use of InstanceID reference
+	   Changed 3 Catalog Item mappings to use SRD:ServiceRequestDefinition_base form to support use
+	    of InstanceID reference for Category (resolves bug with Email category)
+	   Removed mapping for Variable Help Text as Question Instructions field not present on ITSM 764
+Rev5: Added secondary source ID field for all form mappings and added Cost and Price fields to
+           Catalog Item mappings
+R6: Updated for 3.2 functionality (use of temporary variables)
+R7: Updates to map images and attachments from SRD to catalog item.
+	Added Customer variable for multi-tenancy and SRD Title for Single SRD migrations.
+	Added migration of HTML Instructions</Notes>
+<Connection ConnectionType="Source" ServerType="Remedy">
+<ServerName>localhost</ServerName>
+<Port>3636</Port>
+</Connection>
+<Connection ConnectionType="Target" ServerType="Service Now">
+<URL>https://dev54541.service-now.com</URL>
+</Connection>
+<DMDList>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Category Level 1">
+<TargetForm>sc_category</TargetForm>
+<SourceForm>SRM:Categories</SourceForm>
+<SourceQuery>[Status] = 'Active' AND [Category_Level] = 1 AND ((#Single Company# = TRUE AND ([Company] = #Company Name# OR [Company] = '- Global -')) OR #Single Company# = FALSE)</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="sc_catalog">
+<Form>sc_catalog</Form>
+<SearchQuery>[title] = 'Service Catalog'</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>title</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>sc_category</TargetForm>
+<SourceForm>SRM:Categories</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>description</TargetField>
+<SourceField>Category1_Description</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>sc_catalog</TargetField>
+<LookupQuery>sc_catalog</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>title</TargetField>
+<SourceField>CategoryName</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Category Level 2">
+<TargetForm>sc_category</TargetForm>
+<SourceForm>SRM:Categories</SourceForm>
+<SourceQuery>[Status] = 'Active' AND [Category_Level] = 2 AND ((#Single Company# = TRUE AND ([Company] = #Company Name# OR [Company] = '- Global -')) OR #Single Company# = FALSE)</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="SRM:Categories">
+<Form>SRM:Categories</Form>
+<SearchQuery>[base instanceId] = #CategoryParent_InstanceID# AND [Category_Locale] = #Category_Locale#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sc_category">
+<Form>sc_category</Form>
+<SearchQuery>[title] = #!Parent Category Name!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sc_catalog">
+<Form>sc_catalog</Form>
+<SearchQuery>[title] = 'Service Catalog'</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>title</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>sc_category</TargetForm>
+<SourceForm>SRM:Categories</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetField>parent</TargetField>
+<LookupQuery>sc_category</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Parent Category Name!</TargetVariable>
+<LookupQuery>SRM:Categories</LookupQuery>
+<LookupField>CategoryName</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>description</TargetField>
+<SourceField>Category1_Description</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>sc_catalog</TargetField>
+<LookupQuery>sc_catalog</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>title</TargetField>
+<SourceField>CategoryName</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Parent Category Name!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Category Level 3">
+<TargetForm>sc_category</TargetForm>
+<SourceForm>SRM:Categories</SourceForm>
+<SourceQuery>[Status] = 'Active' AND [Category_Level] = 3 AND ((#Single Company# = TRUE AND ([Company] = #Company Name# OR [Company] = '- Global -')) OR #Single Company# = FALSE)</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="SRM:Categories">
+<Form>SRM:Categories</Form>
+<SearchQuery>[base instanceId] = #CategoryParent_InstanceID# AND [Category_Locale] = #Category_Locale#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sc_category">
+<Form>sc_category</Form>
+<SearchQuery>[title] = #!Parent Category Name!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sc_catalog">
+<Form>sc_catalog</Form>
+<SearchQuery>[title] = 'Service Catalog'</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>title</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>sc_category</TargetForm>
+<SourceForm>SRM:Categories</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetField>parent</TargetField>
+<LookupQuery>sc_category</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Parent Category Name!</TargetVariable>
+<LookupQuery>SRM:Categories</LookupQuery>
+<LookupField>CategoryName</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>description</TargetField>
+<SourceField>Category1_Description</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>sc_catalog</TargetField>
+<LookupQuery>sc_catalog</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>title</TargetField>
+<SourceField>CategoryName</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Parent Category Name!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Execution Plan">
+<TargetForm>sc_cat_item_delivery_plan</TargetForm>
+<SourceForm>SRM:ProcessDefinitionTemplate_Base</SourceForm>
+<SourceQuery>[SystemStatus] = 'Active' AND [z1S_CreateDate] &gt; #Start Date# AND #Map to Execution Plan# = TRUE AND ((#Single Company# = TRUE AND ([Company] = #Company Name# OR [Company] = '- Global -')) OR #Single Company# = FALSE)</SourceQuery>
+<Notes>Migrates the Process Definition Template (PDT) to the Execution Plan in Service Now.  Note this is only migrated if the variable,
+ 'Migrate to Execution Plan' is set to Yes.
+Restricted to those PDTs that relate to SRDs that match the SRD Title variable if required.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>name</TargetField>
+<TargetField>parent_table</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ADHOC_QUERY">
+<ValueSetInclusionSourceField>InstanceId</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetSourceForm>SRD:ServiceRequestDefinition_Base</ValueSetInclusionValueSetSourceForm>
+<ValueSetInclusionValueSetSourceField>PDT_InstanceID</ValueSetInclusionValueSetSourceField>
+<ValueSetInclusionValueSetSourceQuery>(#Single SRD# = TRUE AND [DELETESRD_Title] = #SRD Title#) OR #Single SRD# = FALSE</ValueSetInclusionValueSetSourceQuery>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>sc_cat_item_delivery_plan</TargetForm>
+<SourceForm>SRM:ProcessDefinitionTemplate_Base</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>short_description</TargetField>
+<SourceField>PDT_Description</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>advanced</TargetField>
+<Assignment>'false'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>task_table</TargetField>
+<Assignment>'sc_task'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>PDT_Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>active</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>sys_name</TargetField>
+<SourceField>PDT_Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>parent_table</TargetField>
+<Assignment>'sc_req_item'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>sys_class_name</TargetField>
+<Assignment>'Execution Plan'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Execution Plan Task">
+<TargetForm>sc_cat_item_delivery_task</TargetForm>
+<SourceForm>SRM:Associations</SourceForm>
+<SourceQuery>[Assoc1FormID] = 'SRM:ProcessDefinitionTemplate_Base' AND [Assoc2FormID] = 'SRM:AppTemplateBridge_Base' AND [ChildType] = 'AOT' AND #Map to Execution Plan# = TRUE</SourceQuery>
+<Notes>Migration of Application Object Templates (AOTs) to Service Now Execution Plan Tasks.
+The SRM:Associations form holds the relationship between the AOTs and the Process Definition Templates (PDTs)
+
+Note this is only migrated if the variable, 'Migrate to Execution Plan' is set to Yes.
+Only migrates the records that relate to Execution Plans that are themselves migrated as part of this project.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="SRM:ProcessDefinitionTemplate_Base">
+<Form>SRM:ProcessDefinitionTemplate_Base</Form>
+<SearchQuery>[InstanceId] = #Assoc1InstanceID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="SRM:AppTemplateBridge_Base">
+<Form>SRM:AppTemplateBridge_Base</Form>
+<SearchQuery>[InstanceID] = #Assoc2InstanceID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sc_cat_item_delivery_plan">
+<Form>sc_cat_item_delivery_plan</Form>
+<SearchQuery>[name] = #!PDT Name!# AND [parent_table] = 'sc_req_item'</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>delivery_plan</TargetField>
+<TargetField>name</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>Assoc1InstanceID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Execution Plan</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>InstanceId</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>sc_cat_item_delivery_task</TargetForm>
+<SourceForm>SRM:Associations</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetField>short_description</TargetField>
+<LookupQuery>SRM:AppTemplateBridge_Base</LookupQuery>
+<LookupField>TemplateSummary</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>delivery_plan</TargetField>
+<LookupQuery>sc_cat_item_delivery_plan</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Assoc2Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!PDT Name!</TargetVariable>
+<LookupQuery>SRM:ProcessDefinitionTemplate_Base</LookupQuery>
+<LookupField>PDT_Name</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>order</TargetField>
+<SourceField>InstanceNumber</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>group</TargetField>
+<SourceField>Assignee Groups</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!PDT Name!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Task Sequencing">
+<TargetForm>execution_plan_local</TargetForm>
+<SourceForm>SRM:AppTemplateFlow</SourceForm>
+<SourceQuery>[PredFormID] = 'SRM_SCO_ASSOC' AND [SuccFormID] = 'SRM_SCO_ASSOC' AND #Map to Execution Plan# = TRUE</SourceQuery>
+<Notes>Migrates the Task sequencing information from SRM AppTemplateFlow to the Task Sequencing table in Snow.  These are used to control the sequencing
+of Application Object Templates (Execution Tasks in Snow).
+
+Note this is only migrated if the variable, 'Migrate to Execution Plan' is set to Yes.
+Only migrates the task sequencing records that relate to Execution Plans that are themselves migrated as part of this project.
+</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="SRM:AssocPredecessor">
+<Form>SRM:Associations</Form>
+<SearchQuery>[InstanceID] = #PredInstanceID# AND [ChildType] = 'AOT'</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="SRM:AssocSuccessor">
+<Form>SRM:Associations</Form>
+<SearchQuery>[InstanceID] = #SuccInstanceID# AND [ChildType] = 'AOT'</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="SRM:ProcessDefinitionTemplate_Base">
+<Form>SRM:ProcessDefinitionTemplate_Base</Form>
+<SearchQuery>[InstanceId] = #RootInstanceID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sc_cat_item_delivery_plan">
+<Form>sc_cat_item_delivery_plan</Form>
+<SearchQuery>[name] = #!PDT Name!# AND [parent_table] = 'sc_req_item'</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="Predecessor Task">
+<Form>sc_cat_item_delivery_task</Form>
+<SearchQuery>[delivery_plan] = #!Delivery Plan SysID!# AND [name] = #!Predecessor Task Name!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="Successor Task">
+<Form>sc_cat_item_delivery_task</Form>
+<SearchQuery>[delivery_plan] = #!Delivery Plan SysID!# AND [name] = #!Successor Task Name!#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>predecessor</TargetField>
+<TargetField>successor</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>RootInstanceID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Execution Plan</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>InstanceId</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>execution_plan_local</TargetForm>
+<SourceForm>SRM:AppTemplateFlow</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Successor Task Name!</TargetVariable>
+<LookupQuery>SRM:AssocSuccessor</LookupQuery>
+<LookupField>Assoc2Name</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>successor</TargetField>
+<LookupQuery>Successor Task</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Skip Record</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Predecessor Task Name!</TargetVariable>
+<LookupQuery>SRM:AssocPredecessor</LookupQuery>
+<LookupField>Assoc2Name</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Delivery Plan SysID!</TargetVariable>
+<LookupQuery>sc_cat_item_delivery_plan</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>predecessor</TargetField>
+<LookupQuery>Predecessor Task</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Skip Record</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!PDT Name!</TargetVariable>
+<LookupQuery>SRM:ProcessDefinitionTemplate_Base</LookupQuery>
+<LookupField>PDT_Name</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!PDT Name!</Variable>
+<Variable Type="STRING">!Predecessor Task Name!</Variable>
+<Variable Type="STRING">!Successor Task Name!</Variable>
+<Variable Type="STRING">!Delivery Plan SysID!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Catalog Item Category Level 1">
+<TargetForm>sc_cat_item</TargetForm>
+<SourceForm>SRD:ServiceRequestDefinition_Base</SourceForm>
+<SourceQuery>[DELETEOperationalCategoryLevel2] = NULL AND [DELETEOperationalCategoryLevel3] = NULL AND [SRD_Status] != 'Expired' AND [SRD_Status] != 'Closed' AND [SRD_Status] != 'Rejected' AND [CreateDate] &gt; #Start Date# AND ((#Single SRD# = TRUE AND [DELETESRD_Title] = #SRD Title#) OR #Single SRD# = FALSE) AND ((#Single Company# = TRUE AND ([SRD_LocationCompany] = #Company Name# OR [SRD_LocationCompany] = '- Global -')) OR #Single Company# = FALSE)</SourceQuery>
+<Notes>Migrates the Service Request Definitions (SRDs) with top level navigational categories to Catalog Items in Service Now.
+
+Catalog Items form the basis of Requested Items on Service Requests in Service Now in the same way that SRDs form the basis of Service Requests 
+in BMC Remedy SRM.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="sc_catalog">
+<Form>sc_catalog</Form>
+<SearchQuery>[title] = 'Service Catalog'</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sc_category">
+<Form>sc_category</Form>
+<SearchQuery>[title] = #SRC.DELETEOperationalCategoryLevel1#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user_group">
+<Form>sys_user_group</Form>
+<SearchQuery>[name] = #SRC.Assignee Groups#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="SRS:ServiceRequestImages">
+<Form>SRS:ServiceRequestImages</Form>
+<SearchQuery>[Instance Id] = #ImageInstanceId#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sc_cat_item_delivery_plan">
+<Form>sc_cat_item_delivery_plan</Form>
+<SearchQuery>[name] = #SRC.PDT_Name#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="SRD:ServiceRequestDefinition">
+<Form>SRD:ServiceRequestDefinition</Form>
+<SearchQuery>[SRD_Number] = #SRD_Number#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>name</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>sc_cat_item</TargetForm>
+<SourceForm>SRD:ServiceRequestDefinition_Base</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>short_description</TargetField>
+<Assignment>TRUNC([DELETESRD_Description],200)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>cost</TargetField>
+<SourceField>SRD_Cost</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>workflow</TargetField>
+<SourceField>PDT_Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>delivery_plan</TargetField>
+<LookupQuery>sc_cat_item_delivery_plan</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>icon</TargetField>
+<LookupQuery>SRS:ServiceRequestImages</LookupQuery>
+<LookupField>z2AF_Attachment</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>active</TargetField>
+<SourceField>SRD_Status</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>0</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>0</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>0</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5</SourceValue>
+<TargetValue>0</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6</SourceValue>
+<TargetValue>0</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>description</TargetField>
+<LookupQuery>SRD:ServiceRequestDefinition</LookupQuery>
+<LookupField>SRD_Instructions</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>delivery_time</TargetField>
+<Assignment>([SRD_TurnaroundTimeX] + ' 00:00:00')</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>list_price</TargetField>
+<SourceField>SRD_Price</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>visible_guide</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>visible_standalone</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>picture</TargetField>
+<LookupQuery>SRS:ServiceRequestImages</LookupQuery>
+<LookupField>z2AF_Attachment</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>price</TargetField>
+<SourceField>SRD_Price</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>DELETESRD_Title</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>visible_bundle</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>category</TargetField>
+<LookupQuery>sc_category</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>sc_catalogs</TargetField>
+<LookupQuery>sc_catalog</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>group</TargetField>
+<LookupQuery>sys_user_group</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Catalog Item Category Level 2">
+<TargetForm>sc_cat_item</TargetForm>
+<SourceForm>SRD:ServiceRequestDefinition_Base</SourceForm>
+<SourceQuery>[DELETEOperationalCategoryLevel2] != NULL AND [DELETEOperationalCategoryLevel3] = NULL AND [SRD_Status] != 'Expired' AND [SRD_Status] != 'Closed' AND [SRD_Status] != 'Rejected' AND [CreateDate] &gt; #Start Date# AND ((#Single SRD# = TRUE AND [DELETESRD_Title] = #SRD Title#) OR #Single SRD# = FALSE) AND ((#Single Company# = TRUE AND ([SRD_LocationCompany] = #Company Name# OR [SRD_LocationCompany] = '- Global -')) OR #Single Company# = FALSE)</SourceQuery>
+<Notes>Migrates the Service Request Definitions (SRDs) with 2nd level navigational categories to Catalog Items in Service Now.
+
+Catalog Items form the basis of Requested Items on Service Requests in Service Now in the same way that SRDs form the basis of Service Requests 
+in BMC Remedy SRM.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="sc_catalog">
+<Form>sc_catalog</Form>
+<SearchQuery>[title] = 'Service Catalog'</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sc_category">
+<Form>sc_category</Form>
+<SearchQuery>[title] = #SRC.DELETEOperationalCategoryLevel2#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="SRD:ServiceRequestDefinition">
+<Form>SRD:ServiceRequestDefinition</Form>
+<SearchQuery>[SRD_Number] = #SRD_Number#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="SRS:ServiceRequestImages">
+<Form>SRS:ServiceRequestImages</Form>
+<SearchQuery>[Instance Id] = #ImageInstanceId#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user_group">
+<Form>sys_user_group</Form>
+<SearchQuery>[name] = #SRC.Assignee Groups#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sc_cat_item_delivery_plan">
+<Form>sc_cat_item_delivery_plan</Form>
+<SearchQuery>[name] = #SRC.PDT_Name#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>name</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>sc_cat_item</TargetForm>
+<SourceForm>SRD:ServiceRequestDefinition_Base</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>short_description</TargetField>
+<Assignment>TRUNC([DELETESRD_Description],200)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>cost</TargetField>
+<SourceField>SRD_Cost</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>workflow</TargetField>
+<SourceField>PDT_Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>delivery_plan</TargetField>
+<LookupQuery>sc_cat_item_delivery_plan</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>icon</TargetField>
+<LookupQuery>SRS:ServiceRequestImages</LookupQuery>
+<LookupField>z2AF_Attachment</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>active</TargetField>
+<SourceField>SRD_Status</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>0</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>0</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>0</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5</SourceValue>
+<TargetValue>0</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6</SourceValue>
+<TargetValue>0</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>description</TargetField>
+<LookupQuery>SRD:ServiceRequestDefinition</LookupQuery>
+<LookupField>SRD_Instructions</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>delivery_time</TargetField>
+<Assignment>([SRD_TurnaroundTimeX] + ' 00:00:00')</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>visible_guide</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>visible_standalone</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>picture</TargetField>
+<LookupQuery>SRS:ServiceRequestImages</LookupQuery>
+<LookupField>z2AF_Attachment</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>price</TargetField>
+<SourceField>SRD_Price</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>DELETESRD_Title</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>sys_scope</TargetField>
+<Assignment>'Global'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>visible_bundle</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>category</TargetField>
+<LookupQuery>sc_category</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>sc_catalogs</TargetField>
+<LookupQuery>sc_catalog</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>group</TargetField>
+<LookupQuery>sys_user_group</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Catalog Item Category Level 3">
+<TargetForm>sc_cat_item</TargetForm>
+<SourceForm>SRD:ServiceRequestDefinition_Base</SourceForm>
+<SourceQuery>[DELETEOperationalCategoryLevel2] != NULL AND [DELETEOperationalCategoryLevel3] != NULL AND [SRD_Status] != 'Expired' AND [SRD_Status] != 'Closed' AND [SRD_Status] != 'Rejected' AND [CreateDate] &gt; #Start Date# AND ((#Single SRD# = TRUE AND [DELETESRD_Title] = #SRD Title#) OR #Single SRD# = FALSE) AND ((#Single Company# = TRUE AND ([SRD_LocationCompany] = #Company Name# OR [SRD_LocationCompany] = '- Global -')) OR #Single Company# = FALSE)</SourceQuery>
+<Notes>Migrates the Service Request Definitions (SRDs) with third level navigational categories to Catalog Items in Service Now.
+
+Catalog Items form the basis of Requested Items on Service Requests in Service Now in the same way that SRDs form the basis of Service Requests 
+in BMC Remedy SRM.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="sc_catalog">
+<Form>sc_catalog</Form>
+<SearchQuery>[title] = 'Service Catalog'</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sc_category">
+<Form>sc_category</Form>
+<SearchQuery>[title] = #SRC.DELETEOperationalCategoryLevel3#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="SRD:ServiceRequestDefinition">
+<Form>SRD:ServiceRequestDefinition</Form>
+<SearchQuery>[SRD_Number] = #SRD_Number#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="SRS:ServiceRequestImages">
+<Form>SRS:ServiceRequestImages</Form>
+<SearchQuery>[Instance Id] = #ImageInstanceId#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user_group">
+<Form>sys_user_group</Form>
+<SearchQuery>[name] = #SRC.Assignee Groups#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sc_cat_item_delivery_plan">
+<Form>sc_cat_item_delivery_plan</Form>
+<SearchQuery>[name] = #SRC.PDT_Name#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>name</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>sc_cat_item</TargetForm>
+<SourceForm>SRD:ServiceRequestDefinition_Base</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>short_description</TargetField>
+<Assignment>TRUNC([DELETESRD_Description],200)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>cost</TargetField>
+<SourceField>SRD_Cost</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>workflow</TargetField>
+<SourceField>PDT_Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>delivery_plan</TargetField>
+<LookupQuery>sc_cat_item_delivery_plan</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>icon</TargetField>
+<LookupQuery>SRS:ServiceRequestImages</LookupQuery>
+<LookupField>z2AF_Attachment</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>active</TargetField>
+<SourceField>SRD_Status</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>0</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>0</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>0</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5</SourceValue>
+<TargetValue>0</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6</SourceValue>
+<TargetValue>0</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>description</TargetField>
+<LookupQuery>SRD:ServiceRequestDefinition</LookupQuery>
+<LookupField>SRD_Instructions</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>delivery_time</TargetField>
+<Assignment>([SRD_TurnaroundTimeX] + ' 00:00:00')</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>visible_guide</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>visible_standalone</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>picture</TargetField>
+<LookupQuery>SRS:ServiceRequestImages</LookupQuery>
+<LookupField>z2AF_Attachment</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>price</TargetField>
+<SourceField>SRD_Price</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>DELETESRD_Title</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>sys_scope</TargetField>
+<Assignment>'Global'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>visible_bundle</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>category</TargetField>
+<LookupQuery>sc_category</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>sc_catalogs</TargetField>
+<LookupQuery>sc_catalog</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>group</TargetField>
+<LookupQuery>sys_user_group</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="User Criteria">
+<TargetForm>user_criteria</TargetForm>
+<SourceForm>ENT:PeopleEntitlementDefinition</SourceForm>
+<SourceQuery>(#Single Company# = TRUE AND ([Company] = #Company Name# OR [Company] = NULL)) OR #Single Company# = FALSE</SourceQuery>
+<Notes>Migration of People Entitlement Definitions to User Criteria Table in Service Now</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="User">
+<Form>User</Form>
+<SearchQuery>[Login Name] = #AR Username#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Company#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user_group">
+<Form>sys_user_group</Form>
+<SearchQuery>[name] = #SRC.Entitlement Group#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_location">
+<Form>cmn_location</Form>
+<SearchQuery>[name] = #SRC.Site#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[name] = #!User Full Name!#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>name</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>user_criteria</TargetForm>
+<SourceForm>ENT:PeopleEntitlementDefinition</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>advanced</TargetField>
+<Assignment>'false'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!User Full Name!</TargetVariable>
+<LookupQuery>User</LookupQuery>
+<LookupField>Full Name</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>active</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>match_all</TargetField>
+<Assignment>'false'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>company</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>location</TargetField>
+<LookupQuery>cmn_location</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>user</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>group</TargetField>
+<LookupQuery>sys_user_group</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!User Full Name!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Catalog Item Available For">
+<TargetForm>sc_cat_item_user_criteria_mtom</TargetForm>
+<SourceForm>SRD:SRDEDAssociation_join</SourceForm>
+<SourceQuery>[Status] = 'Enabled' AND [Status2] = 'Active' AND [Exclusion Rule] = 'No' AND [SRD InstanceID] != NULL</SourceQuery>
+<Notes>Migration of Entitlements for SRDs and specified people to the Catalog Item Available For table in Service Now.
+
+The join form used as the data source in this case corresponds to the Entitlements table displayed on the SRD in BMC Remedy SRM.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="SRD:ServiceRequestDefinition">
+<Form>SRD:ServiceRequestDefinition</Form>
+<SearchQuery>[InstanceId] = #SRD InstanceID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sc_cat_item">
+<Form>sc_cat_item</Form>
+<SearchQuery>[name] = #!SRD Title!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="user_criteria">
+<Form>user_criteria</Form>
+<SearchQuery>[name] = #SRC.PED Name 1#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>sc_cat_item</TargetField>
+<TargetField>user_criteria</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ADHOC_QUERY">
+<ValueSetInclusionSourceField>SRD InstanceID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetSourceForm>SRD:ServiceRequestDefinition</ValueSetInclusionValueSetSourceForm>
+<ValueSetInclusionValueSetSourceField>InstanceId</ValueSetInclusionValueSetSourceField>
+<ValueSetInclusionValueSetSourceQuery>((#Single Company# = TRUE AND ([SRD_LocationCompany] = #Company Name# OR [SRD_LocationCompany] = '- Global -')) 
+OR #Single Company# = FALSE) AND ((#Single SRD# = TRUE AND [SRD_Title] = #SRD Title#) OR #Single SRD# = FALSE)</ValueSetInclusionValueSetSourceQuery>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>sc_cat_item_user_criteria_mtom</TargetForm>
+<SourceForm>SRD:SRDEDAssociation_join</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetVariable>!SRD Title!</TargetVariable>
+<LookupQuery>SRD:ServiceRequestDefinition</LookupQuery>
+<LookupField>SRD_Title</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>sc_cat_item</TargetField>
+<LookupQuery>sc_cat_item</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>user_criteria</TargetField>
+<LookupQuery>user_criteria</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!SRD Title!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Catalog Item Not Available For">
+<TargetForm>sc_cat_item_user_criteria_no_mtom</TargetForm>
+<SourceForm>SRD:SRDEDAssociation_join</SourceForm>
+<SourceQuery>[Status] = 'Enabled' AND [Status2] = 'Active' AND [Exclusion Rule] = 'Yes' AND [SRD InstanceID] != NULL</SourceQuery>
+<Notes>Migration of Exclusion-based Entitlements for SRDs and specified people to the Catalog Item Not Available For table in Service Now.
+
+</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="SRD:ServiceRequestDefinition">
+<Form>SRD:ServiceRequestDefinition</Form>
+<SearchQuery>[InstanceId] = #SRD InstanceID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sc_cat_item">
+<Form>sc_cat_item</Form>
+<SearchQuery>[name] = #!SRD Title!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="user_criteria">
+<Form>user_criteria</Form>
+<SearchQuery>[name] = #SRC.PED Name 1#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>sc_cat_item</TargetField>
+<TargetField>user_criteria</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ADHOC_QUERY">
+<ValueSetInclusionSourceField>SRD InstanceID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetSourceForm>SRD:ServiceRequestDefinition</ValueSetInclusionValueSetSourceForm>
+<ValueSetInclusionValueSetSourceField>InstanceId</ValueSetInclusionValueSetSourceField>
+<ValueSetInclusionValueSetSourceQuery>((#Single Company# = TRUE AND ([SRD_LocationCompany] = #Company Name# OR [SRD_LocationCompany] = '- Global -')) 
+OR #Single Company# = FALSE) AND ((#Single SRD# = TRUE AND [SRD_Title] = #SRD Title#) OR #Single SRD# = FALSE)</ValueSetInclusionValueSetSourceQuery>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>sc_cat_item_user_criteria_no_mtom</TargetForm>
+<SourceForm>SRD:SRDEDAssociation_join</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetVariable>!SRD Title!</TargetVariable>
+<LookupQuery>SRD:ServiceRequestDefinition</LookupQuery>
+<LookupField>SRD_Title</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>sc_cat_item</TargetField>
+<LookupQuery>sc_cat_item</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>user_criteria</TargetField>
+<LookupQuery>user_criteria</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!SRD Title!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Approving Users Individual Approval">
+<TargetForm>sc_cat_item_app_user</TargetForm>
+<SourceForm>SRD:ServiceRequestDefinition</SourceForm>
+<SourceQuery>[Approval Type] = 'Person' AND [Approver_Person] != NULL AND [ReqMgrApprover] = NULL AND [CreateDate] &gt; #Start Date# AND ((#Single SRD# = TRUE AND [SRD_Title] = #SRD Title#) OR #Single SRD# = FALSE) AND ((#Single Company# = TRUE AND ([SRD_LocationCompany] = #Company Name# OR [SRD_LocationCompany] = '- Global -')) OR #Single Company# = FALSE)</SourceQuery>
+<Notes>Creates the Person - level approval records as Approving Users for the corresponding Catalog Item.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[name] = #SRC.Approver_Person#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sc_cat_item">
+<Form>sc_cat_item</Form>
+<SearchQuery>[name] = #SRC.SRD_Title#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>approver</TargetField>
+<TargetField>sc_cat_item</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>sc_cat_item_app_user</TargetForm>
+<SourceForm>SRD:ServiceRequestDefinition</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetField>approver</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>sc_cat_item</TargetField>
+<LookupQuery>sc_cat_item</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Approving Users Manager Approval">
+<TargetForm>sc_cat_item_app_user</TargetForm>
+<SourceForm>SRD:ServiceRequestDefinition</SourceForm>
+<SourceQuery>[Approval Type] = 'Person' AND [Approver_Person] != NULL AND [ReqMgrApprover] = 'Use Request Manager' AND [CreateDate] &gt; #Start Date# AND ((#Single SRD# = TRUE AND [SRD_Title] = #SRD Title#) OR #Single SRD# = FALSE) AND ((#Single Company# = TRUE AND ([SRD_LocationCompany] = #Company Name# OR [SRD_LocationCompany] = '- Global -')) OR #Single Company# = FALSE)</SourceQuery>
+<Notes>Migrates the manager of the specifiied approving user to Approving Users table in Service Now for the corresponding Catalog Item.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="CTM:People">
+<Form>CTM:People</Form>
+<SearchQuery>[Full Name] = #Approver_Person#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[name] = #!Managers Name!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sc_cat_item">
+<Form>sc_cat_item</Form>
+<SearchQuery>[name] = #SRC.SRD_Title#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>approver</TargetField>
+<TargetField>sc_cat_item</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>sc_cat_item_app_user</TargetForm>
+<SourceForm>SRD:ServiceRequestDefinition</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetField>approver</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>sc_cat_item</TargetField>
+<LookupQuery>sc_cat_item</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Managers Name!</TargetVariable>
+<LookupQuery>CTM:People</LookupQuery>
+<LookupField>ManagersName</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Managers Name!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Approval Definition">
+<TargetForm>sc_ic_aprvl_defn</TargetForm>
+<SourceForm>SRD:ServiceRequestDefinition</SourceForm>
+<SourceQuery>[Approval Type] = 'Manager' AND [CreateDate] &gt; #Start Date# AND ((#Single SRD# = TRUE AND [SRD_Title] = #SRD Title#) OR #Single SRD# = FALSE) AND ((#Single Company# = TRUE AND ([SRD_LocationCompany] = #Company Name# OR [SRD_LocationCompany] = '- Global -')) OR #Single Company# = FALSE)</SourceQuery>
+<Notes>This mapping is used to migrate SRDs with approval type Management.  It creates records in the Approval Definition table for the corresponding Catalog Item.
+Note that this relies on the OOB pre-defined approval type: Requestor's Manager being in place on the target server.
+
+If you need multiple levels of management to approve the item, then you must either update the Approval Type record for Requestor's Manager or create a
+new Appoval Type and map the Pre-defined Approval field to the new Approval Type.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="sc_cat_item">
+<Form>sc_cat_item</Form>
+<SearchQuery>[name] = #SRC.SRD_Title#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sc_ic_aprvl_defn_staging">
+<Form>sc_ic_aprvl_defn_staging</Form>
+<SearchQuery>[sys_name] = 'Requestor''s Manager'</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>sc_cat_item</TargetField>
+<TargetField>type</TargetField>
+<TargetField>detail</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>sc_ic_aprvl_defn</TargetForm>
+<SourceForm>SRD:ServiceRequestDefinition</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>active</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>sys_name</TargetField>
+<Assignment>'predefined_approval'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>detail</TargetField>
+<Assignment>'Requestor''s Manager'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>sc_cat_item</TargetField>
+<LookupQuery>sc_cat_item</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>type</TargetField>
+<Assignment>'Predefined Approval'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>sc_ic_aprvl_type_defn_staging</TargetField>
+<LookupQuery>sc_ic_aprvl_defn_staging</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>sys_class_name</TargetField>
+<Assignment>'Approval Definition'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>order</TargetField>
+<Assignment>100</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Approving Users Custom Approval">
+<TargetForm>sc_cat_item_app_user</TargetForm>
+<SourceForm>SRD:ServiceRequestDefinition</SourceForm>
+<SourceQuery>[Approval Type] = 'Custom' AND [CreateDate] &gt; #Start Date# AND ((#Single SRD# = TRUE AND [SRD_Title] = #SRD Title#) OR #Single SRD# = FALSE) AND ((#Single Company# = TRUE AND ([SRD_LocationCompany] = #Company Name# OR [SRD_LocationCompany] = '- Global -')) OR #Single Company# = FALSE)</SourceQuery>
+<Notes>Migrates all Custom SRDs with Level Approvals for Individuals to Approving Users for the corresponding Catalog Item
+
+Note: If no matching approval record is found for the SRD then the record is skipped.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="APR:Approver Lookup">
+<Form>APR:Approver Lookup</Form>
+<SearchQuery>[Group/Individual Flag] = 'Individual' AND [AI] = 'Service Request' AND [Status] = 'Enabled' AND ([SRD_Name] = #SRD_Title# OR ([SRD_N1] = #Category1# AND [SRD_N2] = '.' AND [SRD_N3] = '.') OR ([SRD_N1] = #Category1# AND [SRD_N2] = #Category2# AND [SRD_N3] = '.') OR ([SRD_N1] = #Category1# AND [SRD_N2] = #Category2# AND [SRD_N3] = #Category3#)) AND ([REQCPY] = '.' OR [REQCPY] = #SRD_LocationCompany#)</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[name] = #!Approver Name!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sc_cat_item">
+<Form>sc_cat_item</Form>
+<SearchQuery>[name] = #SRC.SRD_Title#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>sc_cat_item</TargetField>
+<TargetField>approver</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>sc_cat_item_app_user</TargetForm>
+<SourceForm>SRD:ServiceRequestDefinition</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetField>approver</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Approver Name!</TargetVariable>
+<LookupQuery>APR:Approver Lookup</LookupQuery>
+<LookupField>Approver Name*</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>sc_cat_item</TargetField>
+<LookupQuery>sc_cat_item</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Approver Name!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Approving Groups Custom Approval">
+<TargetForm>sc_cat_item_app_group</TargetForm>
+<SourceForm>SRD:ServiceRequestDefinition</SourceForm>
+<SourceQuery>[Approval Type] = 'Custom' AND [CreateDate] &gt; #Start Date# AND ((#Single SRD# = TRUE AND [SRD_Title] = #SRD Title#) OR #Single SRD# = FALSE) AND ((#Single Company# = TRUE AND ([SRD_LocationCompany] = #Company Name# OR [SRD_LocationCompany] = '- Global -')) OR #Single Company# = FALSE)</SourceQuery>
+<Notes>Migrates all Custom SRDs with Level Approvals for Groups to Approving Groups for the corresponding Catalog Item
+
+Note: if no corresponding Group Approval is found for the SRD, then the mapping is skipped.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="APR:Approver Lookup">
+<Form>APR:Approver Lookup</Form>
+<SearchQuery>[Group/Individual Flag] = 'Group' AND [AI] = 'Service Request' AND [Status] = 'Enabled' AND ([SRD_Name] = #SRD_Title# OR ([SRD_N1] = #Category1# AND [SRD_N2] = '.' AND [SRD_N3] = '.') OR ([SRD_N1] = #Category1# AND [SRD_N2] = #Category2# AND [SRD_N3] = '.') OR ([SRD_N1] = #Category1# AND [SRD_N2] = #Category2# AND [SRD_N3] = #Category3#)) AND ([REQCPY] = '.' OR [REQCPY] = #SRD_LocationCompany#)</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user_group">
+<Form>sys_user_group</Form>
+<SearchQuery>[name] = #!Approval Group Name!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sc_cat_item">
+<Form>sc_cat_item</Form>
+<SearchQuery>[name] = #SRC.SRD_Title#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>sc_cat_item</TargetField>
+<TargetField>approval_group</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>sc_cat_item_app_group</TargetForm>
+<SourceForm>SRD:ServiceRequestDefinition</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Approval Group Name!</TargetVariable>
+<LookupQuery>APR:Approver Lookup</LookupQuery>
+<LookupField>Support Group Name</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>approval_group</TargetField>
+<LookupQuery>sys_user_group</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>sc_cat_item</TargetField>
+<LookupQuery>sc_cat_item</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Approval Group Name!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Process Guides">
+<TargetForm>process_guide</TargetForm>
+<SourceForm>APR:Approval Chain</SourceForm>
+<SourceQuery>[Form Name01] = 'SRM:Request' AND [Status] = 'Enabled' AND ((#Single Company# = TRUE AND ([Company] = #Company Name# OR [Company] = '- Global -')) OR #Single Company# = FALSE)</SourceQuery>
+<Notes>Migrates the SRM Approval Chains to Process Guides in Service Now.
+
+Note that the conditions for execution need to be manually added to reflect the selection criteria on the Approval Chain in Remedy</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="APR:Approval Chain Element">
+<Form>APR:Approval Chain Element</Form>
+<SearchQuery>[Approval Chain ID] = #InstanceId# AND [First Chain Element] = 'True'</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="APR:ApprovalElementProcess-Join">
+<Form>APR:ApprovalElementProcess-Join</Form>
+<SearchQuery>[Approval Chain ID] = #InstanceId# AND [First Chain Element] = 'True'</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>name</TargetField>
+<TargetField>table</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>process_guide</TargetForm>
+<SourceForm>APR:Approval Chain</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>advanced_condition</TargetField>
+<Assignment>('Selection Criteria from Remedy Approval Chain ' + [Selection Criteria])</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>active</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>sys_name</TargetField>
+<SourceField>Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>table</TargetField>
+<Assignment>'sc_request'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>order</TargetField>
+<SourceField>Order</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Approval Steps">
+<TargetForm>process_step_approval</TargetForm>
+<SourceForm>APR:ApprovalElementProcess-Join</SourceForm>
+<SourceQuery>[Status] = 'Enabled' AND [Process Name] LIKE ('Service Request' + '%')</SourceQuery>
+<Notes>Migrates the Approval Chain Element records to Approval Steps in Service Now.  Each approval chain element belongs to an Approval Chain record which
+corresponds to a Process Guide in Service Now.  This relationship is maintatined as part of this migration.
+
+Some additional manual work is required to convert the approval step into the required approval type in Service Now (users, groups, or management 
+approval) depending on the corresponding approval type and the specified selection criteria for the related SRDs.
+
+Note that some Approving Users/Groups may have already been created in previous mappings.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="APR:Approval Chain">
+<Form>APR:Approval Chain</Form>
+<SearchQuery>[InstanceId] = #Approval Chain ID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="APR:ApprovalActionNextProcess-Approved">
+<Form>APR:ApprovalActionNextProcess-Join</Form>
+<SearchQuery>[Approval Chain ID] = #Approval Chain ID# AND [Chain Element ID] = #Chain Element ID# AND [Result Approved] = 'Approved' AND [Action] = 'Next Process'</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="APR:ApprovalActionNextProcess-Rejected">
+<Form>APR:ApprovalActionNextProcess-Join</Form>
+<SearchQuery>[Approval Chain ID] = #Approval Chain ID# AND [Chain Element ID] = #Chain Element ID# AND [Result Rejected] = 'Rejected' AND [Action] = 'Next Process'</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="process_step_apr">
+<Form>process_step</Form>
+<SearchQuery>[name] = #!Approved Next Process!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="process_step_rej">
+<Form>process_step</Form>
+<SearchQuery>[name] = #!Rejected Next Process!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="process_guide">
+<Form>process_guide</Form>
+<SearchQuery>[name] = #!Approval Chain Name!#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>process_guide</TargetField>
+<TargetField>name</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>Approval Chain ID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Process Guides</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>InstanceId</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>process_step_approval</TargetForm>
+<SourceForm>APR:ApprovalElementProcess-Join</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>on_approval</TargetField>
+<Assignment>'goto'</Assignment>
+<DefaultValue>Approve Entity</DefaultValue>
+<ErrorAction>Set Default</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Approved Next Process!</TargetVariable>
+<LookupQuery>APR:ApprovalActionNextProcess-Approved</LookupQuery>
+<LookupField>Next Process Name</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>approval_goto</TargetField>
+<LookupQuery>process_step_apr</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Rejected Next Process!</TargetVariable>
+<LookupQuery>APR:ApprovalActionNextProcess-Rejected</LookupQuery>
+<LookupField>Next Process Name</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Process Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>sys_name</TargetField>
+<SourceField>Process Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>process_guide</TargetField>
+<LookupQuery>process_guide</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>on_rejection</TargetField>
+<Assignment>'goto'</Assignment>
+<DefaultValue>Reject Entity</DefaultValue>
+<ErrorAction>Set Default</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>rejection_goto</TargetField>
+<LookupQuery>process_step_rej</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Approval Chain Name!</TargetVariable>
+<LookupQuery>APR:Approval Chain</LookupQuery>
+<LookupField>Name</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Approved Next Process!</Variable>
+<Variable Type="STRING">!Rejected Next Process!</Variable>
+<Variable Type="STRING">!Approval Chain Name!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Process Guides Update">
+<TargetForm>process_guide</TargetForm>
+<SourceForm>APR:Approval Chain</SourceForm>
+<SourceQuery>[Form Name01] = 'SRM:Request' AND [Status] = 'Enabled' AND ((#Single Company# = TRUE AND ([Company] = #Company Name# OR [Company] = '- Global -')) OR #Single Company# = FALSE)</SourceQuery>
+<Notes>Updates the process guides to set the starting process step
+</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="APR:Approval Chain Element">
+<Form>APR:Approval Chain Element</Form>
+<SearchQuery>[Approval Chain ID] = #InstanceId# AND [First Chain Element] = 'True'</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="APR:ApprovalElementProcess-Join">
+<Form>APR:ApprovalElementProcess-Join</Form>
+<SearchQuery>[Approval Chain ID] = #InstanceId# AND [First Chain Element] = 'True'</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="process_step">
+<Form>process_step</Form>
+<SearchQuery>[name] = #!Process Name!#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>name</TargetField>
+<TargetField>table</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>process_guide</TargetForm>
+<SourceForm>APR:Approval Chain</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>start</TargetField>
+<LookupQuery>process_step</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Process Name!</TargetVariable>
+<LookupQuery>APR:ApprovalElementProcess-Join</LookupQuery>
+<LookupField>Process Name</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>table</TargetField>
+<Assignment>'sc_request'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Process Name!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Catalog Item Variables Level 1">
+<TargetForm>item_option_new</TargetForm>
+<SourceForm>SRM:QuestionDef_SRD</SourceForm>
+<Notes>Migrates the Questions on the SRDs to the Variable Table in Service Now.
+Only migrates those question records for SRDs that are themsleves migrated as part of this project.
+
+Note that Condition records are not migrated.
+
+Where questions are conditional, appropriate Catalog UI Policy records are required to display those questions at the appropriate time. </Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="SRD:ServiceRequestDefinition_DispProp">
+<Form>SRD:ServiceRequestDefinition_DispProp</Form>
+<SearchQuery>[InstanceId] = #SRDInstanceID_DispProp#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="SRM:QuestionDef">
+<Form>SRM:QuestionDef</Form>
+<SearchQuery>[InstanceID] = #QuestionDef_InstanceID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="SRM:SourceVariableMappingVariableTemplate_Join">
+<Form>SRM:SourceVariableMappingVariableTemplate_Join</Form>
+<SearchQuery>[Mapping] = (('&lt;' + #Question_Text#) + '&gt;') AND [ParentInstanceID] = #SRD_ID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sc_cat_item">
+<Form>sc_cat_item</Form>
+<SearchQuery>[name] = #!SRD Title!#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>name</TargetField>
+<TargetField>cat_item</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>SRD_ID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Catalog Item Category Level 1</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>InstanceId</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>item_option_new</TargetForm>
+<SourceForm>SRM:QuestionDef_SRD</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>choice_direction</TargetField>
+<Assignment>'Down'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>visibility</TargetField>
+<Assignment>'Always'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>display_title</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!SRD Title!</TargetVariable>
+<LookupQuery>SRD:ServiceRequestDefinition_DispProp</LookupQuery>
+<LookupField>SRD_Title</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>visible_summary</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>active</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>global</TargetField>
+<Assignment>'false'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>default_value</TargetField>
+<SourceField>DefaultResponse</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>scale_min</TargetField>
+<LookupQuery>SRM:QuestionDef</LookupQuery>
+<LookupField>RangeMinValue</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>show_help</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>type</TargetField>
+<SourceField>Question User_Format</SourceField>
+<DefaultValue>Single Line Text</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>7</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>7</SourceValue>
+<TargetValue>10</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>8</SourceValue>
+<TargetValue>9</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>mandatory</TargetField>
+<SourceField>Required?</SourceField>
+<DefaultValue>False</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>0</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>visible_guide</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>visible_standalone</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>sys_class_name</TargetField>
+<Assignment>'Variable'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>do_not_select_first</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>question_text</TargetField>
+<SourceField>Question_Text</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>cat_item</TargetField>
+<LookupQuery>sc_cat_item</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>pricing_implications</TargetField>
+<Assignment>'False'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>name</TargetField>
+<Assignment>('var' + SUBSTRING([Request ID],11,15))</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>scale_max</TargetField>
+<LookupQuery>SRM:QuestionDef</LookupQuery>
+<LookupField>RangeMaxValue</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>visible_bundle</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>lookup_unique</TargetField>
+<Assignment>'False'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>order</TargetField>
+<SourceField>Question_Order</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!SRD Title!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Catalog Item Variables Level 2">
+<TargetForm>item_option_new</TargetForm>
+<SourceForm>SRM:QuestionDef_SRD</SourceForm>
+<Notes>Migrates the Questions on the SRDs to the Variable Table in Service Now.
+Only migrates those question records for SRDs that are themsleves migrated as part of this project.
+
+Note that Condition records are not migrated.
+
+Where questions are conditional, appropriate Catalog UI Policy records are required to display those questions at the appropriate time. </Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="SRD:ServiceRequestDefinition_DispProp">
+<Form>SRD:ServiceRequestDefinition_DispProp</Form>
+<SearchQuery>[InstanceId] = #SRDInstanceID_DispProp#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="SRM:QuestionDef">
+<Form>SRM:QuestionDef</Form>
+<SearchQuery>[InstanceID] = #QuestionDef_InstanceID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="SRM:SourceVariableMappingVariableTemplate_Join">
+<Form>SRM:SourceVariableMappingVariableTemplate_Join</Form>
+<SearchQuery>[Mapping] = (('&lt;' + #Question_Text#) + '&gt;') AND [ParentInstanceID] = #SRD_ID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sc_cat_item">
+<Form>sc_cat_item</Form>
+<SearchQuery>[name] = #!SRD Title!#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>name</TargetField>
+<TargetField>cat_item</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>SRD_ID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Catalog Item Category Level 2</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>InstanceId</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>item_option_new</TargetForm>
+<SourceForm>SRM:QuestionDef_SRD</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>display_title</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>global</TargetField>
+<Assignment>'false'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>scale_min</TargetField>
+<LookupQuery>SRM:QuestionDef</LookupQuery>
+<LookupField>RangeMinValue</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>show_help</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>type</TargetField>
+<SourceField>Question User_Format</SourceField>
+<DefaultValue>Single Line Text</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>7</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>7</SourceValue>
+<TargetValue>10</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>8</SourceValue>
+<TargetValue>9</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>mandatory</TargetField>
+<SourceField>Required?</SourceField>
+<DefaultValue>False</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>0</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>visible_guide</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>visible_standalone</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>sys_class_name</TargetField>
+<Assignment>'Variable'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>do_not_select_first</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>pricing_implications</TargetField>
+<Assignment>'False'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>sys_scope</TargetField>
+<Assignment>'Global'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>visible_bundle</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>order</TargetField>
+<SourceField>Question_Order</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>choice_direction</TargetField>
+<Assignment>'Down'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>visibility</TargetField>
+<Assignment>'Always'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!SRD Title!</TargetVariable>
+<LookupQuery>SRD:ServiceRequestDefinition_DispProp</LookupQuery>
+<LookupField>SRD_Title</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>visible_summary</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>active</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>default_value</TargetField>
+<SourceField>DefaultResponse</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>question_text</TargetField>
+<SourceField>Question_Text</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>cat_item</TargetField>
+<LookupQuery>sc_cat_item</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>name</TargetField>
+<Assignment>('var' + SUBSTRING([Request ID],11,15))</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>scale_max</TargetField>
+<LookupQuery>SRM:QuestionDef</LookupQuery>
+<LookupField>RangeMaxValue</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>lookup_unique</TargetField>
+<Assignment>'False'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!SRD Title!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Catalog Item Variables Level 3">
+<TargetForm>item_option_new</TargetForm>
+<SourceForm>SRM:QuestionDef_SRD</SourceForm>
+<Notes>Migrates the Questions on the SRDs to the Variable Table in Service Now.
+Only migrates those question records for SRDs that are themsleves migrated as part of this project.
+
+Note that Condition records are not migrated.
+
+Where questions are conditional, appropriate Catalog UI Policy records are required to display those questions at the appropriate time. </Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="SRD:ServiceRequestDefinition_DispProp">
+<Form>SRD:ServiceRequestDefinition_DispProp</Form>
+<SearchQuery>[InstanceId] = #SRDInstanceID_DispProp#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="SRM:QuestionDef">
+<Form>SRM:QuestionDef</Form>
+<SearchQuery>[InstanceID] = #QuestionDef_InstanceID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="SRM:SourceVariableMappingVariableTemplate_Join">
+<Form>SRM:SourceVariableMappingVariableTemplate_Join</Form>
+<SearchQuery>[Mapping] = (('&lt;' + #Question_Text#) + '&gt;') AND [ParentInstanceID] = #SRD_ID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sc_cat_item">
+<Form>sc_cat_item</Form>
+<SearchQuery>[name] = #!SRD Title!#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>name</TargetField>
+<TargetField>cat_item</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>SRD_ID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Catalog Item Category Level 3</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>InstanceId</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>item_option_new</TargetForm>
+<SourceForm>SRM:QuestionDef_SRD</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>display_title</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>global</TargetField>
+<Assignment>'false'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>scale_min</TargetField>
+<LookupQuery>SRM:QuestionDef</LookupQuery>
+<LookupField>RangeMinValue</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>show_help</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>type</TargetField>
+<SourceField>Question User_Format</SourceField>
+<DefaultValue>Single Line Text</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>7</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>7</SourceValue>
+<TargetValue>10</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>8</SourceValue>
+<TargetValue>9</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>mandatory</TargetField>
+<SourceField>Required?</SourceField>
+<DefaultValue>False</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>0</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>visible_guide</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>visible_standalone</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>sys_class_name</TargetField>
+<Assignment>'Variable'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>do_not_select_first</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>pricing_implications</TargetField>
+<Assignment>'False'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>sys_scope</TargetField>
+<Assignment>'Global'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>visible_bundle</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>order</TargetField>
+<SourceField>Question_Order</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>choice_direction</TargetField>
+<Assignment>'Down'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>visibility</TargetField>
+<Assignment>'Always'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!SRD Title!</TargetVariable>
+<LookupQuery>SRD:ServiceRequestDefinition_DispProp</LookupQuery>
+<LookupField>SRD_Title</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>visible_summary</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>active</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>default_value</TargetField>
+<SourceField>DefaultResponse</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>question_text</TargetField>
+<SourceField>Question_Text</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>cat_item</TargetField>
+<LookupQuery>sc_cat_item</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>name</TargetField>
+<Assignment>('var' + SUBSTRING([Request ID],11,15))</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>scale_max</TargetField>
+<LookupQuery>SRM:QuestionDef</LookupQuery>
+<LookupField>RangeMaxValue</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>lookup_unique</TargetField>
+<Assignment>'False'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!SRD Title!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Question Choices Level 1">
+<TargetForm>question_choice</TargetForm>
+<SourceForm>SRM:QuestionSRD_Def_Choices</SourceForm>
+<SourceQuery>[Choice_InstanceID] != NULL</SourceQuery>
+<Notes>Migrates the choices available for each question record where the type is multiple choice, radio buttons or static menu.
+Only migrates the choice records for those Question records that are themselves migrated as part of this project.
+
+Note that Question choices based on query menus are not migrated.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="SRM:QuestionDef_SRD">
+<Form>SRM:QuestionDef_SRD</Form>
+<SearchQuery>[QuestionDef_InstanceID] = #QuestionDef_InstanceID# AND [QuestionSRD_InstanceID] = #QuestionSRD_InstanceID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="question">
+<Form>question</Form>
+<SearchQuery>[name] = #!Question Name!#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>question</TargetField>
+<TargetField>value</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>QuestionDef_InstanceID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Catalog Item Variables Level 1</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>QuestionDef_InstanceID</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>question_choice</TargetForm>
+<SourceForm>SRM:QuestionSRD_Def_Choices</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetField>question</TargetField>
+<LookupQuery>question</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Question Request ID!</TargetVariable>
+<LookupQuery>SRM:QuestionDef_SRD</LookupQuery>
+<LookupField>Request ID</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>sys_name</TargetField>
+<SourceField>ChoiceLabel</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>text</TargetField>
+<SourceField>ChoiceLabel</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetVariable>!Question Name!</TargetVariable>
+<Assignment>('var' + SUBSTRING(#!Question Request ID!#,11,15))</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>value</TargetField>
+<SourceField>ChoiceValue</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>order</TargetField>
+<SourceField>ChoiceOrder</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Question Name!</Variable>
+<Variable Type="STRING">!Question Request ID!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Question Choices Level 2">
+<TargetForm>question_choice</TargetForm>
+<SourceForm>SRM:QuestionSRD_Def_Choices</SourceForm>
+<SourceQuery>[Choice_InstanceID] != NULL</SourceQuery>
+<Notes>Migrates the choices available for each question record where the type is multiple choice, radio buttons or static menu.
+Only migrates the choice records for those Question records that are themselves migrated as part of this project.
+
+Note that Question choices based on query menus are not migrated.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="SRM:QuestionDef_SRD">
+<Form>SRM:QuestionDef_SRD</Form>
+<SearchQuery>[QuestionDef_InstanceID] = #QuestionDef_InstanceID# AND [QuestionSRD_InstanceID] = #QuestionSRD_InstanceID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="question">
+<Form>question</Form>
+<SearchQuery>[name] = #!Question Name!#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>question</TargetField>
+<TargetField>text</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>QuestionDef_InstanceID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Catalog Item Variables Level 2</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>QuestionDef_InstanceID</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>question_choice</TargetForm>
+<SourceForm>SRM:QuestionSRD_Def_Choices</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetField>question</TargetField>
+<LookupQuery>question</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Question Request ID!</TargetVariable>
+<LookupQuery>SRM:QuestionDef_SRD</LookupQuery>
+<LookupField>Request ID</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>sys_name</TargetField>
+<SourceField>ChoiceLabel</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>text</TargetField>
+<SourceField>ChoiceLabel</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetVariable>!Question Name!</TargetVariable>
+<Assignment>('var' + SUBSTRING(#!Question Request ID!#,11,15))</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>value</TargetField>
+<SourceField>ChoiceValue</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>order</TargetField>
+<SourceField>ChoiceOrder</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Question Name!</Variable>
+<Variable Type="STRING">!Question Request ID!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Question Choices Level 3">
+<TargetForm>question_choice</TargetForm>
+<SourceForm>SRM:QuestionSRD_Def_Choices</SourceForm>
+<SourceQuery>[Choice_InstanceID] != NULL</SourceQuery>
+<Notes>Migrates the choices available for each question record where the type is multiple choice, radio buttons or static menu.
+Only migrates the choice records for those Question records that are themselves migrated as part of this project.
+
+Note that Question choices based on query menus are not migrated.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="SRM:QuestionDef_SRD">
+<Form>SRM:QuestionDef_SRD</Form>
+<SearchQuery>[QuestionDef_InstanceID] = #QuestionDef_InstanceID# AND [QuestionSRD_InstanceID] = #QuestionSRD_InstanceID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="question">
+<Form>question</Form>
+<SearchQuery>[name] = #!Question Name!#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>question</TargetField>
+<TargetField>text</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>QuestionDef_InstanceID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Catalog Item Variables Level 3</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>QuestionDef_InstanceID</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>question_choice</TargetForm>
+<SourceForm>SRM:QuestionSRD_Def_Choices</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetField>question</TargetField>
+<LookupQuery>question</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Question Request ID!</TargetVariable>
+<LookupQuery>SRM:QuestionDef_SRD</LookupQuery>
+<LookupField>Request ID</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>sys_name</TargetField>
+<SourceField>ChoiceLabel</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>text</TargetField>
+<SourceField>ChoiceLabel</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetVariable>!Question Name!</TargetVariable>
+<Assignment>('var' + SUBSTRING(#!Question Request ID!#,11,15))</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>value</TargetField>
+<SourceField>ChoiceValue</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>order</TargetField>
+<SourceField>ChoiceOrder</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Question Name!</Variable>
+<Variable Type="STRING">!Question Request ID!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+</DMDList>
+<VariableList>
+<Variable Type="TIMESTAMP">Start Date</Variable>
+<Variable Type="BOOLEAN">Map to Workflow</Variable>
+<Variable Type="BOOLEAN">Map to Execution Plan</Variable>
+<Variable Type="BOOLEAN">Single SRD</Variable>
+<Variable Type="BOOLEAN">Single Company</Variable>
+<Variable Type="STRING">Company Name</Variable>
+<Variable Type="STRING">SRD Title</Variable>
+</VariableList>
+<BusinessHoursSet Size="6">
+<BusinessHours DayOfWeek="Thursday">
+<StartTime>
+<Hour>09</Hour>
+<Minute>00</Minute>
+</StartTime>
+<EndTime>
+<Hour>17</Hour>
+<Minute>30</Minute>
+</EndTime>
+</BusinessHours>
+<BusinessHours DayOfWeek="Monday">
+<StartTime>
+<Hour>09</Hour>
+<Minute>00</Minute>
+</StartTime>
+<EndTime>
+<Hour>17</Hour>
+<Minute>30</Minute>
+</EndTime>
+</BusinessHours>
+<BusinessHours DayOfWeek="Saturday">
+<StartTime>
+<Hour>09</Hour>
+<Minute>00</Minute>
+</StartTime>
+<EndTime>
+<Hour>17</Hour>
+<Minute>30</Minute>
+</EndTime>
+</BusinessHours>
+<BusinessHours DayOfWeek="Wednesday">
+<StartTime>
+<Hour>09</Hour>
+<Minute>00</Minute>
+</StartTime>
+<EndTime>
+<Hour>17</Hour>
+<Minute>30</Minute>
+</EndTime>
+</BusinessHours>
+<BusinessHours DayOfWeek="Tuesday">
+<StartTime>
+<Hour>09</Hour>
+<Minute>00</Minute>
+</StartTime>
+<EndTime>
+<Hour>17</Hour>
+<Minute>30</Minute>
+</EndTime>
+</BusinessHours>
+<BusinessHours DayOfWeek="Friday">
+<StartTime>
+<Hour>09</Hour>
+<Minute>00</Minute>
+</StartTime>
+<EndTime>
+<Hour>17</Hour>
+<Minute>30</Minute>
+</EndTime>
+</BusinessHours>
+</BusinessHoursSet>
+</Project>

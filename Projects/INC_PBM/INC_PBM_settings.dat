@@ -1,0 +1,25 @@
+       Exec_Log_File:
+      Exec_Log_Level:DETAIL
+  Exec_Log_Inc_Debug:TRUE
+   Write_Migrate_Rpt:TRUE
+   Migrate_Rpt_Level:ALL
+  Exec_Update_Option:UPDATE
+  Exec_Create_Option:CREATE
+Business_Hours_Restrict_Action:ABORT
+Missing_Target_Field_Check:FALSE
+Unmapped_Target_Field_Check:FALSE
+ Exec_Migrate_Method:IMPORT_SET_NO_BR
+Exec_Application_Scope:-Global-
+Exec_Allow_Import_Set_WS_Creation:TRUE
+Exec_Import_Set_Application:global
+Exec_Use_S2S_Attachment_Migration:TRUE
+Exec_Max_Attach_Size_MB:44
+Exec_Migrate_Chunk_Size:10000
+Exec_Refresh_Object_Cache:FALSE
+Last_Exec_Identifier:2018-06-16_21-22
+Last_Migration_Report:C:\Users\Administrator\Documents\ITSM Bridge Projects\Projects\INC_PBM\reports\execution_2018-06-16_16-09\migration_report_Journal_Entry_INC.csv
+Last_TC_Report_Folder:
+Last_Diff_Report_Folder:
+      Variable_Value:Company=Calbro Services
+      Variable_Value:Single Company=FALSE
+      Variable_Value:Modified Since Date=2018-01-01 00:00:00

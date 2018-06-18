@@ -1,0 +1,43 @@
+2018/06/16 10:32:34.198 [ERROR] com.sun.xml.internal.messaging.saaj.SOAPExceptionImpl: Bad response: (401Unauthorized
+	com.sun.xml.internal.messaging.saaj.SOAPExceptionImpl: com.sun.xml.internal.messaging.saaj.SOAPExceptionImpl: Bad response: (401Unauthorized
+		at com.sun.xml.internal.messaging.saaj.client.p2p.HttpSOAPConnection.call(Unknown Source)
+		at f.p.a(SNowServer.java:957)
+		at f.p.s(SNowServer.java:351)
+		at A.d.a(ServerObjectCache.java:321)
+		at A.d.a(ServerObjectCache.java:84)
+		at UI.b$14.call(ApplicationController.java:2397)
+		at javafx.concurrent.Task$TaskCallable.call(Task.java:1423)
+		at java.util.concurrent.FutureTask.run(Unknown Source)
+		at java.lang.Thread.run(Unknown Source)
+	Caused by: com.sun.xml.internal.messaging.saaj.SOAPExceptionImpl: Bad response: (401Unauthorized
+		at com.sun.xml.internal.messaging.saaj.client.p2p.HttpSOAPConnection.post(Unknown Source)
+		... 9 more
+	
+CAUSE:
+
+	com.sun.xml.internal.messaging.saaj.SOAPExceptionImpl: Bad response: (401Unauthorized
+		at com.sun.xml.internal.messaging.saaj.client.p2p.HttpSOAPConnection.post(Unknown Source)
+		at com.sun.xml.internal.messaging.saaj.client.p2p.HttpSOAPConnection.call(Unknown Source)
+		at f.p.a(SNowServer.java:957)
+		at f.p.s(SNowServer.java:351)
+		at A.d.a(ServerObjectCache.java:321)
+		at A.d.a(ServerObjectCache.java:84)
+		at UI.b$14.call(ApplicationController.java:2397)
+		at javafx.concurrent.Task$TaskCallable.call(Task.java:1423)
+		at java.util.concurrent.FutureTask.run(Unknown Source)
+		at java.lang.Thread.run(Unknown Source)
+	
+2018/06/16 10:32:34.225 [ERROR] Target Server Initialisation Failed.
+Unauthorized Access - Check Username and password
+	java.lang.Exception: Target Server Initialisation Failed.
+Unauthorized Access - Check Username and password
+		at f.p.a(SNowServer.java:2040)
+		at f.p.a(SNowServer.java:970)
+		at f.p.s(SNowServer.java:351)
+		at A.d.a(ServerObjectCache.java:321)
+		at A.d.a(ServerObjectCache.java:84)
+		at UI.b$14.call(ApplicationController.java:2397)
+		at javafx.concurrent.Task$TaskCallable.call(Task.java:1423)
+		at java.util.concurrent.FutureTask.run(Unknown Source)
+		at java.lang.Thread.run(Unknown Source)
+	

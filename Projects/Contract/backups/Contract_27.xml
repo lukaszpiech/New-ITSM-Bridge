@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Project AppVersion="3.7.14" Type="Standard">
+<version>27</version>
+<Connection ConnectionType="Source" ServerType="Remedy">
+<ServerName>localhost</ServerName>
+<Port>3636</Port>
+</Connection>
+<Connection ConnectionType="Target" ServerType="Service Now">
+<URL>https://dev54541.service-now.com</URL>
+</Connection>
+<DMDList>
+<DataMappingsDefinition attachmentsOption="2" enabled="Yes" id="Contract_Soft_Lic">
+<TargetForm>ast_contract</TargetForm>
+<SourceForm>CTR:ContractBase</SourceForm>
+<SourceQuery>[ContractType] = 'Software License'</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>CREATE</CreateOption>
+<UpdateOption>UPDATE</UpdateOption>
+<MigrateMethod>IMPORT_SET_NO_BR</MigrateMethod>
+<LookupQuery Type="Target" id="cmdb_contract_product_model">
+<Form>cmdb_contract_product_model</Form>
+<SearchQuery>[name] = #SRC.ContractType#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Supplier Name+#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_location">
+<Form>cmn_location</Form>
+<SearchQuery>[name] = #SRC.ContractSite#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[name] = #SRC.Notification Contact+#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_cost_center">
+<Form>cmn_cost_center</Form>
+<SearchQuery>[name] = #SRC.Cost Center#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>ast_contract</TargetForm>
+<SourceForm>CTR:ContractBase</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>short_description</TargetField>
+<SourceField>Description</SourceField>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>active</TargetField>
+<SourceField>Status</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>0</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>0</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>0</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>description</TargetField>
+<SourceField>Description</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>number</TargetField>
+<SourceField>Contract ID+</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>renewal_date</TargetField>
+<SourceField>Expiration Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>cost_center</TargetField>
+<LookupQuery>cmn_cost_center</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>cost_per_unit</TargetField>
+<SourceField>Cost per Asset</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>vendor</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>ends</TargetField>
+<SourceField>Expiration Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>contract_model</TargetField>
+<LookupQuery>cmdb_contract_product_model</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>location</TargetField>
+<LookupQuery>cmn_location</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>starts</TargetField>
+<SourceField>Start Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>contract_administrator</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Contract Payments">
+<TargetForm>ast_contract</TargetForm>
+<SourceForm>FIN:Payments</SourceForm>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>UPDATE</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="CTR:ContractBase">
+<Form>CTR:ContractBase</Form>
+<SearchQuery>[instanceId] = #Contract Instance ID#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>ast_contract</TargetForm>
+<SourceForm>FIN:Payments</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>payment_schedule</TargetField>
+<SourceField>Payment Period</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>number</TargetField>
+<LookupQuery>CTR:ContractBase</LookupQuery>
+<LookupField>Contract ID+</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>po_number</TargetField>
+<SourceField>Payment Check</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>payment_amount</TargetField>
+<SourceField>Payment Sent</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Asset Covered [clm_m2m_contract_asset]">
+<TargetForm>clm_m2m_contract_asset</TargetForm>
+<SourceForm>AST:Contract-CIAssociations</SourceForm>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="ast_contract">
+<Form>ast_contract</Form>
+<SearchQuery>[number] = #SRC.Contract ID+#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="cmdb_ci">
+<Form>BMC.CORE:BMC_BaseElement</Form>
+<SearchQuery>[ReconciliationIdentity] = #CI_Recon_ID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmdb_ci_001">
+<Form>cmdb_ci</Form>
+<SearchQuery>[name] = #!CIName!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmdb_ci_002">
+<Form>cmdb_ci</Form>
+<SearchQuery>[u_bmc_reconid] = #SRC.CI_Recon_ID#</SearchQuery>
+</LookupQuery>
+<KeyMapping Type="None"/>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>clm_m2m_contract_asset</TargetForm>
+<SourceForm>AST:Contract-CIAssociations</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>added</TargetField>
+<SourceField>Create-date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>contract</TargetField>
+<LookupQuery>ast_contract</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>asset</TargetField>
+<DefaultValue>a660c6a0373613005d19dcc773990ee9</DefaultValue>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!CIName!</TargetVariable>
+<LookupQuery>cmdb_ci</LookupQuery>
+<LookupField>Name</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!CIName!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+</DMDList>
+</Project>

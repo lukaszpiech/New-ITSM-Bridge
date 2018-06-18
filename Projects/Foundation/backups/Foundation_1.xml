@@ -1,0 +1,1391 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Project AppVersion="3.7.14" Type="Standard">
+<version>1</version>
+<Notes>This template is used to migrate Foundation data from BMC Remedy ITSM to Service Now.
+It can be used with most legacy ITSM versions including 7.6, 7.6.4, 8.1 and 9.1 servers.
+It should be run before attempting to migrate any dependent data like CMDB, knowledge, incidents, 
+problems or change requests. 
+
+NOTE ON DOMAIN SEPARATION
+If you want to enforce domain separation for migrated records, you must connect to the target instance 
+(Target Connection Setting) using a user that belongs to the same domain. This will
+ensure that all records migrated in this project are in the correct domain.
+
+Whilst every care has been taken in constructing this template, Service Management Integrations accept no
+liability for the accuracy of the data migration definitions and you should therefore carefully check that the 
+migrations are suitable for your environment before executing.  
+
+Service Management Integrations strongly recommend that you take backups of all sensitive data before
+executing any data migration projects and always run the migration project on a non-production test server
+in the first instance.
+
+Amendment History
+R2:  Changed Product Model Mapping to use Record IDs for Key Mapping
+R3: Added mappings for Support Group Associations and Functional Roles.
+R4: Updated mappings to take advantage of 3.2 functionality
+R5: Updated Functional Roles mapping
+R6: Added variable and source filters for company to support multi-tenancy migrations
+R7: Corrected company mapping for department.
+R8: Added Company field mapping to support group.
+R9: Added field mappings for user passwords and force password reset
+R10: Removed field mapping for company on group mapping 
+R11: Changed group mapping to skip if group already exists in Service Now
+R12: Updated Inclusion Filters on Functional Roles
+	Added attachments option for Location Mapping.
+	Added Cost Center Update Mapping
+R14: Removed User Role mapping for Public
+	
+
+</Notes>
+<Connection ConnectionType="Source" ServerType="Remedy">
+<ServerName>localhost</ServerName>
+<Port>3636</Port>
+</Connection>
+<Connection ConnectionType="Target" ServerType="Service Now">
+<URL>https://dev47087.service-now.com</URL>
+</Connection>
+<DMDList>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Company">
+<TargetForm>core_company</TargetForm>
+<SourceForm>COM:Company</SourceForm>
+<SourceQuery>([Company] = #Company# AND #Single Company# = TRUE) OR #Single Company# = FALSE</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>name</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>core_company</TargetForm>
+<SourceForm>COM:Company</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>website</TargetField>
+<SourceField>Company Web Page</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>notes</TargetField>
+<SourceField>Company Notes</SourceField>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>vendor</TargetField>
+<SourceField>Company Type</SourceField>
+<DefaultValue>False</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>Vendor</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>Vendor Manufacturer</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>Manufacturer Vendor</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Company</SourceField>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>manufacturer</TargetField>
+<SourceField>Company Type</SourceField>
+<DefaultValue>False</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>Manufacturer</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>Vendor Manufacturer</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>Manufacturer Vendor</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>customer</TargetField>
+<SourceField>Company Type</SourceField>
+<DefaultValue>False</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>Customer</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="2" enabled="Yes" id="Location [cmn_location]">
+<TargetForm>cmn_location</TargetForm>
+<SourceForm>SIT:Site</SourceForm>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="SIT:Site Company Association">
+<Form>SIT:Site Company Association</Form>
+<SearchQuery>[Site ID] = #Site ID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #!Company Name!#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>name</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ADHOC_QUERY">
+<ValueSetInclusionSourceField>Site ID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetSourceForm>SIT:Site Company Association</ValueSetInclusionValueSetSourceForm>
+<ValueSetInclusionValueSetSourceField>Site ID</ValueSetInclusionValueSetSourceField>
+<ValueSetInclusionValueSetSourceQuery>([Company] = #Company# AND #Single Company# = TRUE) OR #Single Company# = FALSE</ValueSetInclusionValueSetSourceQuery>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>cmn_location</TargetForm>
+<SourceForm>SIT:Site</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>zip</TargetField>
+<SourceField>Zip/Postal Code</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>country</TargetField>
+<SourceField>Country</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>city</TargetField>
+<SourceField>City</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>time_zone</TargetField>
+<SourceField>Time Zone</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Company Name!</TargetVariable>
+<LookupQuery>SIT:Site Company Association</LookupQuery>
+<LookupField>Company</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>full_name</TargetField>
+<SourceField>Site</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>fax_phone</TargetField>
+<SourceField>Phone Number Site Fax</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>phone</TargetField>
+<SourceField>Phone Number Reception</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>stock_room</TargetField>
+<Assignment>'False'</Assignment>
+<ErrorAction>Log Error</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>street</TargetField>
+<SourceField>Street</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Site</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>company</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Skip Record</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>state</TargetField>
+<SourceField>State Province</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Company Name!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Department">
+<TargetForm>cmn_department</TargetForm>
+<SourceForm>CTM:People Organization</SourceForm>
+<SourceQuery>([Company] = #Company# AND #Single Company# = TRUE) OR #Single Company# = FALSE</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Company#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>id</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>cmn_department</TargetForm>
+<SourceForm>CTM:People Organization</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Department</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>description</TargetField>
+<Assignment>((('Remedy Organization: ' + [Organization]) + ' Description: ') + [Description])</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>company</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>id</TargetField>
+<SourceField>People Organization ID</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Group [sys_user_group]">
+<TargetForm>sys_user_group</TargetForm>
+<SourceForm>CTM:Support Group</SourceForm>
+<SourceQuery>([Company] = #Company# AND #Single Company# = TRUE) OR #Single Company# = FALSE</SourceQuery>
+<Notes>Latest version of Jakarta has no company field in Group table so this mapping has been removed.
+If group with same name already exists in Service Now then the record is skipped.
+This mapping uses the direct update method since the group records cannot be created using an Import Set.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>SKIP</UpdateOption>
+<MigrateMethod>DIRECT</MigrateMethod>
+<LookupQuery Type="Target" id="sys_user_group_type">
+<Form>sys_user_group_type</Form>
+<SearchQuery>[name] = 'itil'</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Company#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>name</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>sys_user_group</TargetForm>
+<SourceForm>CTM:Support Group</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>name</TargetField>
+<Assignment>[Support Group Name]</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>description</TargetField>
+<Assignment>((((('Remedy Company: ' + [Company]) + '
+Remedy Organization: ') + [Support Organization]) + '
+Description: ') + [Description])</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>source</TargetField>
+<SourceField>Support Group ID</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>type</TargetField>
+<LookupQuery>sys_user_group_type</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>email</TargetField>
+<SourceField>GroupNotificationEmail</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Cost Center">
+<TargetForm>cmn_cost_center</TargetForm>
+<SourceForm>FIN:ConfigCostCentersRepository</SourceForm>
+<SourceQuery>[Status] = 'Active' AND [Cost Center Code] != 'Unallocated' AND (([Company] = #Company# AND #Single Company# = TRUE) OR #Single Company# = FALSE)</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>code</TargetField>
+<TargetField>name</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>cmn_cost_center</TargetForm>
+<SourceForm>FIN:ConfigCostCentersRepository</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>code</TargetField>
+<Assignment>TRUNC([Cost Center Code],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Cost Center Name</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Users without managers">
+<TargetForm>sys_user</TargetForm>
+<SourceForm>CTM:People</SourceForm>
+<SourceQuery>[Profile Status] = 'Enabled' AND [ManagersName] = NULL AND (([Company] = #Company# AND #Single Company# = TRUE) OR #Single Company# = FALSE)</SourceQuery>
+<Notes>Name field is auto-generated in Service Now from firstname, surname</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="SIT:Site">
+<Form>SIT:Site</Form>
+<SearchQuery>[Site ID] = #Site ID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Company#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_cost_center">
+<Form>cmn_cost_center</Form>
+<SearchQuery>[name] = #SRC.Cost Center Name#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="CFG:Geography Country">
+<Form>CFG:Geography Country</Form>
+<SearchQuery>[Country] = #!Country!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="CTM:People Organization">
+<Form>CTM:People Organization</Form>
+<SearchQuery>[Company] = #Company# AND [Organization] = #Organization# AND [Department] = #Department#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_department_001">
+<Form>cmn_department</Form>
+<SearchQuery>[id] = #!Department ID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="User">
+<Form>User</Form>
+<SearchQuery>[Login Name] = #Remedy Login ID#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>employee_number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>sys_user</TargetForm>
+<SourceForm>CTM:People</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetField>country</TargetField>
+<LookupQuery>CFG:Geography Country</LookupQuery>
+<LookupField>Country Code Alpha</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>user_password</TargetField>
+<LookupQuery>User</LookupQuery>
+<LookupField>Password</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>city</TargetField>
+<SourceField>Site City</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>user_name</TargetField>
+<SourceField>Remedy Login ID</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>source</TargetField>
+<LookupQuery>User</LookupQuery>
+<LookupField>Password</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>title</TargetField>
+<SourceField>Title</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Country!</TargetVariable>
+<LookupQuery>SIT:Site</LookupQuery>
+<LookupField>Country</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Department ID!</TargetVariable>
+<LookupQuery>CTM:People Organization</LookupQuery>
+<LookupField>People Organization ID</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>street</TargetField>
+<LookupQuery>SIT:Site</LookupQuery>
+<LookupField>Street</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>mobile_phone</TargetField>
+<Assignment>TRUNC([Phone Number Mobile],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>company</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>state</TargetField>
+<LookupQuery>SIT:Site</LookupQuery>
+<LookupField>State Province</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>vip</TargetField>
+<SourceField>VIP</SourceField>
+<DefaultValue>False</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>0</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>department</TargetField>
+<LookupQuery>cmn_department_001</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>first_name</TargetField>
+<SourceField>First Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>email</TargetField>
+<SourceField>Internet E-mail</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>zip</TargetField>
+<SourceField>Site Zip/Postal Code</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>home_phone</TargetField>
+<SourceField>Phone Number Home</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>last_name</TargetField>
+<SourceField>Last Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>photo</TargetField>
+<SourceField>z2AF Attachment01</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>middle_name</TargetField>
+<SourceField>Middle Initial</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>time_zone</TargetField>
+<SourceField>Time Zone</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>cost_center</TargetField>
+<LookupQuery>cmn_cost_center</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>phone</TargetField>
+<Assignment>TRUNC([Phone Number Business],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>employee_number</TargetField>
+<SourceField>Person ID</SourceField>
+</FieldMapping>
+<FieldMapping Type="Reference">
+<TargetField>location</TargetField>
+<SourceField>Site ID</SourceField>
+<RefMappingIdentifier>Location [cmn_location]</RefMappingIdentifier>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>password_needs_reset</TargetField>
+<DefaultValue>True</DefaultValue>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Country!</Variable>
+<Variable Type="STRING">!Department ID!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Users with managers">
+<TargetForm>sys_user</TargetForm>
+<SourceForm>CTM:People</SourceForm>
+<SourceQuery>[Profile Status] = 'Enabled' AND [ManagersName] != NULL AND (([Company] = #Company# AND #Single Company# = TRUE) OR #Single Company# = FALSE)</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Company#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_cost_center">
+<Form>cmn_cost_center</Form>
+<SearchQuery>[name] = #SRC.Cost Center Name#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="SIT:Site">
+<Form>SIT:Site</Form>
+<SearchQuery>[Site ID] = #Site ID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[name] = #SRC.ManagersName#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="CFG:Geography Country">
+<Form>CFG:Geography Country</Form>
+<SearchQuery>[Country] = #!Country!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="CTM:People Organization">
+<Form>CTM:People Organization</Form>
+<SearchQuery>[Company] = #Company# AND [Organization] = #Organization# AND [Department] = #Department#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_department">
+<Form>cmn_department</Form>
+<SearchQuery>[id] = #!Department ID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="User">
+<Form>User</Form>
+<SearchQuery>[Login Name] = #Remedy Login ID#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>employee_number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>sys_user</TargetForm>
+<SourceForm>CTM:People</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetField>country</TargetField>
+<LookupQuery>CFG:Geography Country</LookupQuery>
+<LookupField>Country Code Alpha</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>user_password</TargetField>
+<LookupQuery>User</LookupQuery>
+<LookupField>Password</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>city</TargetField>
+<SourceField>Site City</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>user_name</TargetField>
+<SourceField>Remedy Login ID</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>source</TargetField>
+<LookupQuery>User</LookupQuery>
+<LookupField>Password</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>title</TargetField>
+<SourceField>Title</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Country!</TargetVariable>
+<LookupQuery>SIT:Site</LookupQuery>
+<LookupField>Country</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Department ID!</TargetVariable>
+<LookupQuery>CTM:People Organization</LookupQuery>
+<LookupField>People Organization ID</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>mobile_phone</TargetField>
+<Assignment>TRUNC([Phone Number Mobile],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>street</TargetField>
+<LookupQuery>SIT:Site</LookupQuery>
+<LookupField>Street</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>company</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>state</TargetField>
+<LookupQuery>SIT:Site</LookupQuery>
+<LookupField>State Province</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>department</TargetField>
+<LookupQuery>cmn_department</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>vip</TargetField>
+<SourceField>VIP</SourceField>
+<DefaultValue>False</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>0</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>first_name</TargetField>
+<SourceField>First Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>email</TargetField>
+<SourceField>Internet E-mail</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>zip</TargetField>
+<SourceField>Site Zip/Postal Code</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>home_phone</TargetField>
+<SourceField>Phone Number Home</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>manager</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>last_name</TargetField>
+<SourceField>Last Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>photo</TargetField>
+<SourceField>z2AF Attachment01</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>middle_name</TargetField>
+<SourceField>Middle Initial</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>time_zone</TargetField>
+<SourceField>Time Zone</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>cost_center</TargetField>
+<LookupQuery>cmn_cost_center</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>phone</TargetField>
+<Assignment>TRUNC([Phone Number Business],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>employee_number</TargetField>
+<SourceField>Person ID</SourceField>
+</FieldMapping>
+<FieldMapping Type="Reference">
+<TargetField>location</TargetField>
+<SourceField>Site ID</SourceField>
+<RefMappingIdentifier>Location [cmn_location]</RefMappingIdentifier>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>password_needs_reset</TargetField>
+<DefaultValue>True</DefaultValue>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Country!</Variable>
+<Variable Type="STRING">!Department ID!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Update Cost Center Details">
+<TargetForm>cmn_cost_center</TargetForm>
+<SourceForm>FIN:ConfigCostCentersRepository</SourceForm>
+<Notes>Updates the manager field on the cost center.
+Updates the location field based on the cost center owner's location
+Run as separate mapping since the user records must be created after the cost centers</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>SKIP</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[name] = #SRC.Cost Center Owner+#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="CTM:People">
+<Form>CTM:People</Form>
+<SearchQuery>[Full Name] = #Cost Center Owner+# AND [Company] = #Company#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_location">
+<Form>cmn_location</Form>
+<SearchQuery>[name] = #!Cost Center Site Name!#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>code</TargetField>
+<TargetField>name</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>instanceId</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Cost Center</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>instanceId</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>cmn_cost_center</TargetForm>
+<SourceForm>FIN:ConfigCostCentersRepository</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>code</TargetField>
+<Assignment>TRUNC([Cost Center Code],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>manager</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Cost Center Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>location</TargetField>
+<LookupQuery>cmn_location</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Cost Center Site Name!</TargetVariable>
+<LookupQuery>CTM:People</LookupQuery>
+<LookupField>Site</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Cost Center Site Name!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Employees role (itil)">
+<TargetForm>sys_user_has_role</TargetForm>
+<SourceForm>CTM:People</SourceForm>
+<SourceQuery>[Profile Status] = 'Enabled' AND ([Client Type] = 'Office-Based Employee' OR [Client Type] = 'Field-Based Employee' OR [Client Type] = 'Home-Based Employee' OR [Client Type] = 'Contractor') AND (([Company] = #Company# AND #Single Company# = TRUE) OR #Single Company# = FALSE)</SourceQuery>
+<Notes>Gives ITIL role to all internal users.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>CREATE</CreateOption>
+<UpdateOption>SKIP</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="sys_user_role">
+<Form>sys_user_role</Form>
+<SearchQuery>[name] = 'itil'</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[employee_number] = #SRC.Person ID#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>user</TargetField>
+<TargetField>role</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>sys_user_has_role</TargetForm>
+<SourceForm>CTM:People</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetField>role</TargetField>
+<LookupQuery>sys_user_role</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>user</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Group Members">
+<TargetForm>sys_user_grmember</TargetForm>
+<SourceForm>CTM:Support Group Association</SourceForm>
+<SourceQuery>[Status] = 'Enabled'</SourceQuery>
+<Notes>Ad-hoc source inclusion filter used to ensure that only those group members that belong to the corresponding company are migrated.
+</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[employee_number] = #SRC.Person ID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="CTM:Support Group">
+<Form>CTM:Support Group</Form>
+<SearchQuery>[Support Group ID] = #Support Group ID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #!Support Group Company!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user_group">
+<Form>sys_user_group</Form>
+<SearchQuery>[name] = #!Rem Support Group Name!#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>group</TargetField>
+<TargetField>user</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ADHOC_QUERY">
+<ValueSetInclusionSourceField>Support Group ID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetSourceForm>CTM:Support Group</ValueSetInclusionValueSetSourceForm>
+<ValueSetInclusionValueSetSourceField>Support Group ID</ValueSetInclusionValueSetSourceField>
+<ValueSetInclusionValueSetSourceQuery>([Company] = #Company# AND #Single Company# = TRUE) OR #Single Company# = FALSE</ValueSetInclusionValueSetSourceQuery>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>sys_user_grmember</TargetForm>
+<SourceForm>CTM:Support Group Association</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Support Group Company!</TargetVariable>
+<LookupQuery>CTM:Support Group</LookupQuery>
+<LookupField>Company</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Company SysID!</TargetVariable>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>user</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Rem Support Group Name!</TargetVariable>
+<LookupQuery>CTM:Support Group</LookupQuery>
+<LookupField>Support Group Name</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>group</TargetField>
+<LookupQuery>sys_user_group</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Skip Record</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Rem Support Group Name!</Variable>
+<Variable Type="STRING">!Support Group Company!</Variable>
+<Variable Type="STRING">!Company SysID!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Functional Roles">
+<TargetForm>sys_user_has_role</TargetForm>
+<SourceForm>CTM:SupportGroupFunctionalRole</SourceForm>
+<Notes>Some entries in Remedy may be duplicated - these are treated as duplicates and skipped.
+
+Note that no new roles are created, but OOB Service Now roles are matched to the roles in the Remedy application as closely as possible and assigned to the 
+corresponding user.
+
+The values used in mapping from BMC Remedy functional roles to Service Now roles should be reviewed prior to execution 
+(see value match on the Snow Functional Role variable)</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>CREATE</CreateOption>
+<UpdateOption>SKIP</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[employee_number] = #SRC.Person ID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user_role">
+<Form>sys_user_role</Form>
+<SearchQuery>[name] = #!Snow Functional Role!#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>role</TargetField>
+<TargetField>user</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ADHOC_QUERY">
+<ValueSetInclusionSourceField>Support Group ID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetSourceForm>CTM:Support Group</ValueSetInclusionValueSetSourceForm>
+<ValueSetInclusionValueSetSourceField>Support Group ID</ValueSetInclusionValueSetSourceField>
+<ValueSetInclusionValueSetSourceQuery>([Company] = #Company# AND #Single Company# = TRUE) OR #Single Company# = FALSE</ValueSetInclusionValueSetSourceQuery>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>sys_user_has_role</TargetForm>
+<SourceForm>CTM:SupportGroupFunctionalRole</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetField>role</TargetField>
+<LookupQuery>sys_user_role</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetVariable>!Snow Functional Role!</TargetVariable>
+<SourceField>FunctionalRoleAlias</SourceField>
+<NoMatchAction>Skip Record</NoMatchAction>
+<ValueMapping>
+<SourceValue>7000</SourceValue>
+<TargetValue>approver_user</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5000</SourceValue>
+<TargetValue>change_manager</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>13000</SourceValue>
+<TargetValue>itil_admin</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>19000</SourceValue>
+<TargetValue>itil</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>17000</SourceValue>
+<TargetValue>itil_admin</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>21000</SourceValue>
+<TargetValue>itil_admin</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>15000</SourceValue>
+<TargetValue>itil_admin</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1000</SourceValue>
+<TargetValue>itil</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3000</SourceValue>
+<TargetValue>itil_admin</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>9000</SourceValue>
+<TargetValue>itil</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>27000</SourceValue>
+<TargetValue>itil_admin</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>25000</SourceValue>
+<TargetValue>itil_admin</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>30000</SourceValue>
+<TargetValue>itil</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>32000</SourceValue>
+<TargetValue>knowledge_admin</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>23000</SourceValue>
+<TargetValue>itil</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>11001</SourceValue>
+<TargetValue>catalog_manager</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>11000</SourceValue>
+<TargetValue>itil_admin</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>16000</SourceValue>
+<TargetValue>itil_admin</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>18500</SourceValue>
+<TargetValue>release_admin</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>8000</SourceValue>
+<TargetValue>change_manager</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6000</SourceValue>
+<TargetValue>change_manager</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4000</SourceValue>
+<TargetValue>itil_admin</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>18000</SourceValue>
+<TargetValue>release_admin</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>20000</SourceValue>
+<TargetValue>change_manager</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>12000</SourceValue>
+<TargetValue>knowledge_manager</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>14000</SourceValue>
+<TargetValue>asset</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>22000</SourceValue>
+<TargetValue>itil</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2000</SourceValue>
+<TargetValue>itil_admin</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>28000</SourceValue>
+<TargetValue>itil_admin</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>26000</SourceValue>
+<TargetValue>itil_admin</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>24000</SourceValue>
+<TargetValue>itil</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>31000</SourceValue>
+<TargetValue>itil_admin</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>10000</SourceValue>
+<TargetValue>itil</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>user</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Snow Functional Role!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Model Category">
+<TargetForm>cmdb_model_category</TargetForm>
+<SourceForm>PCT:Product Catalog</SourceForm>
+<Notes>Creates the Model Categories based on the Product Catalog in BMC.  
+Note the CI Type in BMC is not unique for each categorization but in Service Now there is only one CI type per Category so value cannot be mapped.
+Only creates one record for each CI Type and removes the BMC_ prefix
+All other records for the same CI Type are skipped.
+The Category value is used to support the Product Model mapping which follows this one.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>CREATE</CreateOption>
+<UpdateOption>SKIP</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="PCT:MenuItems">
+<Form>PCT:MenuItems</Form>
+<SearchQuery>[Menu Type] = 'CITYPE' AND [Menu Value 1] = #CategorizationSchemaKeyword#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>asset_class</TargetField>
+<TargetField>name</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ADHOC_QUERY">
+<ValueSetInclusionSourceField>InstanceId</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetSourceForm>PCT:ProductCompanyAssociation</ValueSetInclusionValueSetSourceForm>
+<ValueSetInclusionValueSetSourceField>ProductInstanceID</ValueSetInclusionValueSetSourceField>
+<ValueSetInclusionValueSetSourceQuery>([Company] = #Company# AND #Single Company# = TRUE) OR #Single Company# = FALSE OR [Company] = '- Global -'</ValueSetInclusionValueSetSourceQuery>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>cmdb_model_category</TargetForm>
+<SourceForm>PCT:Product Catalog</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>allow_in_bundle</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>asset_class</TargetField>
+<SourceField>Asset Class</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>alm_hardware</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>alm_license</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>alm_asset</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>alm_asset</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>alm_asset</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>name</TargetField>
+<Assignment>REPLACE([CategorizationSchemaKeyword],'BMC_','')</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>allow_pre_allocation</TargetField>
+<Assignment>'true'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Product Model">
+<TargetForm>cmdb_model</TargetForm>
+<SourceForm>PCT:Product Model-Version</SourceForm>
+<Notes>Barcode is used as unique identifier based on source instance ID.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="PCT:Product Catalog">
+<Form>PCT:Product Catalog</Form>
+<SearchQuery>[Product ID] = #Product ID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmdb_model_category">
+<Form>cmdb_model_category</Form>
+<SearchQuery>[name] = #!Catalog Name Adj!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="manufacturer">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Manufacturer#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>barcode</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ADHOC_QUERY">
+<ValueSetInclusionSourceField>Product_Instance_ID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetSourceForm>PCT:ProductCompanyAssociation</ValueSetInclusionValueSetSourceForm>
+<ValueSetInclusionValueSetSourceField>ProductInstanceID</ValueSetInclusionValueSetSourceField>
+<ValueSetInclusionValueSetSourceQuery>([Company] = #Company# AND #Single Company# = TRUE) OR #Single Company# = FALSE OR [Company] = '- Global -'</ValueSetInclusionValueSetSourceQuery>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>cmdb_model</TargetForm>
+<SourceForm>PCT:Product Model-Version</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>short_description</TargetField>
+<Assignment>TRUNC(((((#!Product Cat 1!# + ':') + #!Product Cat 2!#) + ':') + #!Product Cat 3!#),100)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>comments</TargetField>
+<Assignment>('Legacy System Product ID: ' + [Product ID])</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Product Cat 1!</TargetVariable>
+<LookupQuery>PCT:Product Catalog</LookupQuery>
+<LookupField>Product Categorization Tier 1</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>cmdb_model_category</TargetField>
+<LookupQuery>cmdb_model_category</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>display_name</TargetField>
+<Assignment>(([Manufacturer] + ' ') + [Product Name])</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetVariable>!Catalog Name Adj!</TargetVariable>
+<Assignment>REPLACE(#!Catalog Name!#,'BMC_','')</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Product Cat 2!</TargetVariable>
+<LookupQuery>PCT:Product Catalog</LookupQuery>
+<LookupField>Product Categorization Tier 2</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>manufacturer</TargetField>
+<LookupQuery>manufacturer</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Product Cat 3!</TargetVariable>
+<LookupQuery>PCT:Product Catalog</LookupQuery>
+<LookupField>Product Categorization Tier 3</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>full_name</TargetField>
+<SourceField>Product Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Catalog Name!</TargetVariable>
+<LookupQuery>PCT:Product Catalog</LookupQuery>
+<LookupField>CategorizationSchemaKeyword</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Product Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>model_number</TargetField>
+<SourceField>Product Model/Version</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>bundle</TargetField>
+<Assignment>'false'</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>barcode</TargetField>
+<SourceField>InstanceId</SourceField>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>status</TargetField>
+<SourceField>Product Model/Version State</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>5</SourceValue>
+<TargetValue>In Production</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6</SourceValue>
+<TargetValue>Retired</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>7</SourceValue>
+<TargetValue>Retired</TargetValue>
+</ValueMapping>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Catalog Name!</Variable>
+<Variable Type="STRING">!Catalog Name Adj!</Variable>
+<Variable Type="STRING">!Product Cat 1!</Variable>
+<Variable Type="STRING">!Product Cat 2!</Variable>
+<Variable Type="STRING">!Product Cat 3!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+</DMDList>
+<VariableList>
+<Variable Type="BOOLEAN">Single Company</Variable>
+<Variable Type="STRING">Company</Variable>
+</VariableList>
+</Project>

@@ -1,0 +1,33 @@
+2018/06/17 13:28:32.233 [INFO] Log Level set to Information
+2018/06/17 13:28:32.233 [INFO] ITSM Bridge version 3.7.14
+2018/06/17 13:28:32.234 [INFO] Execution of Contract version 26
+2018/06/17 13:28:32.235 [INFO] Execution started... [Execution ID=2018-06-17_13-28]
+2018/06/17 13:28:32.236 [INFO] Initialisation Step Started...
+2018/06/17 13:28:32.236 [INFO] Source Server Connected
+2018/06/17 13:28:34.679 [INFO] Target Server Connected
+2018/06/17 13:28:34.681 [INFO] Source Server Cache Initialised
+2018/06/17 13:28:34.681 [INFO] Target Server Cache Initialised
+2018/06/17 13:28:41.969 [INFO] Synchronising Scripted Web Service [u_itsmb_ast_contract_n]
+2018/06/17 13:28:43.516 [INFO] Scripted Web Service is Synchronised [u_itsmb_ast_contract_n]
+2018/06/17 13:28:49.347 [INFO] Initialisation 1 of 3 [Contract_Soft_Lic] Completed
+2018/06/17 13:28:49.405 [INFO] Synchronising Scripted Web Service [u_itsmb_ast_contract]
+2018/06/17 13:28:50.780 [INFO] Scripted Web Service is Synchronised [u_itsmb_ast_contract]
+2018/06/17 13:28:54.309 [INFO] Initialisation 2 of 3 [Contract Payments] Completed
+2018/06/17 13:28:54.355 [INFO] Synchronising Scripted Web Service [u_itsmb_clm_m2m_contract_asset]
+2018/06/17 13:28:55.012 [INFO] Scripted Web Service is Synchronised [u_itsmb_clm_m2m_contract_asset]
+2018/06/17 13:28:56.899 [INFO] Initialisation 3 of 3 [Asset Covered [clm_m2m_contract_asset]] Completed
+2018/06/17 13:28:56.900 [INFO] ### Initialisation Step Complete
+2018/06/17 13:28:56.905 [INFO] [Contract_Soft_Lic] Key Mapping Cache CTR:ContractBase -> Contract Ready.
+2018/06/17 13:28:56.909 [INFO] [Contract_Soft_Lic] Migration in progress.
+2018/06/17 13:28:58.866 [INFO] Migration Completed 
+2018/06/17 13:28:58.866 [INFO] Summary...  Created:0 Updated:5 Skipped:0 Errors:0 [Warnings 0]
+2018/06/17 13:28:58.868 [INFO] [Contract Payments] Key Mapping Cache FIN:Payments -> Contract Ready.
+2018/06/17 13:28:58.868 [INFO] [Contract Payments] Migration in progress.
+2018/06/17 13:28:59.730 [INFO] Migration Completed 
+2018/06/17 13:28:59.730 [INFO] Summary...  Created:0 Updated:1 Skipped:0 Errors:0 [Warnings 0]
+2018/06/17 13:28:59.730 [INFO] [Asset Covered [clm_m2m_contract_asset]] Migration in progress.
+2018/06/17 13:29:01.031 [ERROR] Errors occurred during migration of records to Asset Covered [clm_m2m_contract_asset].
+2018/06/17 13:29:01.033 [WARNING] Migration Completed  [1 error]
+2018/06/17 13:29:01.033 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:1 [Warnings 0]
+2018/06/17 13:29:01.124 [INFO] Execution has completed [Execution ID=2018-06-17_13-28]
+2018/06/17 13:29:01.124 [INFO] --END OF LOG--

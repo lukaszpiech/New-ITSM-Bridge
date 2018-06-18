@@ -1,0 +1,1601 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Project AppVersion="3.7.14" Type="Standard">
+<version>2</version>
+<Notes>This template is used to migrate change management data from BMC Remedy ITSM to Service Now.
+It can be used with most legacy ITSM versions including 764, 8.1 and 9.1 servers.
+It should be run AFTER the migration of all foundation data (see separate template for this).
+
+Whilst every care has been taken in constructing this template, Service Management Integrations accept no
+liability for the accuracy of the data migration definitions and you should therefore carefully check that the 
+migrations are suitable for your environment before executing.  
+
+Service Management Integrations strongly recommend that you take backups of all sensitive data before
+executing any data migration projects and always run the migration project on a non-production test server
+in the first instance.
+
+Amendment History
+R2: Updated mappings to take advantage of 3.2 functionality
+R3: Added company variable for multi-tenancy; added condition to Impacted Services mapping;
+R4: Added mappings for Change Template Migration, Journal Entries and WorkLog Attachments</Notes>
+<Connection ConnectionType="Source" ServerType="Remedy">
+<ServerName>localhost</ServerName>
+<Port>3636</Port>
+</Connection>
+<Connection ConnectionType="Target" ServerType="Service Now">
+<URL>https://dev54541.service-now.com</URL>
+</Connection>
+<DMDList>
+<DataMappingsDefinition attachmentsOption="0" enabled="No" id="User Reference">
+<TargetForm>sys_user</TargetForm>
+<SourceForm>CTM:People</SourceForm>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>name</TargetField>
+<TargetField>email</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>sys_user</TargetForm>
+<SourceForm>CTM:People</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Full Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>email</TargetField>
+<SourceField>Internet E-mail</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="No" id="Group Reference">
+<TargetForm>sys_user_group</TargetForm>
+<SourceForm>CTM:Support Group</SourceForm>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>name</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>sys_user_group</TargetForm>
+<SourceForm>CTM:Support Group</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Support Group Name</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="No" id="Location Reference">
+<TargetForm>cmn_location</TargetForm>
+<SourceForm>SIT:Site</SourceForm>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="SIT:Site Company Association">
+<Form>SIT:Site Company Association</Form>
+<SearchQuery>[Site ID] = #Site ID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #!Company Name!#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>name</TargetField>
+<TargetField>country</TargetField>
+<TargetField>city</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>cmn_location</TargetForm>
+<SourceForm>SIT:Site</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>country</TargetField>
+<SourceField>Country</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>city</TargetField>
+<SourceField>City</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Site</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>company</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Company Name!</TargetVariable>
+<LookupQuery>SIT:Site Company Association</LookupQuery>
+<LookupField>Company</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Company Name!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Catalog Category">
+<TargetForm>sc_category</TargetForm>
+<SourceForm>CHG:Template</SourceForm>
+<Notes>Creates single category record for all change templates.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>SKIP</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="sc_category">
+<Form>sc_category</Form>
+<SearchQuery>[title] = 'Standard Changes'</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sc_catalog">
+<Form>sc_catalog</Form>
+<SearchQuery>[title] = 'Service Catalog'</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sc_homepage_renderer">
+<Form>sc_homepage_renderer</Form>
+<SearchQuery>[name] = 'Category Items'</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>title</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>sc_category</TargetForm>
+<SourceForm>CHG:Template</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetField>homepage_renderer</TargetField>
+<LookupQuery>sc_homepage_renderer</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Log Error</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>parent</TargetField>
+<LookupQuery>sc_category</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Log Error</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>sc_catalog</TargetField>
+<LookupQuery>sc_catalog</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Log Error</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>description</TargetField>
+<DefaultValue>Templates Migrated from Remedy Application</DefaultValue>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>title</TargetField>
+<SourceField>Template Category Tier 1</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Standard Change Proposal">
+<TargetForm>std_change_proposal</TargetForm>
+<SourceForm>CHG:Template</SourceForm>
+<SourceQuery>([Location Company] = #Company# AND #Single Company# = TRUE) OR #Single Company# = FALSE</SourceQuery>
+<Notes>Creates the standard change proposal record in state New, ready for approval.
+Note that proposal cannot be updated once it has been approved.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>SKIP</UpdateOption>
+<MigrateMethod>IMPORT_SET_NO_BR</MigrateMethod>
+<LookupQuery Type="Target" id="sc_catalog">
+<Form>sc_catalog</Form>
+<SearchQuery>[title] = 'Service Catalog'</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sc_category">
+<Form>sc_category</Form>
+<SearchQuery>[title] = #SRC.Template Category Tier 1#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmdb_ci_service">
+<Form>cmdb_ci_service</Form>
+<SearchQuery>[name] = #SRC.ServiceCI#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_location">
+<Form>cmn_location</Form>
+<SearchQuery>[name] = #SRC.Site# AND [company] = #!company sysid!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Location Company#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="Assigned Group">
+<Form>sys_user_group</Form>
+<SearchQuery>[name] = #SRC.ASGRP#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>std_change_proposal</TargetForm>
+<SourceForm>CHG:Template</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>short_description</TargetField>
+<SourceField>Description</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!company sysid!</TargetVariable>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>proposal_type</TargetField>
+<DefaultValue>1</DefaultValue>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>business_justification</TargetField>
+<SourceField>Reason For Change</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>assignment_group</TargetField>
+<LookupQuery>Assigned Group</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>catalog</TargetField>
+<LookupQuery>sc_catalog</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetVariable>!impact_converter!</TargetVariable>
+<SourceField>Impact</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>4000</SourceValue>
+<TargetValue>^impact=3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1000</SourceValue>
+<TargetValue>^impact=1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2000</SourceValue>
+<TargetValue>^impact=1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3000</SourceValue>
+<TargetValue>^impact=2</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>description</TargetField>
+<SourceField>Detailed Description</SourceField>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetVariable>!reason_converter!</TargetVariable>
+<SourceField>Reason For Change</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>5000</SourceValue>
+<TargetValue>^reason=other</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4000</SourceValue>
+<TargetValue>^reason=Hardware upgrade</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1000</SourceValue>
+<TargetValue>^reason=Problem resolution</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2000</SourceValue>
+<TargetValue>^reason=Product or service changed</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3000</SourceValue>
+<TargetValue>^reason=other</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!site_converter!</TargetVariable>
+<LookupQuery>cmn_location</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetVariable>!risk_converter!</TargetVariable>
+<SourceField>Risk Level</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>^risk=1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>^risk=2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>^risk=3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>^risk=4</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>^risk=5</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetVariable>!priority_converter!</TargetVariable>
+<SourceField>Priority</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>^priority=1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>^priority=2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>^priority=3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>^priority=4</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>number</TargetField>
+<SourceField>CHG Template ID</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!service_converter!</TargetVariable>
+<LookupQuery>cmdb_ci_service</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>template_name</TargetField>
+<SourceField>Template Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetVariable>!urgency_converter!</TargetVariable>
+<SourceField>Urgency</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>4000</SourceValue>
+<TargetValue>^urgency=3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1000</SourceValue>
+<TargetValue>^urgency=1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2000</SourceValue>
+<TargetValue>^urgency=1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3000</SourceValue>
+<TargetValue>^urgency=2</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>state</TargetField>
+<DefaultValue>1</DefaultValue>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>category</TargetField>
+<LookupQuery>sc_category</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Skip Record</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>template_value</TargetField>
+<Assignment>((((((((((((((((('description=Notes: ' + [Detailed Description]) + '^short_description=') + [Description]) + #!impact_converter!#) + #!urgency_converter!#) + #!priority_converter!#) + '^business_service=') + #!service_converter!#) + #!reason_converter!#) + '^location=') + #!site_converter!#) + '^company=') + #!company sysid!#) + '^implementation_plan=Enter Implementation Plan') + '^backout_plan=Enter Backout Plan') + '^test_plan=Enter Test Plan') + '^EQ')</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!impact_converter!</Variable>
+<Variable Type="STRING">!priority_converter!</Variable>
+<Variable Type="STRING">!urgency_converter!</Variable>
+<Variable Type="STRING">!risk_converter!</Variable>
+<Variable Type="STRING">!service_converter!</Variable>
+<Variable Type="STRING">!reason_converter!</Variable>
+<Variable Type="STRING">!site_converter!</Variable>
+<Variable Type="STRING">!company sysid!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Standard Change Proposal Update">
+<TargetForm>std_change_proposal</TargetForm>
+<SourceForm>CHG:Template</SourceForm>
+<Notes>Updates the Change Proposal records created in the previous mapping - sets the status to Closed and Approval to Approved.
+Note that this must be run with Import Set method so that OOB business rules create the corresponding Standard Change Template.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>SKIP</CreateOption>
+<UpdateOption>UPDATE</UpdateOption>
+<MigrateMethod>IMPORT_SET</MigrateMethod>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>CHG Template ID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Standard Change Proposal</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>CHG Template ID</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>std_change_proposal</TargetForm>
+<SourceForm>CHG:Template</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>number</TargetField>
+<SourceField>CHG Template ID</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>approval</TargetField>
+<DefaultValue>approved</DefaultValue>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>state</TargetField>
+<DefaultValue>3</DefaultValue>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="2" enabled="Yes" id="Change Request">
+<TargetForm>change_request</TargetForm>
+<SourceForm>CHG:Infrastructure Change</SourceForm>
+<SourceQuery>[Last Modified Date] &gt; #Modified Since Date# AND ((#Single Company# = TRUE AND [Customer Company] = #Company#) OR #Single Company# = FALSE)</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>CREATE</CreateOption>
+<UpdateOption>UPDATE</UpdateOption>
+<MigrateMethod>DIRECT</MigrateMethod>
+<LookupQuery Type="Source" id="CTM:People">
+<Form>CTM:People</Form>
+<SearchQuery>[Remedy Login ID] = #CAB Manager Login#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[name] = #SRC.CAB Manager ( Change Co-ord )# AND [email] = #!Change Manager Email!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="CTM:People Requested By">
+<Form>CTM:People</Form>
+<SearchQuery>[Person ID] = #Customer Person ID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Customer Company#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="Requested By ">
+<Form>sys_user</Form>
+<SearchQuery>[company] = #!Requested By Company!# AND [name] = #!Requested By Full Name!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmdb_ci_service">
+<Form>cmdb_ci_service</Form>
+<SearchQuery>[name] = #SRC.ServiceCI#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>change_request</TargetForm>
+<SourceForm>CHG:Infrastructure Change</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>end_date</TargetField>
+<SourceField>Scheduled End Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>short_description</TargetField>
+<SourceField>Description</SourceField>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>reason</TargetField>
+<SourceField>Reason For Change</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>5000</SourceValue>
+<TargetValue>Other</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4000</SourceValue>
+<TargetValue>Hardware upgrade</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1000</SourceValue>
+<TargetValue>Problem resolution</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2000</SourceValue>
+<TargetValue>Product or service changed</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3000</SourceValue>
+<TargetValue>Other</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>work_start</TargetField>
+<SourceField>Actual Start Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Reference">
+<TargetField>assignment_group</TargetField>
+<SourceField>Support Group ID</SourceField>
+<RefMappingIdentifier>Group Reference</RefMappingIdentifier>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>description</TargetField>
+<Assignment>TRUNC([Detailed Description],4000)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>type</TargetField>
+<SourceField>Change Timing</SourceField>
+<DefaultValue>normal</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>5000</SourceValue>
+<TargetValue>normal</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6000</SourceValue>
+<TargetValue>standard</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4000</SourceValue>
+<TargetValue>normal</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1000</SourceValue>
+<TargetValue>emergency</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2000</SourceValue>
+<TargetValue>emergency</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3000</SourceValue>
+<TargetValue>normal</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>number</TargetField>
+<SourceField>Infrastructure Change ID</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Change Manager Email!</TargetVariable>
+<LookupQuery>CTM:People</LookupQuery>
+<LookupField>Internet E-mail</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>urgency</TargetField>
+<SourceField>Urgency</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>4000</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1000</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2000</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3000</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>requested_by_date</TargetField>
+<SourceField>Change Target Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>company</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>state</TargetField>
+<SourceField>Change Request Status</SourceField>
+<DefaultValue>-5</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>11</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>12</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>-5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>-3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>-5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>-4</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>0</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5</SourceValue>
+<TargetValue>-3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6</SourceValue>
+<TargetValue>-2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>7</SourceValue>
+<TargetValue>-1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>8</SourceValue>
+<TargetValue>-5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>9</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>10</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>justification</TargetField>
+<Assignment>TRUNC([Justification Field],4000)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>start_date</TargetField>
+<SourceField>Scheduled Start Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>assigned_to</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>closed_at</TargetField>
+<SourceField>Closed_Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>impact</TargetField>
+<SourceField>Impact</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>4000</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1000</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2000</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3000</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>business_service</TargetField>
+<LookupQuery>cmdb_ci_service</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>priority</TargetField>
+<SourceField>Priority</SourceField>
+<DefaultValue>3</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>requested_by</TargetField>
+<LookupQuery>Requested By </LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Requested By Full Name!</TargetVariable>
+<LookupQuery>CTM:People Requested By</LookupQuery>
+<LookupField>Full Name</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>work_end</TargetField>
+<SourceField>Actual End Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>risk</TargetField>
+<SourceField>Risk Level</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>category</TargetField>
+<SourceField>Product Cat Tier 1</SourceField>
+<DefaultValue>Other</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>Miscellaneous</SourceValue>
+<TargetValue>Other</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>Network</SourceValue>
+<TargetValue>Network</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>Service</SourceValue>
+<TargetValue>Business Service</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>Hardware</SourceValue>
+<TargetValue>Hardware</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>Software</SourceValue>
+<TargetValue>Software</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Requested By Company!</TargetVariable>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Change Manager Email!</Variable>
+<Variable Type="STRING">!Requested By Full Name!</Variable>
+<Variable Type="STRING">!Requested By Company!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Change Task">
+<TargetForm>change_task</TargetForm>
+<SourceForm>TMS:Task</SourceForm>
+<SourceQuery>[RootRequestFormName] = 'CHG:Infrastructure Change'</SourceQuery>
+<Notes>Only migrates the task records for which Change Requests have been migrated.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="change_request">
+<Form>change_request</Form>
+<SearchQuery>[number] = #SRC.RootRequestID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Company#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_location">
+<Form>cmn_location</Form>
+<SearchQuery>[company] = #SRC.Company# AND [name] = #SRC.Site#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="TMS:WorkInfo">
+<Form>TMS:WorkInfo</Form>
+<SearchQuery>[TaskOrTaskGroupID] = #Task ID#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>RootRequestID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Change Request</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>Infrastructure Change ID</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>change_task</TargetForm>
+<SourceForm>TMS:Task</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>short_description</TargetField>
+<Assignment>TRUNC([TaskName],160)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>work_start</TargetField>
+<SourceField>Actual Start Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Reference">
+<TargetField>assignment_group</TargetField>
+<SourceField>Assignee Group ID</SourceField>
+<RefMappingIdentifier>Group Reference</RefMappingIdentifier>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>description</TargetField>
+<Assignment>TRUNC((([Summary] + ' ') + [Notes]),4000)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>priority</TargetField>
+<SourceField>Priority</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>expected_start</TargetField>
+<SourceField>Scheduled Start Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>number</TargetField>
+<SourceField>Task ID</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!WorkLog Entries!</TargetVariable>
+<LookupQuery>TMS:WorkInfo</LookupQuery>
+<LookupField>Summary</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Concatenate CSV</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>work_end</TargetField>
+<SourceField>Actual End Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>company</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>location</TargetField>
+<LookupQuery>cmn_location</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>state</TargetField>
+<SourceField>Status</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>7000</SourceValue>
+<TargetValue>7</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5000</SourceValue>
+<TargetValue>-5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6000</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4000</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1000</SourceValue>
+<TargetValue>-5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2000</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3000</SourceValue>
+<TargetValue>-5</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>work_notes</TargetField>
+<Assignment>TRUNC(#!WorkLog Entries!#,4000)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>change_request</TargetField>
+<LookupQuery>change_request</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Reference">
+<TargetField>assigned_to</TargetField>
+<SourceField>Assignee Id</SourceField>
+<RefMappingIdentifier>User Reference</RefMappingIdentifier>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!WorkLog Entries!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="CR Related Incident">
+<TargetForm>incident</TargetForm>
+<SourceForm>CHG:Associations</SourceForm>
+<SourceQuery>[Form Name01] = 'HPD:Help Desk' AND [Form Name02] = 'CHG:Infrastructure Change' AND [Association Type01] != 'Caused'</SourceQuery>
+<Notes>Updates related incidents based on change requests that have already been migrated using this project.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>SKIP</CreateOption>
+<UpdateOption>UPDATE</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="change_request">
+<Form>change_request</Form>
+<SearchQuery>[number] = #SRC.Request ID02#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>Request ID02</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Change Request</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>Infrastructure Change ID</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>incident</TargetForm>
+<SourceForm>CHG:Associations</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>number</TargetField>
+<SourceField>Request ID01</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>rfc</TargetField>
+<LookupQuery>change_request</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="CR Caused Incident">
+<TargetForm>incident</TargetForm>
+<SourceForm>CHG:Associations</SourceForm>
+<SourceQuery>[Form Name01] = 'HPD:Help Desk' AND [Form Name02] = 'CHG:Infrastructure Change' AND [Association Type01] = 'Caused'</SourceQuery>
+<Notes>Updates incident records caused by change request based on change requests that have already been migrated using this project.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>SKIP</CreateOption>
+<UpdateOption>UPDATE</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="change_request">
+<Form>change_request</Form>
+<SearchQuery>[number] = #SRC.Request ID02#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>Request ID02</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Change Request</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>Infrastructure Change ID</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>incident</TargetForm>
+<SourceForm>CHG:Associations</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>number</TargetField>
+<SourceField>Request ID01</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>caused_by</TargetField>
+<LookupQuery>change_request</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="CR Related Problem or Known Error">
+<TargetForm>problem</TargetForm>
+<SourceForm>CHG:Associations</SourceForm>
+<SourceQuery>([Form Name01] = 'PBM:Problem Investigation' OR [Form Name01] = 'PBM:Known Error') AND [Form Name02] = 'CHG:Infrastructure Change'</SourceQuery>
+<Notes>Updates related problems based on change requests that have already been migrated using this project.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>SKIP</CreateOption>
+<UpdateOption>UPDATE</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="change_request">
+<Form>change_request</Form>
+<SearchQuery>[number] = #SRC.Request ID02#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>Request ID02</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Change Request</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>Infrastructure Change ID</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>problem</TargetForm>
+<SourceForm>CHG:Associations</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>number</TargetField>
+<SourceField>Request ID01</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>rfc</TargetField>
+<LookupQuery>change_request</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Change Approvers Individual">
+<TargetForm>sysapproval_approver</TargetForm>
+<SourceForm>AP:Detail-Signature</SourceForm>
+<SourceQuery>[Application] = 'CHG:Infrastructure Change' AND ([Status-Dtl] = 'Pending' OR [Status-Dtl] = 'More Information' OR [Status-Dtl] = 'Hold') AND [RoleID] = NULL AND [FullName] != NULL</SourceQuery>
+<Notes>Migrates individual approval records for Change Requests previously migrated in this project.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[name] = #SRC.FullName#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="CHG:Infrastructure Change">
+<Form>CHG:Infrastructure Change</Form>
+<SearchQuery>[Request ID] = #Request#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="change_request">
+<Form>change_request</Form>
+<SearchQuery>[number] = #!Infrastructure Change ID!#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>document_id</TargetField>
+<TargetField>approver</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>Request</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Change Request</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>Request ID</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>sysapproval_approver</TargetForm>
+<SourceForm>AP:Detail-Signature</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetField>approver</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>comments</TargetField>
+<Assignment>TRUNC((([Comments] + ' ') + [More Information]),4000)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>sysapproval</TargetField>
+<LookupQuery>change_request</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>due_date</TargetField>
+<SourceField>Signature Due Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Infrastructure Change ID!</TargetVariable>
+<LookupQuery>CHG:Infrastructure Change</LookupQuery>
+<LookupField>Infrastructure Change ID</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>state</TargetField>
+<SourceField>Approval Status</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>requested</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>approved</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>rejected</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>requested</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>requested</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5</SourceValue>
+<TargetValue>cancelled</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6</SourceValue>
+<TargetValue>not_required</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>7</SourceValue>
+<TargetValue>not_required</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>document_id</TargetField>
+<LookupQuery>change_request</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>source_table</TargetField>
+<DefaultValue>change_request</DefaultValue>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Infrastructure Change ID!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Change Group approval">
+<TargetForm>sysapproval_group</TargetForm>
+<SourceForm>AP:Detail-Signature</SourceForm>
+<SourceQuery>[Application] = 'CHG:Infrastructure Change' AND ([Status-Dtl] = 'Pending' OR [Status-Dtl] = 'More Information' OR [Status-Dtl] = 'Hold') AND [Role Name] != NULL</SourceQuery>
+<Notes>Migrates group approval records for Change Requests previously migrated in this project.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="CHG:Infrastructure Change">
+<Form>CHG:Infrastructure Change</Form>
+<SearchQuery>[Request ID] = #Request#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="change_request">
+<Form>change_request</Form>
+<SearchQuery>[number] = #!Infrastructure Change ID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="CTM:Support Group">
+<Form>CTM:Support Group</Form>
+<SearchQuery>[Support Group ID] = #!Approval Group ID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user_group">
+<Form>sys_user_group</Form>
+<SearchQuery>[name] = #!Approval Group Name!#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>Request</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Change Request</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>Request ID</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>sysapproval_group</TargetForm>
+<SourceForm>AP:Detail-Signature</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetField>parent</TargetField>
+<LookupQuery>change_request</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>short_description</TargetField>
+<Assignment>TRUNC([More Information],160)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>number</TargetField>
+<SourceField>Signature ID</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>assignment_group</TargetField>
+<LookupQuery>sys_user_group</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>approval</TargetField>
+<SourceField>Approval Status</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>requested</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>approved</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>rejected</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>requested</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>requested</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5</SourceValue>
+<TargetValue>cancelled</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6</SourceValue>
+<TargetValue>not_required</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>7</SourceValue>
+<TargetValue>not_required</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Approval Group Name!</TargetVariable>
+<LookupQuery>CTM:Support Group</LookupQuery>
+<LookupField>Support Group Name</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>due_date</TargetField>
+<SourceField>Signature Due Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>description</TargetField>
+<Assignment>TRUNC([Comments],4000)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Infrastructure Change ID!</TargetVariable>
+<LookupQuery>CHG:Infrastructure Change</LookupQuery>
+<LookupField>Infrastructure Change ID</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>priority</TargetField>
+<SourceField>Priority</SourceField>
+<DefaultValue>3</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetVariable>!Approval Group ID!</TargetVariable>
+<Assignment>SUBSTRING([Role Name],1,16)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Infrastructure Change ID!</Variable>
+<Variable Type="STRING">!Approval Group ID!</Variable>
+<Variable Type="STRING">!Approval Group Name!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Impacted Services">
+<TargetForm>task_cmdb_ci_service</TargetForm>
+<SourceForm>CHG:Infrastructure Change</SourceForm>
+<SourceQuery>[ServiceCI] != NULL</SourceQuery>
+<Notes>Creates Impacted Service records for those change requests previously migrated in this project that have a Business Service</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="cmdb_ci_service">
+<Form>cmdb_ci_service</Form>
+<SearchQuery>[name] = #SRC.ServiceCI#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>task</TargetField>
+<TargetField>cmdb_ci_service</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>Request ID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Change Request</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>Request ID</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>task_cmdb_ci_service</TargetForm>
+<SourceForm>CHG:Infrastructure Change</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>manually_added</TargetField>
+<DefaultValue>False</DefaultValue>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>cmdb_ci_service</TargetField>
+<LookupQuery>cmdb_ci_service</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Skip Record</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Reference">
+<TargetField>task</TargetField>
+<SourceField>Request ID</SourceField>
+<RefMappingIdentifier>Change Request</RefMappingIdentifier>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="CR Update Submit Date">
+<TargetForm>change_request</TargetForm>
+<SourceForm>CHG:Infrastructure Change</SourceForm>
+<SourceQuery>[Last Modified Date] &gt; #Modified Since Date# AND ((#Single Company# = TRUE AND [Customer Company] = #Company#) OR #Single Company# = FALSE)</SourceQuery>
+<Notes>This mapping is required to correctly set the submit date on the CR (cannot be done in initial mapping).
+This is subsequently used to ensure that historical journal entries are displayed correctly in ServiceNow.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>SKIP</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>IMPORT_SET_NO_BR</MigrateMethod>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>change_request</TargetForm>
+<SourceForm>CHG:Infrastructure Change</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>number</TargetField>
+<SourceField>Infrastructure Change ID</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>sys_created_on</TargetField>
+<SourceField>Submit Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>sys_created_by</TargetField>
+<SourceField>Submitter</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="CR Journal Entries">
+<TargetForm>sys_journal_field</TargetForm>
+<SourceForm>CHG:WorkLog</SourceForm>
+<Notes>Creates journal entries for the Change Request from the corresponding work log in Remedy</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>SKIP</UpdateOption>
+<MigrateMethod>IMPORT_SET</MigrateMethod>
+<LookupQuery Type="Target" id="change_request">
+<Form>change_request</Form>
+<SearchQuery>[number] = #SRC.Infrastructure Change ID#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>element_id</TargetField>
+<TargetField>element</TargetField>
+<TargetField>sys_created_on</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>Infrastructure Change ID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Change Request</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>Infrastructure Change ID</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>sys_journal_field</TargetForm>
+<SourceForm>CHG:WorkLog</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>sys_created_on</TargetField>
+<SourceField>Submit Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<DefaultValue>change_request</DefaultValue>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>element_id</TargetField>
+<LookupQuery>change_request</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Skip Record</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>value</TargetField>
+<Assignment>((('Type: ' + [Work Log Type]) + '
+Description: ') + [Detailed Description])</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>sys_created_by</TargetField>
+<SourceField>Submitter</SourceField>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>element</TargetField>
+<SourceField>View Access</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>work_notes</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>comments</TargetValue>
+</ValueMapping>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="2" enabled="Yes" id="WorkLog Attachments">
+<TargetForm>change_request</TargetForm>
+<SourceForm>CHG:WorkLog</SourceForm>
+<SourceQuery>[z2AF Work Log01] != NULL</SourceQuery>
+<Notes>Migrates all attachments from WorkLog entries to corresponding Change Request</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>Infrastructure Change ID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Change Request</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>Infrastructure Change ID</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>change_request</TargetForm>
+<SourceForm>CHG:WorkLog</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>number</TargetField>
+<SourceField>Infrastructure Change ID</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+</DMDList>
+<VariableList>
+<Variable Type="TIMESTAMP">Modified Since Date</Variable>
+<Variable Type="BOOLEAN">Single Company</Variable>
+<Variable Type="STRING">Company</Variable>
+</VariableList>
+</Project>

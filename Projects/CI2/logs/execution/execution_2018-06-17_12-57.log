@@ -1,0 +1,1931 @@
+2018/06/17 12:57:40.675 [INFO] Log Level set to Detail
+2018/06/17 12:57:40.676 [INFO] ITSM Bridge version 3.7.14
+2018/06/17 12:57:40.676 [INFO] Execution of CI2 version 3
+2018/06/17 12:57:40.676 [INFO] Set Variable Single Company to value 'FALSE'
+2018/06/17 12:57:40.676 [INFO] Set Variable Company Name to value 'Calbro Services'
+2018/06/17 12:57:40.676 [INFO] Set Variable DataSet to value 'BMC.ASSET'
+2018/06/17 12:57:40.685 [INFO] Execution started... [Execution ID=2018-06-17_12-57]
+2018/06/17 12:57:40.687 [INFO] Initialisation Step Started...
+2018/06/17 12:57:40.687 [INFO] Source Server Connected
+2018/06/17 12:57:40.687 [DETAIL] Build Field Map [v_plugin] started...
+2018/06/17 12:57:42.525 [DETAIL] SNow: Build Field Map [v_plugin] complete, 25 entries
+2018/06/17 12:57:44.895 [INFO] Target Server Connected
+2018/06/17 12:57:44.896 [DETAIL] Remedy Cache Initialisation started...
+2018/06/17 12:57:44.896 [DETAIL] Remedy Cache Initialisation complete
+2018/06/17 12:57:44.896 [INFO] Source Server Cache Initialised
+2018/06/17 12:57:44.896 [DETAIL] Service Now Cache Initialisation started...
+2018/06/17 12:57:44.896 [DETAIL] Service Now Cache Initialisation complete
+2018/06/17 12:57:44.896 [INFO] Target Server Cache Initialised
+2018/06/17 12:57:44.896 [DETAIL] Top Level Project Validation Completed
+2018/06/17 12:57:44.900 [DETAIL] Build Field Map [AST:AdminDomain] started...
+2018/06/17 12:57:45.001 [DETAIL] Remedy: Build Field Map [AST:AdminDomain] complete, 105 entries
+2018/06/17 12:57:45.005 [DETAIL] Create Remedy Qualification: 'ClassId' = "BMC_ADMINDOMAIN" AND (0 = 1 AND 'Company' = "Calbro Services" OR 0 = 0) AND 'DatasetID' = "BMC.ASSET"
+2018/06/17 12:57:45.032 [DETAIL] Build Field Map [cmdb_ci_ad_domain] started...
+2018/06/17 12:57:48.445 [DETAIL] SNow: Build Field Map [cmdb_ci_ad_domain] complete, 87 entries
+2018/06/17 12:57:48.445 [DETAIL] Build Field Map [cmdb_ci_infra_service] started...
+2018/06/17 12:57:51.073 [DETAIL] SNow: Build Field Map [cmdb_ci_infra_service] complete, 87 entries
+2018/06/17 12:57:51.073 [DETAIL] Build Field Map [cmdb_ci_appl] started...
+2018/06/17 12:57:53.422 [DETAIL] SNow: Build Field Map [cmdb_ci_appl] complete, 87 entries
+2018/06/17 12:57:53.422 [DETAIL] Build Field Map [cmdb_ci] started...
+2018/06/17 12:57:54.982 [DETAIL] SNow: Build Field Map [cmdb_ci] complete, 87 entries
+2018/06/17 12:57:54.982 [DETAIL] Build Field Map [cmdb] started...
+2018/06/17 12:57:56.110 [DETAIL] SNow: Build Field Map [cmdb] complete, 87 entries
+2018/06/17 12:57:56.119 [DETAIL] Add Project Variable [Reconciliation Identity [STRING]]
+2018/06/17 12:57:56.125 [DETAIL] Create Remedy Lookup Query: 'CI_Instance_ID' = ""
+2018/06/17 12:57:56.128 [DETAIL] Add Project Variable [ManufacturerName [STRING]]
+2018/06/17 12:57:56.129 [DETAIL] Create SNow Lookup Query: name#!#ManufacturerName#!#
+2018/06/17 12:57:56.133 [DETAIL] Add Project Variable [SupplierName [STRING]]
+2018/06/17 12:57:56.133 [DETAIL] Create SNow Lookup Query: name#!#SupplierName#!#
+2018/06/17 12:57:56.135 [DETAIL] Add Project Variable [Company [STRING]]
+2018/06/17 12:57:56.135 [DETAIL] Create SNow Lookup Query: name#!#Company#!#
+2018/06/17 12:57:56.136 [DETAIL] Add Project Variable [Department [STRING]]
+2018/06/17 12:57:56.136 [DETAIL] Create SNow Lookup Query: name#!#Department#!#^company#!#!Company SysID!#!#
+2018/06/17 12:57:56.137 [DETAIL] Add Project Variable [OwnerName [STRING]]
+2018/06/17 12:57:56.137 [DETAIL] Create SNow Lookup Query: name#!#OwnerName#!#
+2018/06/17 12:57:56.138 [DETAIL] Add Project Variable [Model [STRING]]
+2018/06/17 12:57:56.138 [DETAIL] Add Project Variable [VersionNumber [STRING]]
+2018/06/17 12:57:56.138 [DETAIL] Create SNow Lookup Query: name#!#Model#!#^model_number#!#VersionNumber#!#
+2018/06/17 12:57:56.141 [DETAIL] Add Project Variable [Cost Center [STRING]]
+2018/06/17 12:57:56.141 [DETAIL] Create SNow Lookup Query: code#!#Cost Center#!#
+2018/06/17 12:57:56.141 [DETAIL] Add Project Variable [Building [STRING]]
+2018/06/17 12:57:56.141 [DETAIL] Create SNow Lookup Query: name#!#Building#!#^company#!#!Company SysID!#!#
+2018/06/17 12:57:56.162 [DETAIL] Build Field Map [sys_web_service] started...
+2018/06/17 12:57:56.477 [DETAIL] SNow: Build Field Map [sys_web_service] complete, 9 entries
+2018/06/17 12:57:56.477 [DETAIL] Build Field Map [sys_metadata] started...
+2018/06/17 12:57:57.266 [DETAIL] SNow: Build Field Map [sys_metadata] complete, 20 entries
+2018/06/17 12:57:57.671 [INFO] Synchronising Scripted Web Service [u_itsmb_cmdb_ci_ad_domain_n]
+2018/06/17 12:58:00.311 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_cmdb_ci_ad_domain_n
+   Target Table: cmdb_ci_ad_domain
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: cmdb_ci_ad_domain,cmdb_ci_infra_service,cmdb_ci_appl,cmdb_ci,cmdb
+--created ws import set: u_itsmb_cmdb_ci_ad_domain_n [cmdb_ci_ad_domain]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_cmdb_ci_ad_domain_n
+   transform field mapping exists: operational_status -> operational_status
+   transform field mapping exists: running_process_command -> running_process_command
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   transform field mapping exists: running_process_key_parameters -> running_process_key_parameters
+   transform field mapping exists: rp_command_hash -> rp_command_hash
+   transform field mapping exists: domain_name -> domain_name
+   transform field mapping exists: first_discovered -> first_discovered
+   transform field mapping exists: discovery_source -> discovery_source
+   transform field mapping exists: due_in -> due_in
+   create transform field mapping: u_bmc_reconid -> u_bmc_reconid
+   transform field mapping exists: used_for -> used_for
+   transform field mapping exists: is_clustered -> is_clustered
+   transform field mapping exists: invoice_number -> invoice_number
+   transform field mapping exists: gl_account -> gl_account
+   skip system field: sys_created_by
+   transform field mapping exists: warranty_expiration -> warranty_expiration
+   skip system field: sys_import_row
+   transform field mapping exists: owned_by -> owned_by
+   transform field mapping exists: rp_key_parameters_hash -> rp_key_parameters_hash
+   transform field mapping exists: checked_out -> checked_out
+   transform field mapping exists: version -> version
+   transform field mapping exists: maintenance_schedule -> maintenance_schedule
+   transform field mapping exists: cost_center -> cost_center
+   transform field mapping exists: dns_domain -> dns_domain
+   transform field mapping exists: provided_by -> provided_by
+   transform field mapping exists: assigned -> assigned
+   transform field mapping exists: purchase_date -> purchase_date
+   transform field mapping exists: short_description -> short_description
+   skip system field: target_mod_count
+   transform field mapping exists: managed_by -> managed_by
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   transform field mapping exists: last_discovered -> last_discovered
+   transform field mapping exists: can_print -> can_print
+   skip system field: target_domain
+   skip system field: sys_class_name
+   transform field mapping exists: manufacturer -> manufacturer
+   transform field mapping exists: vendor -> vendor
+   transform field mapping exists: model_number -> model_number
+   transform field mapping exists: config_file -> config_file
+   transform field mapping exists: assigned_to -> assigned_to
+   transform field mapping exists: start_date -> start_date
+   skip system field: sys_target_table
+   transform field mapping exists: serial_number -> serial_number
+   skip system field: sys_import_state
+   transform field mapping exists: support_group -> support_group
+   transform field mapping exists: forest_name -> forest_name
+   transform field mapping exists: unverified -> unverified
+   transform field mapping exists: correlation_id -> correlation_id
+   transform field mapping exists: attributes -> attributes
+   skip system field: source_id
+   transform field mapping exists: asset -> asset
+   transform field mapping exists: config_directory -> config_directory
+   transform field mapping exists: tcp_port -> tcp_port
+   transform field mapping exists: skip_sync -> skip_sync
+   transform field mapping exists: pid -> pid
+   skip system field: target_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   transform field mapping exists: install_directory -> install_directory
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   transform field mapping exists: install_date -> install_date
+   skip system field: target_created_by
+   skip system field: target_sys_id
+   transform field mapping exists: asset_tag -> asset_tag
+   skip system field: sys_row_error
+   transform field mapping exists: fqdn -> fqdn
+   skip system field: target_domain_path
+   transform field mapping exists: change_control -> change_control
+   skip system field: import_set_run
+   transform field mapping exists: delivery_date -> delivery_date
+   transform field mapping exists: install_status -> install_status
+   transform field mapping exists: supported_by -> supported_by
+   transform field mapping exists: name -> name
+   transform field mapping exists: subcategory -> subcategory
+   transform field mapping exists: assignment_group -> assignment_group
+   transform field mapping exists: edition -> edition
+   transform field mapping exists: po_number -> po_number
+   transform field mapping exists: checked_in -> checked_in
+   transform field mapping exists: sys_class_path -> sys_class_path
+   transform field mapping exists: mac_address -> mac_address
+   skip system field: sys_transform_map
+   transform field mapping exists: company -> company
+   transform field mapping exists: justification -> justification
+   transform field mapping exists: department -> department
+   transform field mapping exists: comments -> comments
+   transform field mapping exists: cost -> cost
+   skip system field: target_created_on
+   skip system field: sys_mod_count
+   transform field mapping exists: monitor -> monitor
+   transform field mapping exists: ip_address -> ip_address
+   transform field mapping exists: model_id -> model_id
+   skip virtual field: sys_tags
+   transform field mapping exists: cost_cc -> cost_cc
+   transform field mapping exists: schedule -> schedule
+   transform field mapping exists: order_date -> order_date
+   transform field mapping exists: due -> due
+   transform field mapping exists: domain_controller_name -> domain_controller_name
+   transform field mapping exists: location -> location
+   transform field mapping exists: category -> category
+   transform field mapping exists: fault_count -> fault_count
+   transform field mapping exists: lease_id -> lease_id
+   transform field mapping exists: target_domain -> sys_domain
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/17 12:58:00.311 [INFO] Scripted Web Service is Synchronised [u_itsmb_cmdb_ci_ad_domain_n]
+2018/06/17 12:58:00.311 [DETAIL] Build Field Map [u_itsmb_cmdb_ci_ad_domain_n] started...
+2018/06/17 12:58:02.947 [DETAIL] SNow: Build Field Map [u_itsmb_cmdb_ci_ad_domain_n] complete, 89 entries
+2018/06/17 12:58:02.947 [DETAIL] Build Field Map [sys_import_set_row] started...
+2018/06/17 12:58:04.364 [DETAIL] SNow: Build Field Map [sys_import_set_row] complete, 105 entries
+2018/06/17 12:58:04.837 [INFO] Initialisation 1 of 11 [CMDB System Admin Domain] Completed
+2018/06/17 12:58:04.838 [DETAIL] Build Field Map [AST:Application] started...
+2018/06/17 12:58:05.000 [DETAIL] Remedy: Build Field Map [AST:Application] complete, 111 entries
+2018/06/17 12:58:05.003 [DETAIL] Create Remedy Qualification: 'Class Id' = "BMC_APPLICATION" AND (0 = 1 AND 'Company' = "Calbro Services" OR 0 = 0) AND 'Data Set Id' = "BMC.ASSET"
+2018/06/17 12:58:05.033 [DETAIL] Build Field Map [cmdb_ci_appl] started...
+2018/06/17 12:58:06.977 [DETAIL] SNow: Build Field Map [cmdb_ci_appl] complete, 83 entries
+2018/06/17 12:58:06.977 [DETAIL] Build Field Map [cmdb_ci] started...
+2018/06/17 12:58:08.584 [DETAIL] SNow: Build Field Map [cmdb_ci] complete, 83 entries
+2018/06/17 12:58:08.584 [DETAIL] Build Field Map [cmdb] started...
+2018/06/17 12:58:09.826 [DETAIL] SNow: Build Field Map [cmdb] complete, 83 entries
+2018/06/17 12:58:09.829 [DETAIL] Add Project Variable [Manufacturer Name+ [STRING]]
+2018/06/17 12:58:09.829 [DETAIL] Create SNow Lookup Query: name#!#Manufacturer Name+#!#
+2018/06/17 12:58:09.832 [DETAIL] Add Project Variable [Supplier Name+ [STRING]]
+2018/06/17 12:58:09.832 [DETAIL] Create SNow Lookup Query: name#!#Supplier Name+#!#
+2018/06/17 12:58:09.834 [DETAIL] Add Project Variable [Company [STRING]]
+2018/06/17 12:58:09.834 [DETAIL] Create SNow Lookup Query: name#!#Company#!#
+2018/06/17 12:58:09.835 [DETAIL] Add Project Variable [Department [STRING]]
+2018/06/17 12:58:09.835 [DETAIL] Create SNow Lookup Query: name#!#Department#!#^company#!#!Company SysID!#!#
+2018/06/17 12:58:09.839 [DETAIL] Add Project Variable [Reconciliation Identity [STRING]]
+2018/06/17 12:58:09.849 [DETAIL] Create Remedy Lookup Query: 'CI_Instance_ID' = ""
+2018/06/17 12:58:09.850 [DETAIL] Add Project Variable [Owner_name [STRING]]
+2018/06/17 12:58:09.850 [DETAIL] Create SNow Lookup Query: name#!#Owner_name#!#
+2018/06/17 12:58:09.853 [DETAIL] Add Project Variable [Model [STRING]]
+2018/06/17 12:58:09.854 [DETAIL] Add Project Variable [Version Number [STRING]]
+2018/06/17 12:58:09.854 [DETAIL] Create SNow Lookup Query: name#!#Model#!#^model_number#!#Version Number#!#
+2018/06/17 12:58:09.855 [DETAIL] Add Project Variable [Cost Center [STRING]]
+2018/06/17 12:58:09.855 [DETAIL] Create SNow Lookup Query: code#!#Cost Center#!#
+2018/06/17 12:58:09.857 [DETAIL] Add Project Variable [Building [STRING]]
+2018/06/17 12:58:09.857 [DETAIL] Create SNow Lookup Query: name#!#Building#!#^company#!#!Company SysID!#!#
+2018/06/17 12:58:09.863 [INFO] Synchronising Scripted Web Service [u_itsmb_cmdb_ci_appl_n]
+2018/06/17 12:58:12.134 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_cmdb_ci_appl_n
+   Target Table: cmdb_ci_appl
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: cmdb_ci_appl,cmdb_ci,cmdb
+--created ws import set: u_itsmb_cmdb_ci_appl_n [cmdb_ci_appl]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_cmdb_ci_appl_n
+   transform field mapping exists: operational_status -> operational_status
+   transform field mapping exists: running_process_command -> running_process_command
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   transform field mapping exists: running_process_key_parameters -> running_process_key_parameters
+   transform field mapping exists: rp_command_hash -> rp_command_hash
+   transform field mapping exists: first_discovered -> first_discovered
+   transform field mapping exists: discovery_source -> discovery_source
+   transform field mapping exists: due_in -> due_in
+   create transform field mapping: u_bmc_reconid -> u_bmc_reconid
+   transform field mapping exists: used_for -> used_for
+   transform field mapping exists: is_clustered -> is_clustered
+   transform field mapping exists: gl_account -> gl_account
+   transform field mapping exists: invoice_number -> invoice_number
+   skip system field: sys_created_by
+   transform field mapping exists: warranty_expiration -> warranty_expiration
+   skip system field: sys_import_row
+   transform field mapping exists: owned_by -> owned_by
+   transform field mapping exists: rp_key_parameters_hash -> rp_key_parameters_hash
+   transform field mapping exists: checked_out -> checked_out
+   transform field mapping exists: version -> version
+   transform field mapping exists: maintenance_schedule -> maintenance_schedule
+   transform field mapping exists: cost_center -> cost_center
+   transform field mapping exists: dns_domain -> dns_domain
+   transform field mapping exists: assigned -> assigned
+   transform field mapping exists: purchase_date -> purchase_date
+   transform field mapping exists: short_description -> short_description
+   skip system field: target_mod_count
+   transform field mapping exists: managed_by -> managed_by
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   transform field mapping exists: can_print -> can_print
+   skip system field: target_domain
+   transform field mapping exists: last_discovered -> last_discovered
+   skip system field: sys_class_name
+   transform field mapping exists: manufacturer -> manufacturer
+   transform field mapping exists: vendor -> vendor
+   transform field mapping exists: model_number -> model_number
+   transform field mapping exists: config_file -> config_file
+   transform field mapping exists: start_date -> start_date
+   transform field mapping exists: assigned_to -> assigned_to
+   skip system field: sys_target_table
+   transform field mapping exists: serial_number -> serial_number
+   skip system field: sys_import_state
+   transform field mapping exists: support_group -> support_group
+   transform field mapping exists: unverified -> unverified
+   transform field mapping exists: correlation_id -> correlation_id
+   transform field mapping exists: attributes -> attributes
+   skip system field: source_id
+   transform field mapping exists: asset -> asset
+   transform field mapping exists: config_directory -> config_directory
+   transform field mapping exists: tcp_port -> tcp_port
+   transform field mapping exists: skip_sync -> skip_sync
+   transform field mapping exists: pid -> pid
+   skip system field: target_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   transform field mapping exists: install_directory -> install_directory
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   transform field mapping exists: install_date -> install_date
+   skip system field: target_created_by
+   skip system field: target_sys_id
+   transform field mapping exists: asset_tag -> asset_tag
+   skip system field: sys_row_error
+   transform field mapping exists: fqdn -> fqdn
+   skip system field: target_domain_path
+   transform field mapping exists: change_control -> change_control
+   skip system field: import_set_run
+   transform field mapping exists: delivery_date -> delivery_date
+   transform field mapping exists: install_status -> install_status
+   transform field mapping exists: supported_by -> supported_by
+   transform field mapping exists: name -> name
+   transform field mapping exists: subcategory -> subcategory
+   transform field mapping exists: assignment_group -> assignment_group
+   transform field mapping exists: edition -> edition
+   transform field mapping exists: po_number -> po_number
+   transform field mapping exists: checked_in -> checked_in
+   transform field mapping exists: sys_class_path -> sys_class_path
+   transform field mapping exists: mac_address -> mac_address
+   skip system field: sys_transform_map
+   transform field mapping exists: company -> company
+   transform field mapping exists: justification -> justification
+   transform field mapping exists: department -> department
+   transform field mapping exists: cost -> cost
+   transform field mapping exists: comments -> comments
+   skip system field: target_created_on
+   skip system field: sys_mod_count
+   transform field mapping exists: monitor -> monitor
+   transform field mapping exists: model_id -> model_id
+   transform field mapping exists: ip_address -> ip_address
+   skip virtual field: sys_tags
+   transform field mapping exists: cost_cc -> cost_cc
+   transform field mapping exists: order_date -> order_date
+   transform field mapping exists: schedule -> schedule
+   transform field mapping exists: due -> due
+   transform field mapping exists: location -> location
+   transform field mapping exists: category -> category
+   transform field mapping exists: fault_count -> fault_count
+   transform field mapping exists: lease_id -> lease_id
+   transform field mapping exists: target_domain -> sys_domain
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/17 12:58:12.134 [INFO] Scripted Web Service is Synchronised [u_itsmb_cmdb_ci_appl_n]
+2018/06/17 12:58:12.134 [DETAIL] Build Field Map [u_itsmb_cmdb_ci_appl_n] started...
+2018/06/17 12:58:17.134 [DETAIL] SNow: Build Field Map [u_itsmb_cmdb_ci_appl_n] complete, 85 entries
+2018/06/17 12:58:17.135 [DETAIL] Build Field Map [sys_import_set_row] started...
+2018/06/17 12:58:18.321 [DETAIL] SNow: Build Field Map [sys_import_set_row] complete, 101 entries
+2018/06/17 12:58:18.779 [INFO] Initialisation 2 of 11 [CMDB System Application] Completed
+2018/06/17 12:58:18.779 [DETAIL] Build Field Map [AST:ApplicationInfrastructure] started...
+2018/06/17 12:58:18.948 [DETAIL] Remedy: Build Field Map [AST:ApplicationInfrastructure] complete, 109 entries
+2018/06/17 12:58:18.951 [DETAIL] Create Remedy Qualification: 'Class Id' = "BMC_APPLICATIONINFRASTRUCTURE" AND (0 = 1 AND 'Company' = "Calbro Services" OR 0 = 0) AND 'Data Set Id' = "BMC.ASSET"
+2018/06/17 12:58:18.968 [DETAIL] Build Field Map [cmdb_ci_infra_service] started...
+2018/06/17 12:58:21.022 [DETAIL] SNow: Build Field Map [cmdb_ci_infra_service] complete, 84 entries
+2018/06/17 12:58:21.022 [DETAIL] Build Field Map [cmdb_ci_appl] started...
+2018/06/17 12:58:22.749 [DETAIL] SNow: Build Field Map [cmdb_ci_appl] complete, 84 entries
+2018/06/17 12:58:22.750 [DETAIL] Build Field Map [cmdb_ci] started...
+2018/06/17 12:58:24.383 [DETAIL] SNow: Build Field Map [cmdb_ci] complete, 84 entries
+2018/06/17 12:58:24.383 [DETAIL] Build Field Map [cmdb] started...
+2018/06/17 12:58:25.601 [DETAIL] SNow: Build Field Map [cmdb] complete, 84 entries
+2018/06/17 12:58:25.602 [DETAIL] Add Project Variable [Manufacturer Name+ [STRING]]
+2018/06/17 12:58:25.602 [DETAIL] Create SNow Lookup Query: name#!#Manufacturer Name+#!#
+2018/06/17 12:58:25.610 [DETAIL] Add Project Variable [Supplier Name+ [STRING]]
+2018/06/17 12:58:25.611 [DETAIL] Create SNow Lookup Query: name#!#Supplier Name+#!#
+2018/06/17 12:58:25.611 [DETAIL] Add Project Variable [Company [STRING]]
+2018/06/17 12:58:25.611 [DETAIL] Create SNow Lookup Query: name#!#Company#!#
+2018/06/17 12:58:25.612 [DETAIL] Add Project Variable [Department [STRING]]
+2018/06/17 12:58:25.613 [DETAIL] Create SNow Lookup Query: name#!#Department#!#^company#!#!Company SysID!#!#
+2018/06/17 12:58:25.613 [DETAIL] Add Project Variable [Reconciliation Identity [STRING]]
+2018/06/17 12:58:25.625 [DETAIL] Create Remedy Lookup Query: 'CI_Instance_ID' = ""
+2018/06/17 12:58:25.626 [DETAIL] Add Project Variable [Owner_name [STRING]]
+2018/06/17 12:58:25.626 [DETAIL] Create SNow Lookup Query: name#!#Owner_name#!#
+2018/06/17 12:58:25.627 [DETAIL] Add Project Variable [Model [STRING]]
+2018/06/17 12:58:25.627 [DETAIL] Add Project Variable [Version Number [STRING]]
+2018/06/17 12:58:25.628 [DETAIL] Create SNow Lookup Query: name#!#Model#!#^model_number#!#Version Number#!#
+2018/06/17 12:58:25.630 [DETAIL] Add Project Variable [Cost Center [STRING]]
+2018/06/17 12:58:25.630 [DETAIL] Create SNow Lookup Query: code#!#Cost Center#!#
+2018/06/17 12:58:25.630 [DETAIL] Add Project Variable [Building [STRING]]
+2018/06/17 12:58:25.631 [DETAIL] Create SNow Lookup Query: name#!#Building#!#^company#!#!Company SysID!#!#
+2018/06/17 12:58:25.632 [INFO] Synchronising Scripted Web Service [u_itsmb_cmdb_ci_infra_service_n]
+2018/06/17 12:58:31.406 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_cmdb_ci_infra_service_n
+   Target Table: cmdb_ci_infra_service
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: cmdb_ci_infra_service,cmdb_ci_appl,cmdb_ci,cmdb
+--created ws import set: u_itsmb_cmdb_ci_infra_service_n [cmdb_ci_infra_service]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_cmdb_ci_infra_service_n
+   transform field mapping exists: operational_status -> operational_status
+   transform field mapping exists: running_process_command -> running_process_command
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   transform field mapping exists: running_process_key_parameters -> running_process_key_parameters
+   transform field mapping exists: rp_command_hash -> rp_command_hash
+   transform field mapping exists: first_discovered -> first_discovered
+   transform field mapping exists: discovery_source -> discovery_source
+   transform field mapping exists: due_in -> due_in
+   create transform field mapping: u_bmc_reconid -> u_bmc_reconid
+   transform field mapping exists: used_for -> used_for
+   transform field mapping exists: is_clustered -> is_clustered
+   transform field mapping exists: gl_account -> gl_account
+   transform field mapping exists: invoice_number -> invoice_number
+   skip system field: sys_created_by
+   transform field mapping exists: warranty_expiration -> warranty_expiration
+   skip system field: sys_import_row
+   transform field mapping exists: owned_by -> owned_by
+   transform field mapping exists: checked_out -> checked_out
+   transform field mapping exists: rp_key_parameters_hash -> rp_key_parameters_hash
+   transform field mapping exists: version -> version
+   transform field mapping exists: maintenance_schedule -> maintenance_schedule
+   transform field mapping exists: cost_center -> cost_center
+   transform field mapping exists: dns_domain -> dns_domain
+   transform field mapping exists: provided_by -> provided_by
+   transform field mapping exists: assigned -> assigned
+   transform field mapping exists: purchase_date -> purchase_date
+   transform field mapping exists: short_description -> short_description
+   skip system field: target_mod_count
+   transform field mapping exists: managed_by -> managed_by
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   transform field mapping exists: last_discovered -> last_discovered
+   transform field mapping exists: can_print -> can_print
+   skip system field: target_domain
+   skip system field: sys_class_name
+   transform field mapping exists: manufacturer -> manufacturer
+   transform field mapping exists: vendor -> vendor
+   transform field mapping exists: model_number -> model_number
+   transform field mapping exists: config_file -> config_file
+   transform field mapping exists: assigned_to -> assigned_to
+   transform field mapping exists: start_date -> start_date
+   skip system field: sys_target_table
+   transform field mapping exists: serial_number -> serial_number
+   skip system field: sys_import_state
+   transform field mapping exists: support_group -> support_group
+   transform field mapping exists: unverified -> unverified
+   transform field mapping exists: correlation_id -> correlation_id
+   transform field mapping exists: attributes -> attributes
+   skip system field: source_id
+   transform field mapping exists: asset -> asset
+   transform field mapping exists: config_directory -> config_directory
+   transform field mapping exists: tcp_port -> tcp_port
+   transform field mapping exists: skip_sync -> skip_sync
+   transform field mapping exists: pid -> pid
+   skip system field: target_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   transform field mapping exists: install_directory -> install_directory
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   transform field mapping exists: install_date -> install_date
+   skip system field: target_created_by
+   skip system field: target_sys_id
+   transform field mapping exists: asset_tag -> asset_tag
+   skip system field: sys_row_error
+   transform field mapping exists: fqdn -> fqdn
+   skip system field: target_domain_path
+   transform field mapping exists: change_control -> change_control
+   skip system field: import_set_run
+   transform field mapping exists: delivery_date -> delivery_date
+   transform field mapping exists: install_status -> install_status
+   transform field mapping exists: supported_by -> supported_by
+   transform field mapping exists: name -> name
+   transform field mapping exists: subcategory -> subcategory
+   transform field mapping exists: assignment_group -> assignment_group
+   transform field mapping exists: edition -> edition
+   transform field mapping exists: po_number -> po_number
+   transform field mapping exists: sys_class_path -> sys_class_path
+   transform field mapping exists: checked_in -> checked_in
+   transform field mapping exists: mac_address -> mac_address
+   skip system field: sys_transform_map
+   transform field mapping exists: company -> company
+   transform field mapping exists: justification -> justification
+   transform field mapping exists: department -> department
+   transform field mapping exists: comments -> comments
+   transform field mapping exists: cost -> cost
+   skip system field: target_created_on
+   skip system field: sys_mod_count
+   transform field mapping exists: monitor -> monitor
+   transform field mapping exists: model_id -> model_id
+   transform field mapping exists: ip_address -> ip_address
+   skip virtual field: sys_tags
+   transform field mapping exists: cost_cc -> cost_cc
+   transform field mapping exists: schedule -> schedule
+   transform field mapping exists: order_date -> order_date
+   transform field mapping exists: due -> due
+   transform field mapping exists: location -> location
+   transform field mapping exists: category -> category
+   transform field mapping exists: fault_count -> fault_count
+   transform field mapping exists: lease_id -> lease_id
+   transform field mapping exists: target_domain -> sys_domain
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/17 12:58:31.406 [INFO] Scripted Web Service is Synchronised [u_itsmb_cmdb_ci_infra_service_n]
+2018/06/17 12:58:31.407 [DETAIL] Build Field Map [u_itsmb_cmdb_ci_infra_service_n] started...
+2018/06/17 12:58:35.419 [DETAIL] SNow: Build Field Map [u_itsmb_cmdb_ci_infra_service_n] complete, 86 entries
+2018/06/17 12:58:35.420 [DETAIL] Build Field Map [sys_import_set_row] started...
+2018/06/17 12:58:36.660 [DETAIL] SNow: Build Field Map [sys_import_set_row] complete, 102 entries
+2018/06/17 12:58:37.102 [INFO] Initialisation 3 of 11 [CMDB System Infrastructure Service] Completed
+2018/06/17 12:58:37.103 [DETAIL] Build Field Map [AST:ApplicationSystem] started...
+2018/06/17 12:58:37.232 [DETAIL] Remedy: Build Field Map [AST:ApplicationSystem] complete, 108 entries
+2018/06/17 12:58:37.236 [DETAIL] Create Remedy Qualification: 'Class Id' = "BMC_APPLICATIONSYSTEM" AND (0 = 1 AND 'Company' = "Calbro Services" OR 0 = 0) AND 'Data Set Id' = "BMC.ASSET"
+2018/06/17 12:58:37.254 [DETAIL] Build Field Map [cmdb_ci_app_server] started...
+2018/06/17 12:58:39.623 [DETAIL] SNow: Build Field Map [cmdb_ci_app_server] complete, 84 entries
+2018/06/17 12:58:39.623 [DETAIL] Build Field Map [cmdb_ci_appl] started...
+2018/06/17 12:58:41.309 [DETAIL] SNow: Build Field Map [cmdb_ci_appl] complete, 84 entries
+2018/06/17 12:58:41.310 [DETAIL] Build Field Map [cmdb_ci] started...
+2018/06/17 12:58:42.710 [DETAIL] SNow: Build Field Map [cmdb_ci] complete, 84 entries
+2018/06/17 12:58:42.710 [DETAIL] Build Field Map [cmdb] started...
+2018/06/17 12:58:43.894 [DETAIL] SNow: Build Field Map [cmdb] complete, 84 entries
+2018/06/17 12:58:43.895 [DETAIL] Add Project Variable [Owner_name [STRING]]
+2018/06/17 12:58:43.896 [DETAIL] Create SNow Lookup Query: name#!#Owner_name#!#
+2018/06/17 12:58:43.897 [DETAIL] Add Project Variable [Manufacturer Name+ [STRING]]
+2018/06/17 12:58:43.897 [DETAIL] Create SNow Lookup Query: name#!#Manufacturer Name+#!#
+2018/06/17 12:58:43.902 [DETAIL] Add Project Variable [Supplier Name+ [STRING]]
+2018/06/17 12:58:43.902 [DETAIL] Create SNow Lookup Query: name#!#Supplier Name+#!#
+2018/06/17 12:58:43.903 [DETAIL] Add Project Variable [Company [STRING]]
+2018/06/17 12:58:43.906 [DETAIL] Create SNow Lookup Query: name#!#Company#!#
+2018/06/17 12:58:43.912 [DETAIL] Add Project Variable [Department [STRING]]
+2018/06/17 12:58:43.912 [DETAIL] Create SNow Lookup Query: name#!#Department#!#^company#!#!Company SysID!#!#
+2018/06/17 12:58:43.914 [DETAIL] Add Project Variable [Reconciliation Identity [STRING]]
+2018/06/17 12:58:43.919 [DETAIL] Create Remedy Lookup Query: 'CI_Instance_ID' = ""
+2018/06/17 12:58:43.923 [DETAIL] Add Project Variable [Model [STRING]]
+2018/06/17 12:58:43.923 [DETAIL] Add Project Variable [Version Number [STRING]]
+2018/06/17 12:58:43.923 [DETAIL] Create SNow Lookup Query: name#!#Model#!#^model_number#!#Version Number#!#
+2018/06/17 12:58:43.924 [DETAIL] Add Project Variable [Cost Center [STRING]]
+2018/06/17 12:58:43.924 [DETAIL] Create SNow Lookup Query: code#!#Cost Center#!#
+2018/06/17 12:58:43.926 [DETAIL] Add Project Variable [Building [STRING]]
+2018/06/17 12:58:43.927 [DETAIL] Create SNow Lookup Query: name#!#Building#!#^company#!#!Company SysID!#!#
+2018/06/17 12:58:43.929 [INFO] Synchronising Scripted Web Service [u_itsmb_cmdb_ci_app_server_n]
+2018/06/17 12:58:46.385 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_cmdb_ci_app_server_n
+   Target Table: cmdb_ci_app_server
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: cmdb_ci_app_server,cmdb_ci_appl,cmdb_ci,cmdb
+--created ws import set: u_itsmb_cmdb_ci_app_server_n [cmdb_ci_app_server]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_cmdb_ci_app_server_n
+   transform field mapping exists: container -> container
+   transform field mapping exists: operational_status -> operational_status
+   transform field mapping exists: running_process_command -> running_process_command
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   transform field mapping exists: running_process_key_parameters -> running_process_key_parameters
+   transform field mapping exists: rp_command_hash -> rp_command_hash
+   transform field mapping exists: discovery_source -> discovery_source
+   transform field mapping exists: first_discovered -> first_discovered
+   transform field mapping exists: due_in -> due_in
+   create transform field mapping: u_bmc_reconid -> u_bmc_reconid
+   transform field mapping exists: used_for -> used_for
+   transform field mapping exists: is_clustered -> is_clustered
+   transform field mapping exists: gl_account -> gl_account
+   transform field mapping exists: invoice_number -> invoice_number
+   skip system field: sys_created_by
+   transform field mapping exists: warranty_expiration -> warranty_expiration
+   skip system field: sys_import_row
+   transform field mapping exists: owned_by -> owned_by
+   transform field mapping exists: checked_out -> checked_out
+   transform field mapping exists: rp_key_parameters_hash -> rp_key_parameters_hash
+   transform field mapping exists: version -> version
+   transform field mapping exists: maintenance_schedule -> maintenance_schedule
+   transform field mapping exists: cost_center -> cost_center
+   transform field mapping exists: dns_domain -> dns_domain
+   transform field mapping exists: assigned -> assigned
+   transform field mapping exists: purchase_date -> purchase_date
+   transform field mapping exists: short_description -> short_description
+   skip system field: target_mod_count
+   skip system field: batch_id
+   transform field mapping exists: managed_by -> managed_by
+   skip system field: sys_import_state_comment
+   skip system field: target_domain
+   transform field mapping exists: can_print -> can_print
+   transform field mapping exists: last_discovered -> last_discovered
+   skip system field: sys_class_name
+   transform field mapping exists: manufacturer -> manufacturer
+   transform field mapping exists: vendor -> vendor
+   transform field mapping exists: model_number -> model_number
+   transform field mapping exists: config_file -> config_file
+   transform field mapping exists: start_date -> start_date
+   transform field mapping exists: assigned_to -> assigned_to
+   skip system field: sys_target_table
+   transform field mapping exists: serial_number -> serial_number
+   skip system field: sys_import_state
+   transform field mapping exists: support_group -> support_group
+   transform field mapping exists: correlation_id -> correlation_id
+   transform field mapping exists: unverified -> unverified
+   transform field mapping exists: attributes -> attributes
+   skip system field: source_id
+   transform field mapping exists: asset -> asset
+   transform field mapping exists: config_directory -> config_directory
+   transform field mapping exists: tcp_port -> tcp_port
+   transform field mapping exists: skip_sync -> skip_sync
+   transform field mapping exists: pid -> pid
+   skip system field: target_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   transform field mapping exists: install_directory -> install_directory
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   transform field mapping exists: install_date -> install_date
+   skip system field: target_created_by
+   skip system field: target_sys_id
+   transform field mapping exists: asset_tag -> asset_tag
+   skip system field: sys_row_error
+   transform field mapping exists: fqdn -> fqdn
+   skip system field: target_domain_path
+   transform field mapping exists: change_control -> change_control
+   skip system field: import_set_run
+   transform field mapping exists: delivery_date -> delivery_date
+   transform field mapping exists: install_status -> install_status
+   transform field mapping exists: supported_by -> supported_by
+   transform field mapping exists: name -> name
+   transform field mapping exists: subcategory -> subcategory
+   transform field mapping exists: assignment_group -> assignment_group
+   transform field mapping exists: edition -> edition
+   transform field mapping exists: po_number -> po_number
+   transform field mapping exists: sys_class_path -> sys_class_path
+   transform field mapping exists: checked_in -> checked_in
+   transform field mapping exists: mac_address -> mac_address
+   skip system field: sys_transform_map
+   transform field mapping exists: company -> company
+   transform field mapping exists: justification -> justification
+   transform field mapping exists: department -> department
+   transform field mapping exists: comments -> comments
+   transform field mapping exists: cost -> cost
+   skip system field: target_created_on
+   skip system field: sys_mod_count
+   transform field mapping exists: monitor -> monitor
+   transform field mapping exists: model_id -> model_id
+   transform field mapping exists: ip_address -> ip_address
+   skip virtual field: sys_tags
+   transform field mapping exists: cost_cc -> cost_cc
+   transform field mapping exists: schedule -> schedule
+   transform field mapping exists: order_date -> order_date
+   transform field mapping exists: due -> due
+   transform field mapping exists: location -> location
+   transform field mapping exists: category -> category
+   transform field mapping exists: fault_count -> fault_count
+   transform field mapping exists: lease_id -> lease_id
+   transform field mapping exists: target_domain -> sys_domain
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/17 12:58:46.385 [INFO] Scripted Web Service is Synchronised [u_itsmb_cmdb_ci_app_server_n]
+2018/06/17 12:58:46.385 [DETAIL] Build Field Map [u_itsmb_cmdb_ci_app_server_n] started...
+2018/06/17 12:58:49.085 [DETAIL] SNow: Build Field Map [u_itsmb_cmdb_ci_app_server_n] complete, 86 entries
+2018/06/17 12:58:49.086 [DETAIL] Build Field Map [sys_import_set_row] started...
+2018/06/17 12:58:50.297 [DETAIL] SNow: Build Field Map [sys_import_set_row] complete, 102 entries
+2018/06/17 12:58:50.751 [INFO] Initialisation 4 of 11 [CMDB System Application System] Completed
+2018/06/17 12:58:50.785 [DETAIL] Create Remedy Qualification: 'Class Id' = "BMC_COMPUTERSYSTEM" AND (0 = 1 AND 'Company' = "Calbro Services" OR 0 = 0) AND 'Data Set Id' = "BMC.ASSET"
+2018/06/17 12:58:50.875 [DETAIL] Add Project Variable [Manufacturer Name+ [STRING]]
+2018/06/17 12:58:50.875 [DETAIL] Create SNow Lookup Query: name#!#Manufacturer Name+#!#
+2018/06/17 12:58:50.875 [DETAIL] Add Project Variable [Supplier Name+ [STRING]]
+2018/06/17 12:58:50.875 [DETAIL] Create SNow Lookup Query: name#!#Supplier Name+#!#
+2018/06/17 12:58:50.875 [DETAIL] Add Project Variable [Company [STRING]]
+2018/06/17 12:58:50.875 [DETAIL] Create SNow Lookup Query: name#!#Company#!#
+2018/06/17 12:58:50.875 [DETAIL] Add Project Variable [Department [STRING]]
+2018/06/17 12:58:50.875 [DETAIL] Create SNow Lookup Query: name#!#Department#!#^company#!#!Company SysID!#!#
+2018/06/17 12:58:50.875 [DETAIL] Add Project Variable [Reconciliation Identity [STRING]]
+2018/06/17 12:58:50.875 [DETAIL] Create Remedy Lookup Query: 'CI_Instance_ID' = ""
+2018/06/17 12:58:50.875 [DETAIL] Add Project Variable [Owner_name [STRING]]
+2018/06/17 12:58:50.875 [DETAIL] Create SNow Lookup Query: name#!#Owner_name#!#
+2018/06/17 12:58:50.875 [DETAIL] Add Project Variable [Version Number [STRING]]
+2018/06/17 12:58:50.875 [DETAIL] Add Project Variable [Model Number [STRING]]
+2018/06/17 12:58:50.875 [DETAIL] Create SNow Lookup Query: name#!#Model Number#!#^model_number#!#Version Number#!#
+2018/06/17 12:58:50.875 [DETAIL] Add Project Variable [Cost Center [STRING]]
+2018/06/17 12:58:50.875 [DETAIL] Create SNow Lookup Query: code#!#Cost Center#!#
+2018/06/17 12:58:50.875 [DETAIL] Add Project Variable [Building [STRING]]
+2018/06/17 12:58:50.875 [DETAIL] Create SNow Lookup Query: name#!#Building#!#^company#!#!Company SysID!#!#
+2018/06/17 12:58:50.875 [INFO] Synchronising Scripted Web Service [u_itsmb_cmdb_ci_computer_n]
+2018/06/17 12:58:53.322 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_cmdb_ci_computer_n
+   Target Table: cmdb_ci_computer
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: cmdb_ci_computer,cmdb_ci_hardware,cmdb_ci,cmdb
+--created ws import set: u_itsmb_cmdb_ci_computer_n [cmdb_ci_computer]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_cmdb_ci_computer_n
+   transform field mapping exists: os_address_width -> os_address_width
+   transform field mapping exists: operational_status -> operational_status
+   transform field mapping exists: os_service_pack -> os_service_pack
+   transform field mapping exists: cpu_core_thread -> cpu_core_thread
+   transform field mapping exists: cpu_manufacturer -> cpu_manufacturer
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   transform field mapping exists: discovery_source -> discovery_source
+   transform field mapping exists: first_discovered -> first_discovered
+   transform field mapping exists: due_in -> due_in
+   create transform field mapping: u_bmc_reconid -> u_bmc_reconid
+   transform field mapping exists: invoice_number -> invoice_number
+   transform field mapping exists: gl_account -> gl_account
+   skip system field: sys_created_by
+   transform field mapping exists: warranty_expiration -> warranty_expiration
+   transform field mapping exists: ram -> ram
+   skip system field: sys_import_row
+   transform field mapping exists: cpu_name -> cpu_name
+   transform field mapping exists: cpu_speed -> cpu_speed
+   transform field mapping exists: owned_by -> owned_by
+   transform field mapping exists: checked_out -> checked_out
+   transform field mapping exists: disk_space -> disk_space
+   transform field mapping exists: object_id -> object_id
+   transform field mapping exists: maintenance_schedule -> maintenance_schedule
+   transform field mapping exists: cost_center -> cost_center
+   transform field mapping exists: dns_domain -> dns_domain
+   transform field mapping exists: assigned -> assigned
+   transform field mapping exists: purchase_date -> purchase_date
+   transform field mapping exists: cd_speed -> cd_speed
+   transform field mapping exists: short_description -> short_description
+   skip system field: target_mod_count
+   transform field mapping exists: floppy -> floppy
+   transform field mapping exists: managed_by -> managed_by
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   transform field mapping exists: os_domain -> os_domain
+   transform field mapping exists: can_print -> can_print
+   transform field mapping exists: last_discovered -> last_discovered
+   skip system field: target_domain
+   skip system field: sys_class_name
+   transform field mapping exists: manufacturer -> manufacturer
+   transform field mapping exists: cpu_count -> cpu_count
+   transform field mapping exists: vendor -> vendor
+   transform field mapping exists: model_number -> model_number
+   transform field mapping exists: assigned_to -> assigned_to
+   transform field mapping exists: start_date -> start_date
+   skip system field: sys_target_table
+   transform field mapping exists: os_version -> os_version
+   transform field mapping exists: serial_number -> serial_number
+   skip system field: sys_import_state
+   transform field mapping exists: cd_rom -> cd_rom
+   transform field mapping exists: support_group -> support_group
+   transform field mapping exists: unverified -> unverified
+   transform field mapping exists: correlation_id -> correlation_id
+   transform field mapping exists: attributes -> attributes
+   skip system field: source_id
+   transform field mapping exists: asset -> asset
+   transform field mapping exists: cpu_core_count -> cpu_core_count
+   transform field mapping exists: form_factor -> form_factor
+   transform field mapping exists: skip_sync -> skip_sync
+   skip system field: target_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   skip system field: sys_created_on
+   transform field mapping exists: cpu_type -> cpu_type
+   skip system field: sys_import_set
+   transform field mapping exists: install_date -> install_date
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   transform field mapping exists: asset_tag -> asset_tag
+   skip system field: sys_row_error
+   transform field mapping exists: hardware_substatus -> hardware_substatus
+   transform field mapping exists: fqdn -> fqdn
+   skip system field: target_domain_path
+   transform field mapping exists: change_control -> change_control
+   skip system field: import_set_run
+   transform field mapping exists: delivery_date -> delivery_date
+   transform field mapping exists: hardware_status -> hardware_status
+   transform field mapping exists: install_status -> install_status
+   transform field mapping exists: supported_by -> supported_by
+   transform field mapping exists: name -> name
+   transform field mapping exists: subcategory -> subcategory
+   transform field mapping exists: default_gateway -> default_gateway
+   transform field mapping exists: virtual -> virtual
+   transform field mapping exists: chassis_type -> chassis_type
+   transform field mapping exists: assignment_group -> assignment_group
+   transform field mapping exists: po_number -> po_number
+   transform field mapping exists: checked_in -> checked_in
+   transform field mapping exists: sys_class_path -> sys_class_path
+   transform field mapping exists: mac_address -> mac_address
+   skip system field: sys_transform_map
+   transform field mapping exists: company -> company
+   transform field mapping exists: justification -> justification
+   transform field mapping exists: department -> department
+   transform field mapping exists: cost -> cost
+   transform field mapping exists: comments -> comments
+   transform field mapping exists: os -> os
+   skip system field: target_created_on
+   skip system field: sys_mod_count
+   transform field mapping exists: monitor -> monitor
+   transform field mapping exists: ip_address -> ip_address
+   transform field mapping exists: model_id -> model_id
+   skip virtual field: sys_tags
+   transform field mapping exists: cost_cc -> cost_cc
+   transform field mapping exists: schedule -> schedule
+   transform field mapping exists: order_date -> order_date
+   transform field mapping exists: due -> due
+   transform field mapping exists: location -> location
+   transform field mapping exists: category -> category
+   transform field mapping exists: fault_count -> fault_count
+   transform field mapping exists: lease_id -> lease_id
+   transform field mapping exists: target_domain -> sys_domain
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/17 12:58:53.322 [INFO] Scripted Web Service is Synchronised [u_itsmb_cmdb_ci_computer_n]
+2018/06/17 12:58:53.322 [DETAIL] Build Field Map [u_itsmb_cmdb_ci_computer_n] started...
+2018/06/17 12:58:56.115 [DETAIL] SNow: Build Field Map [u_itsmb_cmdb_ci_computer_n] complete, 96 entries
+2018/06/17 12:58:56.116 [DETAIL] Build Field Map [sys_import_set_row] started...
+2018/06/17 12:58:57.345 [DETAIL] SNow: Build Field Map [sys_import_set_row] complete, 112 entries
+2018/06/17 12:58:57.792 [INFO] Initialisation 5 of 11 [CMDB System Computer ] Completed
+2018/06/17 12:58:57.792 [DETAIL] Build Field Map [AST:Cluster] started...
+2018/06/17 12:58:57.927 [DETAIL] Remedy: Build Field Map [AST:Cluster] complete, 109 entries
+2018/06/17 12:58:57.932 [DETAIL] Create Remedy Qualification: 'ClassId' = "BMC_CLUSTER" AND (0 = 1 AND 'Company' = "Calbro Services" OR 0 = 0) AND 'DatasetID' = "BMC.ASSET"
+2018/06/17 12:58:57.958 [DETAIL] Build Field Map [cmdb_ci_cluster] started...
+2018/06/17 12:59:00.208 [DETAIL] SNow: Build Field Map [cmdb_ci_cluster] complete, 71 entries
+2018/06/17 12:59:00.208 [DETAIL] Build Field Map [cmdb_ci] started...
+2018/06/17 12:59:01.817 [DETAIL] SNow: Build Field Map [cmdb_ci] complete, 71 entries
+2018/06/17 12:59:01.817 [DETAIL] Build Field Map [cmdb] started...
+2018/06/17 12:59:03.128 [DETAIL] SNow: Build Field Map [cmdb] complete, 71 entries
+2018/06/17 12:59:03.132 [DETAIL] Add Project Variable [OwnerName [STRING]]
+2018/06/17 12:59:03.132 [DETAIL] Create SNow Lookup Query: name#!#OwnerName#!#
+2018/06/17 12:59:03.134 [DETAIL] Add Project Variable [ManufacturerName [STRING]]
+2018/06/17 12:59:03.138 [DETAIL] Create SNow Lookup Query: name#!#ManufacturerName#!#
+2018/06/17 12:59:03.140 [DETAIL] Add Project Variable [SupplierName [STRING]]
+2018/06/17 12:59:03.140 [DETAIL] Create SNow Lookup Query: name#!#SupplierName#!#
+2018/06/17 12:59:03.141 [DETAIL] Add Project Variable [Company [STRING]]
+2018/06/17 12:59:03.141 [DETAIL] Create SNow Lookup Query: name#!#Company#!#
+2018/06/17 12:59:03.143 [DETAIL] Add Project Variable [Department [STRING]]
+2018/06/17 12:59:03.143 [DETAIL] Create SNow Lookup Query: name#!#Department#!#^company#!#!Company SysID!#!#
+2018/06/17 12:59:03.144 [DETAIL] Add Project Variable [Reconciliation Identity [STRING]]
+2018/06/17 12:59:03.150 [DETAIL] Create Remedy Lookup Query: 'CI_Instance_ID' = ""
+2018/06/17 12:59:03.151 [DETAIL] Add Project Variable [Model [STRING]]
+2018/06/17 12:59:03.151 [DETAIL] Add Project Variable [VersionNumber [STRING]]
+2018/06/17 12:59:03.151 [DETAIL] Create SNow Lookup Query: name#!#Model#!#^model_number#!#VersionNumber#!#
+2018/06/17 12:59:03.158 [DETAIL] Add Project Variable [Cost Center [STRING]]
+2018/06/17 12:59:03.159 [DETAIL] Create SNow Lookup Query: code#!#Cost Center#!#
+2018/06/17 12:59:03.160 [DETAIL] Add Project Variable [Building [STRING]]
+2018/06/17 12:59:03.160 [DETAIL] Create SNow Lookup Query: name#!#Building#!#^company#!#!Company SysID!#!#
+2018/06/17 12:59:03.162 [INFO] Synchronising Scripted Web Service [u_itsmb_cmdb_ci_cluster_n]
+2018/06/17 12:59:05.174 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_cmdb_ci_cluster_n
+   Target Table: cmdb_ci_cluster
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: cmdb_ci_cluster,cmdb_ci,cmdb
+--created ws import set: u_itsmb_cmdb_ci_cluster_n [cmdb_ci_cluster]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_cmdb_ci_cluster_n
+   transform field mapping exists: skip_sync -> skip_sync
+   transform field mapping exists: operational_status -> operational_status
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   skip system field: target_class_name
+   skip system field: sys_target_sys_id
+   transform field mapping exists: discovery_source -> discovery_source
+   transform field mapping exists: first_discovered -> first_discovered
+   skip system field: sys_updated_by
+   transform field mapping exists: due_in -> due_in
+   transform field mapping exists: cluster_status -> cluster_status
+   create transform field mapping: u_bmc_reconid -> u_bmc_reconid
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   transform field mapping exists: install_date -> install_date
+   transform field mapping exists: invoice_number -> invoice_number
+   skip system field: target_created_by
+   transform field mapping exists: gl_account -> gl_account
+   skip system field: target_sys_id
+   skip system field: sys_created_by
+   transform field mapping exists: warranty_expiration -> warranty_expiration
+   skip system field: sys_import_row
+   transform field mapping exists: asset_tag -> asset_tag
+   skip system field: sys_row_error
+   transform field mapping exists: fqdn -> fqdn
+   skip system field: target_domain_path
+   transform field mapping exists: change_control -> change_control
+   transform field mapping exists: owned_by -> owned_by
+   transform field mapping exists: checked_out -> checked_out
+   skip system field: import_set_run
+   transform field mapping exists: maintenance_schedule -> maintenance_schedule
+   transform field mapping exists: delivery_date -> delivery_date
+   transform field mapping exists: install_status -> install_status
+   transform field mapping exists: cost_center -> cost_center
+   transform field mapping exists: supported_by -> supported_by
+   transform field mapping exists: name -> name
+   transform field mapping exists: dns_domain -> dns_domain
+   transform field mapping exists: assigned -> assigned
+   transform field mapping exists: subcategory -> subcategory
+   transform field mapping exists: purchase_date -> purchase_date
+   transform field mapping exists: short_description -> short_description
+   skip system field: target_mod_count
+   transform field mapping exists: assignment_group -> assignment_group
+   transform field mapping exists: managed_by -> managed_by
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   transform field mapping exists: can_print -> can_print
+   skip system field: target_domain
+   transform field mapping exists: last_discovered -> last_discovered
+   skip system field: sys_class_name
+   transform field mapping exists: manufacturer -> manufacturer
+   transform field mapping exists: po_number -> po_number
+   transform field mapping exists: sys_class_path -> sys_class_path
+   transform field mapping exists: checked_in -> checked_in
+   transform field mapping exists: mac_address -> mac_address
+   transform field mapping exists: vendor -> vendor
+   skip system field: sys_transform_map
+   transform field mapping exists: company -> company
+   transform field mapping exists: model_number -> model_number
+   transform field mapping exists: justification -> justification
+   transform field mapping exists: department -> department
+   transform field mapping exists: start_date -> start_date
+   transform field mapping exists: assigned_to -> assigned_to
+   transform field mapping exists: comments -> comments
+   transform field mapping exists: cost -> cost
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   skip system field: sys_mod_count
+   transform field mapping exists: serial_number -> serial_number
+   transform field mapping exists: monitor -> monitor
+   transform field mapping exists: model_id -> model_id
+   transform field mapping exists: ip_address -> ip_address
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   transform field mapping exists: cost_cc -> cost_cc
+   transform field mapping exists: schedule -> schedule
+   transform field mapping exists: support_group -> support_group
+   transform field mapping exists: order_date -> order_date
+   transform field mapping exists: due -> due
+   transform field mapping exists: unverified -> unverified
+   transform field mapping exists: correlation_id -> correlation_id
+   transform field mapping exists: attributes -> attributes
+   transform field mapping exists: location -> location
+   skip system field: source_id
+   transform field mapping exists: category -> category
+   transform field mapping exists: asset -> asset
+   transform field mapping exists: fault_count -> fault_count
+   transform field mapping exists: lease_id -> lease_id
+   transform field mapping exists: target_domain -> sys_domain
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/17 12:59:05.174 [INFO] Scripted Web Service is Synchronised [u_itsmb_cmdb_ci_cluster_n]
+2018/06/17 12:59:05.174 [DETAIL] Build Field Map [u_itsmb_cmdb_ci_cluster_n] started...
+2018/06/17 12:59:07.607 [DETAIL] SNow: Build Field Map [u_itsmb_cmdb_ci_cluster_n] complete, 73 entries
+2018/06/17 12:59:07.608 [DETAIL] Build Field Map [sys_import_set_row] started...
+2018/06/17 12:59:08.808 [DETAIL] SNow: Build Field Map [sys_import_set_row] complete, 89 entries
+2018/06/17 12:59:09.257 [INFO] Initialisation 6 of 11 [CMDB System Cluster] Completed
+2018/06/17 12:59:09.260 [DETAIL] Build Field Map [AST:InventoryStorage] started...
+2018/06/17 12:59:09.393 [DETAIL] Remedy: Build Field Map [AST:InventoryStorage] complete, 108 entries
+2018/06/17 12:59:09.400 [DETAIL] Create Remedy Qualification: 'Class Id' = "BMC_INVENTORYSTORAGE" AND 'Name' != "Default" AND (0 = 1 AND 'Company' = "Calbro Services" OR 0 = 0) AND 'Data Set Id' = "BMC.ASSET"
+2018/06/17 12:59:09.418 [DETAIL] Build Field Map [alm_stockroom] started...
+2018/06/17 12:59:09.775 [DETAIL] SNow: Build Field Map [alm_stockroom] complete, 14 entries
+2018/06/17 12:59:09.775 [DETAIL] Build Field Map [sys_user_group] started...
+2018/06/17 12:59:10.565 [DETAIL] SNow: Build Field Map [sys_user_group] complete, 19 entries
+2018/06/17 12:59:10.565 [DETAIL] Build Field Map [alm_stockroom_type] started...
+2018/06/17 12:59:10.931 [DETAIL] SNow: Build Field Map [alm_stockroom_type] complete, 12 entries
+2018/06/17 12:59:10.931 [DETAIL] Add Project Variable [Group Owner+ [STRING]]
+2018/06/17 12:59:10.932 [DETAIL] Create SNow Lookup Query: name#!#Group Owner+#!#
+2018/06/17 12:59:10.932 [DETAIL] Add Project Variable [Owner [STRING]]
+2018/06/17 12:59:10.933 [DETAIL] Create SNow Lookup Query: name#!#Owner#!#
+2018/06/17 12:59:10.933 [DETAIL] Add Project Variable [Building [STRING]]
+2018/06/17 12:59:10.934 [DETAIL] Create SNow Lookup Query: name#!#Building#!#^company#!#!Company SysID!#!#
+2018/06/17 12:59:10.936 [DETAIL] Add Project Variable [Company [STRING]]
+2018/06/17 12:59:10.940 [DETAIL] Create SNow Lookup Query: name#!#Company#!#
+2018/06/17 12:59:10.949 [DETAIL] Create SNow Lookup Query: name=On site
+2018/06/17 12:59:10.973 [INFO] Synchronising Scripted Web Service [u_itsmb_alm_stockroom_n]
+2018/06/17 12:59:11.736 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_alm_stockroom_n
+   Target Table: alm_stockroom
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: alm_stockroom
+--created ws import set: u_itsmb_alm_stockroom_n [alm_stockroom]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_alm_stockroom_n
+   skip system field: target_mod_count
+   transform field mapping exists: assignment_group -> assignment_group
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   skip system field: target_domain
+   transform field mapping exists: type -> type
+   skip system field: target_class_name
+   skip system field: sys_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   skip system field: sys_transform_map
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   skip system field: sys_created_by
+   skip system field: sys_import_row
+   skip system field: sys_row_error
+   transform field mapping exists: manager -> manager
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   skip system field: target_domain_path
+   skip system field: sys_mod_count
+   skip system field: import_set_run
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   transform field mapping exists: external -> external
+   transform field mapping exists: name -> name
+   transform field mapping exists: location -> location
+   skip system field: source_id
+   transform field mapping exists: target_domain -> sys_domain
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/17 12:59:11.736 [INFO] Scripted Web Service is Synchronised [u_itsmb_alm_stockroom_n]
+2018/06/17 12:59:11.736 [DETAIL] Build Field Map [u_itsmb_alm_stockroom_n] started...
+2018/06/17 12:59:12.488 [DETAIL] SNow: Build Field Map [u_itsmb_alm_stockroom_n] complete, 17 entries
+2018/06/17 12:59:12.488 [DETAIL] Build Field Map [sys_import_set_row] started...
+2018/06/17 12:59:13.550 [DETAIL] SNow: Build Field Map [sys_import_set_row] complete, 33 entries
+2018/06/17 12:59:14.944 [INFO] Initialisation 7 of 11 [CMDB System Inventory Location] Completed
+2018/06/17 12:59:14.946 [INFO] Initialisation 8 of 11 [CMDB System Mainframe] Disabled
+2018/06/17 12:59:14.947 [DETAIL] Build Field Map [AST:NTDomain] started...
+2018/06/17 12:59:15.083 [DETAIL] Remedy: Build Field Map [AST:NTDomain] complete, 122 entries
+2018/06/17 12:59:15.087 [DETAIL] Create Remedy Qualification: 'ClassId' = "BMC_NTDOMAIN" AND (0 = 1 AND 'Company' = "Calbro Services" OR 0 = 0) AND 'DatasetID' = "BMC.ASSET"
+2018/06/17 12:59:15.115 [DETAIL] Build Field Map [cmdb_ci_win_domain_controller] started...
+2018/06/17 12:59:18.808 [DETAIL] SNow: Build Field Map [cmdb_ci_win_domain_controller] complete, 83 entries
+2018/06/17 12:59:18.808 [DETAIL] Build Field Map [cmdb_ci_appl] started...
+2018/06/17 12:59:20.853 [DETAIL] SNow: Build Field Map [cmdb_ci_appl] complete, 83 entries
+2018/06/17 12:59:20.853 [DETAIL] Build Field Map [cmdb_ci] started...
+2018/06/17 12:59:22.534 [DETAIL] SNow: Build Field Map [cmdb_ci] complete, 83 entries
+2018/06/17 12:59:22.535 [DETAIL] Build Field Map [cmdb] started...
+2018/06/17 12:59:23.766 [DETAIL] SNow: Build Field Map [cmdb] complete, 83 entries
+2018/06/17 12:59:23.768 [DETAIL] Add Project Variable [OwnerName [STRING]]
+2018/06/17 12:59:23.768 [DETAIL] Create SNow Lookup Query: name#!#OwnerName#!#
+2018/06/17 12:59:23.770 [DETAIL] Add Project Variable [ManufacturerName [STRING]]
+2018/06/17 12:59:23.771 [DETAIL] Create SNow Lookup Query: name#!#ManufacturerName#!#
+2018/06/17 12:59:23.772 [DETAIL] Add Project Variable [SupplierName [STRING]]
+2018/06/17 12:59:23.772 [DETAIL] Create SNow Lookup Query: name#!#SupplierName#!#
+2018/06/17 12:59:23.774 [DETAIL] Add Project Variable [Company [STRING]]
+2018/06/17 12:59:23.774 [DETAIL] Create SNow Lookup Query: name#!#Company#!#
+2018/06/17 12:59:23.775 [DETAIL] Add Project Variable [Department [STRING]]
+2018/06/17 12:59:23.776 [DETAIL] Create SNow Lookup Query: name#!#Department#!#^company#!#!Company SysID!#!#
+2018/06/17 12:59:23.776 [DETAIL] Add Project Variable [Reconciliation Identity [STRING]]
+2018/06/17 12:59:23.779 [DETAIL] Create Remedy Lookup Query: 'CI_Instance_ID' = ""
+2018/06/17 12:59:23.779 [DETAIL] Add Project Variable [Model [STRING]]
+2018/06/17 12:59:23.779 [DETAIL] Add Project Variable [VersionNumber [STRING]]
+2018/06/17 12:59:23.779 [DETAIL] Create SNow Lookup Query: name#!#Model#!#^model_number#!#VersionNumber#!#
+2018/06/17 12:59:23.782 [DETAIL] Add Project Variable [Cost Center [STRING]]
+2018/06/17 12:59:23.782 [DETAIL] Create SNow Lookup Query: code#!#Cost Center#!#
+2018/06/17 12:59:23.783 [DETAIL] Add Project Variable [Building [STRING]]
+2018/06/17 12:59:23.783 [DETAIL] Create SNow Lookup Query: name#!#Building#!#^company#!#!Company SysID!#!#
+2018/06/17 12:59:23.785 [INFO] Synchronising Scripted Web Service [u_itsmb_cmdb_ci_win_domain_controller_n]
+2018/06/17 12:59:26.582 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_cmdb_ci_win_domain_controller_n
+   Target Table: cmdb_ci_win_domain_controller
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: cmdb_ci_win_domain_controller,cmdb_ci_appl,cmdb_ci,cmdb
+--created ws import set: u_itsmb_cmdb_ci_win_domain_controller_n [cmdb_ci_win_domain_controller]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_cmdb_ci_win_domain_controller_n
+   transform field mapping exists: operational_status -> operational_status
+   transform field mapping exists: running_process_command -> running_process_command
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   transform field mapping exists: running_process_key_parameters -> running_process_key_parameters
+   transform field mapping exists: rp_command_hash -> rp_command_hash
+   transform field mapping exists: first_discovered -> first_discovered
+   transform field mapping exists: discovery_source -> discovery_source
+   transform field mapping exists: due_in -> due_in
+   create transform field mapping: u_bmc_reconid -> u_bmc_reconid
+   transform field mapping exists: used_for -> used_for
+   transform field mapping exists: is_clustered -> is_clustered
+   transform field mapping exists: invoice_number -> invoice_number
+   transform field mapping exists: gl_account -> gl_account
+   skip system field: sys_created_by
+   transform field mapping exists: warranty_expiration -> warranty_expiration
+   skip system field: sys_import_row
+   transform field mapping exists: owned_by -> owned_by
+   transform field mapping exists: checked_out -> checked_out
+   transform field mapping exists: rp_key_parameters_hash -> rp_key_parameters_hash
+   transform field mapping exists: version -> version
+   transform field mapping exists: maintenance_schedule -> maintenance_schedule
+   transform field mapping exists: cost_center -> cost_center
+   transform field mapping exists: dns_domain -> dns_domain
+   transform field mapping exists: assigned -> assigned
+   transform field mapping exists: purchase_date -> purchase_date
+   transform field mapping exists: short_description -> short_description
+   skip system field: target_mod_count
+   transform field mapping exists: managed_by -> managed_by
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   skip system field: target_domain
+   transform field mapping exists: last_discovered -> last_discovered
+   transform field mapping exists: can_print -> can_print
+   skip system field: sys_class_name
+   transform field mapping exists: manufacturer -> manufacturer
+   transform field mapping exists: vendor -> vendor
+   transform field mapping exists: model_number -> model_number
+   transform field mapping exists: config_file -> config_file
+   transform field mapping exists: start_date -> start_date
+   transform field mapping exists: assigned_to -> assigned_to
+   skip system field: sys_target_table
+   transform field mapping exists: serial_number -> serial_number
+   skip system field: sys_import_state
+   transform field mapping exists: support_group -> support_group
+   transform field mapping exists: unverified -> unverified
+   transform field mapping exists: correlation_id -> correlation_id
+   transform field mapping exists: attributes -> attributes
+   skip system field: source_id
+   transform field mapping exists: asset -> asset
+   transform field mapping exists: config_directory -> config_directory
+   transform field mapping exists: tcp_port -> tcp_port
+   transform field mapping exists: skip_sync -> skip_sync
+   transform field mapping exists: pid -> pid
+   skip system field: target_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   transform field mapping exists: install_directory -> install_directory
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   transform field mapping exists: install_date -> install_date
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   transform field mapping exists: asset_tag -> asset_tag
+   skip system field: sys_row_error
+   transform field mapping exists: fqdn -> fqdn
+   skip system field: target_domain_path
+   transform field mapping exists: change_control -> change_control
+   skip system field: import_set_run
+   transform field mapping exists: delivery_date -> delivery_date
+   transform field mapping exists: install_status -> install_status
+   transform field mapping exists: supported_by -> supported_by
+   transform field mapping exists: name -> name
+   transform field mapping exists: subcategory -> subcategory
+   transform field mapping exists: assignment_group -> assignment_group
+   transform field mapping exists: edition -> edition
+   transform field mapping exists: po_number -> po_number
+   transform field mapping exists: sys_class_path -> sys_class_path
+   transform field mapping exists: checked_in -> checked_in
+   transform field mapping exists: mac_address -> mac_address
+   skip system field: sys_transform_map
+   transform field mapping exists: company -> company
+   transform field mapping exists: justification -> justification
+   transform field mapping exists: department -> department
+   transform field mapping exists: comments -> comments
+   transform field mapping exists: cost -> cost
+   skip system field: target_created_on
+   skip system field: sys_mod_count
+   transform field mapping exists: monitor -> monitor
+   transform field mapping exists: ip_address -> ip_address
+   transform field mapping exists: model_id -> model_id
+   skip virtual field: sys_tags
+   transform field mapping exists: cost_cc -> cost_cc
+   transform field mapping exists: order_date -> order_date
+   transform field mapping exists: schedule -> schedule
+   transform field mapping exists: due -> due
+   transform field mapping exists: location -> location
+   transform field mapping exists: category -> category
+   transform field mapping exists: fault_count -> fault_count
+   transform field mapping exists: lease_id -> lease_id
+   transform field mapping exists: target_domain -> sys_domain
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/17 12:59:26.582 [INFO] Scripted Web Service is Synchronised [u_itsmb_cmdb_ci_win_domain_controller_n]
+2018/06/17 12:59:26.582 [DETAIL] Build Field Map [u_itsmb_cmdb_ci_win_domain_controller_n] started...
+2018/06/17 12:59:28.956 [DETAIL] SNow: Build Field Map [u_itsmb_cmdb_ci_win_domain_controller_n] complete, 85 entries
+2018/06/17 12:59:28.956 [DETAIL] Build Field Map [sys_import_set_row] started...
+2018/06/17 12:59:30.172 [DETAIL] SNow: Build Field Map [sys_import_set_row] complete, 101 entries
+2018/06/17 12:59:30.621 [INFO] Initialisation 9 of 11 [CMDB System NT Domain] Completed
+2018/06/17 12:59:30.625 [DETAIL] Build Field Map [AST:Printer] started...
+2018/06/17 12:59:30.778 [DETAIL] Remedy: Build Field Map [AST:Printer] complete, 142 entries
+2018/06/17 12:59:30.785 [DETAIL] Create Remedy Qualification: 'ClassID' = "BMC_PRINTER" AND (0 = 1 AND 'Company' = "Calbro Services" OR 0 = 0) AND 'DatasetID' = "BMC.ASSET"
+2018/06/17 12:59:30.811 [DETAIL] Build Field Map [cmdb_ci_printer] started...
+2018/06/17 12:59:32.813 [DETAIL] SNow: Build Field Map [cmdb_ci_printer] complete, 85 entries
+2018/06/17 12:59:32.813 [DETAIL] Build Field Map [cmdb_ci_hardware] started...
+2018/06/17 12:59:34.543 [DETAIL] SNow: Build Field Map [cmdb_ci_hardware] complete, 85 entries
+2018/06/17 12:59:34.543 [DETAIL] Build Field Map [cmdb_ci] started...
+2018/06/17 12:59:36.183 [DETAIL] SNow: Build Field Map [cmdb_ci] complete, 85 entries
+2018/06/17 12:59:36.184 [DETAIL] Build Field Map [cmdb] started...
+2018/06/17 12:59:37.192 [DETAIL] SNow: Build Field Map [cmdb] complete, 85 entries
+2018/06/17 12:59:37.226 [DETAIL] Add Project Variable [ManufacturerName [STRING]]
+2018/06/17 12:59:37.226 [DETAIL] Create SNow Lookup Query: name#!#ManufacturerName#!#
+2018/06/17 12:59:37.230 [DETAIL] Add Project Variable [SupplierName [STRING]]
+2018/06/17 12:59:37.230 [DETAIL] Create SNow Lookup Query: name#!#SupplierName#!#
+2018/06/17 12:59:37.231 [DETAIL] Add Project Variable [Company [STRING]]
+2018/06/17 12:59:37.232 [DETAIL] Create SNow Lookup Query: name#!#Company#!#
+2018/06/17 12:59:37.232 [DETAIL] Add Project Variable [Department [STRING]]
+2018/06/17 12:59:37.233 [DETAIL] Create SNow Lookup Query: name#!#Department#!#^company#!#!Company SysID!#!#
+2018/06/17 12:59:37.235 [DETAIL] Add Project Variable [Reconciliation Identity [STRING]]
+2018/06/17 12:59:37.242 [DETAIL] Create Remedy Lookup Query: 'CI_Instance_ID' = ""
+2018/06/17 12:59:37.242 [DETAIL] Add Project Variable [OwnerName [STRING]]
+2018/06/17 12:59:37.243 [DETAIL] Create SNow Lookup Query: name#!#OwnerName#!#
+2018/06/17 12:59:37.246 [DETAIL] Add Project Variable [Model [STRING]]
+2018/06/17 12:59:37.246 [DETAIL] Add Project Variable [VersionNumber [STRING]]
+2018/06/17 12:59:37.246 [DETAIL] Create SNow Lookup Query: name#!#Model#!#^model_number#!#VersionNumber#!#
+2018/06/17 12:59:37.247 [DETAIL] Add Project Variable [CostCenter [STRING]]
+2018/06/17 12:59:37.247 [DETAIL] Create SNow Lookup Query: code#!#CostCenter#!#
+2018/06/17 12:59:37.247 [DETAIL] Add Project Variable [Building [STRING]]
+2018/06/17 12:59:37.247 [DETAIL] Create SNow Lookup Query: name#!#Building#!#^company#!#!Company SysID!#!#
+2018/06/17 12:59:37.252 [INFO] Synchronising Scripted Web Service [u_itsmb_cmdb_ci_printer_n]
+2018/06/17 12:59:39.814 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_cmdb_ci_printer_n
+   Target Table: cmdb_ci_printer
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: cmdb_ci_printer,cmdb_ci_hardware,cmdb_ci,cmdb
+--created ws import set: u_itsmb_cmdb_ci_printer_n [cmdb_ci_printer]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_cmdb_ci_printer_n
+   transform field mapping exists: operational_status -> operational_status
+   transform field mapping exists: resolution_units -> resolution_units
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   transform field mapping exists: first_discovered -> first_discovered
+   transform field mapping exists: discovery_source -> discovery_source
+   transform field mapping exists: due_in -> due_in
+   create transform field mapping: u_bmc_reconid -> u_bmc_reconid
+   transform field mapping exists: invoice_number -> invoice_number
+   transform field mapping exists: gl_account -> gl_account
+   skip system field: sys_created_by
+   transform field mapping exists: warranty_expiration -> warranty_expiration
+   skip system field: sys_import_row
+   transform field mapping exists: owned_by -> owned_by
+   transform field mapping exists: checked_out -> checked_out
+   transform field mapping exists: maintenance_schedule -> maintenance_schedule
+   transform field mapping exists: cost_center -> cost_center
+   transform field mapping exists: dns_domain -> dns_domain
+   transform field mapping exists: assigned -> assigned
+   transform field mapping exists: purchase_date -> purchase_date
+   transform field mapping exists: short_description -> short_description
+   skip system field: target_mod_count
+   transform field mapping exists: managed_by -> managed_by
+   skip system field: batch_id
+   transform field mapping exists: postscript -> postscript
+   skip system field: sys_import_state_comment
+   transform field mapping exists: can_print -> can_print
+   skip system field: target_domain
+   transform field mapping exists: last_discovered -> last_discovered
+   transform field mapping exists: colors -> colors
+   skip system field: sys_class_name
+   transform field mapping exists: manufacturer -> manufacturer
+   transform field mapping exists: use_count -> use_count
+   transform field mapping exists: vendor -> vendor
+   transform field mapping exists: model_number -> model_number
+   transform field mapping exists: start_date -> start_date
+   transform field mapping exists: assigned_to -> assigned_to
+   skip system field: sys_target_table
+   transform field mapping exists: serial_number -> serial_number
+   transform field mapping exists: ppm -> ppm
+   skip system field: sys_import_state
+   transform field mapping exists: support_group -> support_group
+   transform field mapping exists: unverified -> unverified
+   transform field mapping exists: correlation_id -> correlation_id
+   transform field mapping exists: attributes -> attributes
+   skip system field: source_id
+   transform field mapping exists: asset -> asset
+   transform field mapping exists: skip_sync -> skip_sync
+   skip system field: target_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   transform field mapping exists: install_date -> install_date
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   transform field mapping exists: asset_tag -> asset_tag
+   skip system field: sys_row_error
+   transform field mapping exists: hardware_substatus -> hardware_substatus
+   transform field mapping exists: fqdn -> fqdn
+   skip system field: target_domain_path
+   transform field mapping exists: change_control -> change_control
+   skip system field: import_set_run
+   transform field mapping exists: horizontal_resolution -> horizontal_resolution
+   transform field mapping exists: delivery_date -> delivery_date
+   transform field mapping exists: hardware_status -> hardware_status
+   transform field mapping exists: install_status -> install_status
+   transform field mapping exists: use_units -> use_units
+   transform field mapping exists: supported_by -> supported_by
+   transform field mapping exists: name -> name
+   transform field mapping exists: vertical_resolution -> vertical_resolution
+   transform field mapping exists: subcategory -> subcategory
+   transform field mapping exists: default_gateway -> default_gateway
+   transform field mapping exists: color -> color
+   transform field mapping exists: assignment_group -> assignment_group
+   transform field mapping exists: print_type -> print_type
+   transform field mapping exists: po_number -> po_number
+   transform field mapping exists: paper -> paper
+   transform field mapping exists: checked_in -> checked_in
+   transform field mapping exists: sys_class_path -> sys_class_path
+   transform field mapping exists: mac_address -> mac_address
+   transform field mapping exists: pcl -> pcl
+   skip system field: sys_transform_map
+   transform field mapping exists: company -> company
+   transform field mapping exists: justification -> justification
+   transform field mapping exists: department -> department
+   transform field mapping exists: cost -> cost
+   transform field mapping exists: comments -> comments
+   skip system field: target_created_on
+   skip system field: sys_mod_count
+   transform field mapping exists: monitor -> monitor
+   transform field mapping exists: ip_address -> ip_address
+   transform field mapping exists: model_id -> model_id
+   skip virtual field: sys_tags
+   transform field mapping exists: cost_cc -> cost_cc
+   transform field mapping exists: schedule -> schedule
+   transform field mapping exists: order_date -> order_date
+   transform field mapping exists: due -> due
+   transform field mapping exists: location -> location
+   transform field mapping exists: category -> category
+   transform field mapping exists: fault_count -> fault_count
+   transform field mapping exists: lease_id -> lease_id
+   transform field mapping exists: target_domain -> sys_domain
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/17 12:59:39.815 [INFO] Scripted Web Service is Synchronised [u_itsmb_cmdb_ci_printer_n]
+2018/06/17 12:59:39.815 [DETAIL] Build Field Map [u_itsmb_cmdb_ci_printer_n] started...
+2018/06/17 12:59:42.665 [DETAIL] SNow: Build Field Map [u_itsmb_cmdb_ci_printer_n] complete, 87 entries
+2018/06/17 12:59:42.665 [DETAIL] Build Field Map [sys_import_set_row] started...
+2018/06/17 12:59:43.902 [DETAIL] SNow: Build Field Map [sys_import_set_row] complete, 103 entries
+2018/06/17 12:59:44.347 [INFO] Initialisation 10 of 11 [CMDB System Printer] Completed
+2018/06/17 12:59:44.352 [DETAIL] Build Field Map [AST:SoftwareServer] started...
+2018/06/17 12:59:44.552 [DETAIL] Remedy: Build Field Map [AST:SoftwareServer] complete, 118 entries
+2018/06/17 12:59:44.556 [DETAIL] Create Remedy Qualification: 'Class Id' = "BMC_SOFTWARESERVER" AND (0 = 1 AND 'Company' = "Calbro Services" OR 0 = 0) AND 'Data Set Id' = "BMC.ASSET"
+2018/06/17 12:59:44.594 [DETAIL] Build Field Map [cmdb_ci_server] started...
+2018/06/17 12:59:46.948 [DETAIL] SNow: Build Field Map [cmdb_ci_server] complete, 99 entries
+2018/06/17 12:59:46.948 [DETAIL] Build Field Map [cmdb_ci_computer] started...
+2018/06/17 12:59:49.994 [DETAIL] SNow: Build Field Map [cmdb_ci_computer] complete, 99 entries
+2018/06/17 12:59:49.994 [DETAIL] Build Field Map [cmdb_ci_hardware] started...
+2018/06/17 12:59:51.936 [DETAIL] SNow: Build Field Map [cmdb_ci_hardware] complete, 99 entries
+2018/06/17 12:59:51.936 [DETAIL] Build Field Map [cmdb_ci] started...
+2018/06/17 12:59:54.016 [DETAIL] SNow: Build Field Map [cmdb_ci] complete, 99 entries
+2018/06/17 12:59:54.016 [DETAIL] Build Field Map [cmdb] started...
+2018/06/17 12:59:55.247 [DETAIL] SNow: Build Field Map [cmdb] complete, 99 entries
+2018/06/17 12:59:55.251 [DETAIL] Add Project Variable [Owner_name [STRING]]
+2018/06/17 12:59:55.251 [DETAIL] Create SNow Lookup Query: name#!#Owner_name#!#
+2018/06/17 12:59:55.252 [DETAIL] Add Project Variable [Manufacturer Name+ [STRING]]
+2018/06/17 12:59:55.256 [DETAIL] Create SNow Lookup Query: name#!#Manufacturer Name+#!#
+2018/06/17 12:59:55.257 [DETAIL] Add Project Variable [Supplier Name+ [STRING]]
+2018/06/17 12:59:55.257 [DETAIL] Create SNow Lookup Query: name#!#Supplier Name+#!#
+2018/06/17 12:59:55.259 [DETAIL] Add Project Variable [Company [STRING]]
+2018/06/17 12:59:55.259 [DETAIL] Create SNow Lookup Query: name#!#Company#!#
+2018/06/17 12:59:55.260 [DETAIL] Add Project Variable [Department [STRING]]
+2018/06/17 12:59:55.260 [DETAIL] Create SNow Lookup Query: name#!#Department#!#^company#!#!Company SysID!#!#
+2018/06/17 12:59:55.262 [DETAIL] Add Project Variable [Reconciliation Identity [STRING]]
+2018/06/17 12:59:55.266 [DETAIL] Create Remedy Lookup Query: 'CI_Instance_ID' = ""
+2018/06/17 12:59:55.266 [DETAIL] Add Project Variable [Model [STRING]]
+2018/06/17 12:59:55.266 [DETAIL] Add Project Variable [Version Number [STRING]]
+2018/06/17 12:59:55.266 [DETAIL] Create SNow Lookup Query: name#!#Model#!#^model_number#!#Version Number#!#
+2018/06/17 12:59:55.269 [DETAIL] Add Project Variable [Cost Center [STRING]]
+2018/06/17 12:59:55.269 [DETAIL] Create SNow Lookup Query: code#!#Cost Center#!#
+2018/06/17 12:59:55.272 [DETAIL] Add Project Variable [Building [STRING]]
+2018/06/17 12:59:55.274 [DETAIL] Create SNow Lookup Query: name#!#Building#!#^company#!#!Company SysID!#!#
+2018/06/17 12:59:55.277 [INFO] Synchronising Scripted Web Service [u_itsmb_cmdb_ci_server_n]
+2018/06/17 12:59:58.210 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_cmdb_ci_server_n
+   Target Table: cmdb_ci_server
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: cmdb_ci_server,cmdb_ci_computer,cmdb_ci_hardware,cmdb_ci,cmdb
+--created ws import set: u_itsmb_cmdb_ci_server_n [cmdb_ci_server]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_cmdb_ci_server_n
+   transform field mapping exists: firewall_status -> firewall_status
+   transform field mapping exists: os_address_width -> os_address_width
+   transform field mapping exists: operational_status -> operational_status
+   transform field mapping exists: os_service_pack -> os_service_pack
+   transform field mapping exists: cpu_core_thread -> cpu_core_thread
+   transform field mapping exists: cpu_manufacturer -> cpu_manufacturer
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   transform field mapping exists: discovery_source -> discovery_source
+   transform field mapping exists: first_discovered -> first_discovered
+   transform field mapping exists: due_in -> due_in
+   create transform field mapping: u_bmc_reconid -> u_bmc_reconid
+   transform field mapping exists: used_for -> used_for
+   transform field mapping exists: gl_account -> gl_account
+   transform field mapping exists: invoice_number -> invoice_number
+   skip system field: sys_created_by
+   transform field mapping exists: warranty_expiration -> warranty_expiration
+   transform field mapping exists: ram -> ram
+   skip system field: sys_import_row
+   transform field mapping exists: cpu_name -> cpu_name
+   transform field mapping exists: cpu_speed -> cpu_speed
+   transform field mapping exists: owned_by -> owned_by
+   transform field mapping exists: checked_out -> checked_out
+   transform field mapping exists: disk_space -> disk_space
+   transform field mapping exists: classification -> classification
+   transform field mapping exists: object_id -> object_id
+   transform field mapping exists: maintenance_schedule -> maintenance_schedule
+   transform field mapping exists: cost_center -> cost_center
+   transform field mapping exists: dns_domain -> dns_domain
+   transform field mapping exists: assigned -> assigned
+   transform field mapping exists: purchase_date -> purchase_date
+   transform field mapping exists: short_description -> short_description
+   transform field mapping exists: cd_speed -> cd_speed
+   skip system field: target_mod_count
+   transform field mapping exists: floppy -> floppy
+   transform field mapping exists: managed_by -> managed_by
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   transform field mapping exists: os_domain -> os_domain
+   transform field mapping exists: last_discovered -> last_discovered
+   transform field mapping exists: can_print -> can_print
+   skip system field: target_domain
+   skip system field: sys_class_name
+   transform field mapping exists: cpu_count -> cpu_count
+   transform field mapping exists: manufacturer -> manufacturer
+   transform field mapping exists: vendor -> vendor
+   transform field mapping exists: model_number -> model_number
+   transform field mapping exists: assigned_to -> assigned_to
+   transform field mapping exists: start_date -> start_date
+   skip system field: sys_target_table
+   transform field mapping exists: os_version -> os_version
+   transform field mapping exists: serial_number -> serial_number
+   skip system field: sys_import_state
+   transform field mapping exists: cd_rom -> cd_rom
+   transform field mapping exists: support_group -> support_group
+   transform field mapping exists: correlation_id -> correlation_id
+   transform field mapping exists: unverified -> unverified
+   transform field mapping exists: attributes -> attributes
+   skip system field: source_id
+   transform field mapping exists: asset -> asset
+   transform field mapping exists: form_factor -> form_factor
+   transform field mapping exists: cpu_core_count -> cpu_core_count
+   transform field mapping exists: skip_sync -> skip_sync
+   skip system field: target_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   skip system field: sys_created_on
+   transform field mapping exists: cpu_type -> cpu_type
+   skip system field: sys_import_set
+   transform field mapping exists: install_date -> install_date
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   transform field mapping exists: asset_tag -> asset_tag
+   transform field mapping exists: dr_backup -> dr_backup
+   skip system field: sys_row_error
+   transform field mapping exists: hardware_substatus -> hardware_substatus
+   transform field mapping exists: fqdn -> fqdn
+   skip system field: target_domain_path
+   transform field mapping exists: change_control -> change_control
+   skip system field: import_set_run
+   transform field mapping exists: delivery_date -> delivery_date
+   transform field mapping exists: hardware_status -> hardware_status
+   transform field mapping exists: install_status -> install_status
+   transform field mapping exists: supported_by -> supported_by
+   transform field mapping exists: name -> name
+   transform field mapping exists: subcategory -> subcategory
+   transform field mapping exists: default_gateway -> default_gateway
+   transform field mapping exists: virtual -> virtual
+   transform field mapping exists: chassis_type -> chassis_type
+   transform field mapping exists: assignment_group -> assignment_group
+   transform field mapping exists: po_number -> po_number
+   transform field mapping exists: checked_in -> checked_in
+   transform field mapping exists: sys_class_path -> sys_class_path
+   transform field mapping exists: mac_address -> mac_address
+   skip system field: sys_transform_map
+   transform field mapping exists: company -> company
+   transform field mapping exists: justification -> justification
+   transform field mapping exists: department -> department
+   transform field mapping exists: cost -> cost
+   transform field mapping exists: comments -> comments
+   transform field mapping exists: os -> os
+   skip system field: target_created_on
+   skip system field: sys_mod_count
+   transform field mapping exists: monitor -> monitor
+   transform field mapping exists: model_id -> model_id
+   transform field mapping exists: ip_address -> ip_address
+   skip virtual field: sys_tags
+   transform field mapping exists: cost_cc -> cost_cc
+   transform field mapping exists: schedule -> schedule
+   transform field mapping exists: order_date -> order_date
+   transform field mapping exists: due -> due
+   transform field mapping exists: location -> location
+   transform field mapping exists: category -> category
+   transform field mapping exists: fault_count -> fault_count
+   transform field mapping exists: lease_id -> lease_id
+   transform field mapping exists: host_name -> host_name
+   transform field mapping exists: target_domain -> sys_domain
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/17 12:59:58.210 [INFO] Scripted Web Service is Synchronised [u_itsmb_cmdb_ci_server_n]
+2018/06/17 12:59:58.210 [DETAIL] Build Field Map [u_itsmb_cmdb_ci_server_n] started...
+2018/06/17 13:00:00.798 [DETAIL] SNow: Build Field Map [u_itsmb_cmdb_ci_server_n] complete, 101 entries
+2018/06/17 13:00:00.798 [DETAIL] Build Field Map [sys_import_set_row] started...
+2018/06/17 13:00:02.059 [DETAIL] SNow: Build Field Map [sys_import_set_row] complete, 117 entries
+2018/06/17 13:00:02.511 [INFO] Initialisation 11 of 11 [CMDB System Software Server] Completed
+2018/06/17 13:00:02.519 [INFO] ### Initialisation Step Complete
+2018/06/17 13:00:02.521 [INFO] [CMDB System Admin Domain] Key Mapping Cache AST:AdminDomain -> AD Domain Ready.
+2018/06/17 13:00:02.521 [INFO] [CMDB System Admin Domain] Migration in progress.
+2018/06/17 13:00:02.523 [DETAIL] [CMDB System Admin Domain Chunk 0] Data Retrieve Started...
+2018/06/17 13:00:02.620 [DETAIL] [CMDB System Admin Domain Chunk 0] Data Transform Started...
+2018/06/17 13:00:02.623 [DETAIL] [CMDB System Admin Domain Chunk 0] Data Update Started...
+2018/06/17 13:00:02.623 [INFO] Migration Completed 
+2018/06/17 13:00:02.625 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/17 13:00:02.638 [INFO] [CMDB System Application] Key Mapping Cache AST:Application -> Application [cmdb_ci_appl] Ready.
+2018/06/17 13:00:02.638 [INFO] [CMDB System Application] Migration in progress.
+2018/06/17 13:00:02.638 [DETAIL] [CMDB System Application Chunk 0] Data Retrieve Started...
+2018/06/17 13:00:02.667 [DETAIL] [CMDB System Application Chunk 0] Data Transform Started...
+2018/06/17 13:00:02.667 [DETAIL] [CMDB System Application Chunk 0] Data Update Started...
+2018/06/17 13:00:02.667 [INFO] Migration Completed 
+2018/06/17 13:00:02.667 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/17 13:00:02.670 [INFO] [CMDB System Infrastructure Service] Key Mapping Cache AST:ApplicationInfrastructure -> Infrastructure Service Ready.
+2018/06/17 13:00:02.670 [INFO] [CMDB System Infrastructure Service] Migration in progress.
+2018/06/17 13:00:02.670 [DETAIL] [CMDB System Infrastructure Service Chunk 0] Data Retrieve Started...
+2018/06/17 13:00:02.696 [DETAIL] [CMDB System Infrastructure Service Chunk 0] Data Transform Started...
+2018/06/17 13:00:02.696 [DETAIL] [CMDB System Infrastructure Service Chunk 0] Data Update Started...
+2018/06/17 13:00:02.696 [INFO] Migration Completed 
+2018/06/17 13:00:02.696 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/17 13:00:02.699 [INFO] [CMDB System Application System] Key Mapping Cache AST:ApplicationSystem -> Application Server Ready.
+2018/06/17 13:00:02.699 [INFO] [CMDB System Application System] Migration in progress.
+2018/06/17 13:00:02.699 [DETAIL] [CMDB System Application System Chunk 0] Data Retrieve Started...
+2018/06/17 13:00:02.728 [DETAIL] [CMDB System Application System Chunk 0] Data Transform Started...
+2018/06/17 13:00:02.731 [DETAIL] Add Project Variable [justification [STRING]]
+2018/06/17 13:00:02.731 [DETAIL] Create SNow Lookup Query: justification#!#justification#!#
+2018/06/17 13:00:02.734 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:02.735 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:03.200 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:03.201 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:03.201 [DETAIL] [src=null] SNow Qual: name=BMC
+2018/06/17 13:00:03.655 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:03.655 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:03.655 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:05.103 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:05.103 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:05.103 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/17 13:00:05.497 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:05.499 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:05.499 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:05.962 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:05.962 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:05.976 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:05.976 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:05.977 [DETAIL] [src=null] SNow Qual: name=BMC Remedy AR System^model_number=9.1.04
+2018/06/17 13:00:06.435 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:06.435 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:06.435 [DETAIL] [src=null] SNow Qual: code=Unallocated
+2018/06/17 13:00:06.888 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:06.888 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:06.889 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:07.345 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:07.345 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:07.346 [DETAIL] [src=000000000000022|000000000000673|000000000000111] SNow Qual: justification=OI-F47B556EC3954A7C8852B243EE75F7E8
+2018/06/17 13:00:07.771 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:07.773 [DETAIL] [CMDB System Application System Chunk 0] Data Update Started...
+2018/06/17 13:00:07.774 [DETAIL] Batch Update of 1 Entries Started
+2018/06/17 13:00:07.774 [DETAIL] Pre-Migration Task 0 Complete
+2018/06/17 13:00:08.246 [DETAIL] Update entry complete [src=000000000000022|000000000000673|000000000000111 tgt=dd6086a0373613005d19dcc773990e28]
+2018/06/17 13:00:08.246 [DETAIL] Post-Migration Task 0 Complete
+2018/06/17 13:00:08.249 [INFO] Migration Completed 
+2018/06/17 13:00:08.249 [INFO] Summary...  Created:0 Updated:1 Skipped:0 Errors:0 [Warnings 0]
+2018/06/17 13:00:08.254 [INFO] [CMDB System Computer ] Key Mapping Cache AST:ComputerSystem -> Computer [cmdb_ci_computer] Ready.
+2018/06/17 13:00:08.254 [INFO] [CMDB System Computer ] Migration in progress.
+2018/06/17 13:00:08.255 [DETAIL] [CMDB System Computer  Chunk 0] Data Retrieve Started...
+2018/06/17 13:00:08.321 [DETAIL] [CMDB System Computer  Chunk 0] Data Transform Started...
+2018/06/17 13:00:08.321 [DETAIL] Add Project Variable [justification [STRING]]
+2018/06/17 13:00:08.323 [DETAIL] Create SNow Lookup Query: justification#!#justification#!#
+2018/06/17 13:00:08.323 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:08.323 [DETAIL] [src=null] SNow Qual: name=VMware, Inc.
+2018/06/17 13:00:08.323 [DETAIL] [src=null] SNow Qual: name=Gigabyte Technology Co., Ltd.
+2018/06/17 13:00:08.323 [DETAIL] [src=null] SNow Qual: name=VMware, Inc.
+2018/06/17 13:00:08.323 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:08.323 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:08.323 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:08.324 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:08.762 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:08.762 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:08.762 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:08.762 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:08.762 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:08.762 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:08.762 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:08.762 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:08.763 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:09.197 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:09.197 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:09.198 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/17 13:00:09.198 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/17 13:00:09.198 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/17 13:00:09.198 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/17 13:00:09.198 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/17 13:00:09.198 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/17 13:00:09.198 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/17 13:00:09.442 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:09.448 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:09.449 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:09.449 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:09.449 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:09.449 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:09.449 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:09.449 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:09.449 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:09.866 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:09.867 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:09.925 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:09.927 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:09.927 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:09.927 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:09.927 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:09.927 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:09.927 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:09.927 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:09.927 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:10.339 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:10.339 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:10.339 [DETAIL] [src=null] SNow Qual: name=VMware Virtual Platform^model_numberISEMPTY
+2018/06/17 13:00:10.339 [DETAIL] [src=null] SNow Qual: name=X399 AORUS Gaming 7^model_numberISEMPTY
+2018/06/17 13:00:10.339 [DETAIL] [src=null] SNow Qual: name=VMware Virtual Platform^model_numberISEMPTY
+2018/06/17 13:00:10.339 [DETAIL] [src=null] SNow Qual: nameISEMPTY^model_numberISEMPTY
+2018/06/17 13:00:10.339 [DETAIL] [src=null] SNow Qual: nameISEMPTY^model_numberISEMPTY
+2018/06/17 13:00:10.339 [DETAIL] [src=null] SNow Qual: nameISEMPTY^model_numberISEMPTY
+2018/06/17 13:00:10.339 [DETAIL] [src=null] SNow Qual: nameISEMPTY^model_numberISEMPTY
+2018/06/17 13:00:10.759 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:10.759 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:10.759 [DETAIL] [src=null] SNow Qual: code=Unallocated
+2018/06/17 13:00:10.759 [DETAIL] [src=null] SNow Qual: code=Unallocated
+2018/06/17 13:00:10.759 [DETAIL] [src=null] SNow Qual: code=Unallocated
+2018/06/17 13:00:10.759 [DETAIL] [src=null] SNow Qual: code=Unallocated
+2018/06/17 13:00:10.760 [DETAIL] [src=null] SNow Qual: code=Unallocated
+2018/06/17 13:00:10.760 [DETAIL] [src=null] SNow Qual: code=Unallocated
+2018/06/17 13:00:10.760 [DETAIL] [src=null] SNow Qual: code=Unallocated
+2018/06/17 13:00:11.209 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:11.209 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:11.209 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:11.209 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:11.209 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:11.209 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:11.209 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:11.209 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:11.209 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:11.620 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:11.621 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:11.621 [DETAIL] [src=000000000000003|000000000000674|000000000000112] SNow Qual: justification=OI-B5E3778D63DE4E689687C33DB945885D
+2018/06/17 13:00:11.621 [DETAIL] [src=000000000000004|000000000000675|000000000000113] SNow Qual: justification=OI-44D4468772AF42CE985509271CB72AE8
+2018/06/17 13:00:11.621 [DETAIL] [src=000000000000006|000000000000755|000000000000173] SNow Qual: justification=OI-24D90B5F64C647688D1BDC0C7F296B0A
+2018/06/17 13:00:11.621 [DETAIL] [src=000000000000009|000000000000778|000000000000192] SNow Qual: justification=OI-E1593D1A39494A32A769ED4E4773E311
+2018/06/17 13:00:11.621 [DETAIL] [src=000000000000013|000000000000842|000000000000202] SNow Qual: justification=OI-A4AE67F9E5DD46F6853335A179D5F9AF
+2018/06/17 13:00:11.621 [DETAIL] [src=000000000000014|000000000000843|000000000000203] SNow Qual: justification=OI-05411C2CC9D74D36ABED17E7494F40F2
+2018/06/17 13:00:11.621 [DETAIL] [src=000000000000015|000000000000844|000000000000204] SNow Qual: justification=OI-F2E08EEDDBB844D6BE73FAFF3B990A54
+2018/06/17 13:00:11.933 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:11.937 [DETAIL] [CMDB System Computer  Chunk 0] Data Update Started...
+2018/06/17 13:00:11.937 [DETAIL] Batch Update of 7 Entries Started
+2018/06/17 13:00:11.937 [DETAIL] Pre-Migration Task 0 Complete
+2018/06/17 13:00:19.809 [DETAIL] Update entry complete [src=000000000000003|000000000000674|000000000000112 tgt=aa60c6a0373613005d19dcc773990ee8]
+2018/06/17 13:00:19.809 [DETAIL] Update entry complete [src=000000000000004|000000000000675|000000000000113 tgt=a660c6a0373613005d19dcc773990ee9]
+2018/06/17 13:00:19.817 [DETAIL] Update entry complete [src=000000000000006|000000000000755|000000000000173 tgt=86bd26a837b613005d19dcc773990e8b]
+2018/06/17 13:00:19.817 [DETAIL] Update entry complete [src=000000000000009|000000000000778|000000000000192 tgt=7d66f6a037f613005d19dcc773990ef6]
+2018/06/17 13:00:19.818 [DETAIL] Update entry complete [src=000000000000013|000000000000842|000000000000202 tgt=7b008b2c37f613005d19dcc773990ec5]
+2018/06/17 13:00:19.820 [DETAIL] Update entry complete [src=000000000000014|000000000000843|000000000000203 tgt=bf008b2c37f613005d19dcc773990ec5]
+2018/06/17 13:00:19.821 [DETAIL] Update entry complete [src=000000000000015|000000000000844|000000000000204 tgt=f3008b2c37f613005d19dcc773990ec6]
+2018/06/17 13:00:19.821 [DETAIL] Post-Migration Task 0 Complete
+2018/06/17 13:00:19.827 [INFO] Migration Completed 
+2018/06/17 13:00:19.827 [INFO] Summary...  Created:0 Updated:7 Skipped:0 Errors:0 [Warnings 0]
+2018/06/17 13:00:19.832 [INFO] [CMDB System Cluster] Key Mapping Cache AST:Cluster -> Cluster Ready.
+2018/06/17 13:00:19.832 [INFO] [CMDB System Cluster] Migration in progress.
+2018/06/17 13:00:19.833 [DETAIL] [CMDB System Cluster Chunk 0] Data Retrieve Started...
+2018/06/17 13:00:19.938 [DETAIL] [CMDB System Cluster Chunk 0] Data Transform Started...
+2018/06/17 13:00:19.938 [DETAIL] Add Project Variable [justification [STRING]]
+2018/06/17 13:00:19.938 [DETAIL] Create SNow Lookup Query: justification#!#justification#!#
+2018/06/17 13:00:19.939 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:19.939 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:20.408 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:20.408 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:20.408 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:20.858 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:20.858 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:20.858 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:21.307 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:21.307 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:21.307 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/17 13:00:21.711 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:21.731 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:21.731 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:22.207 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:22.207 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:22.212 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:22.213 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:22.213 [DETAIL] [src=null] SNow Qual: nameISEMPTY^model_numberISEMPTY
+2018/06/17 13:00:22.660 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:22.660 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:22.660 [DETAIL] [src=null] SNow Qual: code=Unallocated
+2018/06/17 13:00:23.108 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:23.108 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:23.108 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:23.550 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:23.551 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:23.551 [DETAIL] [src=000000000000002|000000000000777|000000000000191] SNow Qual: justification=OI-33A8BF318B724A66902A69809D1E7308
+2018/06/17 13:00:23.958 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:23.958 [DETAIL] [CMDB System Cluster Chunk 0] Data Update Started...
+2018/06/17 13:00:23.959 [DETAIL] Batch Update of 1 Entries Started
+2018/06/17 13:00:23.959 [DETAIL] Pre-Migration Task 0 Complete
+2018/06/17 13:00:24.457 [DETAIL] Update entry complete [src=000000000000002|000000000000777|000000000000191 tgt=0f663aa037f613005d19dcc773990e8d]
+2018/06/17 13:00:24.457 [DETAIL] Post-Migration Task 0 Complete
+2018/06/17 13:00:24.459 [INFO] Migration Completed 
+2018/06/17 13:00:24.459 [INFO] Summary...  Created:0 Updated:1 Skipped:0 Errors:0 [Warnings 0]
+2018/06/17 13:00:24.489 [INFO] [CMDB System Inventory Location] Key Mapping Cache AST:InventoryStorage -> Stockroom Ready.
+2018/06/17 13:00:24.489 [INFO] [CMDB System Inventory Location] Migration in progress.
+2018/06/17 13:00:24.489 [DETAIL] [CMDB System Inventory Location Chunk 0] Data Retrieve Started...
+2018/06/17 13:00:24.569 [DETAIL] [CMDB System Inventory Location Chunk 0] Data Transform Started...
+2018/06/17 13:00:24.570 [DETAIL] [CMDB System Inventory Location Chunk 0] Data Update Started...
+2018/06/17 13:00:24.570 [INFO] Migration Completed 
+2018/06/17 13:00:24.570 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/17 13:00:24.572 [INFO] [CMDB System NT Domain] Key Mapping Cache AST:NTDomain -> Windows Domain Controller Ready.
+2018/06/17 13:00:24.572 [INFO] [CMDB System NT Domain] Migration in progress.
+2018/06/17 13:00:24.573 [DETAIL] [CMDB System NT Domain Chunk 0] Data Retrieve Started...
+2018/06/17 13:00:24.595 [DETAIL] [CMDB System NT Domain Chunk 0] Data Transform Started...
+2018/06/17 13:00:24.595 [DETAIL] [CMDB System NT Domain Chunk 0] Data Update Started...
+2018/06/17 13:00:24.595 [INFO] Migration Completed 
+2018/06/17 13:00:24.595 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/17 13:00:24.598 [INFO] [CMDB System Printer] Key Mapping Cache AST:Printer -> Printer Ready.
+2018/06/17 13:00:24.598 [INFO] [CMDB System Printer] Migration in progress.
+2018/06/17 13:00:24.598 [DETAIL] [CMDB System Printer Chunk 0] Data Retrieve Started...
+2018/06/17 13:00:24.637 [DETAIL] [CMDB System Printer Chunk 0] Data Transform Started...
+2018/06/17 13:00:24.637 [DETAIL] [CMDB System Printer Chunk 0] Data Update Started...
+2018/06/17 13:00:24.637 [INFO] Migration Completed 
+2018/06/17 13:00:24.637 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/17 13:00:24.639 [INFO] [CMDB System Software Server] Key Mapping Cache AST:SoftwareServer -> Server Ready.
+2018/06/17 13:00:24.639 [INFO] [CMDB System Software Server] Migration in progress.
+2018/06/17 13:00:24.639 [DETAIL] [CMDB System Software Server Chunk 0] Data Retrieve Started...
+2018/06/17 13:00:24.683 [DETAIL] [CMDB System Software Server Chunk 0] Data Transform Started...
+2018/06/17 13:00:24.684 [DETAIL] Add Project Variable [justification [STRING]]
+2018/06/17 13:00:24.684 [DETAIL] Create SNow Lookup Query: justification#!#justification#!#
+2018/06/17 13:00:24.685 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:24.685 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:24.685 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:24.685 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:24.685 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:24.685 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:24.685 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:24.685 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:24.685 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:24.685 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:24.685 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:24.685 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:24.685 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:24.685 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:24.685 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:24.685 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:24.979 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:24.979 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:24.979 [DETAIL] [src=null] SNow Qual: name=BMC
+2018/06/17 13:00:24.979 [DETAIL] [src=null] SNow Qual: name=Microsoft
+2018/06/17 13:00:24.979 [DETAIL] [src=null] SNow Qual: name=BMC
+2018/06/17 13:00:24.979 [DETAIL] [src=null] SNow Qual: name=BMC
+2018/06/17 13:00:24.979 [DETAIL] [src=null] SNow Qual: name=Apache Foundation
+2018/06/17 13:00:24.979 [DETAIL] [src=null] SNow Qual: name=Pentaho
+2018/06/17 13:00:24.979 [DETAIL] [src=null] SNow Qual: name=McAfee
+2018/06/17 13:00:24.979 [DETAIL] [src=null] SNow Qual: name=Microsoft
+2018/06/17 13:00:24.979 [DETAIL] [src=null] SNow Qual: name=BMC
+2018/06/17 13:00:24.979 [DETAIL] [src=null] SNow Qual: name=Microsoft
+2018/06/17 13:00:24.979 [DETAIL] [src=null] SNow Qual: name=Apache
+2018/06/17 13:00:24.979 [DETAIL] [src=null] SNow Qual: name=BMC
+2018/06/17 13:00:24.979 [DETAIL] [src=null] SNow Qual: name=Apache Foundation
+2018/06/17 13:00:24.979 [DETAIL] [src=null] SNow Qual: name=BMC
+2018/06/17 13:00:24.979 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:25.244 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:25.244 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:25.246 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:25.246 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:25.246 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:25.246 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:25.246 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:25.246 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:25.246 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:25.246 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:25.246 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:25.246 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:25.246 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:25.246 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:25.246 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:25.246 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:25.246 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/17 13:00:25.535 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:25.537 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:25.537 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/17 13:00:25.538 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/17 13:00:25.538 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/17 13:00:25.538 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/17 13:00:25.538 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/17 13:00:25.538 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/17 13:00:25.538 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/17 13:00:25.538 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/17 13:00:25.538 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/17 13:00:25.538 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/17 13:00:25.538 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/17 13:00:25.538 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/17 13:00:25.538 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/17 13:00:25.538 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/17 13:00:25.538 [DETAIL] [src=null] SNow Qual: name=Calbro Services
+2018/06/17 13:00:25.830 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:25.837 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:25.837 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:25.837 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:25.837 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:25.837 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:25.837 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:25.837 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:25.837 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:25.837 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:25.838 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:25.838 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:25.838 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:25.838 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:25.838 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:25.838 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:25.838 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:26.128 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:26.128 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:26.198 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:26.199 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:26.199 [DETAIL] [src=null] SNow Qual: name=BMC Discovery Credential Proxy^model_number=11.3
+2018/06/17 13:00:26.199 [DETAIL] [src=null] SNow Qual: name=Microsoft SQL Server^model_number=13.1.5026.0
+2018/06/17 13:00:26.199 [DETAIL] [src=null] SNow Qual: name=BMC Remedy AR System Mid Tier^model_number=9.1.04
+2018/06/17 13:00:26.199 [DETAIL] [src=null] SNow Qual: name=BMC Remedy AR System Flashboard^model_number=9.1
+2018/06/17 13:00:26.199 [DETAIL] [src=null] SNow Qual: name=Apache Tomcat Application Server^model_number=7.0.59
+2018/06/17 13:00:26.199 [DETAIL] [src=null] SNow Qual: name=Pentaho Data Integration^model_numberISEMPTY
+2018/06/17 13:00:26.199 [DETAIL] [src=null] SNow Qual: name=McAfee VirusScan^model_numberISEMPTY
+2018/06/17 13:00:26.199 [DETAIL] [src=null] SNow Qual: name=Microsoft Active Directory Domain Controller^model_numberISEMPTY
+2018/06/17 13:00:26.199 [DETAIL] [src=null] SNow Qual: name=BMC Remedy AR System Server^model_number=9.1.04
+2018/06/17 13:00:26.199 [DETAIL] [src=null] SNow Qual: name=Microsoft DNS Server^model_number=2016
+2018/06/17 13:00:26.199 [DETAIL] [src=null] SNow Qual: name=Apache Webserver^model_number=2.4.6
+2018/06/17 13:00:26.199 [DETAIL] [src=null] SNow Qual: name=BMC Discovery^model_number=11.3.729942.centos7.ga
+2018/06/17 13:00:26.199 [DETAIL] [src=null] SNow Qual: name=Apache Tomcat Application Server^model_number=7.0.84
+2018/06/17 13:00:26.199 [DETAIL] [src=null] SNow Qual: name=BMC Remedy IT Service Management Suite^model_number=9.1.04
+2018/06/17 13:00:26.199 [DETAIL] [src=null] SNow Qual: nameISEMPTY^model_numberISEMPTY
+2018/06/17 13:00:26.448 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:26.459 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:26.459 [DETAIL] [src=null] SNow Qual: code=Unallocated
+2018/06/17 13:00:26.459 [DETAIL] [src=null] SNow Qual: code=Unallocated
+2018/06/17 13:00:26.459 [DETAIL] [src=null] SNow Qual: code=Unallocated
+2018/06/17 13:00:26.459 [DETAIL] [src=null] SNow Qual: code=Unallocated
+2018/06/17 13:00:26.459 [DETAIL] [src=null] SNow Qual: code=Unallocated
+2018/06/17 13:00:26.459 [DETAIL] [src=null] SNow Qual: code=Unallocated
+2018/06/17 13:00:26.459 [DETAIL] [src=null] SNow Qual: code=Unallocated
+2018/06/17 13:00:26.459 [DETAIL] [src=null] SNow Qual: code=Unallocated
+2018/06/17 13:00:26.459 [DETAIL] [src=null] SNow Qual: code=Unallocated
+2018/06/17 13:00:26.459 [DETAIL] [src=null] SNow Qual: code=Unallocated
+2018/06/17 13:00:26.460 [DETAIL] [src=null] SNow Qual: code=Unallocated
+2018/06/17 13:00:26.460 [DETAIL] [src=null] SNow Qual: code=Unallocated
+2018/06/17 13:00:26.460 [DETAIL] [src=null] SNow Qual: code=Unallocated
+2018/06/17 13:00:26.460 [DETAIL] [src=null] SNow Qual: code=Unallocated
+2018/06/17 13:00:26.460 [DETAIL] [src=null] SNow Qual: code=Unallocated
+2018/06/17 13:00:26.734 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:26.735 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:26.735 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:26.735 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:26.735 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:26.736 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:26.736 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:26.736 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:26.740 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:26.740 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:26.740 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:26.740 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:26.740 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:26.740 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:26.740 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:26.740 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:26.740 [DETAIL] [src=null] SNow Qual: nameISEMPTY^company=fc34c52c373213005d19dcc773990ea5
+2018/06/17 13:00:26.992 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:27.009 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/17 13:00:27.011 [DETAIL] [src=000000000000011|000000000000012|000000000000663|000000000000101] SNow Qual: justification=OI-490D4130CC4E4DA9B6BE29428ED85289
+2018/06/17 13:00:27.011 [DETAIL] [src=000000000000012|000000000000013|000000000000664|000000000000102] SNow Qual: justification=OI-EDF7C95B263443879A17CA1693C0EF81
+2018/06/17 13:00:27.011 [DETAIL] [src=000000000000013|000000000000014|000000000000665|000000000000103] SNow Qual: justification=OI-6C338298669E45E685EC2E5445E48C5C
+2018/06/17 13:00:27.011 [DETAIL] [src=000000000000014|000000000000015|000000000000666|000000000000104] SNow Qual: justification=OI-385E9D07C7A5477A81EDBE907827BC78
+2018/06/17 13:00:27.011 [DETAIL] [src=000000000000015|000000000000016|000000000000667|000000000000105] SNow Qual: justification=OI-D665BF34DB434AF0A490C7CC1F681696
+2018/06/17 13:00:27.011 [DETAIL] [src=000000000000016|000000000000017|000000000000668|000000000000106] SNow Qual: justification=OI-46A4574C84294E34B3FC09B71976194A
+2018/06/17 13:00:27.011 [DETAIL] [src=000000000000017|000000000000018|000000000000669|000000000000107] SNow Qual: justification=OI-13AF7B3258AA4F2FA5025CC89D8B1D82
+2018/06/17 13:00:27.011 [DETAIL] [src=000000000000018|000000000000019|000000000000670|000000000000108] SNow Qual: justification=OI-C16CF1005DE74CCE98D43D891195E2E9
+2018/06/17 13:00:27.011 [DETAIL] [src=000000000000019|000000000000020|000000000000671|000000000000109] SNow Qual: justification=OI-EB8EFD0DB4B14C8FBF6C104E43761C0E
+2018/06/17 13:00:27.011 [DETAIL] [src=000000000000020|000000000000021|000000000000672|000000000000110] SNow Qual: justification=OI-185ABD33E67548E399F7F51E27E8AC4C
+2018/06/17 13:00:27.011 [DETAIL] [src=000000000000024|000000000000026|000000000000752|000000000000170] SNow Qual: justification=OI-D7268C81A3494229A8092C452F12E7C0
+2018/06/17 13:00:27.011 [DETAIL] [src=000000000000025|000000000000027|000000000000753|000000000000171] SNow Qual: justification=OI-3EE168809BBE4577985CB9216F7A58FB
+2018/06/17 13:00:27.011 [DETAIL] [src=000000000000026|000000000000028|000000000000754|000000000000172] SNow Qual: justification=OI-0A20B4CCE897463F8F28C7333784C569
+2018/06/17 13:00:27.011 [DETAIL] [src=000000000000029|000000000000031|000000000000788|000000000000193] SNow Qual: justification=OI-6ECAC5AC06EF4BA8B06F365FA65C3B1C
+2018/06/17 13:00:27.011 [DETAIL] [src=000000000000030|000000000000032|000000000000887|000000000000190] SNow Qual: justification=OI-7F680E5F2C61468CA322C98B06D61DC3
+2018/06/17 13:00:27.330 [DETAIL] Lookup Batch Retrieve-End
+2018/06/17 13:00:27.337 [DETAIL] [CMDB System Software Server Chunk 0] Data Update Started...
+2018/06/17 13:00:27.337 [DETAIL] Batch Update of 14 Entries Started
+2018/06/17 13:00:27.338 [DETAIL] Pre-Migration Task 0 Complete
+2018/06/17 13:00:27.953 [DETAIL] Update entry complete [src=000000000000011|000000000000012|000000000000663|000000000000101 tgt=57600aa0373613005d19dcc773990e8c]
+2018/06/17 13:00:27.957 [DETAIL] Update entry complete [src=000000000000012|000000000000013|000000000000664|000000000000102 tgt=d3600aa0373613005d19dcc773990e8d]
+2018/06/17 13:00:27.959 [DETAIL] Update entry complete [src=000000000000013|000000000000014|000000000000665|000000000000103 tgt=1b600aa0373613005d19dcc773990e8d]
+2018/06/17 13:00:27.961 [DETAIL] Update entry complete [src=000000000000014|000000000000015|000000000000666|000000000000104 tgt=5f600aa0373613005d19dcc773990e8d]
+2018/06/17 13:00:27.962 [DETAIL] Update entry complete [src=000000000000015|000000000000016|000000000000667|000000000000105 tgt=93600aa0373613005d19dcc773990e8e]
+2018/06/17 13:00:27.965 [DETAIL] Update entry complete [src=000000000000016|000000000000017|000000000000668|000000000000106 tgt=d7600aa0373613005d19dcc773990e8e]
+2018/06/17 13:00:27.967 [DETAIL] Update entry complete [src=000000000000017|000000000000018|000000000000669|000000000000107 tgt=1f600aa0373613005d19dcc773990e8e]
+2018/06/17 13:00:27.970 [DETAIL] Update entry complete [src=000000000000018|000000000000019|000000000000670|000000000000108 tgt=93600aa0373613005d19dcc773990e8f]
+2018/06/17 13:00:27.976 [DETAIL] Update entry complete [src=000000000000019|000000000000020|000000000000671|000000000000109 tgt=d7600aa0373613005d19dcc773990e8f]
+2018/06/17 13:00:27.979 [DETAIL] Update entry complete [src=000000000000020|000000000000021|000000000000672|000000000000110 tgt=5f600aa0373613005d19dcc773990e8f]
+2018/06/17 13:00:27.982 [DETAIL] Update entry complete [src=000000000000024|000000000000026|000000000000752|000000000000170 tgt=f2bd66a837b613005d19dcc773990e3a]
+2018/06/17 13:00:27.984 [DETAIL] Update entry complete [src=000000000000025|000000000000027|000000000000753|000000000000171 tgt=3abd66a837b613005d19dcc773990e3a]
+2018/06/17 13:00:27.987 [DETAIL] Update entry complete [src=000000000000026|000000000000028|000000000000754|000000000000172 tgt=7ebd66a837b613005d19dcc773990e3a]
+2018/06/17 13:00:27.988 [DETAIL] Update entry complete [src=000000000000029|000000000000031|000000000000788|000000000000193 tgt=7d10cb2c37f613005d19dcc773990efb]
+2018/06/17 13:00:27.988 [DETAIL] Post-Migration Task 0 Complete
+2018/06/17 13:00:27.989 [DETAIL] Batch Insert of 1 Entries Started
+2018/06/17 13:00:28.477 [DETAIL] Create entry complete [src=000000000000030|000000000000032|000000000000887|000000000000190 tgt=21e12e7c373253005d19dcc773990e99]
+2018/06/17 13:00:28.480 [INFO] Migration Completed 
+2018/06/17 13:00:28.480 [INFO] Summary...  Created:1 Updated:14 Skipped:0 Errors:0 [Warnings 0]
+2018/06/17 13:00:28.480 [DETAIL] Closing Execution Task...
+2018/06/17 13:00:28.607 [INFO] Execution has completed [Execution ID=2018-06-17_12-57]
+2018/06/17 13:00:28.607 [INFO] --END OF LOG--

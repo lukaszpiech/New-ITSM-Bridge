@@ -1,0 +1,35 @@
+2018/06/16 11:29:22.183 [INFO] Log Level set to Detail
+2018/06/16 11:29:22.183 [INFO] ITSM Bridge version 3.7.14
+2018/06/16 11:29:22.183 [INFO] Execution of Foundation version 2
+2018/06/16 11:29:22.183 [INFO] Set Variable Single Company to value 'TRUE'
+2018/06/16 11:29:22.183 [INFO] Set Variable Company to value 'Calbro Services'
+2018/06/16 11:29:22.185 [INFO] Execution started... [Execution ID=2018-06-16_11-29]
+2018/06/16 11:29:22.186 [INFO] Initialisation Step Started...
+2018/06/16 11:29:22.186 [INFO] Source Server Connected
+2018/06/16 11:29:22.186 [DETAIL] Build Field Map [v_plugin] started...
+2018/06/16 11:29:23.882 [DETAIL] SNow: Build Field Map [v_plugin] complete, 25 entries
+2018/06/16 11:29:26.594 [WARNING] WARNING:  Multiple Insert Plugin on the Target server is not enabled. 
+    This means that all migrations will be carried out individually, affecting performance.
+
+    To enable this Plugin in Service Now:
+        1. Navigate to 'System Definition -> Plugins'
+        2. Right Click the 'Insert Multiple Web Service' plugin
+        3. Select 'Activate/Upgrade'
+2018/06/16 11:29:40.658 [WARNING] Execution Terminated
+2018/06/16 11:29:40.658 [INFO] Execution will terminate shortly. Please wait for confirmation
+2018/06/16 11:29:43.459 [WARNING] Execution Terminated
+2018/06/16 11:29:43.459 [INFO] Execution will terminate shortly. Please wait for confirmation
+2018/06/16 11:29:43.459 [INFO] Target Server Connected
+2018/06/16 11:29:43.459 [WARNING] Execution has been Cancelled 
+	java.lang.InterruptedException: Execution has been Cancelled 
+	[Execution ID=2018-06-16_11-29]
+		at u.f.t(ExecutionStep.java:217)
+		at u.g.b(InitialisationStep.java:106)
+		at s.c.call(ExecutionTask.java:274)
+		at javafx.concurrent.Task$TaskCallable.call(Task.java:1423)
+		at java.util.concurrent.FutureTask.run(Unknown Source)
+		at java.lang.Thread.run(Unknown Source)
+	
+2018/06/16 11:29:43.459 [DETAIL] Closing Execution Task...
+2018/06/16 11:29:43.479 [WARNING] Execution was cancelled before completion [Execution ID=2018-06-16_11-29]
+2018/06/16 11:29:43.479 [INFO] --END OF LOG--

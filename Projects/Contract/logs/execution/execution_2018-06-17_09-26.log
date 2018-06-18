@@ -1,0 +1,19 @@
+2018/06/17 09:26:22.090 [INFO] Log Level set to Information
+2018/06/17 09:26:22.090 [INFO] ITSM Bridge version 3.7.14
+2018/06/17 09:26:22.090 [INFO] Execution of Contract version 5
+2018/06/17 09:26:22.091 [INFO] Execution started... [Execution ID=2018-06-17_09-26]
+2018/06/17 09:26:22.092 [INFO] Initialisation Step Started...
+2018/06/17 09:26:22.092 [INFO] Source Server Connected
+2018/06/17 09:26:23.583 [INFO] Target Server Connected
+2018/06/17 09:26:23.583 [INFO] Source Server Cache Initialised
+2018/06/17 09:26:23.583 [INFO] Target Server Cache Initialised
+2018/06/17 09:26:29.678 [INFO] Synchronising Scripted Web Service [u_itsmb_ast_contract]
+2018/06/17 09:26:31.178 [INFO] Scripted Web Service is Synchronised [u_itsmb_ast_contract]
+2018/06/17 09:26:34.737 [INFO] Initialisation 1 of 1 [Contract] Completed
+2018/06/17 09:26:34.738 [INFO] ### Initialisation Step Complete
+2018/06/17 09:26:34.738 [INFO] [Contract] Migration in progress.
+2018/06/17 09:26:35.937 [ERROR] Errors occurred during migration of records to Contract.
+2018/06/17 09:26:35.943 [WARNING] Migration Completed  [2errors]
+2018/06/17 09:26:35.943 [INFO] Summary...  Created:7 Updated:0 Skipped:0 Errors:2 [Warnings 0]
+2018/06/17 09:26:35.982 [INFO] Execution has completed [Execution ID=2018-06-17_09-26]
+2018/06/17 09:26:35.982 [INFO] --END OF LOG--

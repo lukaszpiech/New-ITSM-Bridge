@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Project AppVersion="3.7.14" Type="Standard">
+<version>2</version>
+<Notes>This template is used to migrate CI relationships and People/CI relationships from BMC Remedy ITSM to 
+ServiceNow.
+It can be used with most legacy ITSM versions including 764, 8.1 and 9.1 servers.
+It should be run AFTER the migration of all foundation data and CI data (see separate templates for these).
+
+If no corresponding CI record is found in Service Now then the record migration is skipped.
+
+Whilst every care has been taken in constructing this template, Service Management Integrations accept no
+liability for the accuracy of the data migration definitions and you should therefore carefully check that the 
+migrations are suitable for your environment before executing.  
+
+Service Management Integrations strongly recommend that you take backups of all sensitive data before
+executing any data migration projects and always run the migration project on a non-production test server
+in the first instance.
+
+Amendment History
+R1: Separated from CI templates</Notes>
+<Connection ConnectionType="Source" ServerType="Remedy">
+<ServerName>localhost</ServerName>
+<Port>3636</Port>
+</Connection>
+<Connection ConnectionType="Target" ServerType="Service Now">
+<URL>https://dev54541.service-now.com</URL>
+</Connection>
+<DMDList>
+<DataMappingsDefinition attachmentsOption="0" enabled="No" id="User Reference">
+<TargetForm>sys_user</TargetForm>
+<SourceForm>CTM:People</SourceForm>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<KeyMapping AllowNullKeyValues="Yes" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>name</TargetField>
+<TargetField>email</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>sys_user</TargetForm>
+<SourceForm>CTM:People</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Full Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>email</TargetField>
+<SourceField>Internet E-mail</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="CI Relationship">
+<TargetForm>cmdb_rel_ci</TargetForm>
+<SourceForm>BMC.CORE:BMC_BaseRelationship</SourceForm>
+<SourceQuery>1 = 1</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="cmdb_rel_type">
+<Form>cmdb_rel_type</Form>
+<SearchQuery>[name] = 'Depends on::Used by'</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="Child Record">
+<Form>cmdb_ci</Form>
+<SearchQuery>[justification] = #SRC.Source.InstanceId#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="Parent Record">
+<Form>cmdb_ci</Form>
+<SearchQuery>[justification] = #SRC.Destination.InstanceId#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>child</TargetField>
+<TargetField>parent</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ADHOC_QUERY">
+<ValueSetInclusionSourceField>Source.InstanceId</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetSourceForm>BMC.CORE:BMC_BaseElement</ValueSetInclusionValueSetSourceForm>
+<ValueSetInclusionValueSetSourceField>InstanceId</ValueSetInclusionValueSetSourceField>
+<ValueSetInclusionValueSetSourceQuery>(#Single Company# = TRUE AND [Company] = #Company Name#) OR #Single Company# = FALSE</ValueSetInclusionValueSetSourceQuery>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>cmdb_rel_ci</TargetForm>
+<SourceForm>BMC.CORE:BMC_BaseRelationship</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetField>parent</TargetField>
+<LookupQuery>Parent Record</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Skip Record</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>type</TargetField>
+<LookupQuery>cmdb_rel_type</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>child</TargetField>
+<LookupQuery>Child Record</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Skip Record</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="CI/User Relationship Type">
+<TargetForm>cmdb_rel_user_type</TargetForm>
+<SourceForm>SYS:AssociationTypeAssocLookUp</SourceForm>
+<SourceQuery>[Request Type01] = 'Configuration Item' AND ([Form Name02] = 'CTM:People' OR [Form Name02] = 'CTM:Support Group')</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>parent_descriptor</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>cmdb_rel_user_type</TargetForm>
+<SourceForm>SYS:AssociationTypeAssocLookUp</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>child_descriptor</TargetField>
+<Assignment>(TRUNC([Association Type01],STRPOS([Association Type01],' ')) + ' for')</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>name</TargetField>
+<Assignment>((([Association Type01] + '::') + TRUNC([Association Type01],STRPOS([Association Type01],' '))) + ' for')</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>parent_descriptor</TargetField>
+<SourceField>Association Type01</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="People CI Relationship">
+<TargetForm>cmdb_rel_person</TargetForm>
+<SourceForm>AST:AssetPeople</SourceForm>
+<SourceQuery>(#Single Company# = TRUE AND [Contact Company] = #Company Name#) OR #Single Company# = FALSE</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="BMC.CORE:BMC_BaseElement">
+<Form>BMC.CORE:BMC_BaseElement</Form>
+<SearchQuery>[ReconciliationIdentity] = #AssetInstanceId#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmdb_rel_user_type">
+<Form>cmdb_rel_user_type</Form>
+<SearchQuery>[name] = #!Type Value!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="Configuration Item">
+<Form>cmdb_ci</Form>
+<SearchQuery>[justification] = #!Base Element Instance ID!#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="Yes" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>ci</TargetField>
+<TargetField>user</TargetField>
+<TargetField>type</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>cmdb_rel_person</TargetForm>
+<SourceForm>AST:AssetPeople</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Base Element Instance ID!</TargetVariable>
+<LookupQuery>BMC.CORE:BMC_BaseElement</LookupQuery>
+<LookupField>InstanceId</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetVariable>!Type Value!</TargetVariable>
+<Assignment>((([PersonRole] + '::') + TRUNC([PersonRole],STRPOS([PersonRole],' '))) + ' for')</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>ci</TargetField>
+<LookupQuery>Configuration Item</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Skip Record</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>type</TargetField>
+<LookupQuery>cmdb_rel_user_type</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Reference">
+<TargetField>user</TargetField>
+<SourceField>PeopleGroup Form Entry ID</SourceField>
+<RefMappingIdentifier>User Reference</RefMappingIdentifier>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Type Value!</Variable>
+<Variable Type="STRING">!Base Element Instance ID!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+</DMDList>
+<VariableList>
+<Variable Type="BOOLEAN">Single Company</Variable>
+<Variable Type="STRING">Company Name</Variable>
+</VariableList>
+</Project>

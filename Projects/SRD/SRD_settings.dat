@@ -1,0 +1,29 @@
+       Exec_Log_File:
+      Exec_Log_Level:DETAIL
+  Exec_Log_Inc_Debug:TRUE
+   Write_Migrate_Rpt:TRUE
+   Migrate_Rpt_Level:ALL
+  Exec_Update_Option:UPDATE
+  Exec_Create_Option:CREATE
+Business_Hours_Restrict_Action:PROMPT
+Missing_Target_Field_Check:FALSE
+Unmapped_Target_Field_Check:FALSE
+ Exec_Migrate_Method:IMPORT_SET_NO_BR
+Exec_Application_Scope:{default}
+Exec_Allow_Import_Set_WS_Creation:TRUE
+Exec_Import_Set_Application:global
+Exec_Use_S2S_Attachment_Migration:TRUE
+Exec_Max_Attach_Size_MB:32
+Exec_Migrate_Chunk_Size:10000
+Exec_Refresh_Object_Cache:FALSE
+Last_Exec_Identifier:2018-06-17_08-02
+Last_Migration_Report:/Applications/ITSM Bridge/Template Testing/Remedy-Snow/R2S SRM Main R7/reports/execution_2017-07-24_13-19/migration_report_Question_Choices_Level_1.csv
+Last_TC_Report_Folder:
+Last_Diff_Report_Folder:
+      Variable_Value:Company Name=Calbro Services
+      Variable_Value:Start Date=2000-01-01 12:00:00
+      Variable_Value:Single SRD=TRUE
+      Variable_Value:Map to Execution Plan=TRUE
+      Variable_Value:SRD Title=Adjust Room Temperature
+      Variable_Value:Single Company=FALSE
+      Variable_Value:Map to Workflow=TRUE

@@ -1,0 +1,2635 @@
+2018/06/16 21:54:29.710 [INFO] Log Level set to Detail
+2018/06/16 21:54:29.710 [INFO] ITSM Bridge version 3.7.14
+2018/06/16 21:54:29.710 [INFO] Execution of SRD version 1
+2018/06/16 21:54:29.710 [INFO] Set Variable Start Date to value '2000-01-01 12:00:00'
+2018/06/16 21:54:29.710 [INFO] Set Variable Map to Workflow to value 'TRUE'
+2018/06/16 21:54:29.710 [INFO] Set Variable Map to Execution Plan to value 'TRUE'
+2018/06/16 21:54:29.710 [INFO] Set Variable Single SRD to value 'TRUE'
+2018/06/16 21:54:29.710 [INFO] Set Variable Single Company to value 'TRUE'
+2018/06/16 21:54:29.712 [INFO] Set Variable Company Name to value 'Calbro Services'
+2018/06/16 21:54:29.712 [INFO] Set Variable SRD Title to value 'New Employee'
+2018/06/16 21:54:29.714 [INFO] Execution started... [Execution ID=2018-06-16_21-54]
+2018/06/16 21:54:29.714 [INFO] Initialisation Step Started...
+2018/06/16 21:54:29.714 [INFO] Source Server Connected
+2018/06/16 21:54:29.714 [DETAIL] Build Field Map [v_plugin] started...
+2018/06/16 21:54:31.785 [DETAIL] SNow: Build Field Map [v_plugin] complete, 25 entries
+2018/06/16 21:54:32.202 [INFO] Target Server Connected
+2018/06/16 21:54:32.202 [DETAIL] Remedy Cache Initialisation started...
+2018/06/16 21:54:32.202 [DETAIL] Remedy Cache Initialisation complete
+2018/06/16 21:54:32.202 [INFO] Source Server Cache Initialised
+2018/06/16 21:54:32.202 [DETAIL] Service Now Cache Initialisation started...
+2018/06/16 21:54:32.202 [DETAIL] Service Now Cache Initialisation complete
+2018/06/16 21:54:32.202 [INFO] Target Server Cache Initialised
+2018/06/16 21:54:32.202 [DETAIL] Top Level Project Validation Completed
+2018/06/16 21:54:32.203 [DETAIL] Build Field Map [SRM:Categories] started...
+2018/06/16 21:54:32.240 [DETAIL] Remedy: Build Field Map [SRM:Categories] complete, 21 entries
+2018/06/16 21:54:32.242 [DETAIL] Create Remedy Qualification: 'Status' = "Active" AND 'Category_Level' = 1 AND (1 = 1 AND ('Company' = "Calbro Services" OR 'Company' = "- Global -") OR 1 = 0)
+2018/06/16 21:54:32.281 [DETAIL] Build Field Map [sc_category] started...
+2018/06/16 21:54:33.515 [DETAIL] SNow: Build Field Map [sc_category] complete, 20 entries
+2018/06/16 21:54:33.515 [DETAIL] Build Field Map [sys_metadata] started...
+2018/06/16 21:54:34.052 [DETAIL] SNow: Build Field Map [sys_metadata] complete, 31 entries
+2018/06/16 21:54:34.052 [DETAIL] Build Field Map [sc_catalog] started...
+2018/06/16 21:54:34.373 [DETAIL] SNow: Build Field Map [sc_catalog] complete, 11 entries
+2018/06/16 21:54:34.373 [DETAIL] Build Field Map [sys_metadata] started...
+2018/06/16 21:54:35.154 [DETAIL] SNow: Build Field Map [sys_metadata] complete, 22 entries
+2018/06/16 21:54:35.155 [DETAIL] Create SNow Lookup Query: title=Service Catalog
+2018/06/16 21:54:35.156 [DETAIL] Build Field Map [sys_web_service] started...
+2018/06/16 21:54:35.461 [DETAIL] SNow: Build Field Map [sys_web_service] complete, 9 entries
+2018/06/16 21:54:35.462 [DETAIL] Build Field Map [sys_metadata] started...
+2018/06/16 21:54:36.251 [DETAIL] SNow: Build Field Map [sys_metadata] complete, 20 entries
+2018/06/16 21:54:36.667 [INFO] Synchronising Scripted Web Service [u_itsmb_sc_category_n]
+2018/06/16 21:54:37.610 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_sc_category_n
+   Target Table: sc_category
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: sc_category,sys_metadata
+--created ws import set: u_itsmb_sc_category_n [sc_category]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_sc_category_n
+   transform field mapping exists: parent -> parent
+   transform field mapping exists: entitlement_script -> entitlement_script
+   transform field mapping exists: sc_catalog -> sc_catalog
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   skip system field: target_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   transform field mapping exists: homepage_image -> homepage_image
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   transform field mapping exists: sys_name -> sys_name
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   skip system field: sys_created_by
+   transform field mapping exists: order -> order
+   skip system field: sys_import_row
+   transform field mapping exists: image -> image
+   skip system field: sys_row_error
+   transform field mapping exists: module -> module
+   skip system field: target_domain_path
+   transform field mapping exists: active -> active
+   skip system field: import_set_run
+   transform field mapping exists: sys_update_name -> sys_update_name
+   transform field mapping exists: sys_policy -> sys_policy
+   transform field mapping exists: homepage_renderer -> homepage_renderer
+   transform field mapping exists: mobile_subcategory_render_type -> mobile_subcategory_render_type
+   skip system field: target_mod_count
+   transform field mapping exists: mobile_hide_description -> mobile_hide_description
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   transform field mapping exists: roles -> roles
+   transform field mapping exists: icon -> icon
+   transform field mapping exists: description -> description
+   transform field mapping exists: mobile_picture -> mobile_picture
+   skip system field: target_domain
+   transform field mapping exists: title -> title
+   skip system field: sys_class_name
+   skip system field: sys_transform_map
+   transform field mapping exists: header_icon -> header_icon
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   skip system field: sys_mod_count
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   transform field mapping exists: show_in_cms -> show_in_cms
+   transform field mapping exists: sys_package -> sys_package
+   transform field mapping exists: location -> location
+   skip system field: source_id
+   transform field mapping exists: target_scope -> sys_scope
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:54:37.610 [INFO] Scripted Web Service is Synchronised [u_itsmb_sc_category_n]
+2018/06/16 21:54:37.610 [DETAIL] Build Field Map [u_itsmb_sc_category_n] started...
+2018/06/16 21:54:38.730 [DETAIL] SNow: Build Field Map [u_itsmb_sc_category_n] complete, 34 entries
+2018/06/16 21:54:38.730 [DETAIL] Build Field Map [sys_import_set_row] started...
+2018/06/16 21:54:40.209 [DETAIL] SNow: Build Field Map [sys_import_set_row] complete, 50 entries
+2018/06/16 21:54:40.671 [INFO] Initialisation 1 of 26 [Category Level 1] Completed
+2018/06/16 21:54:40.674 [DETAIL] Create Remedy Qualification: 'Status' = "Active" AND 'Category_Level' = 2 AND (1 = 1 AND ('Company' = "Calbro Services" OR 'Company' = "- Global -") OR 1 = 0)
+2018/06/16 21:54:40.679 [DETAIL] Create SNow Lookup Query: title#!#!Parent Category Name!#!#
+2018/06/16 21:54:40.680 [DETAIL] Add Project Variable [Category_Locale [STRING]]
+2018/06/16 21:54:40.680 [DETAIL] Add Project Variable [CategoryParent_InstanceID [STRING]]
+2018/06/16 21:54:40.682 [DETAIL] Create Remedy Lookup Query: 'base instanceId' = "" AND 'Category_Locale' = ""
+2018/06/16 21:54:40.682 [DETAIL] Create SNow Lookup Query: title=Service Catalog
+2018/06/16 21:54:40.684 [INFO] Synchronising Scripted Web Service [u_itsmb_sc_category_n]
+2018/06/16 21:54:41.541 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_sc_category_n
+   Target Table: sc_category
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: sc_category,sys_metadata
+--created ws import set: u_itsmb_sc_category_n [sc_category]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_sc_category_n
+   transform field mapping exists: parent -> parent
+   transform field mapping exists: entitlement_script -> entitlement_script
+   transform field mapping exists: sc_catalog -> sc_catalog
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   skip system field: target_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   transform field mapping exists: homepage_image -> homepage_image
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   transform field mapping exists: sys_name -> sys_name
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   skip system field: sys_created_by
+   transform field mapping exists: order -> order
+   skip system field: sys_import_row
+   transform field mapping exists: image -> image
+   skip system field: sys_row_error
+   transform field mapping exists: module -> module
+   skip system field: target_domain_path
+   transform field mapping exists: active -> active
+   skip system field: import_set_run
+   transform field mapping exists: sys_update_name -> sys_update_name
+   transform field mapping exists: sys_policy -> sys_policy
+   transform field mapping exists: homepage_renderer -> homepage_renderer
+   transform field mapping exists: mobile_subcategory_render_type -> mobile_subcategory_render_type
+   skip system field: target_mod_count
+   transform field mapping exists: mobile_hide_description -> mobile_hide_description
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   transform field mapping exists: roles -> roles
+   transform field mapping exists: icon -> icon
+   transform field mapping exists: description -> description
+   transform field mapping exists: mobile_picture -> mobile_picture
+   skip system field: target_domain
+   transform field mapping exists: title -> title
+   skip system field: sys_class_name
+   skip system field: sys_transform_map
+   transform field mapping exists: header_icon -> header_icon
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   skip system field: sys_mod_count
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   transform field mapping exists: show_in_cms -> show_in_cms
+   transform field mapping exists: sys_package -> sys_package
+   transform field mapping exists: location -> location
+   skip system field: source_id
+   transform field mapping exists: target_scope -> sys_scope
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:54:41.541 [INFO] Scripted Web Service is Synchronised [u_itsmb_sc_category_n]
+2018/06/16 21:54:42.005 [INFO] Initialisation 2 of 26 [Category Level 2] Completed
+2018/06/16 21:54:42.009 [DETAIL] Create Remedy Qualification: 'Status' = "Active" AND 'Category_Level' = 3 AND (1 = 1 AND ('Company' = "Calbro Services" OR 'Company' = "- Global -") OR 1 = 0)
+2018/06/16 21:54:42.061 [DETAIL] Create SNow Lookup Query: title#!#!Parent Category Name!#!#
+2018/06/16 21:54:42.062 [DETAIL] Add Project Variable [Category_Locale [STRING]]
+2018/06/16 21:54:42.062 [DETAIL] Add Project Variable [CategoryParent_InstanceID [STRING]]
+2018/06/16 21:54:42.069 [DETAIL] Create Remedy Lookup Query: 'base instanceId' = "" AND 'Category_Locale' = ""
+2018/06/16 21:54:42.069 [DETAIL] Create SNow Lookup Query: title=Service Catalog
+2018/06/16 21:54:42.070 [INFO] Synchronising Scripted Web Service [u_itsmb_sc_category_n]
+2018/06/16 21:54:42.906 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_sc_category_n
+   Target Table: sc_category
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: sc_category,sys_metadata
+--created ws import set: u_itsmb_sc_category_n [sc_category]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_sc_category_n
+   transform field mapping exists: parent -> parent
+   transform field mapping exists: entitlement_script -> entitlement_script
+   transform field mapping exists: sc_catalog -> sc_catalog
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   skip system field: target_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   transform field mapping exists: homepage_image -> homepage_image
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   transform field mapping exists: sys_name -> sys_name
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   skip system field: sys_created_by
+   transform field mapping exists: order -> order
+   skip system field: sys_import_row
+   transform field mapping exists: image -> image
+   skip system field: sys_row_error
+   transform field mapping exists: module -> module
+   skip system field: target_domain_path
+   transform field mapping exists: active -> active
+   skip system field: import_set_run
+   transform field mapping exists: sys_update_name -> sys_update_name
+   transform field mapping exists: sys_policy -> sys_policy
+   transform field mapping exists: homepage_renderer -> homepage_renderer
+   transform field mapping exists: mobile_subcategory_render_type -> mobile_subcategory_render_type
+   skip system field: target_mod_count
+   transform field mapping exists: mobile_hide_description -> mobile_hide_description
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   transform field mapping exists: roles -> roles
+   transform field mapping exists: icon -> icon
+   transform field mapping exists: description -> description
+   transform field mapping exists: mobile_picture -> mobile_picture
+   skip system field: target_domain
+   transform field mapping exists: title -> title
+   skip system field: sys_class_name
+   skip system field: sys_transform_map
+   transform field mapping exists: header_icon -> header_icon
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   skip system field: sys_mod_count
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   transform field mapping exists: show_in_cms -> show_in_cms
+   transform field mapping exists: sys_package -> sys_package
+   transform field mapping exists: location -> location
+   skip system field: source_id
+   transform field mapping exists: target_scope -> sys_scope
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:54:42.906 [INFO] Scripted Web Service is Synchronised [u_itsmb_sc_category_n]
+2018/06/16 21:54:43.370 [INFO] Initialisation 3 of 26 [Category Level 3] Completed
+2018/06/16 21:54:43.370 [DETAIL] Build Field Map [SRM:ProcessDefinitionTemplate_Base] started...
+2018/06/16 21:54:43.420 [DETAIL] Remedy: Build Field Map [SRM:ProcessDefinitionTemplate_Base] complete, 36 entries
+2018/06/16 21:54:43.428 [DETAIL] Create Remedy Qualification: 'SystemStatus' = "Active" AND 'z1S_CreateDate' > "1/1/2000 1:00:00 PM" AND 1 = 1 AND (1 = 1 AND ('Company' = "Calbro Services" OR 'Company' = "- Global -") OR 1 = 0)
+2018/06/16 21:54:43.471 [DETAIL] Build Field Map [SRD:ServiceRequestDefinition_Base] started...
+2018/06/16 21:54:43.502 [DETAIL] Remedy: Build Field Map [SRD:ServiceRequestDefinition_Base] complete, 194 entries
+2018/06/16 21:54:43.503 [DETAIL] Create Remedy Qualification: 0 = 1 AND 'DELETESRD_Title' = "" OR 0 = 0
+2018/06/16 21:54:43.505 [DETAIL] Build Field Map [sc_cat_item_delivery_plan] started...
+2018/06/16 21:54:43.826 [DETAIL] SNow: Build Field Map [sc_cat_item_delivery_plan] complete, 12 entries
+2018/06/16 21:54:43.826 [DETAIL] Build Field Map [sys_metadata] started...
+2018/06/16 21:54:44.615 [DETAIL] SNow: Build Field Map [sys_metadata] complete, 23 entries
+2018/06/16 21:54:44.616 [INFO] Synchronising Scripted Web Service [u_itsmb_sc_cat_item_delivery_plan_n]
+2018/06/16 21:54:46.684 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_sc_cat_item_delivery_plan_n
+   Target Table: sc_cat_item_delivery_plan
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: sc_cat_item_delivery_plan,sys_metadata
+--created ws import set: u_itsmb_sc_cat_item_delivery_plan_n [sc_cat_item_delivery_plan]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_sc_cat_item_delivery_plan_n
+   create transform field mapping: short_description -> short_description
+   skip system field: target_mod_count
+   skip system field: batch_id
+   create transform field mapping: advanced -> advanced
+   skip system field: sys_import_state_comment
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   skip system field: target_domain
+   skip system field: target_class_name
+   skip system field: sys_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   skip system field: sys_created_on
+   create transform field mapping: task_table -> task_table
+   skip system field: sys_import_set
+   create transform field mapping: sys_name -> sys_name
+   skip system field: sys_transform_map
+   skip system field: target_created_by
+   skip system field: target_sys_id
+   skip system field: sys_created_by
+   create transform field mapping: order -> order
+   skip system field: sys_import_row
+   create transform field mapping: calendar -> calendar
+   skip system field: sys_row_error
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   skip system field: target_domain_path
+   skip system field: sys_mod_count
+   create transform field mapping: active -> active
+   skip system field: import_set_run
+   skip virtual field: sys_tags
+   create transform field mapping: parent_table -> parent_table
+   create transform field mapping: script -> script
+   skip system field: sys_import_state
+   create transform field mapping: sys_package -> sys_package
+   create transform field mapping: condition -> condition
+   create transform field mapping: sys_update_name -> sys_update_name
+   create transform field mapping: name -> name
+   create transform field mapping: total_delivery_time -> total_delivery_time
+   skip system field: source_id
+   create transform field mapping: sys_policy -> sys_policy
+   create transform field mapping: target_scope -> sys_scope
+   create transform field mapping: target_class_name -> sys_class_name
+   create transform field mapping: target_mod_count -> sys_mod_count
+   create transform field mapping: target_created_by -> sys_created_by
+   create transform field mapping: target_created_on -> sys_created_on
+add sys_id_coalece
+   create transform field mapping: target_sys_id -> sys_id
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:54:46.684 [INFO] Scripted Web Service is Synchronised [u_itsmb_sc_cat_item_delivery_plan_n]
+2018/06/16 21:54:46.684 [DETAIL] Build Field Map [u_itsmb_sc_cat_item_delivery_plan_n] started...
+2018/06/16 21:54:47.906 [DETAIL] SNow: Build Field Map [u_itsmb_sc_cat_item_delivery_plan_n] complete, 26 entries
+2018/06/16 21:54:48.360 [INFO] Initialisation 4 of 26 [Execution Plan] Completed
+2018/06/16 21:54:48.361 [DETAIL] Build Field Map [SRM:Associations] started...
+2018/06/16 21:54:48.445 [DETAIL] Remedy: Build Field Map [SRM:Associations] complete, 42 entries
+2018/06/16 21:54:48.454 [DETAIL] Create Remedy Qualification: 'Assoc1FormID' = "SRM:ProcessDefinitionTemplate_Base" AND 'Assoc2FormID' = "SRM:AppTemplateBridge_Base" AND 'ChildType' = "AOT" AND "AOT" = "AOT"
+2018/06/16 21:54:48.481 [DETAIL] Build Field Map [sc_cat_item_delivery_task] started...
+2018/06/16 21:54:49.189 [DETAIL] SNow: Build Field Map [sc_cat_item_delivery_task] complete, 14 entries
+2018/06/16 21:54:49.190 [DETAIL] Build Field Map [sys_metadata] started...
+2018/06/16 21:54:50.346 [DETAIL] SNow: Build Field Map [sys_metadata] complete, 25 entries
+2018/06/16 21:54:50.346 [DETAIL] Build Field Map [SRM:AppTemplateBridge_Base] started...
+2018/06/16 21:54:50.364 [DETAIL] Remedy: Build Field Map [SRM:AppTemplateBridge_Base] complete, 24 entries
+2018/06/16 21:54:50.364 [DETAIL] Add Project Variable [Assoc2InstanceID [STRING]]
+2018/06/16 21:54:50.366 [DETAIL] Create Remedy Lookup Query: 'InstanceID' = ""
+2018/06/16 21:54:50.366 [DETAIL] Create SNow Lookup Query: name#!#!PDT Name!#!#^parent_table=sc_req_item
+2018/06/16 21:54:50.367 [DETAIL] Add Project Variable [Assoc1InstanceID [STRING]]
+2018/06/16 21:54:50.368 [DETAIL] Create Remedy Lookup Query: 'InstanceId' = ""
+2018/06/16 21:54:50.465 [INFO] Synchronising Scripted Web Service [u_itsmb_sc_cat_item_delivery_task_n]
+2018/06/16 21:54:52.554 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_sc_cat_item_delivery_task_n
+   Target Table: sc_cat_item_delivery_task
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: sc_cat_item_delivery_task,sys_metadata
+--created ws import set: u_itsmb_sc_cat_item_delivery_task_n [sc_cat_item_delivery_task]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_sc_cat_item_delivery_task_n
+   create transform field mapping: short_description -> short_description
+   create transform field mapping: instructions -> instructions
+   skip system field: target_mod_count
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   create transform field mapping: condition_script -> condition_script
+   skip system field: template_import_log
+   skip system field: target_scope
+   create transform field mapping: delivery_time -> delivery_time
+   create transform field mapping: generation_script -> generation_script
+   skip system field: sys_updated_on
+   skip system field: target_domain
+   skip system field: target_class_name
+   skip system field: sys_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   create transform field mapping: sys_name -> sys_name
+   skip system field: sys_transform_map
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   skip system field: sys_created_by
+   create transform field mapping: group -> group
+   create transform field mapping: assigned_to -> assigned_to
+   create transform field mapping: order -> order
+   skip system field: sys_import_row
+   skip system field: sys_row_error
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   create transform field mapping: delivery_plan -> delivery_plan
+   skip system field: target_domain_path
+   skip system field: sys_mod_count
+   create transform field mapping: sla -> sla
+   skip system field: import_set_run
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   create transform field mapping: sys_package -> sys_package
+   create transform field mapping: condition -> condition
+   create transform field mapping: sys_update_name -> sys_update_name
+   create transform field mapping: name -> name
+   skip system field: source_id
+   create transform field mapping: work_notes -> work_notes
+   create transform field mapping: sys_policy -> sys_policy
+   create transform field mapping: target_scope -> sys_scope
+   create transform field mapping: target_class_name -> sys_class_name
+   create transform field mapping: target_mod_count -> sys_mod_count
+   create transform field mapping: target_created_by -> sys_created_by
+   create transform field mapping: target_created_on -> sys_created_on
+add sys_id_coalece
+   create transform field mapping: target_sys_id -> sys_id
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:54:52.554 [INFO] Scripted Web Service is Synchronised [u_itsmb_sc_cat_item_delivery_task_n]
+2018/06/16 21:54:52.554 [DETAIL] Build Field Map [u_itsmb_sc_cat_item_delivery_task_n] started...
+2018/06/16 21:54:53.794 [DETAIL] SNow: Build Field Map [u_itsmb_sc_cat_item_delivery_task_n] complete, 28 entries
+2018/06/16 21:54:54.253 [INFO] Initialisation 5 of 26 [Execution Plan Task] Completed
+2018/06/16 21:54:54.253 [DETAIL] Build Field Map [SRM:AppTemplateFlow] started...
+2018/06/16 21:54:54.266 [DETAIL] Remedy: Build Field Map [SRM:AppTemplateFlow] complete, 35 entries
+2018/06/16 21:54:54.293 [DETAIL] Create Remedy Qualification: 'PredFormID' = "SRM_SCO_ASSOC" AND 'SuccFormID' = "SRM_SCO_ASSOC" AND 1 = 1
+2018/06/16 21:54:54.362 [DETAIL] Build Field Map [execution_plan_local] started...
+2018/06/16 21:54:54.651 [DETAIL] SNow: Build Field Map [execution_plan_local] complete, 8 entries
+2018/06/16 21:54:54.652 [DETAIL] Add Project Variable [SuccInstanceID [STRING]]
+2018/06/16 21:54:54.654 [DETAIL] Create Remedy Lookup Query: 'InstanceID' = "" AND 'ChildType' = "AOT"
+2018/06/16 21:54:54.654 [DETAIL] Create SNow Lookup Query: delivery_plan#!#!Delivery Plan SysID!#!#^name#!#!Successor Task Name!#!#
+2018/06/16 21:54:54.655 [DETAIL] Add Project Variable [PredInstanceID [STRING]]
+2018/06/16 21:54:54.657 [DETAIL] Create Remedy Lookup Query: 'InstanceID' = "" AND 'ChildType' = "AOT"
+2018/06/16 21:54:54.657 [DETAIL] Create SNow Lookup Query: name#!#!PDT Name!#!#^parent_table=sc_req_item
+2018/06/16 21:54:54.658 [DETAIL] Create SNow Lookup Query: delivery_plan#!#!Delivery Plan SysID!#!#^name#!#!Predecessor Task Name!#!#
+2018/06/16 21:54:54.658 [DETAIL] Add Project Variable [RootInstanceID [STRING]]
+2018/06/16 21:54:54.660 [DETAIL] Create Remedy Lookup Query: 'InstanceId' = ""
+2018/06/16 21:54:54.661 [INFO] Synchronising Scripted Web Service [u_itsmb_execution_plan_local_n]
+2018/06/16 21:54:56.029 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_execution_plan_local_n
+   Target Table: execution_plan_local
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: execution_plan_local
+--created ws import set: u_itsmb_execution_plan_local_n [execution_plan_local]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_execution_plan_local_n
+   create transform field mapping: successor -> successor
+   skip system field: target_mod_count
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   skip system field: template_import_log
+   skip system field: target_scope
+   create transform field mapping: predecessor -> predecessor
+   skip system field: sys_updated_on
+   skip system field: target_domain
+   skip system field: target_class_name
+   skip system field: sys_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   skip system field: sys_transform_map
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   skip system field: sys_created_by
+   skip system field: sys_import_row
+   skip system field: sys_row_error
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   skip system field: target_domain_path
+   skip system field: sys_mod_count
+   skip system field: import_set_run
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   skip system field: source_id
+   create transform field mapping: target_mod_count -> sys_mod_count
+   create transform field mapping: target_created_by -> sys_created_by
+   create transform field mapping: target_created_on -> sys_created_on
+add sys_id_coalece
+   create transform field mapping: target_sys_id -> sys_id
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:54:56.029 [INFO] Scripted Web Service is Synchronised [u_itsmb_execution_plan_local_n]
+2018/06/16 21:54:56.029 [DETAIL] Build Field Map [u_itsmb_execution_plan_local_n] started...
+2018/06/16 21:54:56.797 [DETAIL] SNow: Build Field Map [u_itsmb_execution_plan_local_n] complete, 13 entries
+2018/06/16 21:54:57.253 [INFO] Initialisation 6 of 26 [Task Sequencing] Completed
+2018/06/16 21:54:57.257 [DETAIL] Create Remedy Qualification: 'DELETEOperationalCategoryLevel2' = $\NULL$ AND 'DELETEOperationalCategoryLevel3' = $\NULL$ AND 'SRD_Status' != "Expired" AND 'SRD_Status' != "Closed" AND 'SRD_Status' != "Rejected" AND 'CreateDate' > "1/1/2000 1:00:00 PM" AND (1 = 1 AND 'DELETESRD_Title' = "New Employee" OR 1 = 0) AND (1 = 1 AND ('SRD_LocationCompany' = "Calbro Services" OR 'SRD_LocationCompany' = "- Global -") OR 1 = 0)
+2018/06/16 21:54:57.389 [DETAIL] Build Field Map [sc_cat_item] started...
+2018/06/16 21:54:59.467 [DETAIL] SNow: Build Field Map [sc_cat_item] complete, 54 entries
+2018/06/16 21:54:59.467 [DETAIL] Build Field Map [sys_metadata] started...
+2018/06/16 21:54:59.783 [DETAIL] SNow: Build Field Map [sys_metadata] complete, 65 entries
+2018/06/16 21:54:59.784 [DETAIL] Build Field Map [SRS:ServiceRequestImages] started...
+2018/06/16 21:54:59.794 [DETAIL] Remedy: Build Field Map [SRS:ServiceRequestImages] complete, 20 entries
+2018/06/16 21:54:59.794 [DETAIL] Build Field Map [SRD:ServiceRequestDefinition] started...
+2018/06/16 21:54:59.820 [DETAIL] Remedy: Build Field Map [SRD:ServiceRequestDefinition] complete, 200 entries
+2018/06/16 21:54:59.820 [DETAIL] Build Field Map [sys_user_group] started...
+2018/06/16 21:55:00.579 [DETAIL] SNow: Build Field Map [sys_user_group] complete, 19 entries
+2018/06/16 21:55:00.579 [DETAIL] Add Project Variable [PDT_Name [STRING]]
+2018/06/16 21:55:00.579 [DETAIL] Create SNow Lookup Query: name#!#PDT_Name#!#
+2018/06/16 21:55:00.580 [DETAIL] Add Project Variable [ImageInstanceId [STRING]]
+2018/06/16 21:55:00.582 [DETAIL] Create Remedy Lookup Query: 'Instance Id' = ""
+2018/06/16 21:55:00.583 [DETAIL] Add Project Variable [SRD_Number [STRING]]
+2018/06/16 21:55:00.585 [DETAIL] Create Remedy Lookup Query: 'SRD_Number' = ""
+2018/06/16 21:55:00.586 [DETAIL] Add Project Variable [DELETEOperationalCategoryLevel1 [STRING]]
+2018/06/16 21:55:00.586 [DETAIL] Create SNow Lookup Query: title#!#DELETEOperationalCategoryLevel1#!#
+2018/06/16 21:55:00.586 [DETAIL] Create SNow Lookup Query: title=Service Catalog
+2018/06/16 21:55:00.587 [DETAIL] Add Project Variable [Assignee Groups [STRING]]
+2018/06/16 21:55:00.587 [DETAIL] Create SNow Lookup Query: name#!#Assignee Groups#!#
+2018/06/16 21:55:00.588 [INFO] Synchronising Scripted Web Service [u_itsmb_sc_cat_item_n]
+2018/06/16 21:55:05.753 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_sc_cat_item_n
+   Target Table: sc_cat_item
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: sc_cat_item,sys_metadata
+--created ws import set: u_itsmb_sc_cat_item_n [sc_cat_item]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_sc_cat_item_n
+   create transform field mapping: entitlement_script -> entitlement_script
+   create transform field mapping: use_sc_layout -> use_sc_layout
+   create transform field mapping: show_variable_help_on_load -> show_variable_help_on_load
+   skip system field: template_import_log
+   create transform field mapping: sc_ic_version -> sc_ic_version
+   create transform field mapping: no_order_now -> no_order_now
+   skip system field: target_scope
+   create transform field mapping: delivery_time -> delivery_time
+   skip system field: sys_updated_on
+   create transform field mapping: type -> type
+   skip system field: target_class_name
+   skip system field: sys_target_sys_id
+   create transform field mapping: no_search -> no_search
+   skip system field: sys_updated_by
+   create transform field mapping: price -> price
+   skip system field: sys_created_on
+   create transform field mapping: recurring_frequency -> recurring_frequency
+   skip system field: sys_import_set
+   create transform field mapping: sys_name -> sys_name
+   create transform field mapping: model -> model
+   skip system field: target_created_by
+   skip system field: target_sys_id
+   create transform field mapping: no_cart -> no_cart
+   skip system field: sys_created_by
+   create transform field mapping: hide_sp -> hide_sp
+   create transform field mapping: order -> order
+   create transform field mapping: group -> group
+   skip system field: sys_import_row
+   create transform field mapping: start_closed -> start_closed
+   create transform field mapping: image -> image
+   skip system field: sys_row_error
+   create transform field mapping: no_quantity -> no_quantity
+   create transform field mapping: workflow -> workflow
+   create transform field mapping: delivery_plan -> delivery_plan
+   skip system field: target_domain_path
+   create transform field mapping: active -> active
+   create transform field mapping: custom_cart -> custom_cart
+   create transform field mapping: no_proceed_checkout -> no_proceed_checkout
+   skip system field: import_set_run
+   create transform field mapping: ignore_price -> ignore_price
+   create transform field mapping: sys_update_name -> sys_update_name
+   create transform field mapping: meta -> meta
+   create transform field mapping: omit_price -> omit_price
+   create transform field mapping: name -> name
+   create transform field mapping: mobile_hide_price -> mobile_hide_price
+   create transform field mapping: sys_policy -> sys_policy
+   create transform field mapping: template -> template
+   create transform field mapping: preview -> preview
+   create transform field mapping: short_description -> short_description
+   skip system field: target_mod_count
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   create transform field mapping: roles -> roles
+   create transform field mapping: icon -> icon
+   create transform field mapping: description -> description
+   create transform field mapping: mobile_picture -> mobile_picture
+   create transform field mapping: availability -> availability
+   skip system field: target_domain
+   create transform field mapping: visible_standalone -> visible_standalone
+   create transform field mapping: visible_guide -> visible_guide
+   skip system field: sys_class_name
+   create transform field mapping: no_order -> no_order
+   create transform field mapping: vendor -> vendor
+   create transform field mapping: mobile_picture_type -> mobile_picture_type
+   skip system field: sys_transform_map
+   create transform field mapping: visible_bundle -> visible_bundle
+   create transform field mapping: sc_catalogs -> sc_catalogs
+   create transform field mapping: ordered_item_link -> ordered_item_link
+   create transform field mapping: cost -> cost
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   skip system field: sys_mod_count
+   create transform field mapping: recurring_price -> recurring_price
+   create transform field mapping: list_price -> list_price
+   create transform field mapping: sc_ic_item_staging -> sc_ic_item_staging
+   skip virtual field: sys_tags
+   create transform field mapping: billable -> billable
+   create transform field mapping: picture -> picture
+   skip system field: sys_import_state
+   create transform field mapping: sys_package -> sys_package
+   create transform field mapping: delivery_plan_script -> delivery_plan_script
+   create transform field mapping: location -> location
+   skip system field: source_id
+   create transform field mapping: category -> category
+   create transform field mapping: target_scope -> sys_scope
+   create transform field mapping: target_class_name -> sys_class_name
+   create transform field mapping: target_mod_count -> sys_mod_count
+   create transform field mapping: target_created_by -> sys_created_by
+   create transform field mapping: target_created_on -> sys_created_on
+add sys_id_coalece
+   create transform field mapping: target_sys_id -> sys_id
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:55:05.753 [INFO] Scripted Web Service is Synchronised [u_itsmb_sc_cat_item_n]
+2018/06/16 21:55:05.753 [DETAIL] Build Field Map [u_itsmb_sc_cat_item_n] started...
+2018/06/16 21:55:07.953 [DETAIL] SNow: Build Field Map [u_itsmb_sc_cat_item_n] complete, 68 entries
+2018/06/16 21:55:07.954 [DETAIL] Build Field Map [sys_attachment] started...
+2018/06/16 21:55:08.732 [DETAIL] SNow: Build Field Map [sys_attachment] complete, 17 entries
+2018/06/16 21:55:08.732 [DETAIL] Build Field Map [ecc_queue] started...
+2018/06/16 21:55:09.818 [DETAIL] SNow: Build Field Map [ecc_queue] complete, 23 entries
+2018/06/16 21:55:10.286 [INFO] Initialisation 7 of 26 [Catalog Item Category Level 1] Completed
+2018/06/16 21:55:10.346 [DETAIL] Create Remedy Qualification: 'DELETEOperationalCategoryLevel2' != $\NULL$ AND 'DELETEOperationalCategoryLevel3' = $\NULL$ AND 'SRD_Status' != "Expired" AND 'SRD_Status' != "Closed" AND 'SRD_Status' != "Rejected" AND 'CreateDate' > "1/1/2000 1:00:00 PM" AND (1 = 1 AND 'DELETESRD_Title' = "New Employee" OR 1 = 0) AND (1 = 1 AND ('SRD_LocationCompany' = "Calbro Services" OR 'SRD_LocationCompany' = "- Global -") OR 1 = 0)
+2018/06/16 21:55:10.394 [DETAIL] Add Project Variable [PDT_Name [STRING]]
+2018/06/16 21:55:10.394 [DETAIL] Create SNow Lookup Query: name#!#PDT_Name#!#
+2018/06/16 21:55:10.395 [DETAIL] Add Project Variable [ImageInstanceId [STRING]]
+2018/06/16 21:55:10.397 [DETAIL] Create Remedy Lookup Query: 'Instance Id' = ""
+2018/06/16 21:55:10.397 [DETAIL] Add Project Variable [SRD_Number [STRING]]
+2018/06/16 21:55:10.399 [DETAIL] Create Remedy Lookup Query: 'SRD_Number' = ""
+2018/06/16 21:55:10.399 [DETAIL] Add Project Variable [DELETEOperationalCategoryLevel2 [STRING]]
+2018/06/16 21:55:10.399 [DETAIL] Create SNow Lookup Query: title#!#DELETEOperationalCategoryLevel2#!#
+2018/06/16 21:55:10.400 [DETAIL] Create SNow Lookup Query: title=Service Catalog
+2018/06/16 21:55:10.400 [DETAIL] Add Project Variable [Assignee Groups [STRING]]
+2018/06/16 21:55:10.400 [DETAIL] Create SNow Lookup Query: name#!#Assignee Groups#!#
+2018/06/16 21:55:10.401 [INFO] Synchronising Scripted Web Service [u_itsmb_sc_cat_item_n]
+2018/06/16 21:55:11.898 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_sc_cat_item_n
+   Target Table: sc_cat_item
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: sc_cat_item,sys_metadata
+--created ws import set: u_itsmb_sc_cat_item_n [sc_cat_item]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_sc_cat_item_n
+   transform field mapping exists: entitlement_script -> entitlement_script
+   transform field mapping exists: use_sc_layout -> use_sc_layout
+   transform field mapping exists: show_variable_help_on_load -> show_variable_help_on_load
+   skip system field: template_import_log
+   transform field mapping exists: sc_ic_version -> sc_ic_version
+   transform field mapping exists: no_order_now -> no_order_now
+   skip system field: target_scope
+   transform field mapping exists: delivery_time -> delivery_time
+   skip system field: sys_updated_on
+   transform field mapping exists: type -> type
+   skip system field: target_class_name
+   skip system field: sys_target_sys_id
+   transform field mapping exists: no_search -> no_search
+   skip system field: sys_updated_by
+   transform field mapping exists: price -> price
+   skip system field: sys_created_on
+   transform field mapping exists: recurring_frequency -> recurring_frequency
+   skip system field: sys_import_set
+   transform field mapping exists: sys_name -> sys_name
+   transform field mapping exists: model -> model
+   skip system field: target_created_by
+   skip system field: target_sys_id
+   transform field mapping exists: no_cart -> no_cart
+   skip system field: sys_created_by
+   transform field mapping exists: hide_sp -> hide_sp
+   transform field mapping exists: order -> order
+   transform field mapping exists: group -> group
+   skip system field: sys_import_row
+   transform field mapping exists: start_closed -> start_closed
+   transform field mapping exists: image -> image
+   skip system field: sys_row_error
+   transform field mapping exists: no_quantity -> no_quantity
+   transform field mapping exists: workflow -> workflow
+   transform field mapping exists: delivery_plan -> delivery_plan
+   skip system field: target_domain_path
+   transform field mapping exists: active -> active
+   transform field mapping exists: custom_cart -> custom_cart
+   transform field mapping exists: no_proceed_checkout -> no_proceed_checkout
+   skip system field: import_set_run
+   transform field mapping exists: ignore_price -> ignore_price
+   transform field mapping exists: sys_update_name -> sys_update_name
+   transform field mapping exists: meta -> meta
+   transform field mapping exists: omit_price -> omit_price
+   transform field mapping exists: name -> name
+   transform field mapping exists: mobile_hide_price -> mobile_hide_price
+   transform field mapping exists: sys_policy -> sys_policy
+   transform field mapping exists: template -> template
+   transform field mapping exists: preview -> preview
+   transform field mapping exists: short_description -> short_description
+   skip system field: target_mod_count
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   transform field mapping exists: roles -> roles
+   transform field mapping exists: icon -> icon
+   transform field mapping exists: description -> description
+   transform field mapping exists: mobile_picture -> mobile_picture
+   transform field mapping exists: availability -> availability
+   skip system field: target_domain
+   transform field mapping exists: visible_standalone -> visible_standalone
+   transform field mapping exists: visible_guide -> visible_guide
+   skip system field: sys_class_name
+   transform field mapping exists: no_order -> no_order
+   transform field mapping exists: vendor -> vendor
+   transform field mapping exists: mobile_picture_type -> mobile_picture_type
+   skip system field: sys_transform_map
+   transform field mapping exists: visible_bundle -> visible_bundle
+   transform field mapping exists: sc_catalogs -> sc_catalogs
+   transform field mapping exists: ordered_item_link -> ordered_item_link
+   transform field mapping exists: cost -> cost
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   skip system field: sys_mod_count
+   transform field mapping exists: recurring_price -> recurring_price
+   transform field mapping exists: list_price -> list_price
+   transform field mapping exists: sc_ic_item_staging -> sc_ic_item_staging
+   skip virtual field: sys_tags
+   transform field mapping exists: billable -> billable
+   transform field mapping exists: picture -> picture
+   skip system field: sys_import_state
+   transform field mapping exists: sys_package -> sys_package
+   transform field mapping exists: delivery_plan_script -> delivery_plan_script
+   transform field mapping exists: location -> location
+   skip system field: source_id
+   transform field mapping exists: category -> category
+   transform field mapping exists: target_scope -> sys_scope
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:55:11.898 [INFO] Scripted Web Service is Synchronised [u_itsmb_sc_cat_item_n]
+2018/06/16 21:55:12.365 [INFO] Initialisation 8 of 26 [Catalog Item Category Level 2] Completed
+2018/06/16 21:55:12.369 [DETAIL] Create Remedy Qualification: 'DELETEOperationalCategoryLevel2' != $\NULL$ AND 'DELETEOperationalCategoryLevel3' != $\NULL$ AND 'SRD_Status' != "Expired" AND 'SRD_Status' != "Closed" AND 'SRD_Status' != "Rejected" AND 'CreateDate' > "1/1/2000 1:00:00 PM" AND (1 = 1 AND 'DELETESRD_Title' = "New Employee" OR 1 = 0) AND (1 = 1 AND ('SRD_LocationCompany' = "Calbro Services" OR 'SRD_LocationCompany' = "- Global -") OR 1 = 0)
+2018/06/16 21:55:12.382 [DETAIL] Add Project Variable [PDT_Name [STRING]]
+2018/06/16 21:55:12.382 [DETAIL] Create SNow Lookup Query: name#!#PDT_Name#!#
+2018/06/16 21:55:12.383 [DETAIL] Add Project Variable [ImageInstanceId [STRING]]
+2018/06/16 21:55:12.385 [DETAIL] Create Remedy Lookup Query: 'Instance Id' = ""
+2018/06/16 21:55:12.385 [DETAIL] Add Project Variable [SRD_Number [STRING]]
+2018/06/16 21:55:12.387 [DETAIL] Create Remedy Lookup Query: 'SRD_Number' = ""
+2018/06/16 21:55:12.387 [DETAIL] Add Project Variable [DELETEOperationalCategoryLevel3 [STRING]]
+2018/06/16 21:55:12.387 [DETAIL] Create SNow Lookup Query: title#!#DELETEOperationalCategoryLevel3#!#
+2018/06/16 21:55:12.388 [DETAIL] Create SNow Lookup Query: title=Service Catalog
+2018/06/16 21:55:12.388 [DETAIL] Add Project Variable [Assignee Groups [STRING]]
+2018/06/16 21:55:12.388 [DETAIL] Create SNow Lookup Query: name#!#Assignee Groups#!#
+2018/06/16 21:55:12.390 [INFO] Synchronising Scripted Web Service [u_itsmb_sc_cat_item_n]
+2018/06/16 21:55:13.763 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_sc_cat_item_n
+   Target Table: sc_cat_item
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: sc_cat_item,sys_metadata
+--created ws import set: u_itsmb_sc_cat_item_n [sc_cat_item]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_sc_cat_item_n
+   transform field mapping exists: entitlement_script -> entitlement_script
+   transform field mapping exists: use_sc_layout -> use_sc_layout
+   transform field mapping exists: show_variable_help_on_load -> show_variable_help_on_load
+   skip system field: template_import_log
+   transform field mapping exists: sc_ic_version -> sc_ic_version
+   transform field mapping exists: no_order_now -> no_order_now
+   skip system field: target_scope
+   transform field mapping exists: delivery_time -> delivery_time
+   skip system field: sys_updated_on
+   transform field mapping exists: type -> type
+   skip system field: target_class_name
+   skip system field: sys_target_sys_id
+   transform field mapping exists: no_search -> no_search
+   skip system field: sys_updated_by
+   transform field mapping exists: price -> price
+   skip system field: sys_created_on
+   transform field mapping exists: recurring_frequency -> recurring_frequency
+   skip system field: sys_import_set
+   transform field mapping exists: sys_name -> sys_name
+   transform field mapping exists: model -> model
+   skip system field: target_created_by
+   skip system field: target_sys_id
+   transform field mapping exists: no_cart -> no_cart
+   skip system field: sys_created_by
+   transform field mapping exists: hide_sp -> hide_sp
+   transform field mapping exists: order -> order
+   transform field mapping exists: group -> group
+   skip system field: sys_import_row
+   transform field mapping exists: start_closed -> start_closed
+   transform field mapping exists: image -> image
+   skip system field: sys_row_error
+   transform field mapping exists: no_quantity -> no_quantity
+   transform field mapping exists: workflow -> workflow
+   transform field mapping exists: delivery_plan -> delivery_plan
+   skip system field: target_domain_path
+   transform field mapping exists: active -> active
+   transform field mapping exists: custom_cart -> custom_cart
+   transform field mapping exists: no_proceed_checkout -> no_proceed_checkout
+   skip system field: import_set_run
+   transform field mapping exists: ignore_price -> ignore_price
+   transform field mapping exists: sys_update_name -> sys_update_name
+   transform field mapping exists: meta -> meta
+   transform field mapping exists: omit_price -> omit_price
+   transform field mapping exists: name -> name
+   transform field mapping exists: mobile_hide_price -> mobile_hide_price
+   transform field mapping exists: sys_policy -> sys_policy
+   transform field mapping exists: template -> template
+   transform field mapping exists: preview -> preview
+   transform field mapping exists: short_description -> short_description
+   skip system field: target_mod_count
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   transform field mapping exists: roles -> roles
+   transform field mapping exists: icon -> icon
+   transform field mapping exists: description -> description
+   transform field mapping exists: mobile_picture -> mobile_picture
+   transform field mapping exists: availability -> availability
+   skip system field: target_domain
+   transform field mapping exists: visible_standalone -> visible_standalone
+   transform field mapping exists: visible_guide -> visible_guide
+   skip system field: sys_class_name
+   transform field mapping exists: no_order -> no_order
+   transform field mapping exists: vendor -> vendor
+   transform field mapping exists: mobile_picture_type -> mobile_picture_type
+   skip system field: sys_transform_map
+   transform field mapping exists: visible_bundle -> visible_bundle
+   transform field mapping exists: sc_catalogs -> sc_catalogs
+   transform field mapping exists: ordered_item_link -> ordered_item_link
+   transform field mapping exists: cost -> cost
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   skip system field: sys_mod_count
+   transform field mapping exists: recurring_price -> recurring_price
+   transform field mapping exists: list_price -> list_price
+   transform field mapping exists: sc_ic_item_staging -> sc_ic_item_staging
+   skip virtual field: sys_tags
+   transform field mapping exists: billable -> billable
+   transform field mapping exists: picture -> picture
+   skip system field: sys_import_state
+   transform field mapping exists: sys_package -> sys_package
+   transform field mapping exists: delivery_plan_script -> delivery_plan_script
+   transform field mapping exists: location -> location
+   skip system field: source_id
+   transform field mapping exists: category -> category
+   transform field mapping exists: target_scope -> sys_scope
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:55:13.763 [INFO] Scripted Web Service is Synchronised [u_itsmb_sc_cat_item_n]
+2018/06/16 21:55:14.220 [INFO] Initialisation 9 of 26 [Catalog Item Category Level 3] Completed
+2018/06/16 21:55:14.220 [DETAIL] Build Field Map [ENT:PeopleEntitlementDefinition] started...
+2018/06/16 21:55:14.249 [DETAIL] Remedy: Build Field Map [ENT:PeopleEntitlementDefinition] complete, 31 entries
+2018/06/16 21:55:14.250 [DETAIL] Create Remedy Qualification: 1 = 1 AND ('Company' = "Calbro Services" OR 'Company' = $\NULL$) OR 1 = 0
+2018/06/16 21:55:14.259 [DETAIL] Build Field Map [user_criteria] started...
+2018/06/16 21:55:14.994 [DETAIL] SNow: Build Field Map [user_criteria] complete, 14 entries
+2018/06/16 21:55:14.994 [DETAIL] Build Field Map [sys_metadata] started...
+2018/06/16 21:55:16.158 [DETAIL] SNow: Build Field Map [sys_metadata] complete, 25 entries
+2018/06/16 21:55:16.158 [DETAIL] Build Field Map [User] started...
+2018/06/16 21:55:16.170 [DETAIL] Remedy: Build Field Map [User] complete, 36 entries
+2018/06/16 21:55:16.170 [DETAIL] Build Field Map [core_company] started...
+2018/06/16 21:55:18.021 [DETAIL] SNow: Build Field Map [core_company] complete, 44 entries
+2018/06/16 21:55:18.021 [DETAIL] Build Field Map [cmn_location] started...
+2018/06/16 21:55:19.509 [DETAIL] SNow: Build Field Map [cmn_location] complete, 24 entries
+2018/06/16 21:55:19.509 [DETAIL] Add Project Variable [AR Username [STRING]]
+2018/06/16 21:55:19.512 [DETAIL] Create Remedy Lookup Query: 'Login Name' = ""
+2018/06/16 21:55:19.512 [DETAIL] Add Project Variable [Company [STRING]]
+2018/06/16 21:55:19.512 [DETAIL] Create SNow Lookup Query: name#!#Company#!#
+2018/06/16 21:55:19.512 [DETAIL] Add Project Variable [Site [STRING]]
+2018/06/16 21:55:19.513 [DETAIL] Create SNow Lookup Query: name#!#Site#!#
+2018/06/16 21:55:19.513 [DETAIL] Create SNow Lookup Query: name#!#!User Full Name!#!#
+2018/06/16 21:55:19.513 [DETAIL] Add Project Variable [Entitlement Group [STRING]]
+2018/06/16 21:55:19.513 [DETAIL] Create SNow Lookup Query: name#!#Entitlement Group#!#
+2018/06/16 21:55:19.515 [INFO] Synchronising Scripted Web Service [u_itsmb_user_criteria_n]
+2018/06/16 21:55:21.600 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_user_criteria_n
+   Target Table: user_criteria
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: user_criteria,sys_metadata
+--created ws import set: u_itsmb_user_criteria_n [user_criteria]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_user_criteria_n
+   create transform field mapping: role -> role
+   skip system field: target_mod_count
+   skip system field: batch_id
+   create transform field mapping: advanced -> advanced
+   skip system field: sys_import_state_comment
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   skip system field: target_domain
+   skip system field: target_class_name
+   skip system field: sys_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   create transform field mapping: sys_name -> sys_name
+   skip system field: sys_transform_map
+   create transform field mapping: company -> company
+   create transform field mapping: department -> department
+   skip system field: target_created_by
+   skip system field: target_sys_id
+   skip system field: sys_created_by
+   create transform field mapping: group -> group
+   skip system field: sys_import_row
+   skip system field: sys_row_error
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   skip system field: target_domain_path
+   skip system field: sys_mod_count
+   create transform field mapping: active -> active
+   skip system field: import_set_run
+   skip virtual field: sys_tags
+   create transform field mapping: script -> script
+   skip system field: sys_import_state
+   create transform field mapping: sys_package -> sys_package
+   create transform field mapping: sys_update_name -> sys_update_name
+   create transform field mapping: name -> name
+   create transform field mapping: match_all -> match_all
+   create transform field mapping: location -> location
+   skip system field: source_id
+   create transform field mapping: user -> user
+   create transform field mapping: sys_policy -> sys_policy
+   create transform field mapping: target_scope -> sys_scope
+   create transform field mapping: target_domain -> sys_domain
+   create transform field mapping: target_class_name -> sys_class_name
+   create transform field mapping: target_mod_count -> sys_mod_count
+   create transform field mapping: target_created_by -> sys_created_by
+   create transform field mapping: target_created_on -> sys_created_on
+add sys_id_coalece
+   create transform field mapping: target_sys_id -> sys_id
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:55:21.600 [INFO] Scripted Web Service is Synchronised [u_itsmb_user_criteria_n]
+2018/06/16 21:55:21.600 [DETAIL] Build Field Map [u_itsmb_user_criteria_n] started...
+2018/06/16 21:55:22.877 [DETAIL] SNow: Build Field Map [u_itsmb_user_criteria_n] complete, 26 entries
+2018/06/16 21:55:23.331 [INFO] Initialisation 10 of 26 [User Criteria] Completed
+2018/06/16 21:55:23.331 [DETAIL] Build Field Map [SRD:SRDEDAssociation_join] started...
+2018/06/16 21:55:23.339 [DETAIL] Remedy: Build Field Map [SRD:SRDEDAssociation_join] complete, 36 entries
+2018/06/16 21:55:23.341 [DETAIL] Create Remedy Qualification: 'Status' = "Enabled" AND 'Status2' = "Active" AND 'Exclusion Rule' = "No" AND 'SRD InstanceID' != $\NULL$
+2018/06/16 21:55:23.355 [DETAIL] Create Remedy Qualification: (0 = 1 AND ('SRD_LocationCompany' = "" OR 'SRD_LocationCompany' = "- Global -") OR 0 = 0) AND (0 = 1 AND 'SRD_Title' = "" OR 0 = 0)
+2018/06/16 21:55:23.356 [DETAIL] Build Field Map [sc_cat_item_user_criteria_mtom] started...
+2018/06/16 21:55:23.646 [DETAIL] SNow: Build Field Map [sc_cat_item_user_criteria_mtom] complete, 8 entries
+2018/06/16 21:55:23.646 [DETAIL] Add Project Variable [SRD InstanceID [STRING]]
+2018/06/16 21:55:23.648 [DETAIL] Create Remedy Lookup Query: 'InstanceId' = ""
+2018/06/16 21:55:23.649 [DETAIL] Create SNow Lookup Query: name#!#!SRD Title!#!#
+2018/06/16 21:55:23.649 [DETAIL] Add Project Variable [PED Name 1 [STRING]]
+2018/06/16 21:55:23.649 [DETAIL] Create SNow Lookup Query: name#!#PED Name 1#!#
+2018/06/16 21:55:23.651 [INFO] Synchronising Scripted Web Service [u_itsmb_sc_cat_item_user_criteria_mtom_n]
+2018/06/16 21:55:24.767 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_sc_cat_item_user_criteria_mtom_n
+   Target Table: sc_cat_item_user_criteria_mtom
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: sc_cat_item_user_criteria_mtom
+--created ws import set: u_itsmb_sc_cat_item_user_criteria_mtom_n [sc_cat_item_user_criteria_mtom]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_sc_cat_item_user_criteria_mtom_n
+   skip system field: target_mod_count
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   skip system field: target_domain
+   skip system field: target_class_name
+   create transform field mapping: user_criteria -> user_criteria
+   skip system field: sys_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   skip system field: sys_transform_map
+   create transform field mapping: sc_cat_item -> sc_cat_item
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   skip system field: sys_created_by
+   skip system field: sys_import_row
+   skip system field: sys_row_error
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   skip system field: target_domain_path
+   skip system field: sys_mod_count
+   skip system field: import_set_run
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   skip system field: source_id
+   create transform field mapping: target_mod_count -> sys_mod_count
+   create transform field mapping: target_created_by -> sys_created_by
+   create transform field mapping: target_created_on -> sys_created_on
+add sys_id_coalece
+   create transform field mapping: target_sys_id -> sys_id
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:55:24.767 [INFO] Scripted Web Service is Synchronised [u_itsmb_sc_cat_item_user_criteria_mtom_n]
+2018/06/16 21:55:24.767 [DETAIL] Build Field Map [u_itsmb_sc_cat_item_user_criteria_mtom_n] started...
+2018/06/16 21:55:25.503 [DETAIL] SNow: Build Field Map [u_itsmb_sc_cat_item_user_criteria_mtom_n] complete, 13 entries
+2018/06/16 21:55:25.957 [INFO] Initialisation 11 of 26 [Catalog Item Available For] Completed
+2018/06/16 21:55:25.960 [DETAIL] Create Remedy Qualification: 'Status' = "Enabled" AND 'Status2' = "Active" AND 'Exclusion Rule' = "Yes" AND 'SRD InstanceID' != $\NULL$
+2018/06/16 21:55:25.966 [DETAIL] Create Remedy Qualification: (0 = 1 AND ('SRD_LocationCompany' = "" OR 'SRD_LocationCompany' = "- Global -") OR 0 = 0) AND (0 = 1 AND 'SRD_Title' = "" OR 0 = 0)
+2018/06/16 21:55:25.966 [DETAIL] Build Field Map [sc_cat_item_user_criteria_no_mtom] started...
+2018/06/16 21:55:26.206 [DETAIL] SNow: Build Field Map [sc_cat_item_user_criteria_no_mtom] complete, 3 entries
+2018/06/16 21:55:26.206 [DETAIL] Build Field Map [sys_metadata] started...
+2018/06/16 21:55:27.451 [DETAIL] SNow: Build Field Map [sys_metadata] complete, 14 entries
+2018/06/16 21:55:27.451 [DETAIL] Add Project Variable [SRD InstanceID [STRING]]
+2018/06/16 21:55:27.454 [DETAIL] Create Remedy Lookup Query: 'InstanceId' = ""
+2018/06/16 21:55:27.454 [DETAIL] Create SNow Lookup Query: name#!#!SRD Title!#!#
+2018/06/16 21:55:27.454 [DETAIL] Add Project Variable [PED Name 1 [STRING]]
+2018/06/16 21:55:27.454 [DETAIL] Create SNow Lookup Query: name#!#PED Name 1#!#
+2018/06/16 21:55:27.456 [INFO] Synchronising Scripted Web Service [u_itsmb_sc_cat_item_user_crite__o_mtom_n]
+2018/06/16 21:55:28.821 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_sc_cat_item_user_crite__o_mtom_n
+   Target Table: sc_cat_item_user_criteria_no_mtom
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: sc_cat_item_user_criteria_no_mtom,sys_metadata
+--created ws import set: u_itsmb_sc_cat_item_user_crite__o_mtom_n [sc_cat_item_user_criteria_no_mtom]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_sc_cat_item_user_crite__o_mtom_n
+   skip system field: target_mod_count
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   skip system field: target_domain
+   skip system field: target_class_name
+   create transform field mapping: user_criteria -> user_criteria
+   skip system field: sys_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   create transform field mapping: sys_name -> sys_name
+   skip system field: sys_transform_map
+   create transform field mapping: sc_cat_item -> sc_cat_item
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   skip system field: sys_created_by
+   skip system field: sys_import_row
+   skip system field: sys_row_error
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   skip system field: target_domain_path
+   skip system field: sys_mod_count
+   skip system field: import_set_run
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   create transform field mapping: sys_package -> sys_package
+   create transform field mapping: sys_update_name -> sys_update_name
+   skip system field: source_id
+   create transform field mapping: sys_policy -> sys_policy
+   create transform field mapping: target_scope -> sys_scope
+   create transform field mapping: target_class_name -> sys_class_name
+   create transform field mapping: target_mod_count -> sys_mod_count
+   create transform field mapping: target_created_by -> sys_created_by
+   create transform field mapping: target_created_on -> sys_created_on
+add sys_id_coalece
+   create transform field mapping: target_sys_id -> sys_id
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:55:28.821 [INFO] Scripted Web Service is Synchronised [u_itsmb_sc_cat_item_user_crite__o_mtom_n]
+2018/06/16 21:55:28.821 [DETAIL] Build Field Map [u_itsmb_sc_cat_item_user_crite__o_mtom_n] started...
+2018/06/16 21:55:29.755 [DETAIL] SNow: Build Field Map [u_itsmb_sc_cat_item_user_crite__o_mtom_n] complete, 17 entries
+2018/06/16 21:55:30.212 [INFO] Initialisation 12 of 26 [Catalog Item Not Available For] Completed
+2018/06/16 21:55:30.216 [DETAIL] Create Remedy Qualification: 'Approval Type' = "Person" AND 'Approver_Person' != $\NULL$ AND 'ReqMgrApprover' = $\NULL$ AND 'CreateDate' > "1/1/2000 1:00:00 PM" AND (1 = 1 AND 'SRD_Title' = "New Employee" OR 1 = 0) AND (1 = 1 AND ('SRD_LocationCompany' = "Calbro Services" OR 'SRD_LocationCompany' = "- Global -") OR 1 = 0)
+2018/06/16 21:55:30.269 [DETAIL] Build Field Map [sc_cat_item_app_user] started...
+2018/06/16 21:55:30.511 [DETAIL] SNow: Build Field Map [sc_cat_item_app_user] complete, 3 entries
+2018/06/16 21:55:30.511 [DETAIL] Build Field Map [sys_metadata] started...
+2018/06/16 21:55:31.676 [DETAIL] SNow: Build Field Map [sys_metadata] complete, 14 entries
+2018/06/16 21:55:31.676 [DETAIL] Add Project Variable [Approver_Person [STRING]]
+2018/06/16 21:55:31.676 [DETAIL] Create SNow Lookup Query: name#!#Approver_Person#!#
+2018/06/16 21:55:31.677 [DETAIL] Add Project Variable [SRD_Title [STRING]]
+2018/06/16 21:55:31.677 [DETAIL] Create SNow Lookup Query: name#!#SRD_Title#!#
+2018/06/16 21:55:31.678 [INFO] Synchronising Scripted Web Service [u_itsmb_sc_cat_item_app_user_n]
+2018/06/16 21:55:33.313 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_sc_cat_item_app_user_n
+   Target Table: sc_cat_item_app_user
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: sc_cat_item_app_user,sys_metadata
+--created ws import set: u_itsmb_sc_cat_item_app_user_n [sc_cat_item_app_user]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_sc_cat_item_app_user_n
+   skip system field: target_mod_count
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   skip system field: target_domain
+   skip system field: target_class_name
+   skip system field: sys_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   create transform field mapping: sys_name -> sys_name
+   skip system field: sys_transform_map
+   create transform field mapping: sc_cat_item -> sc_cat_item
+   skip system field: target_created_by
+   skip system field: target_sys_id
+   skip system field: sys_created_by
+   skip system field: sys_import_row
+   create transform field mapping: approver -> approver
+   skip system field: sys_row_error
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   skip system field: target_domain_path
+   skip system field: sys_mod_count
+   skip system field: import_set_run
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   create transform field mapping: sys_package -> sys_package
+   create transform field mapping: sys_update_name -> sys_update_name
+   skip system field: source_id
+   create transform field mapping: sys_policy -> sys_policy
+   create transform field mapping: target_scope -> sys_scope
+   create transform field mapping: target_class_name -> sys_class_name
+   create transform field mapping: target_mod_count -> sys_mod_count
+   create transform field mapping: target_created_by -> sys_created_by
+   create transform field mapping: target_created_on -> sys_created_on
+add sys_id_coalece
+   create transform field mapping: target_sys_id -> sys_id
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:55:33.313 [INFO] Scripted Web Service is Synchronised [u_itsmb_sc_cat_item_app_user_n]
+2018/06/16 21:55:33.313 [DETAIL] Build Field Map [u_itsmb_sc_cat_item_app_user_n] started...
+2018/06/16 21:55:34.270 [DETAIL] SNow: Build Field Map [u_itsmb_sc_cat_item_app_user_n] complete, 17 entries
+2018/06/16 21:55:34.727 [INFO] Initialisation 13 of 26 [Approving Users Individual Approval] Completed
+2018/06/16 21:55:34.731 [DETAIL] Create Remedy Qualification: 'Approval Type' = "Person" AND 'Approver_Person' != $\NULL$ AND 'ReqMgrApprover' = "Use Request Manager" AND 'CreateDate' > "1/1/2000 1:00:00 PM" AND (1 = 1 AND 'SRD_Title' = "New Employee" OR 1 = 0) AND (1 = 1 AND ('SRD_LocationCompany' = "Calbro Services" OR 'SRD_LocationCompany' = "- Global -") OR 1 = 0)
+2018/06/16 21:55:34.762 [DETAIL] Build Field Map [CTM:People] started...
+2018/06/16 21:55:34.785 [DETAIL] Remedy: Build Field Map [CTM:People] complete, 132 entries
+2018/06/16 21:55:34.785 [DETAIL] Create SNow Lookup Query: name#!#!Managers Name!#!#
+2018/06/16 21:55:34.785 [DETAIL] Add Project Variable [SRD_Title [STRING]]
+2018/06/16 21:55:34.785 [DETAIL] Create SNow Lookup Query: name#!#SRD_Title#!#
+2018/06/16 21:55:34.787 [DETAIL] Add Project Variable [Approver_Person [STRING]]
+2018/06/16 21:55:34.788 [DETAIL] Create Remedy Lookup Query: 'Full Name' = ""
+2018/06/16 21:55:34.788 [INFO] Synchronising Scripted Web Service [u_itsmb_sc_cat_item_app_user_n]
+2018/06/16 21:55:35.493 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_sc_cat_item_app_user_n
+   Target Table: sc_cat_item_app_user
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: sc_cat_item_app_user,sys_metadata
+--created ws import set: u_itsmb_sc_cat_item_app_user_n [sc_cat_item_app_user]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_sc_cat_item_app_user_n
+   skip system field: target_mod_count
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   skip system field: target_domain
+   skip system field: target_class_name
+   skip system field: sys_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   transform field mapping exists: sys_name -> sys_name
+   skip system field: sys_transform_map
+   transform field mapping exists: sc_cat_item -> sc_cat_item
+   skip system field: target_created_by
+   skip system field: target_sys_id
+   skip system field: sys_created_by
+   skip system field: sys_import_row
+   transform field mapping exists: approver -> approver
+   skip system field: sys_row_error
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   skip system field: target_domain_path
+   skip system field: sys_mod_count
+   skip system field: import_set_run
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   transform field mapping exists: sys_package -> sys_package
+   transform field mapping exists: sys_update_name -> sys_update_name
+   skip system field: source_id
+   transform field mapping exists: sys_policy -> sys_policy
+   transform field mapping exists: target_scope -> sys_scope
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:55:35.493 [INFO] Scripted Web Service is Synchronised [u_itsmb_sc_cat_item_app_user_n]
+2018/06/16 21:55:35.953 [INFO] Initialisation 14 of 26 [Approving Users Manager Approval] Completed
+2018/06/16 21:55:35.957 [DETAIL] Create Remedy Qualification: 'Approval Type' = "Manager" AND 'CreateDate' > "1/1/2000 1:00:00 PM" AND (1 = 1 AND 'SRD_Title' = "New Employee" OR 1 = 0) AND (1 = 1 AND ('SRD_LocationCompany' = "Calbro Services" OR 'SRD_LocationCompany' = "- Global -") OR 1 = 0)
+2018/06/16 21:55:35.992 [DETAIL] Build Field Map [sc_ic_aprvl_defn] started...
+2018/06/16 21:55:36.951 [DETAIL] SNow: Build Field Map [sc_ic_aprvl_defn] complete, 9 entries
+2018/06/16 21:55:36.951 [DETAIL] Build Field Map [sys_metadata] started...
+2018/06/16 21:55:37.664 [DETAIL] SNow: Build Field Map [sys_metadata] complete, 20 entries
+2018/06/16 21:55:37.665 [DETAIL] Build Field Map [sc_ic_aprvl_defn_staging] started...
+2018/06/16 21:55:38.208 [DETAIL] SNow: Build Field Map [sc_ic_aprvl_defn_staging] complete, 9 entries
+2018/06/16 21:55:38.208 [DETAIL] Build Field Map [sys_metadata] started...
+2018/06/16 21:55:38.970 [DETAIL] SNow: Build Field Map [sys_metadata] complete, 20 entries
+2018/06/16 21:55:38.970 [DETAIL] Add Project Variable [SRD_Title [STRING]]
+2018/06/16 21:55:38.970 [DETAIL] Create SNow Lookup Query: name#!#SRD_Title#!#
+2018/06/16 21:55:38.970 [DETAIL] Create SNow Lookup Query: sys_name=Requestor's Manager
+2018/06/16 21:55:38.971 [INFO] Synchronising Scripted Web Service [u_itsmb_sc_ic_aprvl_defn_n]
+2018/06/16 21:55:40.767 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_sc_ic_aprvl_defn_n
+   Target Table: sc_ic_aprvl_defn
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: sc_ic_aprvl_defn,sys_metadata
+--created ws import set: u_itsmb_sc_ic_aprvl_defn_n [sc_ic_aprvl_defn]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_sc_ic_aprvl_defn_n
+   skip system field: target_mod_count
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   create transform field mapping: type -> type
+   skip system field: target_domain
+   skip system field: target_class_name
+   skip system field: sys_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   create transform field mapping: sys_name -> sys_name
+   skip system field: sys_transform_map
+   create transform field mapping: sc_cat_item -> sc_cat_item
+   skip system field: target_created_by
+   skip system field: target_sys_id
+   skip system field: sys_created_by
+   create transform field mapping: group -> group
+   create transform field mapping: order -> order
+   skip system field: sys_import_row
+   skip system field: sys_row_error
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   skip system field: target_domain_path
+   skip system field: sys_mod_count
+   create transform field mapping: active -> active
+   skip system field: import_set_run
+   skip virtual field: sys_tags
+   create transform field mapping: sc_ic_aprvl_type_defn_staging -> sc_ic_aprvl_type_defn_staging
+   skip system field: sys_import_state
+   create transform field mapping: sys_package -> sys_package
+   create transform field mapping: sys_update_name -> sys_update_name
+   create transform field mapping: detail -> detail
+   skip system field: source_id
+   create transform field mapping: user -> user
+   create transform field mapping: sys_policy -> sys_policy
+   create transform field mapping: target_scope -> sys_scope
+   create transform field mapping: target_class_name -> sys_class_name
+   create transform field mapping: target_mod_count -> sys_mod_count
+   create transform field mapping: target_created_by -> sys_created_by
+   create transform field mapping: target_created_on -> sys_created_on
+add sys_id_coalece
+   create transform field mapping: target_sys_id -> sys_id
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:55:40.767 [INFO] Scripted Web Service is Synchronised [u_itsmb_sc_ic_aprvl_defn_n]
+2018/06/16 21:55:40.767 [DETAIL] Build Field Map [u_itsmb_sc_ic_aprvl_defn_n] started...
+2018/06/16 21:55:41.764 [DETAIL] SNow: Build Field Map [u_itsmb_sc_ic_aprvl_defn_n] complete, 23 entries
+2018/06/16 21:55:42.223 [INFO] Initialisation 15 of 26 [Approval Definition] Completed
+2018/06/16 21:55:42.227 [DETAIL] Create Remedy Qualification: 'Approval Type' = "Custom" AND 'CreateDate' > "1/1/2000 1:00:00 PM" AND (1 = 1 AND 'SRD_Title' = "New Employee" OR 1 = 0) AND (1 = 1 AND ('SRD_LocationCompany' = "Calbro Services" OR 'SRD_LocationCompany' = "- Global -") OR 1 = 0)
+2018/06/16 21:55:42.232 [DETAIL] Build Field Map [APR:Approver Lookup] started...
+2018/06/16 21:55:42.291 [DETAIL] Remedy: Build Field Map [APR:Approver Lookup] complete, 151 entries
+2018/06/16 21:55:42.291 [DETAIL] Create SNow Lookup Query: name#!#!Approver Name!#!#
+2018/06/16 21:55:42.292 [DETAIL] Add Project Variable [SRD_LocationCompany [STRING]]
+2018/06/16 21:55:42.292 [DETAIL] Add Project Variable [Category3 [STRING]]
+2018/06/16 21:55:42.292 [DETAIL] Add Project Variable [Category2 [STRING]]
+2018/06/16 21:55:42.292 [DETAIL] Add Project Variable [Category1 [STRING]]
+2018/06/16 21:55:42.292 [DETAIL] Add Project Variable [SRD_Title [STRING]]
+2018/06/16 21:55:42.296 [DETAIL] Create Remedy Lookup Query: 'Group/Individual Flag' = "Individual" AND 'AI' = "Service Request" AND 'Status' = "Enabled" AND ('SRD_Name' = "" OR 'SRD_N1' = "" AND 'SRD_N2' = "." AND 'SRD_N3' = "." OR 'SRD_N1' = "" AND 'SRD_N2' = "" AND 'SRD_N3' = "." OR 'SRD_N1' = "" AND 'SRD_N2' = "" AND 'SRD_N3' = "") AND ('REQCPY' = "." OR 'REQCPY' = "")
+2018/06/16 21:55:42.296 [DETAIL] Add Project Variable [SRD_Title [STRING]]
+2018/06/16 21:55:42.296 [DETAIL] Create SNow Lookup Query: name#!#SRD_Title#!#
+2018/06/16 21:55:42.298 [INFO] Synchronising Scripted Web Service [u_itsmb_sc_cat_item_app_user_n]
+2018/06/16 21:55:42.924 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_sc_cat_item_app_user_n
+   Target Table: sc_cat_item_app_user
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: sc_cat_item_app_user,sys_metadata
+--created ws import set: u_itsmb_sc_cat_item_app_user_n [sc_cat_item_app_user]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_sc_cat_item_app_user_n
+   skip system field: target_mod_count
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   skip system field: target_domain
+   skip system field: target_class_name
+   skip system field: sys_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   transform field mapping exists: sys_name -> sys_name
+   skip system field: sys_transform_map
+   transform field mapping exists: sc_cat_item -> sc_cat_item
+   skip system field: target_created_by
+   skip system field: target_sys_id
+   skip system field: sys_created_by
+   skip system field: sys_import_row
+   transform field mapping exists: approver -> approver
+   skip system field: sys_row_error
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   skip system field: target_domain_path
+   skip system field: sys_mod_count
+   skip system field: import_set_run
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   transform field mapping exists: sys_package -> sys_package
+   transform field mapping exists: sys_update_name -> sys_update_name
+   skip system field: source_id
+   transform field mapping exists: sys_policy -> sys_policy
+   transform field mapping exists: target_scope -> sys_scope
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:55:42.924 [INFO] Scripted Web Service is Synchronised [u_itsmb_sc_cat_item_app_user_n]
+2018/06/16 21:55:43.380 [INFO] Initialisation 16 of 26 [Approving Users Custom Approval] Completed
+2018/06/16 21:55:43.392 [DETAIL] Create Remedy Qualification: 'Approval Type' = "Custom" AND 'CreateDate' > "1/1/2000 1:00:00 PM" AND (1 = 1 AND 'SRD_Title' = "New Employee" OR 1 = 0) AND (1 = 1 AND ('SRD_LocationCompany' = "Calbro Services" OR 'SRD_LocationCompany' = "- Global -") OR 1 = 0)
+2018/06/16 21:55:43.397 [DETAIL] Build Field Map [sc_cat_item_app_group] started...
+2018/06/16 21:55:43.641 [DETAIL] SNow: Build Field Map [sc_cat_item_app_group] complete, 3 entries
+2018/06/16 21:55:43.641 [DETAIL] Build Field Map [sys_metadata] started...
+2018/06/16 21:55:44.831 [DETAIL] SNow: Build Field Map [sys_metadata] complete, 14 entries
+2018/06/16 21:55:44.831 [DETAIL] Add Project Variable [SRD_LocationCompany [STRING]]
+2018/06/16 21:55:44.831 [DETAIL] Add Project Variable [Category3 [STRING]]
+2018/06/16 21:55:44.831 [DETAIL] Add Project Variable [Category2 [STRING]]
+2018/06/16 21:55:44.831 [DETAIL] Add Project Variable [Category1 [STRING]]
+2018/06/16 21:55:44.831 [DETAIL] Add Project Variable [SRD_Title [STRING]]
+2018/06/16 21:55:44.833 [DETAIL] Create Remedy Lookup Query: 'Group/Individual Flag' = "Group" AND 'AI' = "Service Request" AND 'Status' = "Enabled" AND ('SRD_Name' = "" OR 'SRD_N1' = "" AND 'SRD_N2' = "." AND 'SRD_N3' = "." OR 'SRD_N1' = "" AND 'SRD_N2' = "" AND 'SRD_N3' = "." OR 'SRD_N1' = "" AND 'SRD_N2' = "" AND 'SRD_N3' = "") AND ('REQCPY' = "." OR 'REQCPY' = "")
+2018/06/16 21:55:44.833 [DETAIL] Create SNow Lookup Query: name#!#!Approval Group Name!#!#
+2018/06/16 21:55:44.834 [DETAIL] Add Project Variable [SRD_Title [STRING]]
+2018/06/16 21:55:44.834 [DETAIL] Create SNow Lookup Query: name#!#SRD_Title#!#
+2018/06/16 21:55:44.835 [INFO] Synchronising Scripted Web Service [u_itsmb_sc_cat_item_app_group_n]
+2018/06/16 21:55:46.289 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_sc_cat_item_app_group_n
+   Target Table: sc_cat_item_app_group
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: sc_cat_item_app_group,sys_metadata
+--created ws import set: u_itsmb_sc_cat_item_app_group_n [sc_cat_item_app_group]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_sc_cat_item_app_group_n
+   skip system field: target_mod_count
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   skip system field: target_domain
+   skip system field: target_class_name
+   skip system field: sys_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   create transform field mapping: sys_name -> sys_name
+   skip system field: sys_transform_map
+   create transform field mapping: sc_cat_item -> sc_cat_item
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   skip system field: sys_created_by
+   skip system field: sys_import_row
+   skip system field: sys_row_error
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   skip system field: target_domain_path
+   skip system field: sys_mod_count
+   skip system field: import_set_run
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   create transform field mapping: sys_package -> sys_package
+   create transform field mapping: sys_update_name -> sys_update_name
+   skip system field: source_id
+   create transform field mapping: approval_group -> approval_group
+   create transform field mapping: sys_policy -> sys_policy
+   create transform field mapping: target_scope -> sys_scope
+   create transform field mapping: target_class_name -> sys_class_name
+   create transform field mapping: target_mod_count -> sys_mod_count
+   create transform field mapping: target_created_by -> sys_created_by
+   create transform field mapping: target_created_on -> sys_created_on
+add sys_id_coalece
+   create transform field mapping: target_sys_id -> sys_id
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:55:46.289 [INFO] Scripted Web Service is Synchronised [u_itsmb_sc_cat_item_app_group_n]
+2018/06/16 21:55:46.290 [DETAIL] Build Field Map [u_itsmb_sc_cat_item_app_group_n] started...
+2018/06/16 21:55:47.228 [DETAIL] SNow: Build Field Map [u_itsmb_sc_cat_item_app_group_n] complete, 17 entries
+2018/06/16 21:55:47.685 [INFO] Initialisation 17 of 26 [Approving Groups Custom Approval] Completed
+2018/06/16 21:55:47.685 [DETAIL] Build Field Map [APR:Approval Chain] started...
+2018/06/16 21:55:47.726 [DETAIL] Remedy: Build Field Map [APR:Approval Chain] complete, 36 entries
+2018/06/16 21:55:47.728 [DETAIL] Create Remedy Qualification: 'Form Name01' = "SRM:Request" AND 'Status' = "Enabled" AND (1 = 1 AND ('Company' = "Calbro Services" OR 'Company' = "- Global -") OR 1 = 0)
+2018/06/16 21:55:47.742 [DETAIL] Build Field Map [process_guide] started...
+2018/06/16 21:55:48.436 [DETAIL] SNow: Build Field Map [process_guide] complete, 10 entries
+2018/06/16 21:55:48.436 [DETAIL] Build Field Map [sys_metadata] started...
+2018/06/16 21:55:49.594 [DETAIL] SNow: Build Field Map [sys_metadata] complete, 21 entries
+2018/06/16 21:55:49.595 [INFO] Synchronising Scripted Web Service [u_itsmb_process_guide_n]
+2018/06/16 21:55:51.647 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_process_guide_n
+   Target Table: process_guide
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: process_guide,sys_metadata
+--created ws import set: u_itsmb_process_guide_n [process_guide]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_process_guide_n
+   skip system field: target_mod_count
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   skip system field: target_domain
+   skip system field: target_class_name
+   skip system field: sys_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   skip system field: sys_created_on
+   create transform field mapping: on_insert -> on_insert
+   skip system field: sys_import_set
+   create transform field mapping: sys_name -> sys_name
+   skip system field: sys_transform_map
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   create transform field mapping: table -> table
+   skip system field: sys_created_by
+   create transform field mapping: order -> order
+   skip system field: sys_import_row
+   skip system field: sys_row_error
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   skip system field: target_domain_path
+   create transform field mapping: start -> start
+   skip system field: sys_mod_count
+   create transform field mapping: active -> active
+   skip system field: import_set_run
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   create transform field mapping: advanced_condition -> advanced_condition
+   create transform field mapping: sys_package -> sys_package
+   create transform field mapping: condition -> condition
+   create transform field mapping: sys_update_name -> sys_update_name
+   create transform field mapping: on_update -> on_update
+   create transform field mapping: name -> name
+   skip system field: source_id
+   create transform field mapping: sys_policy -> sys_policy
+   create transform field mapping: target_scope -> sys_scope
+   create transform field mapping: target_class_name -> sys_class_name
+   create transform field mapping: target_mod_count -> sys_mod_count
+   create transform field mapping: target_created_by -> sys_created_by
+   create transform field mapping: target_created_on -> sys_created_on
+add sys_id_coalece
+   create transform field mapping: target_sys_id -> sys_id
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:55:51.647 [INFO] Scripted Web Service is Synchronised [u_itsmb_process_guide_n]
+2018/06/16 21:55:51.647 [DETAIL] Build Field Map [u_itsmb_process_guide_n] started...
+2018/06/16 21:55:52.638 [DETAIL] SNow: Build Field Map [u_itsmb_process_guide_n] complete, 24 entries
+2018/06/16 21:55:53.095 [INFO] Initialisation 18 of 26 [Process Guides] Completed
+2018/06/16 21:55:53.096 [DETAIL] Build Field Map [APR:ApprovalElementProcess-Join] started...
+2018/06/16 21:55:53.129 [DETAIL] Remedy: Build Field Map [APR:ApprovalElementProcess-Join] complete, 14 entries
+2018/06/16 21:55:53.131 [DETAIL] Create Remedy Qualification: 'Status' = "Enabled" AND 'Process Name' LIKE "Service Request" + "%"
+2018/06/16 21:55:53.193 [DETAIL] Build Field Map [process_step_approval] started...
+2018/06/16 21:55:54.121 [DETAIL] SNow: Build Field Map [process_step_approval] complete, 11 entries
+2018/06/16 21:55:54.121 [DETAIL] Build Field Map [process_step] started...
+2018/06/16 21:55:54.368 [DETAIL] SNow: Build Field Map [process_step] complete, 13 entries
+2018/06/16 21:55:54.368 [DETAIL] Build Field Map [sys_metadata] started...
+2018/06/16 21:55:55.073 [DETAIL] SNow: Build Field Map [sys_metadata] complete, 24 entries
+2018/06/16 21:55:55.073 [DETAIL] Build Field Map [APR:ApprovalActionNextProcess-Join] started...
+2018/06/16 21:55:55.082 [DETAIL] Remedy: Build Field Map [APR:ApprovalActionNextProcess-Join] complete, 21 entries
+2018/06/16 21:55:55.083 [DETAIL] Build Field Map [process_step] started...
+2018/06/16 21:55:55.330 [DETAIL] SNow: Build Field Map [process_step] complete, 3 entries
+2018/06/16 21:55:55.331 [DETAIL] Build Field Map [sys_metadata] started...
+2018/06/16 21:55:56.537 [DETAIL] SNow: Build Field Map [sys_metadata] complete, 14 entries
+2018/06/16 21:55:56.537 [DETAIL] Add Project Variable [Approval Chain ID [STRING]]
+2018/06/16 21:55:56.537 [DETAIL] Add Project Variable [Chain Element ID [STRING]]
+2018/06/16 21:55:56.539 [DETAIL] Create Remedy Lookup Query: 'Approval Chain ID' = "" AND 'Chain Element ID' = "" AND 'Result Approved' = "Approved" AND 'Action' = "Next Process"
+2018/06/16 21:55:56.539 [DETAIL] Create SNow Lookup Query: name#!#!Approved Next Process!#!#
+2018/06/16 21:55:56.540 [DETAIL] Add Project Variable [Approval Chain ID [STRING]]
+2018/06/16 21:55:56.540 [DETAIL] Add Project Variable [Chain Element ID [STRING]]
+2018/06/16 21:55:56.541 [DETAIL] Create Remedy Lookup Query: 'Approval Chain ID' = "" AND 'Chain Element ID' = "" AND 'Result Rejected' = "Rejected" AND 'Action' = "Next Process"
+2018/06/16 21:55:56.541 [DETAIL] Create SNow Lookup Query: name#!#!Approval Chain Name!#!#
+2018/06/16 21:55:56.542 [DETAIL] Create SNow Lookup Query: name#!#!Rejected Next Process!#!#
+2018/06/16 21:55:56.542 [DETAIL] Add Project Variable [Approval Chain ID [STRING]]
+2018/06/16 21:55:56.544 [DETAIL] Create Remedy Lookup Query: 'InstanceId' = ""
+2018/06/16 21:55:56.544 [INFO] Synchronising Scripted Web Service [u_itsmb_process_step_approval_n]
+2018/06/16 21:55:58.614 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_process_step_approval_n
+   Target Table: process_step_approval
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: process_step_approval,process_step,sys_metadata
+--created ws import set: u_itsmb_process_step_approval_n [process_step_approval]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_process_step_approval_n
+   create transform field mapping: rejection_script -> rejection_script
+   skip system field: target_mod_count
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   skip system field: target_domain
+   skip system field: target_class_name
+   skip system field: sys_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   create transform field mapping: approval_goto -> approval_goto
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   create transform field mapping: sys_name -> sys_name
+   skip system field: sys_transform_map
+   skip system field: target_created_by
+   create transform field mapping: on_rejection -> on_rejection
+   skip system field: target_sys_id
+   skip system field: sys_created_by
+   skip system field: sys_import_row
+   create transform field mapping: on_approval -> on_approval
+   skip system field: sys_row_error
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   create transform field mapping: approval_script -> approval_script
+   skip system field: target_domain_path
+   skip system field: sys_mod_count
+   create transform field mapping: control -> control
+   create transform field mapping: user_list -> user_list
+   skip system field: import_set_run
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   create transform field mapping: rejection_goto -> rejection_goto
+   create transform field mapping: sys_package -> sys_package
+   create transform field mapping: sys_update_name -> sys_update_name
+   create transform field mapping: group_list -> group_list
+   create transform field mapping: name -> name
+   skip system field: source_id
+   create transform field mapping: process_guide -> process_guide
+   create transform field mapping: approver_script -> approver_script
+   create transform field mapping: sys_policy -> sys_policy
+   create transform field mapping: target_scope -> sys_scope
+   create transform field mapping: target_class_name -> sys_class_name
+   create transform field mapping: target_mod_count -> sys_mod_count
+   create transform field mapping: target_created_by -> sys_created_by
+   create transform field mapping: target_created_on -> sys_created_on
+add sys_id_coalece
+   create transform field mapping: target_sys_id -> sys_id
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:55:58.614 [INFO] Scripted Web Service is Synchronised [u_itsmb_process_step_approval_n]
+2018/06/16 21:55:58.614 [DETAIL] Build Field Map [u_itsmb_process_step_approval_n] started...
+2018/06/16 21:55:59.667 [DETAIL] SNow: Build Field Map [u_itsmb_process_step_approval_n] complete, 27 entries
+2018/06/16 21:56:00.121 [INFO] Initialisation 19 of 26 [Approval Steps] Completed
+2018/06/16 21:56:00.124 [DETAIL] Create Remedy Qualification: 'Form Name01' = "SRM:Request" AND 'Status' = "Enabled" AND (1 = 1 AND ('Company' = "Calbro Services" OR 'Company' = "- Global -") OR 1 = 0)
+2018/06/16 21:56:00.146 [DETAIL] Create SNow Lookup Query: name#!#!Process Name!#!#
+2018/06/16 21:56:00.147 [DETAIL] Add Project Variable [InstanceId [STRING]]
+2018/06/16 21:56:00.149 [DETAIL] Create Remedy Lookup Query: 'Approval Chain ID' = "" AND 'First Chain Element' = "True"
+2018/06/16 21:56:00.150 [INFO] Synchronising Scripted Web Service [u_itsmb_process_guide_n]
+2018/06/16 21:56:00.843 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_process_guide_n
+   Target Table: process_guide
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: process_guide,sys_metadata
+--created ws import set: u_itsmb_process_guide_n [process_guide]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_process_guide_n
+   skip system field: target_mod_count
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   skip system field: target_domain
+   skip system field: target_class_name
+   skip system field: sys_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   skip system field: sys_created_on
+   transform field mapping exists: on_insert -> on_insert
+   skip system field: sys_import_set
+   transform field mapping exists: sys_name -> sys_name
+   skip system field: sys_transform_map
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   transform field mapping exists: table -> table
+   skip system field: sys_created_by
+   transform field mapping exists: order -> order
+   skip system field: sys_import_row
+   skip system field: sys_row_error
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   skip system field: target_domain_path
+   transform field mapping exists: start -> start
+   skip system field: sys_mod_count
+   transform field mapping exists: active -> active
+   skip system field: import_set_run
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   transform field mapping exists: advanced_condition -> advanced_condition
+   transform field mapping exists: sys_package -> sys_package
+   transform field mapping exists: condition -> condition
+   transform field mapping exists: sys_update_name -> sys_update_name
+   transform field mapping exists: on_update -> on_update
+   transform field mapping exists: name -> name
+   skip system field: source_id
+   transform field mapping exists: sys_policy -> sys_policy
+   transform field mapping exists: target_scope -> sys_scope
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:56:00.843 [INFO] Scripted Web Service is Synchronised [u_itsmb_process_guide_n]
+2018/06/16 21:56:01.302 [INFO] Initialisation 20 of 26 [Process Guides Update] Completed
+2018/06/16 21:56:01.302 [DETAIL] Create Remedy Qualification: null
+2018/06/16 21:56:01.340 [DETAIL] Build Field Map [SRM:QuestionDef_SRD] started...
+2018/06/16 21:56:01.347 [DETAIL] Remedy: Build Field Map [SRM:QuestionDef_SRD] complete, 21 entries
+2018/06/16 21:56:01.348 [DETAIL] Build Field Map [item_option_new] started...
+2018/06/16 21:56:02.320 [DETAIL] SNow: Build Field Map [item_option_new] complete, 15 entries
+2018/06/16 21:56:02.320 [DETAIL] Build Field Map [question] started...
+2018/06/16 21:56:04.259 [DETAIL] SNow: Build Field Map [question] complete, 71 entries
+2018/06/16 21:56:04.259 [DETAIL] Build Field Map [sys_metadata] started...
+2018/06/16 21:56:04.586 [DETAIL] SNow: Build Field Map [sys_metadata] complete, 82 entries
+2018/06/16 21:56:04.587 [DETAIL] Build Field Map [SRD:ServiceRequestDefinition_DispProp] started...
+2018/06/16 21:56:04.599 [DETAIL] Remedy: Build Field Map [SRD:ServiceRequestDefinition_DispProp] complete, 34 entries
+2018/06/16 21:56:04.599 [DETAIL] Build Field Map [SRM:QuestionDef] started...
+2018/06/16 21:56:04.612 [DETAIL] Remedy: Build Field Map [SRM:QuestionDef] complete, 37 entries
+2018/06/16 21:56:04.612 [DETAIL] Add Project Variable [SRDInstanceID_DispProp [STRING]]
+2018/06/16 21:56:04.615 [DETAIL] Create Remedy Lookup Query: 'InstanceId' = ""
+2018/06/16 21:56:04.615 [DETAIL] Add Project Variable [QuestionDef_InstanceID [STRING]]
+2018/06/16 21:56:04.616 [DETAIL] Create Remedy Lookup Query: 'InstanceID' = ""
+2018/06/16 21:56:04.616 [DETAIL] Create SNow Lookup Query: name#!#!SRD Title!#!#
+2018/06/16 21:56:04.617 [INFO] Synchronising Scripted Web Service [u_itsmb_item_option_new_n]
+2018/06/16 21:56:10.261 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_item_option_new_n
+   Target Table: item_option_new
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: item_option_new,question,sys_metadata
+--created ws import set: u_itsmb_item_option_new_n [item_option_new]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_item_option_new_n
+   create transform field mapping: dynamic_ref_qual -> dynamic_ref_qual
+   create transform field mapping: rec_price_if_checked -> rec_price_if_checked
+   create transform field mapping: rec_lookup_price -> rec_lookup_price
+   create transform field mapping: display_title -> display_title
+   create transform field mapping: tooltip -> tooltip
+   create transform field mapping: show_help_on_load -> show_help_on_load
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   create transform field mapping: type -> type
+   create transform field mapping: lookup_table -> lookup_table
+   create transform field mapping: record -> record
+   create transform field mapping: sys_name -> sys_name
+   skip system field: sys_created_by
+   create transform field mapping: order -> order
+   skip system field: sys_import_row
+   create transform field mapping: map_to_field -> map_to_field
+   create transform field mapping: choice_direction -> choice_direction
+   create transform field mapping: delivery_plan -> delivery_plan
+   create transform field mapping: delete_roles -> delete_roles
+   create transform field mapping: active -> active
+   create transform field mapping: sys_update_name -> sys_update_name
+   create transform field mapping: field -> field
+   create transform field mapping: variable_width -> variable_width
+   create transform field mapping: help_text -> help_text
+   skip system field: target_mod_count
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   create transform field mapping: global -> global
+   skip system field: target_domain
+   create transform field mapping: mandatory -> mandatory
+   skip system field: sys_class_name
+   create transform field mapping: dynamic_default_value -> dynamic_default_value
+   create transform field mapping: example_text -> example_text
+   create transform field mapping: pricing_implications -> pricing_implications
+   create transform field mapping: read_roles -> read_roles
+   create transform field mapping: visible_bundle -> visible_bundle
+   create transform field mapping: create_roles -> create_roles
+   create transform field mapping: table -> table
+   skip system field: sys_target_table
+   create transform field mapping: mask_use_encryption -> mask_use_encryption
+   create transform field mapping: include_none -> include_none
+   create transform field mapping: default_value -> default_value
+   create transform field mapping: price_if_checked -> price_if_checked
+   create transform field mapping: help_tag -> help_tag
+   skip system field: sys_import_state
+   create transform field mapping: question_text -> question_text
+   create transform field mapping: sys_package -> sys_package
+   create transform field mapping: cat_item -> cat_item
+   create transform field mapping: record_producer_table -> record_producer_table
+   create transform field mapping: attributes -> attributes
+   skip system field: source_id
+   create transform field mapping: reference_qual -> reference_qual
+   create transform field mapping: lookup_unique -> lookup_unique
+   create transform field mapping: default_html_value -> default_html_value
+   create transform field mapping: instructions -> instructions
+   create transform field mapping: lookup_label -> lookup_label
+   create transform field mapping: choice_field -> choice_field
+   skip system field: target_class_name
+   create transform field mapping: ui_page -> ui_page
+   skip system field: sys_target_sys_id
+   create transform field mapping: reference -> reference
+   skip system field: sys_updated_by
+   create transform field mapping: lookup_value -> lookup_value
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   create transform field mapping: mask_use_confirmation -> mask_use_confirmation
+   create transform field mapping: reference_qual_condition -> reference_qual_condition
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   skip system field: sys_row_error
+   create transform field mapping: visibility -> visibility
+   skip system field: target_domain_path
+   create transform field mapping: choice_table -> choice_table
+   skip system field: import_set_run
+   create transform field mapping: name -> name
+   create transform field mapping: sys_policy -> sys_policy
+   create transform field mapping: use_dynamic_default -> use_dynamic_default
+   create transform field mapping: description -> description
+   create transform field mapping: scale_min -> scale_min
+   create transform field mapping: show_help -> show_help
+   create transform field mapping: visible_guide -> visible_guide
+   create transform field mapping: visible_standalone -> visible_standalone
+   create transform field mapping: do_not_select_first -> do_not_select_first
+   create transform field mapping: variable_set -> variable_set
+   create transform field mapping: write_roles -> write_roles
+   skip system field: sys_transform_map
+   create transform field mapping: variable_name -> variable_name
+   create transform field mapping: sp_widget -> sp_widget
+   create transform field mapping: list_table -> list_table
+   create transform field mapping: macro -> macro
+   create transform field mapping: use_reference_qualifier -> use_reference_qualifier
+   skip system field: target_created_on
+   create transform field mapping: visible_summary -> visible_summary
+   skip system field: sys_mod_count
+   create transform field mapping: lookup_price -> lookup_price
+   skip virtual field: sys_tags
+   create transform field mapping: layout -> layout
+   create transform field mapping: summary_macro -> summary_macro
+   create transform field mapping: scale_max -> scale_max
+   create transform field mapping: category -> category
+   create transform field mapping: target_scope -> sys_scope
+   create transform field mapping: target_class_name -> sys_class_name
+   create transform field mapping: target_mod_count -> sys_mod_count
+   create transform field mapping: target_created_by -> sys_created_by
+   create transform field mapping: target_created_on -> sys_created_on
+add sys_id_coalece
+   create transform field mapping: target_sys_id -> sys_id
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:56:10.261 [INFO] Scripted Web Service is Synchronised [u_itsmb_item_option_new_n]
+2018/06/16 21:56:10.261 [DETAIL] Build Field Map [u_itsmb_item_option_new_n] started...
+2018/06/16 21:56:12.945 [DETAIL] SNow: Build Field Map [u_itsmb_item_option_new_n] complete, 85 entries
+2018/06/16 21:56:13.397 [INFO] Initialisation 21 of 26 [Catalog Item Variables Level 1] Completed
+2018/06/16 21:56:13.397 [DETAIL] Create Remedy Qualification: null
+2018/06/16 21:56:13.435 [DETAIL] Add Project Variable [QuestionDef_InstanceID [STRING]]
+2018/06/16 21:56:13.442 [DETAIL] Create Remedy Lookup Query: 'InstanceID' = ""
+2018/06/16 21:56:13.442 [DETAIL] Add Project Variable [SRDInstanceID_DispProp [STRING]]
+2018/06/16 21:56:13.448 [DETAIL] Create Remedy Lookup Query: 'InstanceId' = ""
+2018/06/16 21:56:13.448 [DETAIL] Create SNow Lookup Query: name#!#!SRD Title!#!#
+2018/06/16 21:56:13.450 [INFO] Synchronising Scripted Web Service [u_itsmb_item_option_new_n]
+2018/06/16 21:56:15.125 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_item_option_new_n
+   Target Table: item_option_new
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: item_option_new,question,sys_metadata
+--created ws import set: u_itsmb_item_option_new_n [item_option_new]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_item_option_new_n
+   transform field mapping exists: dynamic_ref_qual -> dynamic_ref_qual
+   transform field mapping exists: rec_price_if_checked -> rec_price_if_checked
+   transform field mapping exists: rec_lookup_price -> rec_lookup_price
+   transform field mapping exists: display_title -> display_title
+   transform field mapping exists: tooltip -> tooltip
+   transform field mapping exists: show_help_on_load -> show_help_on_load
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   transform field mapping exists: type -> type
+   transform field mapping exists: lookup_table -> lookup_table
+   transform field mapping exists: record -> record
+   transform field mapping exists: sys_name -> sys_name
+   skip system field: sys_created_by
+   transform field mapping exists: order -> order
+   skip system field: sys_import_row
+   transform field mapping exists: map_to_field -> map_to_field
+   transform field mapping exists: choice_direction -> choice_direction
+   transform field mapping exists: delivery_plan -> delivery_plan
+   transform field mapping exists: delete_roles -> delete_roles
+   transform field mapping exists: active -> active
+   transform field mapping exists: sys_update_name -> sys_update_name
+   transform field mapping exists: field -> field
+   transform field mapping exists: variable_width -> variable_width
+   transform field mapping exists: help_text -> help_text
+   skip system field: target_mod_count
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   transform field mapping exists: global -> global
+   skip system field: target_domain
+   transform field mapping exists: mandatory -> mandatory
+   skip system field: sys_class_name
+   transform field mapping exists: dynamic_default_value -> dynamic_default_value
+   transform field mapping exists: example_text -> example_text
+   transform field mapping exists: pricing_implications -> pricing_implications
+   transform field mapping exists: read_roles -> read_roles
+   transform field mapping exists: visible_bundle -> visible_bundle
+   transform field mapping exists: create_roles -> create_roles
+   transform field mapping exists: table -> table
+   skip system field: sys_target_table
+   transform field mapping exists: mask_use_encryption -> mask_use_encryption
+   transform field mapping exists: include_none -> include_none
+   transform field mapping exists: default_value -> default_value
+   transform field mapping exists: price_if_checked -> price_if_checked
+   transform field mapping exists: help_tag -> help_tag
+   skip system field: sys_import_state
+   transform field mapping exists: question_text -> question_text
+   transform field mapping exists: sys_package -> sys_package
+   transform field mapping exists: cat_item -> cat_item
+   transform field mapping exists: record_producer_table -> record_producer_table
+   transform field mapping exists: attributes -> attributes
+   skip system field: source_id
+   transform field mapping exists: reference_qual -> reference_qual
+   transform field mapping exists: lookup_unique -> lookup_unique
+   transform field mapping exists: default_html_value -> default_html_value
+   transform field mapping exists: instructions -> instructions
+   transform field mapping exists: lookup_label -> lookup_label
+   transform field mapping exists: choice_field -> choice_field
+   skip system field: target_class_name
+   transform field mapping exists: ui_page -> ui_page
+   skip system field: sys_target_sys_id
+   transform field mapping exists: reference -> reference
+   skip system field: sys_updated_by
+   transform field mapping exists: lookup_value -> lookup_value
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   transform field mapping exists: mask_use_confirmation -> mask_use_confirmation
+   transform field mapping exists: reference_qual_condition -> reference_qual_condition
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   skip system field: sys_row_error
+   transform field mapping exists: visibility -> visibility
+   skip system field: target_domain_path
+   transform field mapping exists: choice_table -> choice_table
+   skip system field: import_set_run
+   transform field mapping exists: name -> name
+   transform field mapping exists: sys_policy -> sys_policy
+   transform field mapping exists: use_dynamic_default -> use_dynamic_default
+   transform field mapping exists: description -> description
+   transform field mapping exists: scale_min -> scale_min
+   transform field mapping exists: show_help -> show_help
+   transform field mapping exists: visible_guide -> visible_guide
+   transform field mapping exists: visible_standalone -> visible_standalone
+   transform field mapping exists: do_not_select_first -> do_not_select_first
+   transform field mapping exists: variable_set -> variable_set
+   transform field mapping exists: write_roles -> write_roles
+   skip system field: sys_transform_map
+   transform field mapping exists: variable_name -> variable_name
+   transform field mapping exists: sp_widget -> sp_widget
+   transform field mapping exists: list_table -> list_table
+   transform field mapping exists: macro -> macro
+   transform field mapping exists: use_reference_qualifier -> use_reference_qualifier
+   skip system field: target_created_on
+   transform field mapping exists: visible_summary -> visible_summary
+   skip system field: sys_mod_count
+   transform field mapping exists: lookup_price -> lookup_price
+   skip virtual field: sys_tags
+   transform field mapping exists: layout -> layout
+   transform field mapping exists: summary_macro -> summary_macro
+   transform field mapping exists: scale_max -> scale_max
+   transform field mapping exists: category -> category
+   transform field mapping exists: target_scope -> sys_scope
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:56:15.125 [INFO] Scripted Web Service is Synchronised [u_itsmb_item_option_new_n]
+2018/06/16 21:56:15.589 [INFO] Initialisation 22 of 26 [Catalog Item Variables Level 2] Completed
+2018/06/16 21:56:15.589 [DETAIL] Create Remedy Qualification: null
+2018/06/16 21:56:15.596 [DETAIL] Add Project Variable [QuestionDef_InstanceID [STRING]]
+2018/06/16 21:56:15.645 [DETAIL] Create Remedy Lookup Query: 'InstanceID' = ""
+2018/06/16 21:56:15.645 [DETAIL] Add Project Variable [SRDInstanceID_DispProp [STRING]]
+2018/06/16 21:56:15.647 [DETAIL] Create Remedy Lookup Query: 'InstanceId' = ""
+2018/06/16 21:56:15.647 [DETAIL] Create SNow Lookup Query: name#!#!SRD Title!#!#
+2018/06/16 21:56:15.648 [INFO] Synchronising Scripted Web Service [u_itsmb_item_option_new_n]
+2018/06/16 21:56:19.674 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_item_option_new_n
+   Target Table: item_option_new
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: item_option_new,question,sys_metadata
+--created ws import set: u_itsmb_item_option_new_n [item_option_new]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_item_option_new_n
+   transform field mapping exists: dynamic_ref_qual -> dynamic_ref_qual
+   transform field mapping exists: rec_price_if_checked -> rec_price_if_checked
+   transform field mapping exists: rec_lookup_price -> rec_lookup_price
+   transform field mapping exists: display_title -> display_title
+   transform field mapping exists: tooltip -> tooltip
+   transform field mapping exists: show_help_on_load -> show_help_on_load
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   transform field mapping exists: type -> type
+   transform field mapping exists: lookup_table -> lookup_table
+   transform field mapping exists: record -> record
+   transform field mapping exists: sys_name -> sys_name
+   skip system field: sys_created_by
+   transform field mapping exists: order -> order
+   skip system field: sys_import_row
+   transform field mapping exists: map_to_field -> map_to_field
+   transform field mapping exists: choice_direction -> choice_direction
+   transform field mapping exists: delivery_plan -> delivery_plan
+   transform field mapping exists: delete_roles -> delete_roles
+   transform field mapping exists: active -> active
+   transform field mapping exists: sys_update_name -> sys_update_name
+   transform field mapping exists: field -> field
+   transform field mapping exists: variable_width -> variable_width
+   transform field mapping exists: help_text -> help_text
+   skip system field: target_mod_count
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   transform field mapping exists: global -> global
+   skip system field: target_domain
+   transform field mapping exists: mandatory -> mandatory
+   skip system field: sys_class_name
+   transform field mapping exists: dynamic_default_value -> dynamic_default_value
+   transform field mapping exists: example_text -> example_text
+   transform field mapping exists: pricing_implications -> pricing_implications
+   transform field mapping exists: read_roles -> read_roles
+   transform field mapping exists: visible_bundle -> visible_bundle
+   transform field mapping exists: create_roles -> create_roles
+   transform field mapping exists: table -> table
+   skip system field: sys_target_table
+   transform field mapping exists: mask_use_encryption -> mask_use_encryption
+   transform field mapping exists: include_none -> include_none
+   transform field mapping exists: default_value -> default_value
+   transform field mapping exists: price_if_checked -> price_if_checked
+   transform field mapping exists: help_tag -> help_tag
+   skip system field: sys_import_state
+   transform field mapping exists: question_text -> question_text
+   transform field mapping exists: sys_package -> sys_package
+   transform field mapping exists: cat_item -> cat_item
+   transform field mapping exists: record_producer_table -> record_producer_table
+   transform field mapping exists: attributes -> attributes
+   skip system field: source_id
+   transform field mapping exists: reference_qual -> reference_qual
+   transform field mapping exists: lookup_unique -> lookup_unique
+   transform field mapping exists: default_html_value -> default_html_value
+   transform field mapping exists: instructions -> instructions
+   transform field mapping exists: lookup_label -> lookup_label
+   transform field mapping exists: choice_field -> choice_field
+   skip system field: target_class_name
+   transform field mapping exists: ui_page -> ui_page
+   skip system field: sys_target_sys_id
+   transform field mapping exists: reference -> reference
+   skip system field: sys_updated_by
+   transform field mapping exists: lookup_value -> lookup_value
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   transform field mapping exists: mask_use_confirmation -> mask_use_confirmation
+   transform field mapping exists: reference_qual_condition -> reference_qual_condition
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   skip system field: sys_row_error
+   transform field mapping exists: visibility -> visibility
+   skip system field: target_domain_path
+   transform field mapping exists: choice_table -> choice_table
+   skip system field: import_set_run
+   transform field mapping exists: name -> name
+   transform field mapping exists: sys_policy -> sys_policy
+   transform field mapping exists: use_dynamic_default -> use_dynamic_default
+   transform field mapping exists: description -> description
+   transform field mapping exists: scale_min -> scale_min
+   transform field mapping exists: show_help -> show_help
+   transform field mapping exists: visible_guide -> visible_guide
+   transform field mapping exists: visible_standalone -> visible_standalone
+   transform field mapping exists: do_not_select_first -> do_not_select_first
+   transform field mapping exists: variable_set -> variable_set
+   transform field mapping exists: write_roles -> write_roles
+   skip system field: sys_transform_map
+   transform field mapping exists: variable_name -> variable_name
+   transform field mapping exists: sp_widget -> sp_widget
+   transform field mapping exists: list_table -> list_table
+   transform field mapping exists: macro -> macro
+   transform field mapping exists: use_reference_qualifier -> use_reference_qualifier
+   skip system field: target_created_on
+   transform field mapping exists: visible_summary -> visible_summary
+   skip system field: sys_mod_count
+   transform field mapping exists: lookup_price -> lookup_price
+   skip virtual field: sys_tags
+   transform field mapping exists: layout -> layout
+   transform field mapping exists: summary_macro -> summary_macro
+   transform field mapping exists: scale_max -> scale_max
+   transform field mapping exists: category -> category
+   transform field mapping exists: target_scope -> sys_scope
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:56:19.674 [INFO] Scripted Web Service is Synchronised [u_itsmb_item_option_new_n]
+2018/06/16 21:56:20.132 [INFO] Initialisation 23 of 26 [Catalog Item Variables Level 3] Completed
+2018/06/16 21:56:20.132 [DETAIL] Build Field Map [SRM:QuestionSRD_Def_Choices] started...
+2018/06/16 21:56:20.225 [DETAIL] Remedy: Build Field Map [SRM:QuestionSRD_Def_Choices] complete, 41 entries
+2018/06/16 21:56:20.227 [DETAIL] Create Remedy Qualification: 'Choice_InstanceID' != $\NULL$
+2018/06/16 21:56:20.285 [DETAIL] Build Field Map [question_choice] started...
+2018/06/16 21:56:20.962 [DETAIL] SNow: Build Field Map [question_choice] complete, 7 entries
+2018/06/16 21:56:20.962 [DETAIL] Build Field Map [sys_metadata] started...
+2018/06/16 21:56:22.128 [DETAIL] SNow: Build Field Map [sys_metadata] complete, 18 entries
+2018/06/16 21:56:22.128 [DETAIL] Build Field Map [question] started...
+2018/06/16 21:56:24.057 [DETAIL] SNow: Build Field Map [question] complete, 57 entries
+2018/06/16 21:56:24.057 [DETAIL] Build Field Map [sys_metadata] started...
+2018/06/16 21:56:24.815 [DETAIL] SNow: Build Field Map [sys_metadata] complete, 68 entries
+2018/06/16 21:56:24.815 [DETAIL] Create SNow Lookup Query: name#!#!Question Name!#!#
+2018/06/16 21:56:24.829 [DETAIL] Add Project Variable [QuestionDef_InstanceID [STRING]]
+2018/06/16 21:56:24.829 [DETAIL] Add Project Variable [QuestionSRD_InstanceID [STRING]]
+2018/06/16 21:56:24.831 [DETAIL] Create Remedy Lookup Query: 'QuestionDef_InstanceID' = "" AND 'QuestionSRD_InstanceID' = ""
+2018/06/16 21:56:24.832 [INFO] Synchronising Scripted Web Service [u_itsmb_question_choice_n]
+2018/06/16 21:56:26.570 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_question_choice_n
+   Target Table: question_choice
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: question_choice,sys_metadata
+--created ws import set: u_itsmb_question_choice_n [question_choice]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_question_choice_n
+   create transform field mapping: rec_misc -> rec_misc
+   skip system field: target_mod_count
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   skip system field: target_domain
+   skip system field: target_class_name
+   skip system field: sys_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   create transform field mapping: sys_name -> sys_name
+   skip system field: sys_transform_map
+   create transform field mapping: text -> text
+   skip system field: target_created_by
+   skip system field: target_sys_id
+   create transform field mapping: value -> value
+   skip system field: sys_created_by
+   create transform field mapping: order -> order
+   create transform field mapping: misc -> misc
+   skip system field: sys_import_row
+   skip system field: sys_row_error
+   create transform field mapping: question -> question
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   skip system field: target_domain_path
+   skip system field: sys_mod_count
+   skip system field: import_set_run
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   create transform field mapping: sys_package -> sys_package
+   create transform field mapping: sys_update_name -> sys_update_name
+   skip system field: source_id
+   create transform field mapping: sys_policy -> sys_policy
+   create transform field mapping: target_scope -> sys_scope
+   create transform field mapping: target_class_name -> sys_class_name
+   create transform field mapping: target_mod_count -> sys_mod_count
+   create transform field mapping: target_created_by -> sys_created_by
+   create transform field mapping: target_created_on -> sys_created_on
+add sys_id_coalece
+   create transform field mapping: target_sys_id -> sys_id
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:56:26.570 [INFO] Scripted Web Service is Synchronised [u_itsmb_question_choice_n]
+2018/06/16 21:56:26.570 [DETAIL] Build Field Map [u_itsmb_question_choice_n] started...
+2018/06/16 21:56:27.362 [DETAIL] SNow: Build Field Map [u_itsmb_question_choice_n] complete, 21 entries
+2018/06/16 21:56:27.815 [INFO] Initialisation 24 of 26 [Question Choices Level 1] Completed
+2018/06/16 21:56:27.832 [DETAIL] Create Remedy Qualification: 'Choice_InstanceID' != $\NULL$
+2018/06/16 21:56:27.900 [DETAIL] Create SNow Lookup Query: name#!#!Question Name!#!#
+2018/06/16 21:56:27.901 [DETAIL] Add Project Variable [QuestionDef_InstanceID [STRING]]
+2018/06/16 21:56:27.901 [DETAIL] Add Project Variable [QuestionSRD_InstanceID [STRING]]
+2018/06/16 21:56:27.904 [DETAIL] Create Remedy Lookup Query: 'QuestionDef_InstanceID' = "" AND 'QuestionSRD_InstanceID' = ""
+2018/06/16 21:56:27.906 [INFO] Synchronising Scripted Web Service [u_itsmb_question_choice_n]
+2018/06/16 21:56:28.502 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_question_choice_n
+   Target Table: question_choice
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: question_choice,sys_metadata
+--created ws import set: u_itsmb_question_choice_n [question_choice]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_question_choice_n
+   transform field mapping exists: rec_misc -> rec_misc
+   skip system field: target_mod_count
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   skip system field: target_domain
+   skip system field: target_class_name
+   skip system field: sys_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   transform field mapping exists: sys_name -> sys_name
+   skip system field: sys_transform_map
+   transform field mapping exists: text -> text
+   skip system field: target_created_by
+   skip system field: target_sys_id
+   transform field mapping exists: value -> value
+   skip system field: sys_created_by
+   transform field mapping exists: order -> order
+   transform field mapping exists: misc -> misc
+   skip system field: sys_import_row
+   skip system field: sys_row_error
+   transform field mapping exists: question -> question
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   skip system field: target_domain_path
+   skip system field: sys_mod_count
+   skip system field: import_set_run
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   transform field mapping exists: sys_package -> sys_package
+   transform field mapping exists: sys_update_name -> sys_update_name
+   skip system field: source_id
+   transform field mapping exists: sys_policy -> sys_policy
+   transform field mapping exists: target_scope -> sys_scope
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:56:28.502 [INFO] Scripted Web Service is Synchronised [u_itsmb_question_choice_n]
+2018/06/16 21:56:28.952 [INFO] Initialisation 25 of 26 [Question Choices Level 2] Completed
+2018/06/16 21:56:28.956 [DETAIL] Create Remedy Qualification: 'Choice_InstanceID' != $\NULL$
+2018/06/16 21:56:29.029 [DETAIL] Create SNow Lookup Query: name#!#!Question Name!#!#
+2018/06/16 21:56:29.030 [DETAIL] Add Project Variable [QuestionDef_InstanceID [STRING]]
+2018/06/16 21:56:29.030 [DETAIL] Add Project Variable [QuestionSRD_InstanceID [STRING]]
+2018/06/16 21:56:29.035 [DETAIL] Create Remedy Lookup Query: 'QuestionDef_InstanceID' = "" AND 'QuestionSRD_InstanceID' = ""
+2018/06/16 21:56:29.036 [INFO] Synchronising Scripted Web Service [u_itsmb_question_choice_n]
+2018/06/16 21:56:29.646 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_question_choice_n
+   Target Table: question_choice
+   Scope: global
+   Run Business Rules: false
+   include fields from tables: question_choice,sys_metadata
+--created ws import set: u_itsmb_question_choice_n [question_choice]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_question_choice_n
+   transform field mapping exists: rec_misc -> rec_misc
+   skip system field: target_mod_count
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   skip system field: target_domain
+   skip system field: target_class_name
+   skip system field: sys_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   transform field mapping exists: sys_name -> sys_name
+   skip system field: sys_transform_map
+   transform field mapping exists: text -> text
+   skip system field: target_created_by
+   skip system field: target_sys_id
+   transform field mapping exists: value -> value
+   skip system field: sys_created_by
+   transform field mapping exists: order -> order
+   transform field mapping exists: misc -> misc
+   skip system field: sys_import_row
+   skip system field: sys_row_error
+   transform field mapping exists: question -> question
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   skip system field: target_domain_path
+   skip system field: sys_mod_count
+   skip system field: import_set_run
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   transform field mapping exists: sys_package -> sys_package
+   transform field mapping exists: sys_update_name -> sys_update_name
+   skip system field: source_id
+   transform field mapping exists: sys_policy -> sys_policy
+   transform field mapping exists: target_scope -> sys_scope
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/16 21:56:29.646 [INFO] Scripted Web Service is Synchronised [u_itsmb_question_choice_n]
+2018/06/16 21:56:30.096 [INFO] Initialisation 26 of 26 [Question Choices Level 3] Completed
+2018/06/16 21:56:30.096 [INFO] ### Initialisation Step Complete
+2018/06/16 21:56:30.097 [INFO] [Category Level 1] Key Mapping Cache SRM:Categories -> Category Ready.
+2018/06/16 21:56:30.097 [INFO] [Category Level 1] Migration in progress.
+2018/06/16 21:56:30.097 [DETAIL] [Category Level 1 Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:30.194 [DETAIL] [Category Level 1 Chunk 0] Data Transform Started...
+2018/06/16 21:56:30.194 [DETAIL] Add Project Variable [title [STRING]]
+2018/06/16 21:56:30.194 [DETAIL] Create SNow Lookup Query: title#!#title#!#
+2018/06/16 21:56:30.194 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 21:56:30.194 [DETAIL] [src=000000000000079|000000000000088] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.194 [DETAIL] [src=000000000000080|000000000000089] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.194 [DETAIL] [src=000000000000053|000000000000073] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.194 [DETAIL] [src=000000000000039|000000000000059] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.194 [DETAIL] [src=000000000000055|000000000000075] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.194 [DETAIL] [src=000000000000040|000000000000060] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.194 [DETAIL] [src=000000000000057|000000000000077] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.194 [DETAIL] [src=000000000000041|000000000000061] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.194 [DETAIL] [src=000000000000042|000000000000062] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.194 [DETAIL] [src=000000000000001|000000000000001] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.194 [DETAIL] [src=000000000000043|000000000000063] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.194 [DETAIL] [src=000000000000044|000000000000064] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.194 [DETAIL] [src=000000000000059|000000000000079] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.194 [DETAIL] [src=000000000000110|000000000000122] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.194 [DETAIL] [src=000000000000058|000000000000078] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.194 [DETAIL] [src=000000000000002|000000000000002] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.194 [DETAIL] [src=000000000000046|000000000000066] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.194 [DETAIL] [src=000000000000047|000000000000067] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.194 [DETAIL] [src=000000000000045|000000000000065] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.194 [DETAIL] [src=000000000000048|000000000000068] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.194 [DETAIL] [src=000000000000049|000000000000069] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.194 [DETAIL] [src=000000000000050|000000000000070] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.195 [DETAIL] [src=000000000000051|000000000000071] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.195 [DETAIL] [src=000000000000052|000000000000072] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.195 [DETAIL] [src=000000000000054|000000000000074] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.195 [DETAIL] [src=000000000000060|000000000000080] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.195 [DETAIL] [src=000000000000061|000000000000081] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.195 [DETAIL] [src=000000000000056|000000000000076] SNow Qual: title=Service Catalog
+2018/06/16 21:56:30.494 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 21:56:30.499 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000079|000000000000088] SNow Qual: title=All
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000080|000000000000089] SNow Qual: title=Quick Picks
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000053|000000000000073] SNow Qual: title=Application Hosting
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000039|000000000000059] SNow Qual: title=Business Analysis
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000055|000000000000075] SNow Qual: title=Conference Room
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000040|000000000000060] SNow Qual: title=Customer Relationship Management
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000057|000000000000077] SNow Qual: title=Database
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000041|000000000000061] SNow Qual: title=Email
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000042|000000000000062] SNow Qual: title=Facilities
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000001|000000000000001] SNow Qual: title=Facilities for Starter Kit
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000043|000000000000063] SNow Qual: title=File & Print
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000044|000000000000064] SNow Qual: title=Finance
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000059|000000000000079] SNow Qual: title=Human Resources
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000110|000000000000122] SNow Qual: title=Identity Access And Password Management
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000058|000000000000078] SNow Qual: title=Internet Access
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000002|000000000000002] SNow Qual: title=IT Starter Kit
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000046|000000000000066] SNow Qual: title=Logistics
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000047|000000000000067] SNow Qual: title=Manufacturing
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000045|000000000000065] SNow Qual: title=Network
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000048|000000000000068] SNow Qual: title=Personal Computing
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000049|000000000000069] SNow Qual: title=Personal Productivity
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000050|000000000000070] SNow Qual: title=Quality Control
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000051|000000000000071] SNow Qual: title=Sales Tracking
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000052|000000000000072] SNow Qual: title=SAP Basis
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000054|000000000000074] SNow Qual: title=Service Management
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000060|000000000000080] SNow Qual: title=Storage
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000061|000000000000081] SNow Qual: title=Telecommunications
+2018/06/16 21:56:30.499 [DETAIL] [src=000000000000056|000000000000076] SNow Qual: title=Warehouse Management
+2018/06/16 21:56:30.790 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 21:56:30.790 [DETAIL] [Category Level 1 Chunk 0] Data Update Started...
+2018/06/16 21:56:30.790 [DETAIL] Batch Update of 2 Entries Started
+2018/06/16 21:56:30.791 [DETAIL] Pre-Migration Task 0 Complete
+2018/06/16 21:56:31.467 [DETAIL] Update entry complete [src=000000000000041|000000000000061 tgt=cabe7fe0eb030100d4360c505206fe64]
+2018/06/16 21:56:31.468 [DETAIL] Update entry complete [src=000000000000042|000000000000062 tgt=d25201c8c611227a00667da13c6d33af]
+2018/06/16 21:56:31.468 [DETAIL] Post-Migration Task 0 Complete
+2018/06/16 21:56:31.468 [DETAIL] Batch Insert of 25 Entries Started
+2018/06/16 21:56:32.253 [DETAIL] Batch Insert of 1 Entries Started
+2018/06/16 21:56:32.709 [ERROR] Errors occurred during migration of records to Category.
+2018/06/16 21:56:32.712 [WARNING] Migration Completed  [26errors]
+2018/06/16 21:56:32.712 [INFO] Summary...  Created:0 Updated:2 Skipped:0 Errors:26 [Warnings 0]
+2018/06/16 21:56:32.713 [INFO] [Category Level 2] Key Mapping Cache SRM:Categories -> Category Ready.
+2018/06/16 21:56:32.713 [INFO] [Category Level 2] Migration in progress.
+2018/06/16 21:56:32.713 [DETAIL] [Category Level 2 Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:32.818 [DETAIL] [Category Level 2 Chunk 0] Data Transform Started...
+2018/06/16 21:56:32.818 [DETAIL] [Category Level 2 Chunk 0] Data Update Started...
+2018/06/16 21:56:32.818 [INFO] Migration Completed 
+2018/06/16 21:56:32.818 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 21:56:32.821 [INFO] [Category Level 3] Key Mapping Cache SRM:Categories -> Category Ready.
+2018/06/16 21:56:32.821 [INFO] [Category Level 3] Migration in progress.
+2018/06/16 21:56:32.821 [DETAIL] [Category Level 3 Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:32.825 [DETAIL] [Category Level 3 Chunk 0] Data Transform Started...
+2018/06/16 21:56:32.825 [DETAIL] [Category Level 3 Chunk 0] Data Update Started...
+2018/06/16 21:56:32.825 [INFO] Migration Completed 
+2018/06/16 21:56:32.825 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 21:56:32.827 [INFO] [Execution Plan] Key Mapping Cache SRM:ProcessDefinitionTemplate_Base -> Execution Plan Ready.
+2018/06/16 21:56:32.828 [INFO] [Execution Plan] Migration in progress.
+2018/06/16 21:56:32.828 [DETAIL] [Execution Plan Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:32.830 [DETAIL] Create Remedy Qualification: 1 = 1 AND 'DELETESRD_Title' = "New Employee" OR 1 = 0
+2018/06/16 21:56:32.830 [DETAIL] Ad Hoc Inclusion Sey Query created
+[Operation=2,Operand Left=[Operation=1,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=2],Operand=1],Operand Right=[Operand Type=[type=2],Operand=1]],Operand Right=<null>],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=301244700],Operand Right=[Operand Type=[type=2],Operand=New Employee]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=2],Operand=1],Operand Right=[Operand Type=[type=2],Operand=0]],Operand Right=<null>]]
+2018/06/16 21:56:32.847 [DETAIL] Ad-Hoc Inclusion Set Retrieval from SRD:ServiceRequestDefinition_Base. 0 records retrieved
+2018/06/16 21:56:32.847 [DETAIL] [Execution Plan Chunk 0] Data Transform Started...
+2018/06/16 21:56:32.847 [DETAIL] [Execution Plan Chunk 0] Data Update Started...
+2018/06/16 21:56:32.847 [INFO] Migration Completed 
+2018/06/16 21:56:32.847 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 21:56:32.849 [INFO] [Execution Plan Task] Key Mapping Cache SRM:Associations -> Execution Plan Task Ready.
+2018/06/16 21:56:32.849 [INFO] [Execution Plan Task] Migration in progress.
+2018/06/16 21:56:32.849 [DETAIL] [Execution Plan Task Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:32.849 [DETAIL] [Execution Plan Task Chunk 0] Data Transform Started...
+2018/06/16 21:56:32.849 [DETAIL] [Execution Plan Task Chunk 0] Data Update Started...
+2018/06/16 21:56:32.849 [INFO] Migration Completed 
+2018/06/16 21:56:32.849 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 21:56:32.853 [INFO] [Task Sequencing] Key Mapping Cache SRM:AppTemplateFlow -> Task Sequencing Ready.
+2018/06/16 21:56:32.853 [INFO] [Task Sequencing] Migration in progress.
+2018/06/16 21:56:32.853 [DETAIL] [Task Sequencing Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:32.853 [DETAIL] [Task Sequencing Chunk 0] Data Transform Started...
+2018/06/16 21:56:32.853 [DETAIL] [Task Sequencing Chunk 0] Data Update Started...
+2018/06/16 21:56:32.853 [INFO] Migration Completed 
+2018/06/16 21:56:32.853 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 21:56:32.858 [INFO] [Catalog Item Category Level 1] Key Mapping Cache SRD:ServiceRequestDefinition_Base -> Catalog Item Ready.
+2018/06/16 21:56:32.858 [INFO] [Catalog Item Category Level 1] Migration in progress.
+2018/06/16 21:56:32.858 [DETAIL] [Catalog Item Category Level 1 Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:32.881 [DETAIL] [Catalog Item Category Level 1 Chunk 0] Data Transform Started...
+2018/06/16 21:56:32.881 [DETAIL] [Catalog Item Category Level 1 Chunk 0] Data Update Started...
+2018/06/16 21:56:32.882 [DETAIL] [Catalog Item Category Level 1 Chunk 0] Attachment Migration Started...
+2018/06/16 21:56:32.882 [DETAIL] Source Attachment Info Loaded [0]
+2018/06/16 21:56:32.882 [DETAIL] Attachment Target Check Complete [new=0 updates=0 duplicates=0]
+2018/06/16 21:56:32.882 [DETAIL] Attachment Processing Queue Counts:- SRC: 0 TGTCHK: 0 GETDATA: 0 MIG: 0 DEL: 0
+2018/06/16 21:56:32.882 [INFO] Migration Completed 
+2018/06/16 21:56:32.882 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 21:56:32.885 [INFO] [Catalog Item Category Level 2] Key Mapping Cache SRD:ServiceRequestDefinition_Base -> Catalog Item Ready.
+2018/06/16 21:56:32.885 [INFO] [Catalog Item Category Level 2] Migration in progress.
+2018/06/16 21:56:32.885 [DETAIL] [Catalog Item Category Level 2 Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:32.902 [DETAIL] [Catalog Item Category Level 2 Chunk 0] Data Transform Started...
+2018/06/16 21:56:32.902 [DETAIL] [Catalog Item Category Level 2 Chunk 0] Data Update Started...
+2018/06/16 21:56:32.902 [DETAIL] [Catalog Item Category Level 2 Chunk 0] Attachment Migration Started...
+2018/06/16 21:56:32.902 [DETAIL] Source Attachment Info Loaded [0]
+2018/06/16 21:56:32.902 [DETAIL] Attachment Target Check Complete [new=0 updates=0 duplicates=0]
+2018/06/16 21:56:32.903 [DETAIL] Attachment Processing Queue Counts:- SRC: 0 TGTCHK: 0 GETDATA: 0 MIG: 0 DEL: 0
+2018/06/16 21:56:32.903 [INFO] Migration Completed 
+2018/06/16 21:56:32.903 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 21:56:32.911 [INFO] [Catalog Item Category Level 3] Key Mapping Cache SRD:ServiceRequestDefinition_Base -> Catalog Item Ready.
+2018/06/16 21:56:32.911 [INFO] [Catalog Item Category Level 3] Migration in progress.
+2018/06/16 21:56:32.911 [DETAIL] [Catalog Item Category Level 3 Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:32.925 [DETAIL] [Catalog Item Category Level 3 Chunk 0] Data Transform Started...
+2018/06/16 21:56:32.925 [DETAIL] [Catalog Item Category Level 3 Chunk 0] Data Update Started...
+2018/06/16 21:56:32.925 [DETAIL] [Catalog Item Category Level 3 Chunk 0] Attachment Migration Started...
+2018/06/16 21:56:32.925 [DETAIL] Source Attachment Info Loaded [0]
+2018/06/16 21:56:32.925 [DETAIL] Attachment Target Check Complete [new=0 updates=0 duplicates=0]
+2018/06/16 21:56:32.925 [DETAIL] Attachment Processing Queue Counts:- SRC: 0 TGTCHK: 0 GETDATA: 0 MIG: 0 DEL: 0
+2018/06/16 21:56:32.925 [INFO] Migration Completed 
+2018/06/16 21:56:32.925 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 21:56:32.932 [INFO] [User Criteria] Key Mapping Cache ENT:PeopleEntitlementDefinition -> User Criteria Ready.
+2018/06/16 21:56:32.932 [INFO] [User Criteria] Migration in progress.
+2018/06/16 21:56:32.932 [DETAIL] [User Criteria Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:32.937 [DETAIL] [User Criteria Chunk 0] Data Transform Started...
+2018/06/16 21:56:32.937 [DETAIL] [User Criteria Chunk 0] Data Update Started...
+2018/06/16 21:56:32.937 [INFO] Migration Completed 
+2018/06/16 21:56:32.937 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 21:56:32.941 [INFO] [Catalog Item Available For] Key Mapping Cache SRD:SRDEDAssociation_join -> Catalog Item Available for Ready.
+2018/06/16 21:56:32.941 [INFO] [Catalog Item Available For] Migration in progress.
+2018/06/16 21:56:32.941 [DETAIL] [Catalog Item Available For Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:32.945 [DETAIL] Create Remedy Qualification: (1 = 1 AND ('SRD_LocationCompany' = "Calbro Services" OR 'SRD_LocationCompany' = "- Global -") OR 1 = 0) AND (1 = 1 AND 'SRD_Title' = "New Employee" OR 1 = 0)
+2018/06/16 21:56:32.945 [DETAIL] Ad Hoc Inclusion Sey Query created
+[Operation=1,Operand Left=[Operation=2,Operand Left=[Operation=1,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=2],Operand=1],Operand Right=[Operand Type=[type=2],Operand=1]],Operand Right=<null>],Operand Right=[Operation=2,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=301453000],Operand Right=[Operand Type=[type=2],Operand=Calbro Services]],Operand Right=<null>],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=301453000],Operand Right=[Operand Type=[type=2],Operand=- Global -]],Operand Right=<null>]]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=2],Operand=1],Operand Right=[Operand Type=[type=2],Operand=0]],Operand Right=<null>]],Operand Right=[Operation=2,Operand Left=[Operation=1,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=2],Operand=1],Operand Right=[Operand Type=[type=2],Operand=1]],Operand Right=<null>],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=301244700],Operand Right=[Operand Type=[type=2],Operand=New Employee]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=2],Operand=1],Operand Right=[Operand Type=[type=2],Operand=0]],Operand Right=<null>]]]
+2018/06/16 21:56:32.961 [DETAIL] Ad-Hoc Inclusion Set Retrieval from SRD:ServiceRequestDefinition. 0 records retrieved
+2018/06/16 21:56:32.961 [DETAIL] [Catalog Item Available For Chunk 0] Data Transform Started...
+2018/06/16 21:56:32.961 [DETAIL] [Catalog Item Available For Chunk 0] Data Update Started...
+2018/06/16 21:56:32.961 [INFO] Migration Completed 
+2018/06/16 21:56:32.961 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 21:56:32.968 [INFO] [Catalog Item Not Available For] Key Mapping Cache SRD:SRDEDAssociation_join -> Catalog Item Not Available for Ready.
+2018/06/16 21:56:32.968 [INFO] [Catalog Item Not Available For] Migration in progress.
+2018/06/16 21:56:32.968 [DETAIL] [Catalog Item Not Available For Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:32.970 [DETAIL] Create Remedy Qualification: (1 = 1 AND ('SRD_LocationCompany' = "Calbro Services" OR 'SRD_LocationCompany' = "- Global -") OR 1 = 0) AND (1 = 1 AND 'SRD_Title' = "New Employee" OR 1 = 0)
+2018/06/16 21:56:32.970 [DETAIL] Ad Hoc Inclusion Sey Query created
+[Operation=1,Operand Left=[Operation=2,Operand Left=[Operation=1,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=2],Operand=1],Operand Right=[Operand Type=[type=2],Operand=1]],Operand Right=<null>],Operand Right=[Operation=2,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=301453000],Operand Right=[Operand Type=[type=2],Operand=Calbro Services]],Operand Right=<null>],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=301453000],Operand Right=[Operand Type=[type=2],Operand=- Global -]],Operand Right=<null>]]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=2],Operand=1],Operand Right=[Operand Type=[type=2],Operand=0]],Operand Right=<null>]],Operand Right=[Operation=2,Operand Left=[Operation=1,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=2],Operand=1],Operand Right=[Operand Type=[type=2],Operand=1]],Operand Right=<null>],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=301244700],Operand Right=[Operand Type=[type=2],Operand=New Employee]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=2],Operand=1],Operand Right=[Operand Type=[type=2],Operand=0]],Operand Right=<null>]]]
+2018/06/16 21:56:32.973 [DETAIL] Ad-Hoc Inclusion Set Retrieval from SRD:ServiceRequestDefinition. 0 records retrieved
+2018/06/16 21:56:32.973 [DETAIL] [Catalog Item Not Available For Chunk 0] Data Transform Started...
+2018/06/16 21:56:32.973 [DETAIL] [Catalog Item Not Available For Chunk 0] Data Update Started...
+2018/06/16 21:56:32.973 [INFO] Migration Completed 
+2018/06/16 21:56:32.973 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 21:56:32.981 [INFO] [Approving Users Individual Approval] Key Mapping Cache SRD:ServiceRequestDefinition -> Approving Users [sc_cat_item_app_user] Ready.
+2018/06/16 21:56:32.981 [INFO] [Approving Users Individual Approval] Migration in progress.
+2018/06/16 21:56:32.981 [DETAIL] [Approving Users Individual Approval Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:32.997 [DETAIL] [Approving Users Individual Approval Chunk 0] Data Transform Started...
+2018/06/16 21:56:32.997 [DETAIL] [Approving Users Individual Approval Chunk 0] Data Update Started...
+2018/06/16 21:56:32.997 [INFO] Migration Completed 
+2018/06/16 21:56:32.997 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 21:56:33.005 [INFO] [Approving Users Manager Approval] Key Mapping Cache SRD:ServiceRequestDefinition -> Approving Users [sc_cat_item_app_user] Ready.
+2018/06/16 21:56:33.005 [INFO] [Approving Users Manager Approval] Migration in progress.
+2018/06/16 21:56:33.005 [DETAIL] [Approving Users Manager Approval Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:33.022 [DETAIL] [Approving Users Manager Approval Chunk 0] Data Transform Started...
+2018/06/16 21:56:33.022 [DETAIL] [Approving Users Manager Approval Chunk 0] Data Update Started...
+2018/06/16 21:56:33.022 [INFO] Migration Completed 
+2018/06/16 21:56:33.022 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 21:56:33.028 [INFO] [Approval Definition] Key Mapping Cache SRD:ServiceRequestDefinition -> Approval Definition Ready.
+2018/06/16 21:56:33.028 [INFO] [Approval Definition] Migration in progress.
+2018/06/16 21:56:33.028 [DETAIL] [Approval Definition Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:33.040 [DETAIL] [Approval Definition Chunk 0] Data Transform Started...
+2018/06/16 21:56:33.040 [DETAIL] [Approval Definition Chunk 0] Data Update Started...
+2018/06/16 21:56:33.040 [INFO] Migration Completed 
+2018/06/16 21:56:33.040 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 21:56:33.047 [INFO] [Approving Users Custom Approval] Key Mapping Cache SRD:ServiceRequestDefinition -> Approving Users [sc_cat_item_app_user] Ready.
+2018/06/16 21:56:33.047 [INFO] [Approving Users Custom Approval] Migration in progress.
+2018/06/16 21:56:33.047 [DETAIL] [Approving Users Custom Approval Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:33.059 [DETAIL] [Approving Users Custom Approval Chunk 0] Data Transform Started...
+2018/06/16 21:56:33.059 [DETAIL] [Approving Users Custom Approval Chunk 0] Data Update Started...
+2018/06/16 21:56:33.059 [INFO] Migration Completed 
+2018/06/16 21:56:33.059 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 21:56:33.067 [INFO] [Approving Groups Custom Approval] Key Mapping Cache SRD:ServiceRequestDefinition -> Approving Groups [sc_cat_item_app_group] Ready.
+2018/06/16 21:56:33.067 [INFO] [Approving Groups Custom Approval] Migration in progress.
+2018/06/16 21:56:33.067 [DETAIL] [Approving Groups Custom Approval Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:33.071 [DETAIL] [Approving Groups Custom Approval Chunk 0] Data Transform Started...
+2018/06/16 21:56:33.071 [DETAIL] [Approving Groups Custom Approval Chunk 0] Data Update Started...
+2018/06/16 21:56:33.071 [INFO] Migration Completed 
+2018/06/16 21:56:33.071 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 21:56:33.080 [INFO] [Process Guides] Key Mapping Cache APR:Approval Chain -> Process Guides Ready.
+2018/06/16 21:56:33.080 [INFO] [Process Guides] Migration in progress.
+2018/06/16 21:56:33.080 [DETAIL] [Process Guides Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:33.086 [DETAIL] [Process Guides Chunk 0] Data Transform Started...
+2018/06/16 21:56:33.086 [DETAIL] Add Project Variable [name [STRING]]
+2018/06/16 21:56:33.086 [DETAIL] Add Project Variable [table [STRING]]
+2018/06/16 21:56:33.086 [DETAIL] Create SNow Lookup Query: name#!#name#!#^table#!#table#!#
+2018/06/16 21:56:33.088 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 21:56:33.088 [DETAIL] [src=000000000000028] SNow Qual: name=SRM:Request_Mgmt Chain 1_SYSTEM^table=sc_request
+2018/06/16 21:56:33.088 [DETAIL] [src=000000000000029] SNow Qual: name=SRM:Request_Mgmt Chain 2_SYSTEM^table=sc_request
+2018/06/16 21:56:33.088 [DETAIL] [src=000000000000030] SNow Qual: name=SRM:Request_Mgmt Chain 3_SYSTEM^table=sc_request
+2018/06/16 21:56:33.088 [DETAIL] [src=000000000000031] SNow Qual: name=SRM:Request_Individual_SYSTEM^table=sc_request
+2018/06/16 21:56:33.088 [DETAIL] [src=000000000000032] SNow Qual: name=SRM:Request_Group_SYSTEM^table=sc_request
+2018/06/16 21:56:33.088 [DETAIL] [src=000000000000033] SNow Qual: name=SRM:Request_Mgmt Chain 4_SYSTEM^table=sc_request
+2018/06/16 21:56:33.088 [DETAIL] [src=000000000000034] SNow Qual: name=SRM:Request_Mgmt Chain 5_SYSTEM^table=sc_request
+2018/06/16 21:56:33.515 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 21:56:33.515 [DETAIL] [Process Guides Chunk 0] Data Update Started...
+2018/06/16 21:56:33.515 [DETAIL] Batch Insert of 7 Entries Started
+2018/06/16 21:56:34.047 [DETAIL] Create entry complete [src=000000000000028 tgt=01031f2c373a13005d19dcc773990e86]
+2018/06/16 21:56:34.048 [DETAIL] Create entry complete [src=000000000000029 tgt=4d031f2c373a13005d19dcc773990e86]
+2018/06/16 21:56:34.048 [DETAIL] Create entry complete [src=000000000000030 tgt=c1031f2c373a13005d19dcc773990e87]
+2018/06/16 21:56:34.048 [DETAIL] Create entry complete [src=000000000000031 tgt=49031f2c373a13005d19dcc773990e87]
+2018/06/16 21:56:34.049 [DETAIL] Create entry complete [src=000000000000032 tgt=cd031f2c373a13005d19dcc773990e87]
+2018/06/16 21:56:34.049 [DETAIL] Create entry complete [src=000000000000033 tgt=45031f2c373a13005d19dcc773990e88]
+2018/06/16 21:56:34.050 [DETAIL] Create entry complete [src=000000000000034 tgt=c9031f2c373a13005d19dcc773990e88]
+2018/06/16 21:56:34.054 [INFO] Migration Completed 
+2018/06/16 21:56:34.054 [INFO] Summary...  Created:7 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 21:56:34.061 [INFO] [Approval Steps] Key Mapping Cache APR:ApprovalElementProcess-Join -> Approval Steps Ready.
+2018/06/16 21:56:34.061 [INFO] [Approval Steps] Migration in progress.
+2018/06/16 21:56:34.061 [DETAIL] [Approval Steps Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:34.061 [DETAIL] Create Inclusion Query: [Operation=1,Operand Left=[Operation=1,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=7],Operand Right=[Operand Type=[type=2],Operand=0]],Operand Right=<null>],Operand Right=[Operation=4,Operand Left=[Operation=7,Operand Left=[Operand Type=[type=1],Operand=10000],Operand Right=[Operand Type=[type=3],Operand=[Operation=1,Operand Left=[Operand Type=[type=2],Operand=Service Request],Operand Right=[Operand Type=[type=2],Operand=%]]]],Operand Right=<null>]],Operand Right=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=303772600],Operand Right=[Operand Type=[type=2],Operand=ID00137260F2FC34YASgs8YzAAZ3IA]],Operand Right=<null>],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=303772600],Operand Right=[Operand Type=[type=2],Operand=ID00137260F2FC0YcASg1Hc3AAv3cA]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=303772600],Operand Right=[Operand Type=[type=2],Operand=ID00137260F2FCVzL7SQGFpNFAwRAJ]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=303772600],Operand Right=[Operand Type=[type=2],Operand=ID00137260F2FCAXP6SQ4PBhEQL98H]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=303772600],Operand Right=[Operand Type=[type=2],Operand=ID00137260F2FCdXn6SQPiZ7EQ9uAH]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=303772600],Operand Right=[Operand Type=[type=2],Operand=ID00137260F2FC7X76SQSYGQEQBOMH]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=303772600],Operand Right=[Operand Type=[type=2],Operand=ID00137260F2FCGXv6SQnIyBEQFeIH]],Operand Right=<null>]]]
+2018/06/16 21:56:34.149 [DETAIL] [Approval Steps Chunk 0] Data Transform Started...
+2018/06/16 21:56:34.149 [DETAIL] Add Project Variable [name [STRING]]
+2018/06/16 21:56:34.149 [DETAIL] Add Project Variable [process_guide [STRING]]
+2018/06/16 21:56:34.149 [DETAIL] Create SNow Lookup Query: process_guide#!#process_guide#!#^name#!#name#!#
+2018/06/16 21:56:34.149 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 21:56:34.208 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 21:56:34.208 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 21:56:34.208 [DETAIL] [src=000000000000131|000000000000051] SNow Qual: nameISEMPTY
+2018/06/16 21:56:34.208 [DETAIL] [src=000000000000132|000000000000024] SNow Qual: nameISEMPTY
+2018/06/16 21:56:34.208 [DETAIL] [src=000000000000133|000000000000024] SNow Qual: nameISEMPTY
+2018/06/16 21:56:34.208 [DETAIL] [src=000000000000134|000000000000024] SNow Qual: nameISEMPTY
+2018/06/16 21:56:34.208 [DETAIL] [src=000000000000135|000000000000023] SNow Qual: nameISEMPTY
+2018/06/16 21:56:34.208 [DETAIL] [src=000000000000136|000000000000024] SNow Qual: nameISEMPTY
+2018/06/16 21:56:34.208 [DETAIL] [src=000000000000137|000000000000024] SNow Qual: nameISEMPTY
+2018/06/16 21:56:34.638 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 21:56:34.638 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 21:56:34.681 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 21:56:34.681 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 21:56:34.704 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 21:56:34.704 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 21:56:34.704 [DETAIL] [src=000000000000131|000000000000051] SNow Qual: nameISEMPTY
+2018/06/16 21:56:34.704 [DETAIL] [src=000000000000132|000000000000024] SNow Qual: nameISEMPTY
+2018/06/16 21:56:34.704 [DETAIL] [src=000000000000133|000000000000024] SNow Qual: nameISEMPTY
+2018/06/16 21:56:34.704 [DETAIL] [src=000000000000134|000000000000024] SNow Qual: nameISEMPTY
+2018/06/16 21:56:34.704 [DETAIL] [src=000000000000135|000000000000023] SNow Qual: nameISEMPTY
+2018/06/16 21:56:34.704 [DETAIL] [src=000000000000136|000000000000024] SNow Qual: nameISEMPTY
+2018/06/16 21:56:34.704 [DETAIL] [src=000000000000137|000000000000024] SNow Qual: nameISEMPTY
+2018/06/16 21:56:35.124 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 21:56:35.124 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 21:56:35.124 [DETAIL] [src=000000000000131|000000000000051] SNow Qual: name=SRM:Request_Individual_SYSTEM
+2018/06/16 21:56:35.124 [DETAIL] [src=000000000000132|000000000000024] SNow Qual: name=SRM:Request_Mgmt Chain 1_SYSTEM
+2018/06/16 21:56:35.124 [DETAIL] [src=000000000000133|000000000000024] SNow Qual: name=SRM:Request_Mgmt Chain 2_SYSTEM
+2018/06/16 21:56:35.124 [DETAIL] [src=000000000000134|000000000000024] SNow Qual: name=SRM:Request_Mgmt Chain 3_SYSTEM
+2018/06/16 21:56:35.124 [DETAIL] [src=000000000000135|000000000000023] SNow Qual: name=SRM:Request_Group_SYSTEM
+2018/06/16 21:56:35.124 [DETAIL] [src=000000000000136|000000000000024] SNow Qual: name=SRM:Request_Mgmt Chain 4_SYSTEM
+2018/06/16 21:56:35.124 [DETAIL] [src=000000000000137|000000000000024] SNow Qual: name=SRM:Request_Mgmt Chain 5_SYSTEM
+2018/06/16 21:56:35.358 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 21:56:35.360 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 21:56:35.360 [DETAIL] [src=000000000000131|000000000000051] SNow Qual: process_guide=49031f2c373a13005d19dcc773990e87^name=Service Request - Ad Hoc
+2018/06/16 21:56:35.360 [DETAIL] [src=000000000000132|000000000000024] SNow Qual: process_guide=01031f2c373a13005d19dcc773990e86^name=Service Request - Management Chain
+2018/06/16 21:56:35.360 [DETAIL] [src=000000000000133|000000000000024] SNow Qual: process_guide=4d031f2c373a13005d19dcc773990e86^name=Service Request - Management Chain
+2018/06/16 21:56:35.360 [DETAIL] [src=000000000000134|000000000000024] SNow Qual: process_guide=c1031f2c373a13005d19dcc773990e87^name=Service Request - Management Chain
+2018/06/16 21:56:35.360 [DETAIL] [src=000000000000135|000000000000023] SNow Qual: process_guide=cd031f2c373a13005d19dcc773990e87^name=Service Request - Level
+2018/06/16 21:56:35.360 [DETAIL] [src=000000000000136|000000000000024] SNow Qual: process_guide=45031f2c373a13005d19dcc773990e88^name=Service Request - Management Chain
+2018/06/16 21:56:35.360 [DETAIL] [src=000000000000137|000000000000024] SNow Qual: process_guide=c9031f2c373a13005d19dcc773990e88^name=Service Request - Management Chain
+2018/06/16 21:56:35.784 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 21:56:35.784 [DETAIL] [Approval Steps Chunk 0] Data Update Started...
+2018/06/16 21:56:35.784 [DETAIL] Batch Insert of 7 Entries Started
+2018/06/16 21:56:36.173 [DETAIL] Create entry complete [src=000000000000131|000000000000051 tgt=ed035f2c373a13005d19dcc773990e4b]
+2018/06/16 21:56:36.174 [DETAIL] Create entry complete [src=000000000000132|000000000000024 tgt=ad035f2c373a13005d19dcc773990e4c]
+2018/06/16 21:56:36.174 [DETAIL] Create entry complete [src=000000000000133|000000000000024 tgt=a5035f2c373a13005d19dcc773990e4d]
+2018/06/16 21:56:36.175 [DETAIL] Create entry complete [src=000000000000134|000000000000024 tgt=ad035f2c373a13005d19dcc773990e4d]
+2018/06/16 21:56:36.176 [DETAIL] Create entry complete [src=000000000000135|000000000000023 tgt=a5035f2c373a13005d19dcc773990e4e]
+2018/06/16 21:56:36.176 [DETAIL] Create entry complete [src=000000000000136|000000000000024 tgt=ad035f2c373a13005d19dcc773990e4e]
+2018/06/16 21:56:36.177 [DETAIL] Create entry complete [src=000000000000137|000000000000024 tgt=a5035f2c373a13005d19dcc773990e4f]
+2018/06/16 21:56:36.179 [INFO] Migration Completed 
+2018/06/16 21:56:36.179 [INFO] Summary...  Created:7 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 21:56:36.192 [INFO] [Process Guides Update] Key Mapping Cache APR:Approval Chain -> Process Guides Ready.
+2018/06/16 21:56:36.192 [INFO] [Process Guides Update] Migration in progress.
+2018/06/16 21:56:36.192 [DETAIL] [Process Guides Update Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:36.228 [DETAIL] [Process Guides Update Chunk 0] Data Transform Started...
+2018/06/16 21:56:36.229 [DETAIL] Add Project Variable [name [STRING]]
+2018/06/16 21:56:36.230 [DETAIL] Add Project Variable [table [STRING]]
+2018/06/16 21:56:36.230 [DETAIL] Create SNow Lookup Query: name#!#name#!#^table#!#table#!#
+2018/06/16 21:56:36.231 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 21:56:36.305 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 21:56:36.305 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 21:56:36.305 [DETAIL] [src=000000000000028] SNow Qual: name=Service Request - Management Chain
+2018/06/16 21:56:36.305 [DETAIL] [src=000000000000029] SNow Qual: name=Service Request - Management Chain
+2018/06/16 21:56:36.305 [DETAIL] [src=000000000000030] SNow Qual: name=Service Request - Management Chain
+2018/06/16 21:56:36.305 [DETAIL] [src=000000000000031] SNow Qual: name=Service Request - Ad Hoc
+2018/06/16 21:56:36.305 [DETAIL] [src=000000000000032] SNow Qual: name=Service Request - Level
+2018/06/16 21:56:36.305 [DETAIL] [src=000000000000033] SNow Qual: name=Service Request - Management Chain
+2018/06/16 21:56:36.305 [DETAIL] [src=000000000000034] SNow Qual: name=Service Request - Management Chain
+2018/06/16 21:56:37.974 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 21:56:37.976 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/16 21:56:37.976 [DETAIL] [src=000000000000028] SNow Qual: name=SRM:Request_Mgmt Chain 1_SYSTEM^table=sc_request
+2018/06/16 21:56:37.976 [DETAIL] [src=000000000000029] SNow Qual: name=SRM:Request_Mgmt Chain 2_SYSTEM^table=sc_request
+2018/06/16 21:56:37.976 [DETAIL] [src=000000000000030] SNow Qual: name=SRM:Request_Mgmt Chain 3_SYSTEM^table=sc_request
+2018/06/16 21:56:37.976 [DETAIL] [src=000000000000031] SNow Qual: name=SRM:Request_Individual_SYSTEM^table=sc_request
+2018/06/16 21:56:37.976 [DETAIL] [src=000000000000032] SNow Qual: name=SRM:Request_Group_SYSTEM^table=sc_request
+2018/06/16 21:56:37.976 [DETAIL] [src=000000000000033] SNow Qual: name=SRM:Request_Mgmt Chain 4_SYSTEM^table=sc_request
+2018/06/16 21:56:37.976 [DETAIL] [src=000000000000034] SNow Qual: name=SRM:Request_Mgmt Chain 5_SYSTEM^table=sc_request
+2018/06/16 21:56:38.201 [DETAIL] Lookup Batch Retrieve-End
+2018/06/16 21:56:38.202 [DETAIL] [Process Guides Update Chunk 0] Data Update Started...
+2018/06/16 21:56:38.202 [DETAIL] Batch Update of 7 Entries Started
+2018/06/16 21:56:38.202 [DETAIL] Pre-Migration Task 0 Complete
+2018/06/16 21:56:38.566 [DETAIL] Update entry complete [src=000000000000028 tgt=01031f2c373a13005d19dcc773990e86]
+2018/06/16 21:56:38.567 [DETAIL] Update entry complete [src=000000000000029 tgt=4d031f2c373a13005d19dcc773990e86]
+2018/06/16 21:56:38.567 [DETAIL] Update entry complete [src=000000000000030 tgt=c1031f2c373a13005d19dcc773990e87]
+2018/06/16 21:56:38.568 [DETAIL] Update entry complete [src=000000000000031 tgt=49031f2c373a13005d19dcc773990e87]
+2018/06/16 21:56:38.568 [DETAIL] Update entry complete [src=000000000000032 tgt=cd031f2c373a13005d19dcc773990e87]
+2018/06/16 21:56:38.569 [DETAIL] Update entry complete [src=000000000000033 tgt=45031f2c373a13005d19dcc773990e88]
+2018/06/16 21:56:38.569 [DETAIL] Update entry complete [src=000000000000034 tgt=c9031f2c373a13005d19dcc773990e88]
+2018/06/16 21:56:38.569 [DETAIL] Post-Migration Task 0 Complete
+2018/06/16 21:56:38.574 [INFO] Migration Completed 
+2018/06/16 21:56:38.574 [INFO] Summary...  Created:0 Updated:7 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 21:56:38.586 [INFO] [Catalog Item Variables Level 1] Key Mapping Cache SRM:QuestionDef_SRD -> Variable Ready.
+2018/06/16 21:56:38.586 [INFO] [Catalog Item Variables Level 1] Migration in progress.
+2018/06/16 21:56:38.586 [DETAIL] [Catalog Item Variables Level 1 Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:38.586 [DETAIL] [Catalog Item Variables Level 1 Chunk 0] Data Transform Started...
+2018/06/16 21:56:38.586 [DETAIL] [Catalog Item Variables Level 1 Chunk 0] Data Update Started...
+2018/06/16 21:56:38.586 [INFO] Migration Completed 
+2018/06/16 21:56:38.586 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 21:56:38.595 [INFO] [Catalog Item Variables Level 2] Key Mapping Cache SRM:QuestionDef_SRD -> Variable Ready.
+2018/06/16 21:56:38.596 [INFO] [Catalog Item Variables Level 2] Migration in progress.
+2018/06/16 21:56:38.596 [DETAIL] [Catalog Item Variables Level 2 Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:38.596 [DETAIL] [Catalog Item Variables Level 2 Chunk 0] Data Transform Started...
+2018/06/16 21:56:38.596 [DETAIL] [Catalog Item Variables Level 2 Chunk 0] Data Update Started...
+2018/06/16 21:56:38.596 [INFO] Migration Completed 
+2018/06/16 21:56:38.596 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 21:56:38.602 [INFO] [Catalog Item Variables Level 3] Key Mapping Cache SRM:QuestionDef_SRD -> Variable Ready.
+2018/06/16 21:56:38.602 [INFO] [Catalog Item Variables Level 3] Migration in progress.
+2018/06/16 21:56:38.602 [DETAIL] [Catalog Item Variables Level 3 Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:38.602 [DETAIL] [Catalog Item Variables Level 3 Chunk 0] Data Transform Started...
+2018/06/16 21:56:38.602 [DETAIL] [Catalog Item Variables Level 3 Chunk 0] Data Update Started...
+2018/06/16 21:56:38.602 [INFO] Migration Completed 
+2018/06/16 21:56:38.602 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 21:56:38.605 [INFO] [Question Choices Level 1] Key Mapping Cache SRM:QuestionSRD_Def_Choices -> Question Choice [question_choice] Ready.
+2018/06/16 21:56:38.606 [INFO] [Question Choices Level 1] Migration in progress.
+2018/06/16 21:56:38.606 [DETAIL] [Question Choices Level 1 Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:38.606 [DETAIL] [Question Choices Level 1 Chunk 0] Data Transform Started...
+2018/06/16 21:56:38.606 [DETAIL] [Question Choices Level 1 Chunk 0] Data Update Started...
+2018/06/16 21:56:38.606 [INFO] Migration Completed 
+2018/06/16 21:56:38.606 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 21:56:38.608 [INFO] [Question Choices Level 2] Key Mapping Cache SRM:QuestionSRD_Def_Choices -> Question Choice [question_choice] Ready.
+2018/06/16 21:56:38.608 [INFO] [Question Choices Level 2] Migration in progress.
+2018/06/16 21:56:38.608 [DETAIL] [Question Choices Level 2 Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:38.608 [DETAIL] [Question Choices Level 2 Chunk 0] Data Transform Started...
+2018/06/16 21:56:38.608 [DETAIL] [Question Choices Level 2 Chunk 0] Data Update Started...
+2018/06/16 21:56:38.608 [INFO] Migration Completed 
+2018/06/16 21:56:38.608 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 21:56:38.609 [INFO] [Question Choices Level 3] Key Mapping Cache SRM:QuestionSRD_Def_Choices -> Question Choice [question_choice] Ready.
+2018/06/16 21:56:38.609 [INFO] [Question Choices Level 3] Migration in progress.
+2018/06/16 21:56:38.609 [DETAIL] [Question Choices Level 3 Chunk 0] Data Retrieve Started...
+2018/06/16 21:56:38.609 [DETAIL] [Question Choices Level 3 Chunk 0] Data Transform Started...
+2018/06/16 21:56:38.609 [DETAIL] [Question Choices Level 3 Chunk 0] Data Update Started...
+2018/06/16 21:56:38.609 [INFO] Migration Completed 
+2018/06/16 21:56:38.609 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/16 21:56:38.609 [DETAIL] Closing Execution Task...
+2018/06/16 21:56:38.639 [INFO] Execution has completed [Execution ID=2018-06-16_21-54]
+2018/06/16 21:56:38.640 [INFO] --END OF LOG--

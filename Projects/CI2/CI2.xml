@@ -1,0 +1,2865 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Project AppVersion="3.7.14" Type="Standard">
+<version>3</version>
+<Notes>This template is used to migrate System Class CIs and relationships from BMC Remedy ITSM to ServiceNow.
+It can be used with most legacy ITSM versions including 764, 8.1 and 9.1 servers.
+It should be run AFTER the migration of all foundation data (see separate template for this).
+
+Whilst every care has been taken in constructing this template, Service Management Integrations accept no
+liability for the accuracy of the data migration definitions and you should therefore carefully check that the 
+migrations are suitable for your environment before executing.  
+
+Service Management Integrations strongly recommend that you take backups of all sensitive data before
+executing any data migration projects and always run the migration project on a non-production test server
+in the first instance.
+
+Amendment History
+R2: Updated mappings to take advantage of 3.2 functionality
+R3: Added support for multi-tenancy with company variables; moved CI relationships to separate project.
+	Changed all reference fields to lookup mappings
+	Added field mapping for WorkLog to Comments</Notes>
+<Connection ConnectionType="Source" ServerType="Remedy">
+<ServerName>localhost</ServerName>
+<Port>3636</Port>
+</Connection>
+<Connection ConnectionType="Target" ServerType="Service Now">
+<URL>https://dev54541.service-now.com</URL>
+</Connection>
+<DMDList>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="CMDB System Admin Domain">
+<TargetForm>cmdb_ci_ad_domain</TargetForm>
+<SourceForm>AST:AdminDomain</SourceForm>
+<SourceQuery>[ClassId] = 'BMC_ADMINDOMAIN' AND ((#Single Company# = TRUE AND [Company] = #Company Name#) OR #Single Company# = FALSE) AND [DatasetID] = #DataSet#</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="cmdb_model">
+<Form>cmdb_model</Form>
+<SearchQuery>[name] = #SRC.Model# AND [model_number] = #SRC.VersionNumber#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_cost_center">
+<Form>cmn_cost_center</Form>
+<SearchQuery>[code] = #SRC.Cost Center#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Company#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_location">
+<Form>cmn_location</Form>
+<SearchQuery>[name] = #SRC.Building# AND [company] = #!Company SysID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_department">
+<Form>cmn_department</Form>
+<SearchQuery>[name] = #SRC.Department# AND [company] = #!Company SysID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="manufacturer">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.ManufacturerName#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[name] = #SRC.OwnerName#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="vendor">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.SupplierName#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="AST:WorkLog">
+<Form>AST:WorkLog</Form>
+<SearchQuery>[CI_Instance_ID] = #Reconciliation Identity#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>justification</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>cmdb_ci_ad_domain</TargetForm>
+<SourceForm>AST:AdminDomain</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>short_description</TargetField>
+<Assignment>((((('Remedy Asset ID: ' + [Asset ID+]) + '
+ Description: ') + [Short Description]) + '
+ Additional Information: ') + [Description])</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>operational_status</TargetField>
+<SourceField>AssetLifecycleStatus</SourceField>
+<DefaultValue>1</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>11</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>12</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>13</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>7</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>8</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>9</SourceValue>
+<TargetValue>5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>10</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!WorkLog Details!</TargetVariable>
+<LookupQuery>AST:WorkLog</LookupQuery>
+<LookupField>Description</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>manufacturer</TargetField>
+<LookupQuery>manufacturer</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>vendor</TargetField>
+<LookupQuery>vendor</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>company</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Company SysID!</TargetVariable>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>install_date</TargetField>
+<SourceField>Installation Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>model_number</TargetField>
+<SourceField>VersionNumber</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>justification</TargetField>
+<SourceField>InstanceId</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>department</TargetField>
+<LookupQuery>cmn_department</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>invoice_number</TargetField>
+<SourceField>Invoice Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>start_date</TargetField>
+<SourceField>Available Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>asset_tag</TargetField>
+<SourceField>TagNumber</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>comments</TargetField>
+<LookupQuery>AST:WorkLog</LookupQuery>
+<LookupField>Description</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Concatenate CSV</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>cost</TargetField>
+<SourceField>Total Purchase Cost</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>owned_by</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>serial_number</TargetField>
+<SourceField>SerialNumber</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>model_id</TargetField>
+<LookupQuery>cmdb_model</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>delivery_date</TargetField>
+<SourceField>Received Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>cost_center</TargetField>
+<LookupQuery>cmn_cost_center</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>location</TargetField>
+<LookupQuery>cmn_location</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>category</TargetField>
+<Assignment>TRUNC([Category],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>purchase_date</TargetField>
+<SourceField>Purchase Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>subcategory</TargetField>
+<Assignment>TRUNC([Type],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Company SysID!</Variable>
+<Variable Type="STRING">!WorkLog Details!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="CMDB System Application">
+<TargetForm>cmdb_ci_appl</TargetForm>
+<SourceForm>AST:Application</SourceForm>
+<SourceQuery>[Class Id] = 'BMC_APPLICATION' AND ((#Single Company# = TRUE AND [Company] = #Company Name#) OR #Single Company# = FALSE) AND [Data Set Id] = #DataSet#</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Company#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmdb_model">
+<Form>cmdb_model</Form>
+<SearchQuery>[name] = #SRC.Model# AND [model_number] = #SRC.Version Number#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_location">
+<Form>cmn_location</Form>
+<SearchQuery>[name] = #SRC.Building# AND [company] = #!Company SysID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="manufacturer">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Manufacturer Name+#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[name] = #SRC.Owner_name#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="vendor">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Supplier Name+#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_cost_center">
+<Form>cmn_cost_center</Form>
+<SearchQuery>[code] = #SRC.Cost Center#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_department">
+<Form>cmn_department</Form>
+<SearchQuery>[name] = #SRC.Department# AND [company] = #!Company SysID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="AST:WorkLog">
+<Form>AST:WorkLog</Form>
+<SearchQuery>[CI_Instance_ID] = #Reconciliation Identity#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>justification</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>cmdb_ci_appl</TargetForm>
+<SourceForm>AST:Application</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>short_description</TargetField>
+<Assignment>((((('Remedy Asset ID: ' + [Asset ID+]) + '
+ Description: ') + [Short Description]) + '
+ Additional Information: ') + [Description])</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>operational_status</TargetField>
+<SourceField>AssetLifecycleStatus</SourceField>
+<DefaultValue>1</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>11</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>12</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>13</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>7</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>8</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>9</SourceValue>
+<TargetValue>5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>10</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>manufacturer</TargetField>
+<LookupQuery>manufacturer</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>vendor</TargetField>
+<LookupQuery>vendor</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>company</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Company SysID!</TargetVariable>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>install_date</TargetField>
+<SourceField>Installation Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>justification</TargetField>
+<SourceField>Instance Id</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>model_number</TargetField>
+<SourceField>Version Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>department</TargetField>
+<LookupQuery>cmn_department</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>invoice_number</TargetField>
+<SourceField>Invoice Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>start_date</TargetField>
+<SourceField>Available Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>asset_tag</TargetField>
+<SourceField>Tag Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>comments</TargetField>
+<LookupQuery>AST:WorkLog</LookupQuery>
+<LookupField>Description</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Concatenate CSV</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>cost</TargetField>
+<SourceField>Total Purchase Cost</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>serial_number</TargetField>
+<SourceField>Serial Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>owned_by</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>model_id</TargetField>
+<LookupQuery>cmdb_model</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>version</TargetField>
+<SourceField>Version Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>delivery_date</TargetField>
+<SourceField>Received Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>cost_center</TargetField>
+<LookupQuery>cmn_cost_center</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>location</TargetField>
+<LookupQuery>cmn_location</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>category</TargetField>
+<Assignment>TRUNC([Category],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>purchase_date</TargetField>
+<SourceField>Purchase Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>subcategory</TargetField>
+<Assignment>TRUNC([Type],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Company SysID!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="CMDB System Infrastructure Service">
+<TargetForm>cmdb_ci_infra_service</TargetForm>
+<SourceForm>AST:ApplicationInfrastructure</SourceForm>
+<SourceQuery>[Class Id] = 'BMC_APPLICATIONINFRASTRUCTURE' AND ((#Single Company# = TRUE AND [Company] = #Company Name#) OR #Single Company# = FALSE) AND [Data Set Id] = #DataSet#</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Company#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmdb_model">
+<Form>cmdb_model</Form>
+<SearchQuery>[name] = #SRC.Model# AND [model_number] = #SRC.Version Number#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_location">
+<Form>cmn_location</Form>
+<SearchQuery>[name] = #SRC.Building# AND [company] = #!Company SysID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="manufacturer">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Manufacturer Name+#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[name] = #SRC.Owner_name#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="vendor">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Supplier Name+#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_cost_center">
+<Form>cmn_cost_center</Form>
+<SearchQuery>[code] = #SRC.Cost Center#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_department">
+<Form>cmn_department</Form>
+<SearchQuery>[name] = #SRC.Department# AND [company] = #!Company SysID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="AST:WorkLog">
+<Form>AST:WorkLog</Form>
+<SearchQuery>[CI_Instance_ID] = #Reconciliation Identity#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>justification</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>cmdb_ci_infra_service</TargetForm>
+<SourceForm>AST:ApplicationInfrastructure</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>short_description</TargetField>
+<Assignment>((((('Remedy Asset ID: ' + [Asset ID+]) + '
+ Description: ') + [Short Description]) + '
+ Additional Information: ') + [Description])</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>operational_status</TargetField>
+<SourceField>AssetLifecycleStatus</SourceField>
+<DefaultValue>1</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>11</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>12</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>13</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>7</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>8</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>9</SourceValue>
+<TargetValue>5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>10</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>manufacturer</TargetField>
+<LookupQuery>manufacturer</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>vendor</TargetField>
+<LookupQuery>vendor</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>company</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Company SysID!</TargetVariable>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>model_number</TargetField>
+<SourceField>Version Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>install_date</TargetField>
+<SourceField>Installation Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>justification</TargetField>
+<SourceField>Instance Id</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>department</TargetField>
+<LookupQuery>cmn_department</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>invoice_number</TargetField>
+<SourceField>Invoice Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>start_date</TargetField>
+<SourceField>Available Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>asset_tag</TargetField>
+<SourceField>Tag Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>comments</TargetField>
+<LookupQuery>AST:WorkLog</LookupQuery>
+<LookupField>Description</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Concatenate CSV</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>cost</TargetField>
+<SourceField>Total Purchase Cost</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>owned_by</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>serial_number</TargetField>
+<SourceField>Serial Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>model_id</TargetField>
+<LookupQuery>cmdb_model</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>version</TargetField>
+<SourceField>Version Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>delivery_date</TargetField>
+<SourceField>Received Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>cost_center</TargetField>
+<LookupQuery>cmn_cost_center</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>location</TargetField>
+<LookupQuery>cmn_location</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>category</TargetField>
+<Assignment>TRUNC([Category],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>purchase_date</TargetField>
+<SourceField>Purchase Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>subcategory</TargetField>
+<Assignment>TRUNC([Type],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Company SysID!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="CMDB System Application System">
+<TargetForm>cmdb_ci_app_server</TargetForm>
+<SourceForm>AST:ApplicationSystem</SourceForm>
+<SourceQuery>[Class Id] = 'BMC_APPLICATIONSYSTEM' AND ((#Single Company# = TRUE AND [Company] = #Company Name#) OR #Single Company# = FALSE) AND [Data Set Id] = #DataSet#</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Company#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmdb_model">
+<Form>cmdb_model</Form>
+<SearchQuery>[name] = #SRC.Model# AND [model_number] = #SRC.Version Number#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_location">
+<Form>cmn_location</Form>
+<SearchQuery>[name] = #SRC.Building# AND [company] = #!Company SysID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="manufacturer">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Manufacturer Name+#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[name] = #SRC.Owner_name#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="vendor">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Supplier Name+#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_cost_center">
+<Form>cmn_cost_center</Form>
+<SearchQuery>[code] = #SRC.Cost Center#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_department">
+<Form>cmn_department</Form>
+<SearchQuery>[name] = #SRC.Department# AND [company] = #!Company SysID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="AST:WorkLog">
+<Form>AST:WorkLog</Form>
+<SearchQuery>[CI_Instance_ID] = #Reconciliation Identity#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>justification</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>cmdb_ci_app_server</TargetForm>
+<SourceForm>AST:ApplicationSystem</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>short_description</TargetField>
+<Assignment>((((('Remedy Asset ID: ' + [Asset ID+]) + '
+ Description: ') + [Short Description]) + '
+ Additional Information: ') + [Description])</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>operational_status</TargetField>
+<SourceField>AssetLifecycleStatus</SourceField>
+<DefaultValue>1</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>11</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>12</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>13</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>7</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>8</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>9</SourceValue>
+<TargetValue>5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>10</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>managed_by</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>manufacturer</TargetField>
+<LookupQuery>manufacturer</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>vendor</TargetField>
+<LookupQuery>vendor</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>company</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Company SysID!</TargetVariable>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>model_number</TargetField>
+<SourceField>Version Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>install_date</TargetField>
+<SourceField>Installation Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>justification</TargetField>
+<SourceField>Instance Id</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>department</TargetField>
+<LookupQuery>cmn_department</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>invoice_number</TargetField>
+<SourceField>Invoice Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>start_date</TargetField>
+<SourceField>Available Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>asset_tag</TargetField>
+<SourceField>Tag Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>comments</TargetField>
+<LookupQuery>AST:WorkLog</LookupQuery>
+<LookupField>Description</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Concatenate CSV</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>cost</TargetField>
+<SourceField>Total Purchase Cost</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>owned_by</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>serial_number</TargetField>
+<SourceField>Serial Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>model_id</TargetField>
+<LookupQuery>cmdb_model</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>version</TargetField>
+<SourceField>Version Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>delivery_date</TargetField>
+<SourceField>Received Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>cost_center</TargetField>
+<LookupQuery>cmn_cost_center</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>location</TargetField>
+<LookupQuery>cmn_location</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>category</TargetField>
+<Assignment>TRUNC([Category],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>purchase_date</TargetField>
+<SourceField>Purchase Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>subcategory</TargetField>
+<Assignment>TRUNC([Type],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Company SysID!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="CMDB System Computer ">
+<TargetForm>cmdb_ci_computer</TargetForm>
+<SourceForm>AST:ComputerSystem</SourceForm>
+<SourceQuery>[Class Id] = 'BMC_COMPUTERSYSTEM' AND ((#Single Company# = TRUE AND [Company] = #Company Name#) OR #Single Company# = FALSE) AND [Data Set Id] = #DataSet#</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="cmdb_model">
+<Form>cmdb_model</Form>
+<SearchQuery>[name] = #SRC.Model Number# AND [model_number] = #SRC.Version Number#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Company#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_cost_center">
+<Form>cmn_cost_center</Form>
+<SearchQuery>[code] = #SRC.Cost Center#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_location">
+<Form>cmn_location</Form>
+<SearchQuery>[name] = #SRC.Building# AND [company] = #!Company SysID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="manufacturer">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Manufacturer Name+#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[name] = #SRC.Owner_name#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="vendor">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Supplier Name+#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_department">
+<Form>cmn_department</Form>
+<SearchQuery>[name] = #SRC.Department# AND [company] = #!Company SysID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="AST:WorkLog">
+<Form>AST:WorkLog</Form>
+<SearchQuery>[CI_Instance_ID] = #Reconciliation Identity#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>justification</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>cmdb_ci_computer</TargetForm>
+<SourceForm>AST:ComputerSystem</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>short_description</TargetField>
+<Assignment>((((('Remedy Asset ID: ' + [Asset ID+]) + '
+ Description: ') + [Short Description]) + '
+ Additional Information: ') + [Description])</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>operational_status</TargetField>
+<SourceField>AssetLifecycleStatus</SourceField>
+<DefaultValue>1</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>11</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>12</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>13</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>7</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>8</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>9</SourceValue>
+<TargetValue>5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>10</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>manufacturer</TargetField>
+<LookupQuery>manufacturer</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>u_bmc_reconid</TargetField>
+<SourceField>Reconciliation Identity</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>vendor</TargetField>
+<LookupQuery>vendor</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>company</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Company SysID!</TargetVariable>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>install_date</TargetField>
+<SourceField>Installation Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>model_number</TargetField>
+<SourceField>Version Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>justification</TargetField>
+<SourceField>Instance Id</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>department</TargetField>
+<LookupQuery>cmn_department</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>invoice_number</TargetField>
+<SourceField>Invoice Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>start_date</TargetField>
+<SourceField>Available Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>asset_tag</TargetField>
+<SourceField>Tag Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>comments</TargetField>
+<LookupQuery>AST:WorkLog</LookupQuery>
+<LookupField>Description</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Concatenate CSV</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>cost</TargetField>
+<SourceField>Total Purchase Cost</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>owned_by</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>serial_number</TargetField>
+<SourceField>Serial Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>model_id</TargetField>
+<LookupQuery>cmdb_model</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>delivery_date</TargetField>
+<SourceField>Received Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>hardware_status</TargetField>
+<SourceField>AssetLifecycleStatus</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>11</SourceValue>
+<TargetValue>in_disposition</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>12</SourceValue>
+<TargetValue>pending_install</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>13</SourceValue>
+<TargetValue>defective</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>on_order</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>pending_install</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>pending_install</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>installed</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>pending_repair</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5</SourceValue>
+<TargetValue>defective</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6</SourceValue>
+<TargetValue>retired</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>7</SourceValue>
+<TargetValue>pending_transfer</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>8</SourceValue>
+<TargetValue>in_disposition</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>9</SourceValue>
+<TargetValue>in_stock</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>10</SourceValue>
+<TargetValue>installed</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>cost_center</TargetField>
+<LookupQuery>cmn_cost_center</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>dns_domain</TargetField>
+<SourceField>Domain</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>location</TargetField>
+<LookupQuery>cmn_location</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>category</TargetField>
+<Assignment>TRUNC([Category],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>purchase_date</TargetField>
+<SourceField>Purchase Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>subcategory</TargetField>
+<Assignment>TRUNC([Type],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Company SysID!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="CMDB System Cluster">
+<TargetForm>cmdb_ci_cluster</TargetForm>
+<SourceForm>AST:Cluster</SourceForm>
+<SourceQuery>[ClassId] = 'BMC_CLUSTER' AND ((#Single Company# = TRUE AND [Company] = #Company Name#) OR #Single Company# = FALSE) AND [DatasetID] = #DataSet#</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Company#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_location">
+<Form>cmn_location</Form>
+<SearchQuery>[name] = #SRC.Building# AND [company] = #!Company SysID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="manufacturer">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.ManufacturerName#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[name] = #SRC.OwnerName#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="vendor">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.SupplierName#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmdb_model">
+<Form>cmdb_model</Form>
+<SearchQuery>[name] = #SRC.Model# AND [model_number] = #SRC.VersionNumber#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_cost_center">
+<Form>cmn_cost_center</Form>
+<SearchQuery>[code] = #SRC.Cost Center#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_department">
+<Form>cmn_department</Form>
+<SearchQuery>[name] = #SRC.Department# AND [company] = #!Company SysID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="AST:WorkLog">
+<Form>AST:WorkLog</Form>
+<SearchQuery>[CI_Instance_ID] = #Reconciliation Identity#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>justification</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>cmdb_ci_cluster</TargetForm>
+<SourceForm>AST:Cluster</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>short_description</TargetField>
+<Assignment>((((('Remedy Asset ID: ' + [Asset ID+]) + '
+ Description: ') + [Short Description]) + '
+ Additional Information: ') + [Description])</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>operational_status</TargetField>
+<SourceField>AssetLifecycleStatus</SourceField>
+<DefaultValue>1</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>11</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>12</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>13</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>7</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>8</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>9</SourceValue>
+<TargetValue>5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>10</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>managed_by</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>manufacturer</TargetField>
+<LookupQuery>manufacturer</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>vendor</TargetField>
+<LookupQuery>vendor</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Company SysID!</TargetVariable>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>company</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>model_number</TargetField>
+<SourceField>VersionNumber</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>install_date</TargetField>
+<SourceField>Installation Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>justification</TargetField>
+<SourceField>InstanceId</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>department</TargetField>
+<LookupQuery>cmn_department</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>invoice_number</TargetField>
+<SourceField>Invoice Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>start_date</TargetField>
+<SourceField>Available Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>asset_tag</TargetField>
+<SourceField>TagNumber</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>comments</TargetField>
+<LookupQuery>AST:WorkLog</LookupQuery>
+<LookupField>Description</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Concatenate CSV</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>cost</TargetField>
+<SourceField>Total Purchase Cost</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>owned_by</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>serial_number</TargetField>
+<SourceField>SerialNumber</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>model_id</TargetField>
+<LookupQuery>cmdb_model</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>ip_address</TargetField>
+<SourceField>InterconnectAddress</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>delivery_date</TargetField>
+<SourceField>Received Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>cost_center</TargetField>
+<LookupQuery>cmn_cost_center</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>location</TargetField>
+<LookupQuery>cmn_location</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>category</TargetField>
+<Assignment>TRUNC([Category],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>purchase_date</TargetField>
+<SourceField>Purchase Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>subcategory</TargetField>
+<Assignment>TRUNC([Type],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Company SysID!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="CMDB System Inventory Location">
+<TargetForm>alm_stockroom</TargetForm>
+<SourceForm>AST:InventoryStorage</SourceForm>
+<SourceQuery>[Class Id] = 'BMC_INVENTORYSTORAGE' AND [Name] != 'Default' AND ((#Single Company# = TRUE AND [Company] = #Company Name#) OR #Single Company# = FALSE) AND [Data Set Id] = #DataSet#</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="cmn_location">
+<Form>cmn_location</Form>
+<SearchQuery>[name] = #SRC.Building# AND [company] = #!Company SysID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user_group">
+<Form>sys_user_group</Form>
+<SearchQuery>[name] = #SRC.Group Owner+#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[name] = #SRC.Owner#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="alm_stockroom_type">
+<Form>alm_stockroom_type</Form>
+<SearchQuery>[name] = 'On site'</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Company#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>name</TargetField>
+<TargetField>location</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>alm_stockroom</TargetForm>
+<SourceForm>AST:InventoryStorage</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetField>assignment_group</TargetField>
+<LookupQuery>sys_user_group</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>manager</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>location</TargetField>
+<LookupQuery>cmn_location</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Company SysID!</TargetVariable>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>type</TargetField>
+<LookupQuery>alm_stockroom_type</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Company SysID!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="No" id="CMDB System Mainframe">
+<TargetForm>cmdb_ci_mainframe_hardware</TargetForm>
+<SourceForm>AST:Mainframe</SourceForm>
+<SourceQuery>[ClassID] = 'BMC_MAINFRAME' AND ((#Single Company# = TRUE AND [Company] = #Company Name#) OR #Single Company# = FALSE) AND [DatasetID] = #DataSet#</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Company#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_location">
+<Form>cmn_location</Form>
+<SearchQuery>[name] = #SRC.Building# AND [company] = #!Company SysID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[name] = #SRC.OwnerName#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="manufacturer">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.ManufacturerName#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmdb_model">
+<Form>cmdb_model</Form>
+<SearchQuery>[name] = #SRC.Model# AND [model_number] = #SRC.VersionNumber#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="vendor">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.SupplierName#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_cost_center">
+<Form>cmn_cost_center</Form>
+<SearchQuery>[code] = #SRC.CostCenter#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_department">
+<Form>cmn_department</Form>
+<SearchQuery>[name] = #SRC.Department# AND [company] = #!Company SysID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="AST:WorkLog">
+<Form>AST:WorkLog</Form>
+<SearchQuery>[CI_Instance_ID] = #Reconciliation Identity#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>justification</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>cmdb_ci_mainframe_hardware</TargetForm>
+<SourceForm>AST:Mainframe</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>short_description</TargetField>
+<Assignment>((((('Remedy Asset ID: ' + [Asset ID+]) + '
+ Description: ') + [Short Description]) + '
+ Additional Information: ') + [Description])</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>operational_status</TargetField>
+<SourceField>AssetLifecycleStatus</SourceField>
+<DefaultValue>1</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>11</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>12</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>13</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>7</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>8</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>9</SourceValue>
+<TargetValue>5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>10</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>managed_by</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>manufacturer</TargetField>
+<LookupQuery>manufacturer</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>cpu_count</TargetField>
+<SourceField>InstalledCPUs</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>vendor</TargetField>
+<LookupQuery>vendor</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>company</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Company SysID!</TargetVariable>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>install_date</TargetField>
+<SourceField>Installation Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>justification</TargetField>
+<SourceField>Instance Id</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>model_number</TargetField>
+<SourceField>VersionNumber</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>department</TargetField>
+<LookupQuery>cmn_department</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>invoice_number</TargetField>
+<SourceField>InvoiceNumber</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>gl_account</TargetField>
+<SourceField>Reconciliation Identity</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>start_date</TargetField>
+<SourceField>Available Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>ram</TargetField>
+<SourceField>PhysicalMemory</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>asset_tag</TargetField>
+<SourceField>TagNumber</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>comments</TargetField>
+<LookupQuery>AST:WorkLog</LookupQuery>
+<LookupField>Description</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Concatenate CSV</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>cost</TargetField>
+<SourceField>Total Purchase Cost</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>owned_by</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>serial_number</TargetField>
+<SourceField>SerialNumber</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>model_id</TargetField>
+<LookupQuery>cmdb_model</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>delivery_date</TargetField>
+<SourceField>Received Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>cost_center</TargetField>
+<LookupQuery>cmn_cost_center</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>dns_domain</TargetField>
+<SourceField>DNSHostName</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>location</TargetField>
+<LookupQuery>cmn_location</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>category</TargetField>
+<Assignment>TRUNC([Category],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>purchase_date</TargetField>
+<SourceField>PurchaseDate</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>subcategory</TargetField>
+<Assignment>TRUNC([Type],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Company SysID!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="CMDB System NT Domain">
+<TargetForm>cmdb_ci_win_domain_controller</TargetForm>
+<SourceForm>AST:NTDomain</SourceForm>
+<SourceQuery>[ClassId] = 'BMC_NTDOMAIN' AND ((#Single Company# = TRUE AND [Company] = #Company Name#) OR #Single Company# = FALSE) AND [DatasetID] = #DataSet#</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Company#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_location">
+<Form>cmn_location</Form>
+<SearchQuery>[name] = #SRC.Building# AND [company] = #!Company SysID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[name] = #SRC.OwnerName#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="manufacturer">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.ManufacturerName#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmdb_model">
+<Form>cmdb_model</Form>
+<SearchQuery>[name] = #SRC.Model# AND [model_number] = #SRC.VersionNumber#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="vendor">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.SupplierName#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_cost_center">
+<Form>cmn_cost_center</Form>
+<SearchQuery>[code] = #SRC.Cost Center#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_department">
+<Form>cmn_department</Form>
+<SearchQuery>[name] = #SRC.Department# AND [company] = #!Company SysID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="AST:WorkLog">
+<Form>AST:WorkLog</Form>
+<SearchQuery>[CI_Instance_ID] = #Reconciliation Identity#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>justification</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>cmdb_ci_win_domain_controller</TargetForm>
+<SourceForm>AST:NTDomain</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>short_description</TargetField>
+<Assignment>((((((('Client Site Name: ' + [ClientSiteName]) + ' 
+Remedy Asset ID: ') + [Asset ID+]) + '
+ Description: ') + [Short Description]) + '
+ Additional Information: ') + [Description])</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>operational_status</TargetField>
+<SourceField>AssetLifecycleStatus</SourceField>
+<DefaultValue>1</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>11</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>12</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>13</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>7</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>8</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>9</SourceValue>
+<TargetValue>5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>10</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>managed_by</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>manufacturer</TargetField>
+<LookupQuery>manufacturer</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>vendor</TargetField>
+<LookupQuery>vendor</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>company</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Company SysID!</TargetVariable>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>install_date</TargetField>
+<SourceField>Installation Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>justification</TargetField>
+<SourceField>InstanceId</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>model_number</TargetField>
+<SourceField>VersionNumber</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>department</TargetField>
+<LookupQuery>cmn_department</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>invoice_number</TargetField>
+<SourceField>Invoice Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>start_date</TargetField>
+<SourceField>Available Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>asset_tag</TargetField>
+<SourceField>TagNumber</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>comments</TargetField>
+<LookupQuery>AST:WorkLog</LookupQuery>
+<LookupField>Description</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Concatenate CSV</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>cost</TargetField>
+<SourceField>Total Purchase Cost</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>owned_by</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>serial_number</TargetField>
+<SourceField>SerialNumber</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>model_id</TargetField>
+<LookupQuery>cmdb_model</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>ip_address</TargetField>
+<SourceField>DomainControllerAddress</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>version</TargetField>
+<SourceField>VersionNumber</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>delivery_date</TargetField>
+<SourceField>Received Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>cost_center</TargetField>
+<LookupQuery>cmn_cost_center</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>dns_domain</TargetField>
+<SourceField>DomainName</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>location</TargetField>
+<LookupQuery>cmn_location</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>category</TargetField>
+<Assignment>TRUNC([Category],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>purchase_date</TargetField>
+<SourceField>Purchase Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>subcategory</TargetField>
+<Assignment>TRUNC([Type],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Company SysID!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="CMDB System Printer">
+<TargetForm>cmdb_ci_printer</TargetForm>
+<SourceForm>AST:Printer</SourceForm>
+<SourceQuery>[ClassID] = 'BMC_PRINTER' AND ((#Single Company# = TRUE AND [Company] = #Company Name#) OR #Single Company# = FALSE) AND [DatasetID] = #DataSet#</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="cmdb_model">
+<Form>cmdb_model</Form>
+<SearchQuery>[name] = #SRC.Model# AND [model_number] = #SRC.VersionNumber#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Company#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_cost_center">
+<Form>cmn_cost_center</Form>
+<SearchQuery>[code] = #SRC.CostCenter#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_location">
+<Form>cmn_location</Form>
+<SearchQuery>[name] = #SRC.Building# AND [company] = #!Company SysID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[name] = #SRC.OwnerName#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="manufacturer">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.ManufacturerName#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="vendor">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.SupplierName#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_department">
+<Form>cmn_department</Form>
+<SearchQuery>[name] = #SRC.Department# AND [company] = #!Company SysID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="AST:WorkLog">
+<Form>AST:WorkLog</Form>
+<SearchQuery>[CI_Instance_ID] = #Reconciliation Identity#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>justification</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>cmdb_ci_printer</TargetForm>
+<SourceForm>AST:Printer</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>short_description</TargetField>
+<Assignment>((((('Remedy Asset ID: ' + [Asset ID+]) + '
+ Description: ') + [Short Description]) + '
+ Additional Information: ') + [Description])</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>operational_status</TargetField>
+<SourceField>AssetLifecycleStatus</SourceField>
+<DefaultValue>1</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>11</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>12</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>13</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>7</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>8</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>9</SourceValue>
+<TargetValue>5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>10</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>print_type</TargetField>
+<SourceField>Item</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>manufacturer</TargetField>
+<LookupQuery>manufacturer</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>vendor</TargetField>
+<LookupQuery>vendor</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>company</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Company SysID!</TargetVariable>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>model_number</TargetField>
+<SourceField>VersionNumber</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>install_date</TargetField>
+<SourceField>Installation Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>justification</TargetField>
+<SourceField>Instance Id</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>department</TargetField>
+<LookupQuery>cmn_department</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>invoice_number</TargetField>
+<SourceField>InvoiceNumber</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>start_date</TargetField>
+<SourceField>Available Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>asset_tag</TargetField>
+<SourceField>TagNumber</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>comments</TargetField>
+<LookupQuery>AST:WorkLog</LookupQuery>
+<LookupField>Description</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Concatenate CSV</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>cost</TargetField>
+<SourceField>Total Purchase Cost</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>serial_number</TargetField>
+<SourceField>SerialNumber</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>owned_by</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>model_id</TargetField>
+<LookupQuery>cmdb_model</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>delivery_date</TargetField>
+<SourceField>Received Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>hardware_status</TargetField>
+<SourceField>AssetLifecycleStatus</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>11</SourceValue>
+<TargetValue>in_disposition</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>12</SourceValue>
+<TargetValue>pending_install</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>13</SourceValue>
+<TargetValue>defective</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>on_order</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>pending_install</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>pending_install</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>installed</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>pending_repair</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5</SourceValue>
+<TargetValue>defective</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6</SourceValue>
+<TargetValue>retired</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>7</SourceValue>
+<TargetValue>pending_transfer</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>8</SourceValue>
+<TargetValue>in_disposition</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>9</SourceValue>
+<TargetValue>in_stock</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>10</SourceValue>
+<TargetValue>installed</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>cost_center</TargetField>
+<LookupQuery>cmn_cost_center</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>dns_domain</TargetField>
+<SourceField>Domain</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>location</TargetField>
+<LookupQuery>cmn_location</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>category</TargetField>
+<Assignment>TRUNC([Category],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>subcategory</TargetField>
+<Assignment>TRUNC([Type],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>purchase_date</TargetField>
+<SourceField>PurchaseDate</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Company SysID!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="CMDB System Software Server">
+<TargetForm>cmdb_ci_server</TargetForm>
+<SourceForm>AST:SoftwareServer</SourceForm>
+<SourceQuery>[Class Id] = 'BMC_SOFTWARESERVER' AND ((#Single Company# = TRUE AND [Company] = #Company Name#) OR #Single Company# = FALSE) AND [Data Set Id] = #DataSet#</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Company#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_location">
+<Form>cmn_location</Form>
+<SearchQuery>[name] = #SRC.Building# AND [company] = #!Company SysID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[name] = #SRC.Owner_name#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="manufacturer">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Manufacturer Name+#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmdb_model">
+<Form>cmdb_model</Form>
+<SearchQuery>[name] = #SRC.Model# AND [model_number] = #SRC.Version Number#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="vendor">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Supplier Name+#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_cost_center">
+<Form>cmn_cost_center</Form>
+<SearchQuery>[code] = #SRC.Cost Center#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_department">
+<Form>cmn_department</Form>
+<SearchQuery>[name] = #SRC.Department# AND [company] = #!Company SysID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="AST:WorkLog">
+<Form>AST:WorkLog</Form>
+<SearchQuery>[CI_Instance_ID] = #Reconciliation Identity#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>justification</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>cmdb_ci_server</TargetForm>
+<SourceForm>AST:SoftwareServer</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>short_description</TargetField>
+<Assignment>(('Server Type: ' + [Software Server Type]) + (((((' 
+Remedy Asset ID: ' + [Asset ID+]) + '
+ Description: ') + [Short Description]) + '
+ Additional Information: ') + [Description]))</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>operational_status</TargetField>
+<SourceField>AssetLifecycleStatus</SourceField>
+<DefaultValue>1</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>11</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>12</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>13</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>7</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>8</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>9</SourceValue>
+<TargetValue>5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>10</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>managed_by</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>manufacturer</TargetField>
+<LookupQuery>manufacturer</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>vendor</TargetField>
+<LookupQuery>vendor</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>company</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Company SysID!</TargetVariable>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>install_date</TargetField>
+<SourceField>Installation Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>justification</TargetField>
+<SourceField>Instance Id</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>model_number</TargetField>
+<SourceField>Version Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>department</TargetField>
+<LookupQuery>cmn_department</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>invoice_number</TargetField>
+<SourceField>Invoice Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>start_date</TargetField>
+<SourceField>Available Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>asset_tag</TargetField>
+<SourceField>Tag Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>comments</TargetField>
+<LookupQuery>AST:WorkLog</LookupQuery>
+<LookupField>Description</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Concatenate CSV</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>cost</TargetField>
+<SourceField>Total Purchase Cost</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>owned_by</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>serial_number</TargetField>
+<SourceField>Serial Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>model_id</TargetField>
+<LookupQuery>cmdb_model</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>delivery_date</TargetField>
+<SourceField>Received Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>cost_center</TargetField>
+<LookupQuery>cmn_cost_center</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>location</TargetField>
+<LookupQuery>cmn_location</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>category</TargetField>
+<Assignment>TRUNC([Category],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>purchase_date</TargetField>
+<SourceField>Purchase Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>subcategory</TargetField>
+<Assignment>TRUNC([Type],40)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Company SysID!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+</DMDList>
+<VariableList>
+<Variable Type="BOOLEAN">Single Company</Variable>
+<Variable Type="STRING">Company Name</Variable>
+<Variable Type="STRING">DataSet</Variable>
+</VariableList>
+</Project>

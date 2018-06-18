@@ -1,0 +1,2 @@
+"Timestamp","Target ID","Source ID","Result","Status","Message"
+"2018/06/17 13:29:01",,"AAA000000000101|000000000000003","Not Completed","Error","""asset"" is a mandatory field"

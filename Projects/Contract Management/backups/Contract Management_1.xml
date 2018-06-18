@@ -1,0 +1,681 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Project AppVersion="3.7.14" Type="Standard">
+<version>1</version>
+<Notes>This template is used to migrate contract management data from BMC Remedy ITSM to Service Now.
+It can be used with most legacy ITSM versions including 764, 8.1 and 9.1 servers.
+It should be run AFTER the migration of all foundation data (see separate template for this).
+
+Whilst every care has been taken in constructing this template, Service Management Integrations accept no
+liability for the accuracy of the data migration definitions and you should therefore carefully check that the 
+migrations are suitable for your environment before executing.  
+
+Service Management Integrations strongly recommend that you take backups of all sensitive data before
+executing any data migration projects and always run the migration project on a non-production test server
+in the first instance.
+
+Amendment History
+R1 First release
+R2 Added mappings for Worklog attachments and Software Certificates
+</Notes>
+<Connection ConnectionType="Source" ServerType="Remedy">
+<ServerName>localhost</ServerName>
+<Port>3636</Port>
+</Connection>
+<Connection ConnectionType="Target" ServerType="Service Now">
+<URL>https://dev54541.service-now.com</URL>
+</Connection>
+<DMDList>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Contract Type">
+<TargetForm>cmdb_contract_product_model</TargetForm>
+<SourceForm>SYS:Menu Items</SourceForm>
+<SourceQuery>[Menu Type] = 'Contract Type' AND [Status] = 'Enabled' AND [Menu Label 2] = 'Contract Event Type' AND [Locale] = NULL</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="cmdb_model_category">
+<Form>cmdb_model_category</Form>
+<SearchQuery>[name] = 'Contract'</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>cmdb_model_category</TargetField>
+<TargetField>name</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>cmdb_contract_product_model</TargetForm>
+<SourceForm>SYS:Menu Items</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Menu Value 1</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>cmdb_model_category</TargetField>
+<LookupQuery>cmdb_model_category</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Skip Record</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>display_name</TargetField>
+<SourceField>Menu Value 1</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Contract [ast_contract]">
+<TargetForm>ast_contract</TargetForm>
+<SourceForm>CTR:ContractBase</SourceForm>
+<SourceQuery>[Start Date] != NULL</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="cmdb_contract_product_model">
+<Form>cmdb_contract_product_model</Form>
+<SearchQuery>[name] = #SRC.ContractType#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Supplier Name+#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_cost_center">
+<Form>cmn_cost_center</Form>
+<SearchQuery>[code] = #SRC.Cost Center#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_location">
+<Form>cmn_location</Form>
+<SearchQuery>[name] = #SRC.ContractSite#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[name] = #SRC.Notification Contact+#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="CTR:WorkLog">
+<Form>CTR:WorkLog</Form>
+<SearchQuery>[CTR ID] = #Contract ID+#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="Yes" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>vendor_contract</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>ast_contract</TargetForm>
+<SourceForm>CTR:ContractBase</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>short_description</TargetField>
+<SourceField>Description</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>vendor_contract</TargetField>
+<SourceField>Contract ID+</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!WorkLog Summary!</TargetVariable>
+<LookupQuery>CTR:WorkLog</LookupQuery>
+<LookupField>Description</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Concatenate CSV</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>description</TargetField>
+<Assignment>(([Description] + '
+Worklog Summary: ') + #!WorkLog Summary!#)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>payment_amount</TargetField>
+<SourceField>Purchase Cost</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>sales_tax</TargetField>
+<DefaultValue>False</DefaultValue>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>substate</TargetField>
+<SourceField>Status Reason</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>7000</SourceValue>
+<TargetValue>awaiting_review</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5000</SourceValue>
+<TargetValue>under_review</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6000</SourceValue>
+<TargetValue>awaiting_review</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4000</SourceValue>
+<TargetValue>under_review</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1000</SourceValue>
+<TargetValue>approved</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>10000</SourceValue>
+<TargetValue>rejected</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>11000</SourceValue>
+<TargetValue>rejected</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2000</SourceValue>
+<TargetValue>under_review</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3000</SourceValue>
+<TargetValue>under_review</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>renewal_date</TargetField>
+<SourceField>Expiration Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>cost_center</TargetField>
+<LookupQuery>cmn_cost_center</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>vendor</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>ends</TargetField>
+<SourceField>Expiration Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>contract_model</TargetField>
+<LookupQuery>cmdb_contract_product_model</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Skip Record</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>location</TargetField>
+<LookupQuery>cmn_location</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>state</TargetField>
+<SourceField>Status</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>draft</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>active</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>expired</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>cancelled</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>starts</TargetField>
+<SourceField>Start Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>contract_administrator</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!WorkLog Summary!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="2" enabled="Yes" id="Terms and Conditions">
+<TargetForm>clm_terms_and_conditions</TargetForm>
+<SourceForm>CTR:Terms_Conditions</SourceForm>
+<SourceQuery>[Contract_Instance_ID] != NULL</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="CTR:Contract Base">
+<Form>CTR:ContractBase</Form>
+<SearchQuery>[instanceId] = #Contract_Instance_ID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="ast_contract">
+<Form>ast_contract</Form>
+<SearchQuery>[vendor_contract] = #!Contract Number!#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>Contract_Instance_ID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Contract [ast_contract]</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>instanceId</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>clm_terms_and_conditions</TargetForm>
+<SourceForm>CTR:Terms_Conditions</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>number</TargetField>
+<SourceField>Request ID</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Contract Number!</TargetVariable>
+<LookupQuery>CTR:Contract Base</LookupQuery>
+<LookupField>Contract ID+</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>contract</TargetField>
+<LookupQuery>ast_contract</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Skip Record</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>name</TargetField>
+<Assignment>TRUNC([Description],100)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>description</TargetField>
+<SourceField>Detailed Description</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Contract Number!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="2" enabled="Yes" id="Terms and Conditions Contract Join">
+<TargetForm>clm_m2m_contract_and_terms</TargetForm>
+<SourceForm>CTR:Terms_Conditions</SourceForm>
+<SourceQuery>[Contract_Instance_ID] != NULL</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="CTR:ContractBase">
+<Form>CTR:ContractBase</Form>
+<SearchQuery>[instanceId] = #Contract_Instance_ID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="ast_contract">
+<Form>ast_contract</Form>
+<SearchQuery>[vendor_contract] = #!Contract Number!#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>contract</TargetField>
+<TargetField>terms_and_conditions</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>Contract_Instance_ID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Contract [ast_contract]</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>instanceId</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>clm_m2m_contract_and_terms</TargetForm>
+<SourceForm>CTR:Terms_Conditions</SourceForm>
+<FieldMapping Type="Reference">
+<TargetField>terms_and_conditions</TargetField>
+<SourceField>Request ID</SourceField>
+<RefMappingIdentifier>Terms and Conditions</RefMappingIdentifier>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Contract Number!</TargetVariable>
+<LookupQuery>CTR:ContractBase</LookupQuery>
+<LookupField>Contract ID+</LookupField>
+<NoMatchAction>Skip Record</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>contract</TargetField>
+<LookupQuery>ast_contract</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Skip Record</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Contract Number!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Contract CI relationships">
+<TargetForm>ast_contract_instance</TargetForm>
+<SourceForm>CTR:Contract_Relationship</SourceForm>
+<SourceQuery>[Parent_Relationship_Type] = 'Configuration Item'</SourceQuery>
+<Notes>Links the migrated contracts to CIs based on the CI name and the serial number.
+If no matching CI or Serial number is found then the record is skipped.
+Migrated records appear under the Contract Used By tab on the Contracts record.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="CTR:ContractBase">
+<Form>CTR:ContractBase</Form>
+<SearchQuery>[instanceId] = #Child_Instance_ID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="ast_contract">
+<Form>ast_contract</Form>
+<SearchQuery>[vendor_contract] = #!Contract ID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="BMC.CORE:BMC_BaseElement">
+<Form>BMC.CORE:BMC_BaseElement</Form>
+<SearchQuery>[ReconciliationIdentity] = #Parent_Instance_ID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmdb_ci">
+<Form>cmdb_ci</Form>
+<SearchQuery>[name] = #SRC.Parent_Description# AND [serial_number] = #!CI Serial Number!#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>ast_contract</TargetField>
+<TargetField>ci_item</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>Child_Instance_ID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Contract [ast_contract]</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>instanceId</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>ast_contract_instance</TargetForm>
+<SourceForm>CTR:Contract_Relationship</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetField>ast_contract</TargetField>
+<LookupQuery>ast_contract</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Skip Record</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Contract ID!</TargetVariable>
+<LookupQuery>CTR:ContractBase</LookupQuery>
+<LookupField>Contract ID+</LookupField>
+<NoMatchAction>Skip Record</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!CI Serial Number!</TargetVariable>
+<LookupQuery>BMC.CORE:BMC_BaseElement</LookupQuery>
+<LookupField>SerialNumber</LookupField>
+<NoMatchAction>Skip Record</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>ci_item</TargetField>
+<LookupQuery>cmdb_ci</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Skip Record</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Contract ID!</Variable>
+<Variable Type="STRING">!CI Serial Number!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Expense Lines">
+<TargetForm>fm_expense_line</TargetForm>
+<SourceForm>FIN:CostAssociationJoin</SourceForm>
+<SourceQuery>[Cost Classification] = 'Actual' AND [Status] &lt; 'Delete' AND ([Cost Type] = 'Purchase Cost' OR [Cost Type] = 'Renewal Cost')</SourceQuery>
+<Notes>Migrates the financial cost lines from the source contract to the Expense Lines on the target contract.
+Migrated records appear under the Expense Lines tab on the Contract record.
+</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>SKIP</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="AST:AssetSoftware">
+<Form>AST:AssetSoftware</Form>
+<SearchQuery>[instanceId] = #Instance ID 01#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="ast_contract">
+<Form>ast_contract</Form>
+<SearchQuery>[vendor_contract] = #!Contract ID!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_cost_center">
+<Form>cmn_cost_center</Form>
+<SearchQuery>[code] = #SRC.Cost Center Code#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="Yes" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>contract</TargetField>
+<TargetField>short_description</TargetField>
+<TargetField>date</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>Instance ID 01</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Contract [ast_contract]</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>instanceId</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>fm_expense_line</TargetForm>
+<SourceForm>FIN:CostAssociationJoin</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>date</TargetField>
+<SourceField>Date Incurred</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>short_description</TargetField>
+<SourceField>Description</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>amount</TargetField>
+<SourceField>Associated Cost</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>cost_center</TargetField>
+<LookupQuery>cmn_cost_center</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>contract</TargetField>
+<LookupQuery>ast_contract</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Skip Record</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Contract ID!</TargetVariable>
+<LookupQuery>AST:AssetSoftware</LookupQuery>
+<LookupField>Contract ID+</LookupField>
+<NoMatchAction>Skip Record</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>source_id</TargetField>
+<LookupQuery>ast_contract</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Skip Record</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>category</TargetField>
+<DefaultValue>software</DefaultValue>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Contract ID!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="2" enabled="Yes" id="Contract Attachments">
+<TargetForm>ast_contract</TargetForm>
+<SourceForm>CTR:WorkLog</SourceForm>
+<SourceQuery>[z2AF Work Log01] != NULL</SourceQuery>
+<Notes>Migrates all attachments from the Contract WorkLogs to the corresponding contracts in Service Now.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>SKIP</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>vendor_contract</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>ast_contract</TargetForm>
+<SourceForm>CTR:WorkLog</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>vendor_contract</TargetField>
+<SourceField>CTR ID</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Set Notification Group ">
+<TargetForm>ast_contract</TargetForm>
+<SourceForm>CTR:ContractBase</SourceForm>
+<SourceQuery>[Notification Group+] != NULL</SourceQuery>
+<Notes>Updates the contract administrator with the notification group if populated on source contract.</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>SKIP</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="sys_user_group">
+<Form>sys_user_group</Form>
+<SearchQuery>[name] = #SRC.Notification Group+#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>vendor_contract</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>ast_contract</TargetForm>
+<SourceForm>CTR:ContractBase</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>vendor_contract</TargetField>
+<SourceField>Contract ID+</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Generic Software License">
+<TargetForm>ast_license_generic</TargetForm>
+<SourceForm>AST:LicenseCertificates</SourceForm>
+<SourceQuery>[Manufacturer] != NULL</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="cmn_department">
+<Form>cmn_department</Form>
+<SearchQuery>[name] = #SRC.Department# AND [company] = #SRC.Company#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Manufacturer#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="vendor">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Supplier Company#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>vendor_contract</TargetField>
+<TargetField>short_description</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>Software Contract ID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Contract [ast_contract]</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>Contract ID+</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>ast_license_generic</TargetForm>
+<SourceForm>AST:LicenseCertificates</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>short_description</TargetField>
+<SourceField>CertificateName</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>purchased</TargetField>
+<SourceField>Effective Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>vendor_contract</TargetField>
+<SourceField>Software Contract ID</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>vendor</TargetField>
+<LookupQuery>vendor</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>license_count</TargetField>
+<SourceField>Number of licenses purchased</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>description</TargetField>
+<SourceField>CertificateDescription</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>department</TargetField>
+<LookupQuery>cmn_department</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>install_count</TargetField>
+<SourceField>Number of licenses deployed</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>license_cost</TargetField>
+<SourceField>Cost per Asset</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>sys_class_name</TargetField>
+<DefaultValue>Software License</DefaultValue>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>manufacturer</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+</DMDList>
+</Project>

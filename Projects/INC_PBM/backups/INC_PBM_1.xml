@@ -1,0 +1,1588 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Project AppVersion="3.7.14" Type="Standard">
+<version>1</version>
+<Notes>This template is used to migrate incident and problem data from BMC Remedy ITSM to Service Now.
+It can be used with most legacy ITSM versions including 764, 8.1 and 9.1 servers.
+It should be run AFTER the migration of all foundation data (see separate template for this).
+
+NOTE ON DOMAIN SEPARATION
+If you want to enforce domain separation for migrated records, you must connect to the target instance 
+(Target Connection Setting) using an admin user in the same domain as the selected company. This will
+ensure that all records migrated in this project are in the correct domain.
+
+Whilst every care has been taken in constructing this template, Service Management Integrations accept no
+liability for the accuracy of the data migration definitions and you should therefore carefully check that the 
+migrations are suitable for your environment before executing.  
+
+Service Management Integrations strongly recommend that you take backups of all sensitive data before
+executing any data migration projects and always run the migration project on a non-production test server
+in the first instance.
+
+Amendment History
+R2: Updated mappings to take advantage of 3.2 functionality
+R3: Added Company variable to support multi-tenancy migrations and updated source filters.
+</Notes>
+<Connection ConnectionType="Source" ServerType="Remedy">
+<ServerName>localhost</ServerName>
+<Port>3636</Port>
+</Connection>
+<Connection ConnectionType="Target" ServerType="Service Now">
+<URL>https://dev47087.service-now.com</URL>
+</Connection>
+<DMDList>
+<DataMappingsDefinition attachmentsOption="0" enabled="No" id="User Reference">
+<TargetForm>sys_user</TargetForm>
+<SourceForm>CTM:People</SourceForm>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>name</TargetField>
+<TargetField>email</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>sys_user</TargetForm>
+<SourceForm>CTM:People</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Full Name</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>email</TargetField>
+<SourceField>Internet E-mail</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="No" id="Group Reference">
+<TargetForm>sys_user_group</TargetForm>
+<SourceForm>CTM:Support Group</SourceForm>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>name</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>sys_user_group</TargetForm>
+<SourceForm>CTM:Support Group</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Support Group Name</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="No" id="Location Reference">
+<TargetForm>cmn_location</TargetForm>
+<SourceForm>SIT:Site</SourceForm>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Source" id="SIT:Site Company Association">
+<Form>SIT:Site Company Association</Form>
+<SearchQuery>[Site ID] = #Site ID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #!Company Name!#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>name</TargetField>
+<TargetField>country</TargetField>
+<TargetField>city</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>cmn_location</TargetForm>
+<SourceForm>SIT:Site</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>country</TargetField>
+<SourceField>Country</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>city</TargetField>
+<SourceField>City</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<SourceField>Site</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>company</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Company Name!</TargetVariable>
+<LookupQuery>SIT:Site Company Association</LookupQuery>
+<LookupField>Company</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Company Name!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Incident">
+<TargetForm>incident</TargetForm>
+<SourceForm>HPD:Help Desk</SourceForm>
+<SourceQuery>[Last Modified Date] &gt; #Modified Since Date# AND ((#Single Company# = TRUE AND [Contact Company] = #Company#) OR #Single Company# = FALSE)</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Contact Company#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="CTM:People">
+<Form>CTM:People</Form>
+<SearchQuery>[Remedy Login ID] = #Assignee Login ID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[name] = #SRC.Assignee# AND [email] = #!Assignee Email!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="HPD:WorkLog">
+<Form>HPD:WorkLog</Form>
+<SearchQuery>[Incident Number] = #Incident Number#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>incident</TargetForm>
+<SourceForm>HPD:Help Desk</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>short_description</TargetField>
+<SourceField>Description</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>closed_at</TargetField>
+<SourceField>Closed Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>close_code</TargetField>
+<SourceField>Status_Reason</SourceField>
+<DefaultValue>Solved (Permanently)</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>16000</SourceValue>
+<TargetValue>Solved (Work Around)</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>18000</SourceValue>
+<TargetValue>Solved (Permanently)</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>19000</SourceValue>
+<TargetValue>Solved (Permanently)</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>17000</SourceValue>
+<TargetValue>Solved (Permanently)</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Reference">
+<TargetField>assignment_group</TargetField>
+<SourceField>Assigned Group ID</SourceField>
+<RefMappingIdentifier>Group Reference</RefMappingIdentifier>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>impact</TargetField>
+<SourceField>Impact</SourceField>
+<DefaultValue>2</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>4000</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1000</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2000</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3000</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>due_date</TargetField>
+<SourceField>Estimated Resolution Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>description</TargetField>
+<Assignment>TRUNC([Detailed Decription],4000)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>close_notes</TargetField>
+<Assignment>TRUNC([Resolution],4000)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Assignee Email!</TargetVariable>
+<LookupQuery>CTM:People</LookupQuery>
+<LookupField>Internet E-mail</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>closed_by</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>number</TargetField>
+<SourceField>Incident Number</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>opened_at</TargetField>
+<SourceField>Submit Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>contact_type</TargetField>
+<SourceField>Reported Source</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>7000</SourceValue>
+<TargetValue>phone</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>8000</SourceValue>
+<TargetValue>walk-in</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6000</SourceValue>
+<TargetValue>phone</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4200</SourceValue>
+<TargetValue>self-service</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1000</SourceValue>
+<TargetValue>self-service</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2000</SourceValue>
+<TargetValue>email</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>9000</SourceValue>
+<TargetValue>self-service</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!WorkLog Entries!</TargetVariable>
+<LookupQuery>HPD:WorkLog</LookupQuery>
+<LookupField>Description</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Concatenate CSV</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>urgency</TargetField>
+<SourceField>Urgency</SourceField>
+<DefaultValue>2</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>4000</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1000</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2000</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3000</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Reference">
+<TargetField>caller_id</TargetField>
+<SourceField>Person ID</SourceField>
+<RefMappingIdentifier>User Reference</RefMappingIdentifier>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>resolved_at</TargetField>
+<SourceField>Last Resolved Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>company</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Reference">
+<TargetField>location</TargetField>
+<SourceField>Site ID</SourceField>
+<RefMappingIdentifier>Location Reference</RefMappingIdentifier>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>state</TargetField>
+<SourceField>Status</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>6</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5</SourceValue>
+<TargetValue>7</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6</SourceValue>
+<TargetValue>8</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>category</TargetField>
+<SourceField>Service Type</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>inquiry</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>inquiry</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>hardware</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>hardware</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>work_notes</TargetField>
+<Assignment>TRUNC(#!WorkLog Entries!#,4000)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>assigned_to</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Assignee Email!</Variable>
+<Variable Type="STRING">!WorkLog Entries!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Incident Task">
+<TargetForm>incident_task</TargetForm>
+<SourceForm>TMS:Task</SourceForm>
+<SourceQuery>[RootRequestFormName] = 'HPD:Help Desk'</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="incident">
+<Form>incident</Form>
+<SearchQuery>[number] = #SRC.RootRequestID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Company#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_location">
+<Form>cmn_location</Form>
+<SearchQuery>[company] = #SRC.Company# AND [name] = #SRC.Site#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="TMS:WorkInfo">
+<Form>TMS:WorkInfo</Form>
+<SearchQuery>[TaskOrTaskGroupID] = #Task ID#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>RootRequestID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Incident</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>Incident Number</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>incident_task</TargetForm>
+<SourceForm>TMS:Task</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>short_description</TargetField>
+<Assignment>TRUNC([TaskName],160)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>work_start</TargetField>
+<SourceField>Actual Start Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Reference">
+<TargetField>assignment_group</TargetField>
+<SourceField>Assignee Group ID</SourceField>
+<RefMappingIdentifier>Group Reference</RefMappingIdentifier>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>description</TargetField>
+<Assignment>TRUNC((([Summary] + ' ') + [Notes]),4000)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>priority</TargetField>
+<SourceField>Priority</SourceField>
+<DefaultValue>3</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>expected_start</TargetField>
+<SourceField>Scheduled Start Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>number</TargetField>
+<SourceField>Task ID</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!WorkLog Entries!</TargetVariable>
+<LookupQuery>TMS:WorkInfo</LookupQuery>
+<LookupField>Summary</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Concatenate CSV</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>work_end</TargetField>
+<SourceField>Actual End Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>company</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>location</TargetField>
+<LookupQuery>cmn_location</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>state</TargetField>
+<SourceField>Status</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>7000</SourceValue>
+<TargetValue>7</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5000</SourceValue>
+<TargetValue>-5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6000</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4000</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1000</SourceValue>
+<TargetValue>-5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2000</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3000</SourceValue>
+<TargetValue>-5</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>work_notes</TargetField>
+<Assignment>TRUNC(#!WorkLog Entries!#,4000)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>incident</TargetField>
+<LookupQuery>incident</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Reference">
+<TargetField>assigned_to</TargetField>
+<SourceField>Assignee Id</SourceField>
+<RefMappingIdentifier>User Reference</RefMappingIdentifier>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!WorkLog Entries!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Child Incidents">
+<TargetForm>incident</TargetForm>
+<SourceForm>HPD:Associations</SourceForm>
+<SourceQuery>[Form Name01] = 'HPD:Help Desk' AND [Form Name02] = 'HPD:Help Desk' AND [Request ID02] &lt; [Request ID01]</SourceQuery>
+<Notes>Updates previously migrated records with parent incident reference</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>SKIP</CreateOption>
+<UpdateOption>UPDATE</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="incident">
+<Form>incident</Form>
+<SearchQuery>[number] = #SRC.Request ID01#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>Request ID02</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Incident</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>Incident Number</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>incident</TargetForm>
+<SourceForm>HPD:Associations</SourceForm>
+<FieldMapping Type="Lookup">
+<TargetField>parent_incident</TargetField>
+<LookupQuery>incident</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>number</TargetField>
+<SourceField>Request ID02</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Problem">
+<TargetForm>problem</TargetForm>
+<SourceForm>PBM:Problem Investigation</SourceForm>
+<SourceQuery>[Last Modified Date] &gt; #Modified Since Date# AND ((#Single Company# = TRUE AND [Contact Company] = #Company#) OR #Single Company# = FALSE)</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Contact Company#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="CTM:People">
+<Form>CTM:People</Form>
+<SearchQuery>[Remedy Login ID] = #Assignee Login ID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[name] = #SRC.Assignee# AND [email] = #!Assignee Email!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="PBM:Investigation WorkLog">
+<Form>PBM:Investigation WorkLog</Form>
+<SearchQuery>[Problem Investigation ID] = #Problem Investigation ID#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>problem</TargetForm>
+<SourceForm>PBM:Problem Investigation</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>short_description</TargetField>
+<SourceField>Description</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>closed_at</TargetField>
+<SourceField>Closed_Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Reference">
+<TargetField>assignment_group</TargetField>
+<SourceField>Assigned Group ID</SourceField>
+<RefMappingIdentifier>Group Reference</RefMappingIdentifier>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>impact</TargetField>
+<SourceField>Impact</SourceField>
+<DefaultValue>3</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>4000</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1000</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2000</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3000</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>due_date</TargetField>
+<SourceField>Target Resolution Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>problem_state</TargetField>
+<SourceField>Investigation Status</SourceField>
+<DefaultValue>1</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>7</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>8</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>9</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>description</TargetField>
+<Assignment>TRUNC([Detailed Decription],4000)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>work_notes_list</TargetField>
+<Assignment>TRUNC(#!WorkLog Entries!#,4000)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>close_notes</TargetField>
+<Assignment>TRUNC([Implemented Solution],4000)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Assignee Email!</TargetVariable>
+<LookupQuery>CTM:People</LookupQuery>
+<LookupField>Internet E-mail</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>closed_by</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>number</TargetField>
+<SourceField>Problem Investigation ID</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>opened_at</TargetField>
+<SourceField>Submit Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!WorkLog Entries!</TargetVariable>
+<LookupQuery>PBM:Investigation WorkLog</LookupQuery>
+<LookupField>Description</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Concatenate CSV</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>work_around</TargetField>
+<SourceField>Temporary Workaround</SourceField>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>urgency</TargetField>
+<SourceField>Urgency</SourceField>
+<DefaultValue>3</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>4000</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1000</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2000</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3000</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>company</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Reference">
+<TargetField>location</TargetField>
+<SourceField>Site ID</SourceField>
+<RefMappingIdentifier>Location Reference</RefMappingIdentifier>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>state</TargetField>
+<SourceField>Investigation Status</SourceField>
+<DefaultValue>1</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>7</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>8</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>9</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>work_notes</TargetField>
+<Assignment>TRUNC(#!WorkLog Entries!#,4000)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>assigned_to</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Assignee Email!</Variable>
+<Variable Type="STRING">!WorkLog Entries!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Problem Task">
+<TargetForm>problem_task</TargetForm>
+<SourceForm>TMS:Task</SourceForm>
+<SourceQuery>[RootRequestFormName] = 'PBM:Problem Investigation'</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="problem">
+<Form>problem</Form>
+<SearchQuery>[number] = #SRC.RootRequestID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Company#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_location">
+<Form>cmn_location</Form>
+<SearchQuery>[company] = #SRC.Company# AND [name] = #SRC.Site#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="TMS:WorkInfo">
+<Form>TMS:WorkInfo</Form>
+<SearchQuery>[TaskOrTaskGroupID] = #Task ID#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>RootRequestID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Problem</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>Problem Investigation ID</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>problem_task</TargetForm>
+<SourceForm>TMS:Task</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>short_description</TargetField>
+<Assignment>TRUNC([TaskName],160)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>work_start</TargetField>
+<SourceField>Actual Start Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Reference">
+<TargetField>assignment_group</TargetField>
+<SourceField>Assignee Group ID</SourceField>
+<RefMappingIdentifier>Group Reference</RefMappingIdentifier>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>description</TargetField>
+<Assignment>TRUNC((([Summary] + ' ') + [Notes]),4000)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>priority</TargetField>
+<SourceField>Priority</SourceField>
+<DefaultValue>3</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>expected_start</TargetField>
+<SourceField>Scheduled Start Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>number</TargetField>
+<SourceField>Task ID</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!WorkLog Entries!</TargetVariable>
+<LookupQuery>TMS:WorkInfo</LookupQuery>
+<LookupField>Summary</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Concatenate CSV</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>problem</TargetField>
+<LookupQuery>problem</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>work_end</TargetField>
+<SourceField>Actual End Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>company</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>location</TargetField>
+<LookupQuery>cmn_location</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>state</TargetField>
+<SourceField>Status</SourceField>
+<DefaultValue>1</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>7000</SourceValue>
+<TargetValue>7</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5000</SourceValue>
+<TargetValue>-5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6000</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4000</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1000</SourceValue>
+<TargetValue>-5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2000</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3000</SourceValue>
+<TargetValue>-5</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>work_notes</TargetField>
+<Assignment>TRUNC(#!WorkLog Entries!#,4000)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Reference">
+<TargetField>assigned_to</TargetField>
+<SourceField>Assignee Id</SourceField>
+<RefMappingIdentifier>User Reference</RefMappingIdentifier>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!WorkLog Entries!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Incident Related Problem">
+<TargetForm>incident</TargetForm>
+<SourceForm>HPD:Associations</SourceForm>
+<SourceQuery>[Form Name01] = 'PBM:Problem Investigation' AND [Form Name02] = 'HPD:Help Desk'</SourceQuery>
+<Notes>Updates the problem reference on previously migrated incident records</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>SKIP</CreateOption>
+<UpdateOption>UPDATE</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="problem">
+<Form>problem</Form>
+<SearchQuery>[number] = #SRC.Request ID01#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>Request ID02</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Incident</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>Incident Number</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>incident</TargetForm>
+<SourceForm>HPD:Associations</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>number</TargetField>
+<SourceField>Request ID02</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>problem_id</TargetField>
+<LookupQuery>problem</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Known Errors">
+<TargetForm>problem</TargetForm>
+<SourceForm>PBM:Known Error</SourceForm>
+<SourceQuery>[Last Modified Date] &gt; #Modified Since Date# AND ((#Single Company# = TRUE AND [Company] = #Company#) OR #Single Company# = FALSE)</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Company#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="CTM:People">
+<Form>CTM:People</Form>
+<SearchQuery>[Remedy Login ID] = #Assignee Login#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[name] = #SRC.Assignee# AND [email] = #!Assignee Email!#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="PBM:Known Error WorkLog">
+<Form>PBM:Known Error WorkLog</Form>
+<SearchQuery>[Known Error ID] = #Known Error ID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_location">
+<Form>cmn_location</Form>
+<SearchQuery>[company] = #SRC.Company# AND [name] = #SRC.Site#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>problem</TargetForm>
+<SourceForm>PBM:Known Error</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>short_description</TargetField>
+<SourceField>Description</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>closed_at</TargetField>
+<SourceField>Last Corrected Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Reference">
+<TargetField>assignment_group</TargetField>
+<SourceField>Support Group ID</SourceField>
+<RefMappingIdentifier>Group Reference</RefMappingIdentifier>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>impact</TargetField>
+<SourceField>Impact</SourceField>
+<DefaultValue>3</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>4000</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1000</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2000</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3000</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>known_error</TargetField>
+<DefaultValue>True</DefaultValue>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>due_date</TargetField>
+<SourceField>Target Resolution Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>problem_state</TargetField>
+<SourceField>Known Error Status</SourceField>
+<DefaultValue>1</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>description</TargetField>
+<Assignment>TRUNC([Detailed Decription],4000)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>close_notes</TargetField>
+<Assignment>TRUNC([Resolution],4000)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!Assignee Email!</TargetVariable>
+<LookupQuery>CTM:People</LookupQuery>
+<LookupField>Internet E-mail</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>closed_by</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>number</TargetField>
+<SourceField>Known Error ID</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>opened_at</TargetField>
+<SourceField>Submit Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!WorkLog Entries!</TargetVariable>
+<LookupQuery>PBM:Known Error WorkLog</LookupQuery>
+<LookupField>Description</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>work_around</TargetField>
+<SourceField>Temporary Workaround</SourceField>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>urgency</TargetField>
+<SourceField>Urgency</SourceField>
+<DefaultValue>3</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>4000</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1000</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2000</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3000</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>company</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>location</TargetField>
+<LookupQuery>cmn_location</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>state</TargetField>
+<SourceField>Known Error Status</SourceField>
+<DefaultValue>1</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>work_notes</TargetField>
+<Assignment>TRUNC(#!WorkLog Entries!#,4000)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>assigned_to</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!Assignee Email!</Variable>
+<Variable Type="STRING">!WorkLog Entries!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Known Error Tasks">
+<TargetForm>problem_task</TargetForm>
+<SourceForm>TMS:Task</SourceForm>
+<SourceQuery>[RootRequestFormName] = 'PBM:Known Error'</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="problem">
+<Form>problem</Form>
+<SearchQuery>[number] = #SRC.RootRequestID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="core_company">
+<Form>core_company</Form>
+<SearchQuery>[name] = #SRC.Company#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmn_location">
+<Form>cmn_location</Form>
+<SearchQuery>[company] = #SRC.Company# AND [name] = #SRC.Site#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Source" id="TMS:WorkInfo">
+<Form>TMS:WorkInfo</Form>
+<SearchQuery>[TaskOrTaskGroupID] = #Task ID#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>RootRequestID</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Known Errors</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>Known Error ID</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>problem_task</TargetForm>
+<SourceForm>TMS:Task</SourceForm>
+<FieldMapping Type="Assignment">
+<TargetField>short_description</TargetField>
+<Assignment>TRUNC([TaskName],160)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>work_start</TargetField>
+<SourceField>Actual Start Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Reference">
+<TargetField>assignment_group</TargetField>
+<SourceField>Assignee Group ID</SourceField>
+<RefMappingIdentifier>Group Reference</RefMappingIdentifier>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>description</TargetField>
+<Assignment>TRUNC((([Summary] + ' ') + [Notes]),4000)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>priority</TargetField>
+<SourceField>Priority</SourceField>
+<DefaultValue>3</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3</SourceValue>
+<TargetValue>4</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>expected_start</TargetField>
+<SourceField>Scheduled Start Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>number</TargetField>
+<SourceField>Task ID</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetVariable>!WorkLog Entries!</TargetVariable>
+<LookupQuery>TMS:WorkInfo</LookupQuery>
+<LookupField>Summary</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Concatenate CSV</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>problem</TargetField>
+<LookupQuery>problem</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>work_end</TargetField>
+<SourceField>Actual End Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>company</TargetField>
+<LookupQuery>core_company</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>location</TargetField>
+<LookupQuery>cmn_location</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>state</TargetField>
+<SourceField>Status</SourceField>
+<DefaultValue>1</DefaultValue>
+<NoMatchAction>Set Default</NoMatchAction>
+<ValueMapping>
+<SourceValue>7000</SourceValue>
+<TargetValue>7</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>5000</SourceValue>
+<TargetValue>-5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>6000</SourceValue>
+<TargetValue>3</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>4000</SourceValue>
+<TargetValue>2</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1000</SourceValue>
+<TargetValue>-5</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>2000</SourceValue>
+<TargetValue>1</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>3000</SourceValue>
+<TargetValue>-5</TargetValue>
+</ValueMapping>
+</FieldMapping>
+<FieldMapping Type="Assignment">
+<TargetField>work_notes</TargetField>
+<Assignment>TRUNC(#!WorkLog Entries!#,4000)</Assignment>
+<ErrorAction>SET NULL</ErrorAction>
+</FieldMapping>
+<FieldMapping Type="Reference">
+<TargetField>assigned_to</TargetField>
+<SourceField>Assignee Id</SourceField>
+<RefMappingIdentifier>User Reference</RefMappingIdentifier>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+<VariableList>
+<Variable Type="STRING">!WorkLog Entries!</Variable>
+</VariableList>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Incident Related Known Error">
+<TargetForm>incident</TargetForm>
+<SourceForm>HPD:Associations</SourceForm>
+<SourceQuery>[Form Name01] = 'PBM:Known Error' AND [Form Name02] = 'HPD:Help Desk'</SourceQuery>
+<Notes>Updates the problem reference on previously migrated incident records</Notes>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>SKIP</CreateOption>
+<UpdateOption>UPDATE</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="problem">
+<Form>problem</Form>
+<SearchQuery>[number] = #SRC.Request ID01#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="FROM_MIGRATION">
+<ValueSetInclusionSourceField>Request ID02</ValueSetInclusionSourceField>
+<ValueSetInclusionValueSetMapping>Incident</ValueSetInclusionValueSetMapping>
+<ValueSetInclusionValueSetSourceField>Incident Number</ValueSetInclusionValueSetSourceField>
+</ValueSetInclusionFilter>
+<FieldMappingsDefinition>
+<TargetForm>incident</TargetForm>
+<SourceForm>HPD:Associations</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>number</TargetField>
+<SourceField>Request ID02</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>problem_id</TargetField>
+<LookupQuery>problem</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+</DMDList>
+<VariableList>
+<Variable Type="TIMESTAMP">Modified Since Date</Variable>
+<Variable Type="BOOLEAN">Single Company</Variable>
+<Variable Type="STRING">Company</Variable>
+</VariableList>
+</Project>
