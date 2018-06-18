@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Project AppVersion="3.7.14" Type="Standard">
-<version>33</version>
+<version>31</version>
 <Notes>This template is used to migrate incident and problem data from BMC Remedy ITSM to Service Now.
 It can be used with most legacy ITSM versions including 764, 8.1 and 9.1 servers.
 It should be run AFTER the migration of all foundation data (see separate template for this).
@@ -1748,11 +1748,10 @@ R3: Added Company variable to support multi-tenancy migrations and updated sourc
 <DataMappingsDefinition attachmentsOption="2" enabled="Yes" id="Incident Task_WL_Attachments">
 <TargetForm>incident_task</TargetForm>
 <SourceForm>TMS:WorkInfo</SourceForm>
-<SourceQuery>[TaskOrTaskGroupID] LIKE 'TAS%'</SourceQuery>
 <BusinessHoursOption>NONE</BusinessHoursOption>
 <CreateOption>CREATE</CreateOption>
 <UpdateOption>UPDATE</UpdateOption>
-<MigrateMethod>DIRECT</MigrateMethod>
+<MigrateMethod>IMPORT_SET_NO_BR</MigrateMethod>
 <KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
 <TargetField>number</TargetField>
 </KeyMapping>
