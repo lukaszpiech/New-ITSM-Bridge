@@ -1,0 +1,3 @@
+"Timestamp","Target ID","Source ID","Result","Status","Message"
+"2018/06/18 19:16:37",,"000000000000002","Not Completed","Error","Error during insert of problem (PKE_CAL_1000002)"
+"2018/06/18 19:16:37",,"000000000000001","Not Completed","Error","Error during insert of problem (PKE_CAL_1000001)"

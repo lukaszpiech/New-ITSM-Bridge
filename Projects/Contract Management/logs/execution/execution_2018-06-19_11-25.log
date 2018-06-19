@@ -1,0 +1,1075 @@
+2018/06/19 11:25:35.790 [INFO] Log Level set to Detail
+2018/06/19 11:25:35.790 [INFO] ITSM Bridge version 3.7.14
+2018/06/19 11:25:35.790 [INFO] Execution of Contract Management version 4
+2018/06/19 11:25:35.791 [INFO] Execution started... [Execution ID=2018-06-19_11-25]
+2018/06/19 11:25:35.792 [INFO] Initialisation Step Started...
+2018/06/19 11:25:35.792 [INFO] Source Server Connected
+2018/06/19 11:25:35.792 [DETAIL] Build Field Map [v_plugin] started...
+2018/06/19 11:25:37.889 [DETAIL] SNow: Build Field Map [v_plugin] complete, 25 entries
+2018/06/19 11:25:40.461 [INFO] Target Server Connected
+2018/06/19 11:25:40.463 [DETAIL] Remedy Cache Initialisation started...
+2018/06/19 11:25:40.463 [DETAIL] Remedy Cache Initialisation complete
+2018/06/19 11:25:40.463 [INFO] Source Server Cache Initialised
+2018/06/19 11:25:40.463 [DETAIL] Service Now Cache Initialisation started...
+2018/06/19 11:25:40.463 [DETAIL] Service Now Cache Initialisation complete
+2018/06/19 11:25:40.463 [INFO] Target Server Cache Initialised
+2018/06/19 11:25:40.463 [DETAIL] Top Level Project Validation Completed
+2018/06/19 11:25:40.463 [DETAIL] Build Field Map [SYS:Menu Items] started...
+2018/06/19 11:25:40.492 [DETAIL] Remedy: Build Field Map [SYS:Menu Items] complete, 25 entries
+2018/06/19 11:25:40.494 [DETAIL] Create Remedy Qualification: 'Menu Type' = "Contract Type" AND 'Status' = "Enabled" AND 'Menu Label 2' = "Contract Event Type" AND 'Locale' = $\NULL$
+2018/06/19 11:25:40.505 [DETAIL] Build Field Map [cmdb_contract_product_model] started...
+2018/06/19 11:25:40.750 [DETAIL] SNow: Build Field Map [cmdb_contract_product_model] complete, 1 entries
+2018/06/19 11:25:40.750 [DETAIL] Build Field Map [cmdb_model] started...
+2018/06/19 11:25:42.975 [DETAIL] SNow: Build Field Map [cmdb_model] complete, 38 entries
+2018/06/19 11:25:42.975 [DETAIL] Build Field Map [cmdb_model_category] started...
+2018/06/19 11:25:44.262 [DETAIL] SNow: Build Field Map [cmdb_model_category] complete, 14 entries
+2018/06/19 11:25:44.263 [DETAIL] Create SNow Lookup Query: name=Contract
+2018/06/19 11:25:44.265 [DETAIL] Build Field Map [sys_web_service] started...
+2018/06/19 11:25:44.608 [DETAIL] SNow: Build Field Map [sys_web_service] complete, 9 entries
+2018/06/19 11:25:44.608 [DETAIL] Build Field Map [sys_metadata] started...
+2018/06/19 11:25:45.933 [DETAIL] SNow: Build Field Map [sys_metadata] complete, 20 entries
+2018/06/19 11:25:46.363 [INFO] Synchronising Scripted Web Service [u_itsmb_cmdb_contract_product_model]
+2018/06/19 11:25:50.001 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_cmdb_contract_product_model
+   Target Table: cmdb_contract_product_model
+   Scope: global
+   Run Business Rules: true
+   include fields from tables: cmdb_contract_product_model,cmdb_model
+--created ws import set: u_itsmb_cmdb_contract_product_model [cmdb_contract_product_model]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_cmdb_contract_product_model
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   create transform field mapping: type -> type
+   skip system field: target_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   create transform field mapping: barcode -> barcode
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   skip system field: sys_created_by
+   skip system field: sys_import_row
+   skip system field: sys_row_error
+   skip system field: target_domain_path
+   create transform field mapping: power_consumption -> power_consumption
+   create transform field mapping: sla -> sla
+   create transform field mapping: weight -> weight
+   skip system field: import_set_run
+   create transform field mapping: display_name -> display_name
+   create transform field mapping: full_name -> full_name
+   create transform field mapping: rack_units -> rack_units
+   create transform field mapping: product_catalog_item -> product_catalog_item
+   create transform field mapping: name -> name
+   create transform field mapping: cmdb_ci_class -> cmdb_ci_class
+   create transform field mapping: status -> status
+   create transform field mapping: short_description -> short_description
+   skip system field: target_mod_count
+   skip system field: batch_id
+   create transform field mapping: flow_rate -> flow_rate
+   skip system field: sys_import_state_comment
+   create transform field mapping: description -> description
+   skip system field: target_domain
+   skip system field: sys_class_name
+   create transform field mapping: manufacturer -> manufacturer
+   create transform field mapping: sound_power -> sound_power
+   skip system field: sys_transform_map
+   create transform field mapping: certified -> certified
+   create transform field mapping: model_number -> model_number
+   create transform field mapping: bundle -> bundle
+   create transform field mapping: expenditure_type -> expenditure_type
+   create transform field mapping: depreciation -> depreciation
+   create transform field mapping: owner -> owner
+   create transform field mapping: comments -> comments
+   create transform field mapping: cost -> cost
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   create transform field mapping: acquisition_method -> acquisition_method
+   skip system field: sys_mod_count
+   create transform field mapping: cmdb_model_category -> cmdb_model_category
+   skip virtual field: sys_tags
+   create transform field mapping: asset_tracking_strategy -> asset_tracking_strategy
+   create transform field mapping: picture -> picture
+   skip system field: sys_import_state
+   create transform field mapping: main_component -> main_component
+   skip system field: source_id
+   create transform field mapping: salvage_value -> salvage_value
+   create transform field mapping: target_class_name -> sys_class_name
+   create transform field mapping: target_mod_count -> sys_mod_count
+   create transform field mapping: target_created_by -> sys_created_by
+   create transform field mapping: target_created_on -> sys_created_on
+add sys_id_coalece
+   create transform field mapping: target_sys_id -> sys_id
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/19 11:25:50.001 [INFO] Scripted Web Service is Synchronised [u_itsmb_cmdb_contract_product_model]
+2018/06/19 11:25:50.001 [DETAIL] Build Field Map [u_itsmb_cmdb_contract_product_model] started...
+2018/06/19 11:25:51.770 [DETAIL] SNow: Build Field Map [u_itsmb_cmdb_contract_product_model] complete, 42 entries
+2018/06/19 11:25:52.256 [INFO] Initialisation 1 of 9 [Contract Type] Completed
+2018/06/19 11:25:52.256 [DETAIL] Build Field Map [CTR:ContractBase] started...
+2018/06/19 11:25:52.348 [DETAIL] Remedy: Build Field Map [CTR:ContractBase] complete, 82 entries
+2018/06/19 11:25:52.359 [DETAIL] Create Remedy Qualification: 'Start Date' != $\NULL$
+2018/06/19 11:25:52.375 [DETAIL] Build Field Map [ast_contract] started...
+2018/06/19 11:25:54.688 [DETAIL] SNow: Build Field Map [ast_contract] complete, 58 entries
+2018/06/19 11:25:54.688 [DETAIL] Build Field Map [CTR:WorkLog] started...
+2018/06/19 11:25:54.702 [DETAIL] Remedy: Build Field Map [CTR:WorkLog] complete, 49 entries
+2018/06/19 11:25:54.702 [DETAIL] Build Field Map [cmn_cost_center] started...
+2018/06/19 11:25:55.102 [DETAIL] SNow: Build Field Map [cmn_cost_center] complete, 14 entries
+2018/06/19 11:25:55.102 [DETAIL] Build Field Map [core_company] started...
+2018/06/19 11:25:56.709 [DETAIL] SNow: Build Field Map [core_company] complete, 43 entries
+2018/06/19 11:25:56.709 [DETAIL] Build Field Map [cmn_location] started...
+2018/06/19 11:25:57.899 [DETAIL] SNow: Build Field Map [cmn_location] complete, 24 entries
+2018/06/19 11:25:57.900 [DETAIL] Add Project Variable [Contract ID+ [STRING]]
+2018/06/19 11:25:57.903 [DETAIL] Create Remedy Lookup Query: 'CTR ID' = ""
+2018/06/19 11:25:57.903 [DETAIL] Add Project Variable [Cost Center [STRING]]
+2018/06/19 11:25:57.903 [DETAIL] Create SNow Lookup Query: code#!#Cost Center#!#
+2018/06/19 11:25:57.904 [DETAIL] Add Project Variable [Supplier Name+ [STRING]]
+2018/06/19 11:25:57.904 [DETAIL] Create SNow Lookup Query: name#!#Supplier Name+#!#
+2018/06/19 11:25:57.904 [DETAIL] Add Project Variable [ContractType [STRING]]
+2018/06/19 11:25:57.904 [DETAIL] Create SNow Lookup Query: name#!#ContractType#!#
+2018/06/19 11:25:57.904 [DETAIL] Add Project Variable [ContractSite [STRING]]
+2018/06/19 11:25:57.904 [DETAIL] Create SNow Lookup Query: name#!#ContractSite#!#
+2018/06/19 11:25:57.905 [DETAIL] Add Project Variable [Notification Contact+ [STRING]]
+2018/06/19 11:25:57.905 [DETAIL] Create SNow Lookup Query: name#!#Notification Contact+#!#
+2018/06/19 11:25:57.906 [INFO] Synchronising Scripted Web Service [u_itsmb_ast_contract]
+2018/06/19 11:26:02.732 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_ast_contract
+   Target Table: ast_contract
+   Scope: global
+   Run Business Rules: true
+   include fields from tables: ast_contract
+--created ws import set: u_itsmb_ast_contract [ast_contract]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_ast_contract
+   create transform field mapping: cost_adjustment_percentage -> cost_adjustment_percentage
+   create transform field mapping: total_cost -> total_cost
+   create transform field mapping: discount -> discount
+   skip system field: template_import_log
+   create transform field mapping: cost_adjustment -> cost_adjustment
+   skip system field: target_scope
+   create transform field mapping: renewal_end_date -> renewal_end_date
+   skip system field: sys_updated_on
+   skip system field: target_class_name
+   create transform field mapping: tax_rate -> tax_rate
+   create transform field mapping: approval_history -> approval_history
+   skip system field: sys_target_sys_id
+   create transform field mapping: number -> number
+   create transform field mapping: tax_cost -> tax_cost
+   skip system field: sys_updated_by
+   create transform field mapping: renewal_date -> renewal_date
+   skip system field: sys_created_on
+   create transform field mapping: sub_total_cost -> sub_total_cost
+   skip system field: sys_import_set
+   create transform field mapping: cost_adjustment_reason -> cost_adjustment_reason
+   create transform field mapping: state -> state
+   create transform field mapping: starts -> starts
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   skip system field: sys_created_by
+   skip system field: sys_import_row
+   skip system field: sys_row_error
+   create transform field mapping: tax_exempt -> tax_exempt
+   skip system field: target_domain_path
+   create transform field mapping: yearly_cost -> yearly_cost
+   create transform field mapping: commitment -> commitment
+   create transform field mapping: active -> active
+   create transform field mapping: payment_amount -> payment_amount
+   skip system field: import_set_run
+   create transform field mapping: payment_schedule -> payment_schedule
+   create transform field mapping: terms_and_conditions -> terms_and_conditions
+   create transform field mapping: cost_center -> cost_center
+   create transform field mapping: renewable -> renewable
+   create transform field mapping: renewal_contact -> renewal_contact
+   create transform field mapping: expiration -> expiration
+   create transform field mapping: invoice_payment_terms -> invoice_payment_terms
+   create transform field mapping: contract_administrator -> contract_administrator
+   create transform field mapping: short_description -> short_description
+   create transform field mapping: ratecard -> ratecard
+   skip system field: target_mod_count
+   create transform field mapping: cost_adjustment_type -> cost_adjustment_type
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   create transform field mapping: description -> description
+   skip system field: target_domain
+   skip system field: sys_class_name
+   create transform field mapping: po_number -> po_number
+   create transform field mapping: license_quantity_entitled -> license_quantity_entitled
+   create transform field mapping: vendor -> vendor
+   create transform field mapping: ends -> ends
+   create transform field mapping: contract_model -> contract_model
+   skip system field: sys_transform_map
+   create transform field mapping: approver -> approver
+   create transform field mapping: process -> process
+   create transform field mapping: monthly_cost -> monthly_cost
+   create transform field mapping: vendor_contract -> vendor_contract
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   create transform field mapping: license_type -> license_type
+   create transform field mapping: lifetime_cost -> lifetime_cost
+   create transform field mapping: renewal_options -> renewal_options
+   skip system field: sys_mod_count
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   create transform field mapping: sales_tax -> sales_tax
+   create transform field mapping: substate -> substate
+   create transform field mapping: application_model -> application_model
+   create transform field mapping: cost_per_unit -> cost_per_unit
+   create transform field mapping: location -> location
+   create transform field mapping: vendor_account -> vendor_account
+   skip system field: source_id
+   create transform field mapping: target_domain -> sys_domain
+   create transform field mapping: target_class_name -> sys_class_name
+   create transform field mapping: target_mod_count -> sys_mod_count
+   create transform field mapping: target_created_by -> sys_created_by
+   create transform field mapping: target_created_on -> sys_created_on
+add sys_id_coalece
+   create transform field mapping: target_sys_id -> sys_id
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/19 11:26:02.732 [INFO] Scripted Web Service is Synchronised [u_itsmb_ast_contract]
+2018/06/19 11:26:02.732 [DETAIL] Build Field Map [u_itsmb_ast_contract] started...
+2018/06/19 11:26:04.941 [DETAIL] SNow: Build Field Map [u_itsmb_ast_contract] complete, 60 entries
+2018/06/19 11:26:05.421 [INFO] Initialisation 2 of 9 [Contract [ast_contract]] Completed
+2018/06/19 11:26:05.421 [DETAIL] Build Field Map [CTR:Terms_Conditions] started...
+2018/06/19 11:26:05.447 [DETAIL] Remedy: Build Field Map [CTR:Terms_Conditions] complete, 31 entries
+2018/06/19 11:26:05.448 [DETAIL] Create Remedy Qualification: 'Contract_Instance_ID' != $\NULL$
+2018/06/19 11:26:05.459 [DETAIL] Build Field Map [clm_terms_and_conditions] started...
+2018/06/19 11:26:05.838 [DETAIL] SNow: Build Field Map [clm_terms_and_conditions] complete, 11 entries
+2018/06/19 11:26:05.839 [DETAIL] Add Project Variable [Contract_Instance_ID [STRING]]
+2018/06/19 11:26:05.841 [DETAIL] Create Remedy Lookup Query: 'instanceId' = ""
+2018/06/19 11:26:05.841 [DETAIL] Create SNow Lookup Query: vendor_contract#!#!Contract Number!#!#
+2018/06/19 11:26:05.842 [INFO] Synchronising Scripted Web Service [u_itsmb_clm_terms_and_conditions]
+2018/06/19 11:26:07.451 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_clm_terms_and_conditions
+   Target Table: clm_terms_and_conditions
+   Scope: global
+   Run Business Rules: true
+   include fields from tables: clm_terms_and_conditions
+--created ws import set: u_itsmb_clm_terms_and_conditions [clm_terms_and_conditions]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_clm_terms_and_conditions
+   skip system field: target_mod_count
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   create transform field mapping: description -> description
+   skip system field: template_import_log
+   skip system field: target_scope
+   create transform field mapping: used -> used
+   skip system field: sys_updated_on
+   skip system field: target_domain
+   skip system field: target_class_name
+   skip system field: sys_class_name
+   skip system field: sys_target_sys_id
+   create transform field mapping: number -> number
+   skip system field: sys_updated_by
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   skip system field: sys_transform_map
+   skip system field: target_created_by
+   skip system field: target_sys_id
+   skip system field: sys_created_by
+   skip system field: sys_import_row
+   skip system field: sys_row_error
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   create transform field mapping: contract -> contract
+   skip system field: target_domain_path
+   skip system field: sys_mod_count
+   skip system field: import_set_run
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   create transform field mapping: name -> name
+   skip system field: source_id
+   create transform field mapping: target_mod_count -> sys_mod_count
+   create transform field mapping: target_created_by -> sys_created_by
+   create transform field mapping: target_created_on -> sys_created_on
+add sys_id_coalece
+   create transform field mapping: target_sys_id -> sys_id
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/19 11:26:07.452 [INFO] Scripted Web Service is Synchronised [u_itsmb_clm_terms_and_conditions]
+2018/06/19 11:26:07.452 [DETAIL] Build Field Map [u_itsmb_clm_terms_and_conditions] started...
+2018/06/19 11:26:08.301 [DETAIL] SNow: Build Field Map [u_itsmb_clm_terms_and_conditions] complete, 16 entries
+2018/06/19 11:26:08.303 [DETAIL] Build Field Map [sys_attachment] started...
+2018/06/19 11:26:09.168 [DETAIL] SNow: Build Field Map [sys_attachment] complete, 17 entries
+2018/06/19 11:26:09.175 [DETAIL] Build Field Map [ecc_queue] started...
+2018/06/19 11:26:10.357 [DETAIL] SNow: Build Field Map [ecc_queue] complete, 23 entries
+2018/06/19 11:26:10.856 [INFO] Initialisation 3 of 9 [Terms and Conditions] Completed
+2018/06/19 11:26:10.893 [DETAIL] Create Remedy Qualification: 'Contract_Instance_ID' != $\NULL$
+2018/06/19 11:26:10.897 [DETAIL] Build Field Map [clm_m2m_contract_and_terms] started...
+2018/06/19 11:26:11.254 [DETAIL] SNow: Build Field Map [clm_m2m_contract_and_terms] complete, 9 entries
+2018/06/19 11:26:11.255 [DETAIL] Add Project Variable [number [STRING]]
+2018/06/19 11:26:11.255 [DETAIL] Create SNow Lookup Query: number#!#number#!#
+2018/06/19 11:26:11.255 [DETAIL] Add Project Variable [Contract_Instance_ID [STRING]]
+2018/06/19 11:26:11.257 [DETAIL] Create Remedy Lookup Query: 'instanceId' = ""
+2018/06/19 11:26:11.257 [DETAIL] Create SNow Lookup Query: vendor_contract#!#!Contract Number!#!#
+2018/06/19 11:26:11.258 [INFO] Synchronising Scripted Web Service [u_itsmb_clm_m2m_contract_and_terms]
+2018/06/19 11:26:12.927 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_clm_m2m_contract_and_terms
+   Target Table: clm_m2m_contract_and_terms
+   Scope: global
+   Run Business Rules: true
+   include fields from tables: clm_m2m_contract_and_terms
+--created ws import set: u_itsmb_clm_m2m_contract_and_terms [clm_m2m_contract_and_terms]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_clm_m2m_contract_and_terms
+   skip system field: target_mod_count
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   skip system field: target_domain
+   skip system field: target_class_name
+   skip system field: sys_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   skip system field: sys_transform_map
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   skip system field: sys_created_by
+   create transform field mapping: order -> order
+   skip system field: sys_import_row
+   skip system field: sys_row_error
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   create transform field mapping: contract -> contract
+   skip system field: target_domain_path
+   skip system field: sys_mod_count
+   skip system field: import_set_run
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   create transform field mapping: terms_and_conditions -> terms_and_conditions
+   skip system field: source_id
+   create transform field mapping: target_mod_count -> sys_mod_count
+   create transform field mapping: target_created_by -> sys_created_by
+   create transform field mapping: target_created_on -> sys_created_on
+add sys_id_coalece
+   create transform field mapping: target_sys_id -> sys_id
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/19 11:26:12.927 [INFO] Scripted Web Service is Synchronised [u_itsmb_clm_m2m_contract_and_terms]
+2018/06/19 11:26:12.927 [DETAIL] Build Field Map [u_itsmb_clm_m2m_contract_and_terms] started...
+2018/06/19 11:26:13.737 [DETAIL] SNow: Build Field Map [u_itsmb_clm_m2m_contract_and_terms] complete, 14 entries
+2018/06/19 11:26:14.217 [INFO] Initialisation 4 of 9 [Terms and Conditions Contract Join] Completed
+2018/06/19 11:26:14.217 [DETAIL] Build Field Map [CTR:Contract_Relationship] started...
+2018/06/19 11:26:14.245 [DETAIL] Remedy: Build Field Map [CTR:Contract_Relationship] complete, 32 entries
+2018/06/19 11:26:14.248 [DETAIL] Create Remedy Qualification: 'Parent_Relationship_Type' = "Configuration Item"
+2018/06/19 11:26:14.296 [DETAIL] Build Field Map [ast_contract_instance] started...
+2018/06/19 11:26:15.056 [DETAIL] SNow: Build Field Map [ast_contract_instance] complete, 10 entries
+2018/06/19 11:26:15.056 [DETAIL] Build Field Map [BMC.CORE:BMC_BaseElement] started...
+2018/06/19 11:26:15.073 [DETAIL] Remedy: Build Field Map [BMC.CORE:BMC_BaseElement] complete, 95 entries
+2018/06/19 11:26:15.073 [DETAIL] Build Field Map [cmdb_ci] started...
+2018/06/19 11:26:17.820 [DETAIL] SNow: Build Field Map [cmdb_ci] complete, 69 entries
+2018/06/19 11:26:17.820 [DETAIL] Build Field Map [cmdb] started...
+2018/06/19 11:26:19.695 [DETAIL] SNow: Build Field Map [cmdb] complete, 69 entries
+2018/06/19 11:26:19.695 [DETAIL] Create SNow Lookup Query: vendor_contract#!#!Contract ID!#!#
+2018/06/19 11:26:19.695 [DETAIL] Add Project Variable [Child_Instance_ID [STRING]]
+2018/06/19 11:26:19.698 [DETAIL] Create Remedy Lookup Query: 'instanceId' = ""
+2018/06/19 11:26:19.698 [DETAIL] Add Project Variable [Parent_Instance_ID [STRING]]
+2018/06/19 11:26:19.700 [DETAIL] Create Remedy Lookup Query: 'ReconciliationIdentity' = ""
+2018/06/19 11:26:19.700 [DETAIL] Add Project Variable [Parent_Description [STRING]]
+2018/06/19 11:26:19.700 [DETAIL] Create SNow Lookup Query: name#!#Parent_Description#!#^serial_number#!#!CI Serial Number!#!#
+2018/06/19 11:26:19.702 [INFO] Synchronising Scripted Web Service [u_itsmb_ast_contract_instance]
+2018/06/19 11:26:21.290 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_ast_contract_instance
+   Target Table: ast_contract_instance
+   Scope: global
+   Run Business Rules: true
+   include fields from tables: ast_contract_instance
+--created ws import set: u_itsmb_ast_contract_instance [ast_contract_instance]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_ast_contract_instance
+   create transform field mapping: ast_contract -> ast_contract
+   skip system field: target_mod_count
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   skip system field: target_domain
+   skip system field: target_class_name
+   skip system field: sys_class_name
+   skip system field: sys_target_sys_id
+   skip system field: sys_updated_by
+   create transform field mapping: ci_type -> ci_type
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   skip system field: sys_transform_map
+   skip system field: target_created_by
+   skip system field: target_sys_id
+   skip system field: sys_created_by
+   skip system field: sys_import_row
+   skip system field: sys_row_error
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   skip system field: target_domain_path
+   skip system field: sys_mod_count
+   skip system field: import_set_run
+   skip virtual field: sys_tags
+   create transform field mapping: ci_item -> ci_item
+   skip system field: sys_import_state
+   create transform field mapping: contract_type -> contract_type
+   skip system field: source_id
+   create transform field mapping: target_mod_count -> sys_mod_count
+   create transform field mapping: target_created_by -> sys_created_by
+   create transform field mapping: target_created_on -> sys_created_on
+add sys_id_coalece
+   create transform field mapping: target_sys_id -> sys_id
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/19 11:26:21.291 [INFO] Scripted Web Service is Synchronised [u_itsmb_ast_contract_instance]
+2018/06/19 11:26:21.293 [DETAIL] Build Field Map [u_itsmb_ast_contract_instance] started...
+2018/06/19 11:26:22.315 [DETAIL] SNow: Build Field Map [u_itsmb_ast_contract_instance] complete, 15 entries
+2018/06/19 11:26:22.823 [INFO] Initialisation 5 of 9 [Contract CI relationships] Completed
+2018/06/19 11:26:22.823 [DETAIL] Build Field Map [FIN:CostAssociationJoin] started...
+2018/06/19 11:26:22.836 [DETAIL] Remedy: Build Field Map [FIN:CostAssociationJoin] complete, 35 entries
+2018/06/19 11:26:22.838 [DETAIL] Create Remedy Qualification: 'Cost Classification' = "Actual" AND 'Status' < "Delete" AND ('Cost Type' = "Purchase Cost" OR 'Cost Type' = "Renewal Cost")
+2018/06/19 11:26:22.909 [DETAIL] Build Field Map [fm_expense_line] started...
+2018/06/19 11:26:24.363 [DETAIL] SNow: Build Field Map [fm_expense_line] complete, 30 entries
+2018/06/19 11:26:24.363 [DETAIL] Build Field Map [AST:AssetSoftware] started...
+2018/06/19 11:26:24.385 [DETAIL] Remedy: Build Field Map [AST:AssetSoftware] complete, 82 entries
+2018/06/19 11:26:24.387 [DETAIL] Add Project Variable [Cost Center Code [STRING]]
+2018/06/19 11:26:24.387 [DETAIL] Create SNow Lookup Query: code#!#Cost Center Code#!#
+2018/06/19 11:26:24.387 [DETAIL] Create SNow Lookup Query: vendor_contract#!#!Contract ID!#!#
+2018/06/19 11:26:24.387 [DETAIL] Add Project Variable [Instance ID 01 [STRING]]
+2018/06/19 11:26:24.390 [DETAIL] Create Remedy Lookup Query: 'instanceId' = ""
+2018/06/19 11:26:24.391 [INFO] Synchronising Scripted Web Service [u_itsmb_fm_expense_line]
+2018/06/19 11:26:27.196 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_fm_expense_line
+   Target Table: fm_expense_line
+   Scope: global
+   Run Business Rules: true
+   include fields from tables: fm_expense_line
+--created ws import set: u_itsmb_fm_expense_line [fm_expense_line]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_fm_expense_line
+   create transform field mapping: date -> date
+   create transform field mapping: parent -> parent
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   create transform field mapping: type -> type
+   skip system field: target_class_name
+   skip system field: sys_target_sys_id
+   create transform field mapping: number -> number
+   skip system field: sys_updated_by
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   create transform field mapping: state -> state
+   skip system field: target_created_by
+   skip system field: target_sys_id
+   skip system field: sys_created_by
+   skip system field: sys_import_row
+   skip system field: sys_row_error
+   create transform field mapping: fixed_asset -> fixed_asset
+   skip system field: target_domain_path
+   create transform field mapping: contract -> contract
+   skip system field: import_set_run
+   create transform field mapping: cost_id -> cost_id
+   create transform field mapping: task -> task
+   create transform field mapping: month -> month
+   create transform field mapping: cost_center -> cost_center
+   create transform field mapping: process_date -> process_date
+   create transform field mapping: source_table -> source_table
+   create transform field mapping: short_description -> short_description
+   create transform field mapping: base_expense -> base_expense
+   skip system field: target_mod_count
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   skip system field: target_domain
+   create transform field mapping: summary_type -> summary_type
+   skip system field: sys_class_name
+   skip system field: sys_transform_map
+   create transform field mapping: amount -> amount
+   skip system field: sys_target_table
+   create transform field mapping: cost_table -> cost_table
+   skip system field: target_created_on
+   create transform field mapping: ci -> ci
+   skip system field: sys_mod_count
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   create transform field mapping: inherited -> inherited
+   create transform field mapping: source_id -> source_id
+   create transform field mapping: asset -> asset
+   create transform field mapping: category -> category
+   create transform field mapping: user -> user
+   create transform field mapping: target_mod_count -> sys_mod_count
+   create transform field mapping: target_created_by -> sys_created_by
+   create transform field mapping: target_created_on -> sys_created_on
+add sys_id_coalece
+   create transform field mapping: target_sys_id -> sys_id
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/19 11:26:27.197 [INFO] Scripted Web Service is Synchronised [u_itsmb_fm_expense_line]
+2018/06/19 11:26:27.197 [DETAIL] Build Field Map [u_itsmb_fm_expense_line] started...
+2018/06/19 11:26:28.837 [DETAIL] SNow: Build Field Map [u_itsmb_fm_expense_line] complete, 34 entries
+2018/06/19 11:26:29.323 [INFO] Initialisation 6 of 9 [Expense Lines] Completed
+2018/06/19 11:26:29.326 [DETAIL] Create Remedy Qualification: 'z2AF Work Log01' != $\NULL$
+2018/06/19 11:26:29.333 [INFO] Synchronising Scripted Web Service [u_itsmb_ast_contract]
+2018/06/19 11:26:30.873 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_ast_contract
+   Target Table: ast_contract
+   Scope: global
+   Run Business Rules: true
+   include fields from tables: ast_contract
+--created ws import set: u_itsmb_ast_contract [ast_contract]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_ast_contract
+   transform field mapping exists: cost_adjustment_percentage -> cost_adjustment_percentage
+   transform field mapping exists: total_cost -> total_cost
+   transform field mapping exists: discount -> discount
+   skip system field: template_import_log
+   transform field mapping exists: cost_adjustment -> cost_adjustment
+   skip system field: target_scope
+   transform field mapping exists: renewal_end_date -> renewal_end_date
+   skip system field: sys_updated_on
+   skip system field: target_class_name
+   transform field mapping exists: tax_rate -> tax_rate
+   transform field mapping exists: approval_history -> approval_history
+   skip system field: sys_target_sys_id
+   transform field mapping exists: number -> number
+   transform field mapping exists: tax_cost -> tax_cost
+   skip system field: sys_updated_by
+   transform field mapping exists: renewal_date -> renewal_date
+   skip system field: sys_created_on
+   transform field mapping exists: sub_total_cost -> sub_total_cost
+   skip system field: sys_import_set
+   transform field mapping exists: cost_adjustment_reason -> cost_adjustment_reason
+   transform field mapping exists: state -> state
+   transform field mapping exists: starts -> starts
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   skip system field: sys_created_by
+   skip system field: sys_import_row
+   skip system field: sys_row_error
+   transform field mapping exists: tax_exempt -> tax_exempt
+   skip system field: target_domain_path
+   transform field mapping exists: yearly_cost -> yearly_cost
+   transform field mapping exists: commitment -> commitment
+   transform field mapping exists: active -> active
+   transform field mapping exists: payment_amount -> payment_amount
+   skip system field: import_set_run
+   transform field mapping exists: payment_schedule -> payment_schedule
+   transform field mapping exists: terms_and_conditions -> terms_and_conditions
+   transform field mapping exists: cost_center -> cost_center
+   transform field mapping exists: renewable -> renewable
+   transform field mapping exists: renewal_contact -> renewal_contact
+   transform field mapping exists: expiration -> expiration
+   transform field mapping exists: invoice_payment_terms -> invoice_payment_terms
+   transform field mapping exists: contract_administrator -> contract_administrator
+   transform field mapping exists: short_description -> short_description
+   transform field mapping exists: ratecard -> ratecard
+   skip system field: target_mod_count
+   transform field mapping exists: cost_adjustment_type -> cost_adjustment_type
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   transform field mapping exists: description -> description
+   skip system field: target_domain
+   skip system field: sys_class_name
+   transform field mapping exists: po_number -> po_number
+   transform field mapping exists: license_quantity_entitled -> license_quantity_entitled
+   transform field mapping exists: vendor -> vendor
+   transform field mapping exists: ends -> ends
+   transform field mapping exists: contract_model -> contract_model
+   skip system field: sys_transform_map
+   transform field mapping exists: approver -> approver
+   transform field mapping exists: process -> process
+   transform field mapping exists: monthly_cost -> monthly_cost
+   transform field mapping exists: vendor_contract -> vendor_contract
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   transform field mapping exists: license_type -> license_type
+   transform field mapping exists: lifetime_cost -> lifetime_cost
+   transform field mapping exists: renewal_options -> renewal_options
+   skip system field: sys_mod_count
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   transform field mapping exists: sales_tax -> sales_tax
+   transform field mapping exists: substate -> substate
+   transform field mapping exists: application_model -> application_model
+   transform field mapping exists: cost_per_unit -> cost_per_unit
+   transform field mapping exists: location -> location
+   transform field mapping exists: vendor_account -> vendor_account
+   skip system field: source_id
+   transform field mapping exists: target_domain -> sys_domain
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/19 11:26:30.874 [INFO] Scripted Web Service is Synchronised [u_itsmb_ast_contract]
+2018/06/19 11:26:31.349 [INFO] Initialisation 7 of 9 [Contract Attachments] Completed
+2018/06/19 11:26:31.353 [DETAIL] Create Remedy Qualification: 'Notification Group+' != $\NULL$
+2018/06/19 11:26:31.363 [INFO] Synchronising Scripted Web Service [u_itsmb_ast_contract]
+2018/06/19 11:26:32.868 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_ast_contract
+   Target Table: ast_contract
+   Scope: global
+   Run Business Rules: true
+   include fields from tables: ast_contract
+--created ws import set: u_itsmb_ast_contract [ast_contract]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_ast_contract
+   transform field mapping exists: cost_adjustment_percentage -> cost_adjustment_percentage
+   transform field mapping exists: total_cost -> total_cost
+   transform field mapping exists: discount -> discount
+   skip system field: template_import_log
+   transform field mapping exists: cost_adjustment -> cost_adjustment
+   skip system field: target_scope
+   transform field mapping exists: renewal_end_date -> renewal_end_date
+   skip system field: sys_updated_on
+   skip system field: target_class_name
+   transform field mapping exists: tax_rate -> tax_rate
+   transform field mapping exists: approval_history -> approval_history
+   skip system field: sys_target_sys_id
+   transform field mapping exists: number -> number
+   transform field mapping exists: tax_cost -> tax_cost
+   skip system field: sys_updated_by
+   transform field mapping exists: renewal_date -> renewal_date
+   skip system field: sys_created_on
+   transform field mapping exists: sub_total_cost -> sub_total_cost
+   skip system field: sys_import_set
+   transform field mapping exists: cost_adjustment_reason -> cost_adjustment_reason
+   transform field mapping exists: state -> state
+   transform field mapping exists: starts -> starts
+   skip system field: target_sys_id
+   skip system field: target_created_by
+   skip system field: sys_created_by
+   skip system field: sys_import_row
+   skip system field: sys_row_error
+   transform field mapping exists: tax_exempt -> tax_exempt
+   skip system field: target_domain_path
+   transform field mapping exists: yearly_cost -> yearly_cost
+   transform field mapping exists: commitment -> commitment
+   transform field mapping exists: active -> active
+   transform field mapping exists: payment_amount -> payment_amount
+   skip system field: import_set_run
+   transform field mapping exists: payment_schedule -> payment_schedule
+   transform field mapping exists: terms_and_conditions -> terms_and_conditions
+   transform field mapping exists: cost_center -> cost_center
+   transform field mapping exists: renewable -> renewable
+   transform field mapping exists: renewal_contact -> renewal_contact
+   transform field mapping exists: expiration -> expiration
+   transform field mapping exists: invoice_payment_terms -> invoice_payment_terms
+   transform field mapping exists: contract_administrator -> contract_administrator
+   transform field mapping exists: short_description -> short_description
+   transform field mapping exists: ratecard -> ratecard
+   skip system field: target_mod_count
+   transform field mapping exists: cost_adjustment_type -> cost_adjustment_type
+   skip system field: batch_id
+   skip system field: sys_import_state_comment
+   transform field mapping exists: description -> description
+   skip system field: target_domain
+   skip system field: sys_class_name
+   transform field mapping exists: po_number -> po_number
+   transform field mapping exists: license_quantity_entitled -> license_quantity_entitled
+   transform field mapping exists: vendor -> vendor
+   transform field mapping exists: ends -> ends
+   transform field mapping exists: contract_model -> contract_model
+   skip system field: sys_transform_map
+   transform field mapping exists: approver -> approver
+   transform field mapping exists: process -> process
+   transform field mapping exists: monthly_cost -> monthly_cost
+   transform field mapping exists: vendor_contract -> vendor_contract
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   transform field mapping exists: license_type -> license_type
+   transform field mapping exists: lifetime_cost -> lifetime_cost
+   transform field mapping exists: renewal_options -> renewal_options
+   skip system field: sys_mod_count
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   transform field mapping exists: sales_tax -> sales_tax
+   transform field mapping exists: substate -> substate
+   transform field mapping exists: application_model -> application_model
+   transform field mapping exists: cost_per_unit -> cost_per_unit
+   transform field mapping exists: location -> location
+   transform field mapping exists: vendor_account -> vendor_account
+   skip system field: source_id
+   transform field mapping exists: target_domain -> sys_domain
+   transform field mapping exists: target_class_name -> sys_class_name
+   transform field mapping exists: target_mod_count -> sys_mod_count
+   transform field mapping exists: target_created_by -> sys_created_by
+   transform field mapping exists: target_created_on -> sys_created_on
+coalece field exists
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/19 11:26:32.868 [INFO] Scripted Web Service is Synchronised [u_itsmb_ast_contract]
+2018/06/19 11:26:33.346 [INFO] Initialisation 8 of 9 [Set Notification Group ] Completed
+2018/06/19 11:26:33.347 [DETAIL] Build Field Map [AST:LicenseCertificates] started...
+2018/06/19 11:26:33.447 [DETAIL] Remedy: Build Field Map [AST:LicenseCertificates] complete, 98 entries
+2018/06/19 11:26:33.449 [DETAIL] Create Remedy Qualification: 'Manufacturer' != $\NULL$
+2018/06/19 11:26:33.461 [DETAIL] Build Field Map [ast_license_generic] started...
+2018/06/19 11:26:33.727 [DETAIL] SNow: Build Field Map [ast_license_generic] complete, 2 entries
+2018/06/19 11:26:33.727 [DETAIL] Build Field Map [ast_license_base] started...
+2018/06/19 11:26:35.967 [DETAIL] SNow: Build Field Map [ast_license_base] complete, 33 entries
+2018/06/19 11:26:35.967 [DETAIL] Build Field Map [cmn_department] started...
+2018/06/19 11:26:36.775 [DETAIL] SNow: Build Field Map [cmn_department] complete, 15 entries
+2018/06/19 11:26:36.775 [DETAIL] Add Project Variable [Supplier Company [STRING]]
+2018/06/19 11:26:36.775 [DETAIL] Create SNow Lookup Query: name#!#Supplier Company#!#
+2018/06/19 11:26:36.776 [DETAIL] Add Project Variable [Company [STRING]]
+2018/06/19 11:26:36.776 [DETAIL] Add Project Variable [Department [STRING]]
+2018/06/19 11:26:36.776 [DETAIL] Create SNow Lookup Query: name#!#Department#!#^company#!#Company#!#
+2018/06/19 11:26:36.776 [DETAIL] Add Project Variable [Manufacturer [STRING]]
+2018/06/19 11:26:36.776 [DETAIL] Create SNow Lookup Query: name#!#Manufacturer#!#
+2018/06/19 11:26:36.777 [INFO] Synchronising Scripted Web Service [u_itsmb_ast_license_generic]
+2018/06/19 11:26:39.961 [DETAIL] --Check Import WS Started--
+   WS Name: u_itsmb_ast_license_generic
+   Target Table: ast_license_generic
+   Scope: global
+   Run Business Rules: true
+   include fields from tables: ast_license_generic,ast_license_base
+--created ws import set: u_itsmb_ast_license_generic [ast_license_generic]--
+--synchronise ws fields with target complete--
+--transform map updated: u_itsmb_ast_license_generic
+   create transform field mapping: parent -> parent
+   create transform field mapping: total_cost -> total_cost
+   skip system field: template_import_log
+   skip system field: target_scope
+   skip system field: sys_updated_on
+   create transform field mapping: install_count -> install_count
+   skip system field: target_class_name
+   create transform field mapping: compliance_level -> compliance_level
+   skip system field: sys_target_sys_id
+   create transform field mapping: number -> number
+   skip system field: sys_updated_by
+   skip system field: sys_created_on
+   skip system field: sys_import_set
+   skip system field: target_sys_id
+   create transform field mapping: invoice_number -> invoice_number
+   skip system field: target_created_by
+   create transform field mapping: license_cost -> license_cost
+   skip system field: sys_created_by
+   skip system field: sys_import_row
+   skip system field: sys_row_error
+   create transform field mapping: license_count -> license_count
+   skip system field: target_domain_path
+   skip system field: import_set_run
+   create transform field mapping: license_key -> license_key
+   create transform field mapping: percent_used -> percent_used
+   create transform field mapping: purchased -> purchased
+   create transform field mapping: maintenance_cost -> maintenance_cost
+   create transform field mapping: option -> option
+   create transform field mapping: short_description -> short_description
+   skip system field: target_mod_count
+   skip system field: batch_id
+   create transform field mapping: discoverable_key -> discoverable_key
+   skip system field: sys_import_state_comment
+   create transform field mapping: description -> description
+   create transform field mapping: manual -> manual
+   skip system field: target_domain
+   skip system field: sys_class_name
+   create transform field mapping: manufacturer -> manufacturer
+   create transform field mapping: po_number -> po_number
+   create transform field mapping: vendor -> vendor
+   skip system field: sys_transform_map
+   create transform field mapping: upgraded_from -> upgraded_from
+   create transform field mapping: department -> department
+   create transform field mapping: license_available -> license_available
+   create transform field mapping: vendor_contract -> vendor_contract
+   skip system field: sys_target_table
+   skip system field: target_created_on
+   skip system field: sys_mod_count
+   skip virtual field: sys_tags
+   skip system field: sys_import_state
+   create transform field mapping: location -> location
+   create transform field mapping: vendor_account -> vendor_account
+   skip system field: source_id
+   create transform field mapping: target_class_name -> sys_class_name
+   create transform field mapping: target_mod_count -> sys_mod_count
+   create transform field mapping: target_created_by -> sys_created_by
+   create transform field mapping: target_created_on -> sys_created_on
+add sys_id_coalece
+   create transform field mapping: target_sys_id -> sys_id
+--synchronise transform map complete--
+--Check Import Set WS and Transform Map Completed--
+
+2018/06/19 11:26:39.962 [INFO] Scripted Web Service is Synchronised [u_itsmb_ast_license_generic]
+2018/06/19 11:26:39.962 [DETAIL] Build Field Map [u_itsmb_ast_license_generic] started...
+2018/06/19 11:26:41.458 [DETAIL] SNow: Build Field Map [u_itsmb_ast_license_generic] complete, 37 entries
+2018/06/19 11:26:41.934 [INFO] Initialisation 9 of 9 [Generic Software License] Completed
+2018/06/19 11:26:41.937 [INFO] ### Initialisation Step Complete
+2018/06/19 11:26:41.937 [INFO] [Contract Type] Key Mapping Cache SYS:Menu Items -> Contract Model Ready.
+2018/06/19 11:26:41.938 [INFO] [Contract Type] Migration in progress.
+2018/06/19 11:26:41.938 [DETAIL] [Contract Type Chunk 0] Data Retrieve Started...
+2018/06/19 11:26:42.037 [DETAIL] [Contract Type Chunk 0] Data Transform Started...
+2018/06/19 11:26:42.038 [DETAIL] Add Project Variable [name [STRING]]
+2018/06/19 11:26:42.038 [DETAIL] Add Project Variable [cmdb_model_category [STRING]]
+2018/06/19 11:26:42.038 [DETAIL] Create SNow Lookup Query: cmdb_model_category#!#cmdb_model_category#!#^name#!#name#!#
+2018/06/19 11:26:42.038 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/19 11:26:42.038 [DETAIL] [src=MNU000000015556] SNow Qual: name=Contract
+2018/06/19 11:26:42.038 [DETAIL] [src=MNU000000015557] SNow Qual: name=Contract
+2018/06/19 11:26:42.038 [DETAIL] [src=MNU000000015558] SNow Qual: name=Contract
+2018/06/19 11:26:42.038 [DETAIL] [src=MNU000000015559] SNow Qual: name=Contract
+2018/06/19 11:26:42.038 [DETAIL] [src=MNU000000017111] SNow Qual: name=Contract
+2018/06/19 11:26:42.281 [DETAIL] Lookup Batch Retrieve-End
+2018/06/19 11:26:42.281 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/19 11:26:42.281 [DETAIL] [src=MNU000000015556] SNow Qual: cmdb_model_category=996b568ec3102000b959fd251eba8f19^name=Support
+2018/06/19 11:26:42.281 [DETAIL] [src=MNU000000015557] SNow Qual: cmdb_model_category=996b568ec3102000b959fd251eba8f19^name=Warranty
+2018/06/19 11:26:42.281 [DETAIL] [src=MNU000000015558] SNow Qual: cmdb_model_category=996b568ec3102000b959fd251eba8f19^name=Lease
+2018/06/19 11:26:42.282 [DETAIL] [src=MNU000000015559] SNow Qual: cmdb_model_category=996b568ec3102000b959fd251eba8f19^name=Maintenance
+2018/06/19 11:26:42.282 [DETAIL] [src=MNU000000017111] SNow Qual: cmdb_model_category=996b568ec3102000b959fd251eba8f19^name=Master Contract
+2018/06/19 11:26:42.547 [DETAIL] Lookup Batch Retrieve-End
+2018/06/19 11:26:42.548 [DETAIL] [Contract Type Chunk 0] Data Update Started...
+2018/06/19 11:26:42.548 [DETAIL] Batch Update of 3 Entries Started
+2018/06/19 11:26:42.548 [DETAIL] Pre-Migration Task 0 Complete
+2018/06/19 11:26:43.382 [DETAIL] Update entry complete [src=MNU000000015557 tgt=a781e836c3102000b959fd251eba8f80]
+2018/06/19 11:26:43.383 [DETAIL] Update entry complete [src=MNU000000015558 tgt=1881a836c3102000b959fd251eba8fc9]
+2018/06/19 11:26:43.383 [DETAIL] Update entry complete [src=MNU000000015559 tgt=a581e836c3102000b959fd251eba8fba]
+2018/06/19 11:26:43.383 [DETAIL] Post-Migration Task 0 Complete
+2018/06/19 11:26:43.383 [DETAIL] Batch Insert of 2 Entries Started
+2018/06/19 11:26:43.818 [DETAIL] Create entry complete [src=MNU000000015556 tgt=ea9fd46ddbf613007f3873278c96197f]
+2018/06/19 11:26:43.818 [DETAIL] Create entry complete [src=MNU000000017111 tgt=e69fd46ddbf613007f3873278c961982]
+2018/06/19 11:26:43.821 [INFO] Migration Completed 
+2018/06/19 11:26:43.821 [INFO] Summary...  Created:2 Updated:3 Skipped:0 Errors:0 [Warnings 0]
+2018/06/19 11:26:43.822 [INFO] [Contract [ast_contract]] Key Mapping Cache CTR:ContractBase -> Contract Ready.
+2018/06/19 11:26:43.822 [INFO] [Contract [ast_contract]] Migration in progress.
+2018/06/19 11:26:43.822 [DETAIL] [Contract [ast_contract] Chunk 0] Data Retrieve Started...
+2018/06/19 11:26:43.872 [DETAIL] [Contract [ast_contract] Chunk 0] Data Transform Started...
+2018/06/19 11:26:43.873 [DETAIL] Add Project Variable [vendor_contract [STRING]]
+2018/06/19 11:26:43.873 [DETAIL] Create SNow Lookup Query: vendor_contract#!#vendor_contract#!#
+2018/06/19 11:26:43.873 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/19 11:26:43.926 [DETAIL] Lookup Batch Retrieve-End
+2018/06/19 11:26:43.927 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/19 11:26:43.927 [DETAIL] [src=null] SNow Qual: code=225276-A
+2018/06/19 11:26:43.927 [DETAIL] [src=null] SNow Qual: code=225276-B
+2018/06/19 11:26:43.927 [DETAIL] [src=null] SNow Qual: code=225276-A
+2018/06/19 11:26:43.927 [DETAIL] [src=null] SNow Qual: code=225276-A
+2018/06/19 11:26:43.927 [DETAIL] [src=null] SNow Qual: code=225276-B
+2018/06/19 11:26:43.927 [DETAIL] [src=null] SNow Qual: code=225276-B
+2018/06/19 11:26:44.172 [DETAIL] Lookup Batch Retrieve-End
+2018/06/19 11:26:44.173 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/19 11:26:44.173 [DETAIL] [src=null] SNow Qual: name=EZnet
+2018/06/19 11:26:44.173 [DETAIL] [src=null] SNow Qual: name=EZnet
+2018/06/19 11:26:44.173 [DETAIL] [src=null] SNow Qual: name=EZnet
+2018/06/19 11:26:44.173 [DETAIL] [src=null] SNow Qual: name=EZnet
+2018/06/19 11:26:44.173 [DETAIL] [src=null] SNow Qual: name=EZnet
+2018/06/19 11:26:44.173 [DETAIL] [src=null] SNow Qual: name=EZnet
+2018/06/19 11:26:44.425 [DETAIL] Lookup Batch Retrieve-End
+2018/06/19 11:26:44.425 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/19 11:26:44.425 [DETAIL] [src=null] SNow Qual: name=Lease
+2018/06/19 11:26:44.425 [DETAIL] [src=null] SNow Qual: name=Software License
+2018/06/19 11:26:44.425 [DETAIL] [src=null] SNow Qual: name=Software License
+2018/06/19 11:26:44.425 [DETAIL] [src=null] SNow Qual: name=Software License
+2018/06/19 11:26:44.425 [DETAIL] [src=null] SNow Qual: name=Support
+2018/06/19 11:26:44.425 [DETAIL] [src=null] SNow Qual: name=Warranty
+2018/06/19 11:26:44.672 [DETAIL] Lookup Batch Retrieve-End
+2018/06/19 11:26:44.672 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/19 11:26:44.672 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/19 11:26:44.672 [DETAIL] [src=null] SNow Qual: name=Headquarters, Building 1.33
+2018/06/19 11:26:44.672 [DETAIL] [src=null] SNow Qual: name=Amsterdam Support Center
+2018/06/19 11:26:44.672 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/19 11:26:44.672 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/19 11:26:44.673 [DETAIL] [src=null] SNow Qual: nameISEMPTY
+2018/06/19 11:26:44.918 [DETAIL] Lookup Batch Retrieve-End
+2018/06/19 11:26:44.918 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/19 11:26:44.918 [DETAIL] [src=null] SNow Qual: name=Bob Baxter
+2018/06/19 11:26:44.918 [DETAIL] [src=null] SNow Qual: name=Allen Allbrook
+2018/06/19 11:26:44.918 [DETAIL] [src=null] SNow Qual: name=Allen Allbrook
+2018/06/19 11:26:44.918 [DETAIL] [src=null] SNow Qual: name=Allen Allbrook
+2018/06/19 11:26:44.918 [DETAIL] [src=null] SNow Qual: name=Allen Allbrook
+2018/06/19 11:26:44.918 [DETAIL] [src=null] SNow Qual: name=Allen Allbrook
+2018/06/19 11:26:45.176 [DETAIL] Lookup Batch Retrieve-End
+2018/06/19 11:26:45.176 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/19 11:26:45.176 [DETAIL] [src=000000000000002] SNow Qual: vendor_contract=CAL.03355.1
+2018/06/19 11:26:45.176 [DETAIL] [src=000000000000003] SNow Qual: vendor_contract=CAL.023623
+2018/06/19 11:26:45.176 [DETAIL] [src=000000000000005] SNow Qual: vendor_contract=CAL.64276.A
+2018/06/19 11:26:45.176 [DETAIL] [src=000000000000007] SNow Qual: vendor_contract=CAL.84746.C
+2018/06/19 11:26:45.176 [DETAIL] [src=000000000000008] SNow Qual: vendor_contract=CAL.84746.A
+2018/06/19 11:26:45.176 [DETAIL] [src=000000000000009] SNow Qual: vendor_contract=CAL.84746.B
+2018/06/19 11:26:45.638 [DETAIL] Lookup Batch Retrieve-End
+2018/06/19 11:26:45.638 [DETAIL] [Contract [ast_contract] Chunk 0] Data Update Started...
+2018/06/19 11:26:45.638 [DETAIL] Batch Insert of 6 Entries Started
+2018/06/19 11:26:46.929 [DETAIL] Create entry complete [src=000000000000002 tgt=4f9f186ddbf613007f3873278c96190b]
+2018/06/19 11:26:46.929 [DETAIL] Create entry complete [src=000000000000003 tgt=079f186ddbf613007f3873278c961916]
+2018/06/19 11:26:46.929 [DETAIL] Create entry complete [src=000000000000005 tgt=1b9f186ddbf613007f3873278c96191e]
+2018/06/19 11:26:46.929 [DETAIL] Create entry complete [src=000000000000007 tgt=539f186ddbf613007f3873278c961933]
+2018/06/19 11:26:46.930 [DETAIL] Create entry complete [src=000000000000008 tgt=179f186ddbf613007f3873278c96193b]
+2018/06/19 11:26:46.930 [DETAIL] Create entry complete [src=000000000000009 tgt=d79f186ddbf613007f3873278c961943]
+2018/06/19 11:26:46.933 [INFO] Migration Completed 
+2018/06/19 11:26:46.933 [INFO] Summary...  Created:6 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/19 11:26:46.934 [INFO] [Terms and Conditions] Key Mapping Cache CTR:Terms_Conditions -> Terms and Conditions [clm_terms_and_conditions] Ready.
+2018/06/19 11:26:46.934 [INFO] [Terms and Conditions] Migration in progress.
+2018/06/19 11:26:46.934 [DETAIL] [Terms and Conditions Chunk 0] Data Retrieve Started...
+2018/06/19 11:26:46.935 [DETAIL] Create Inclusion Query: [Operation=1,Operand Left=[Operation=4,Operand Left=[Operation=6,Operand Left=[Operand Type=[type=1],Operand=300574900],Operand Right=[Operand Type=[type=2],Operand=null]],Operand Right=<null>],Operand Right=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=300574900],Operand Right=[Operand Type=[type=2],Operand=AS00123F73CF5Ed9MTSQkaVEAgxkwB]],Operand Right=<null>],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=300574900],Operand Right=[Operand Type=[type=2],Operand=AS00123F73CF5EddMTSQPKFEAgrUwB]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=300574900],Operand Right=[Operand Type=[type=2],Operand=AS00123F73CF5EdtMTSQVaJEAgrkwB]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=300574900],Operand Right=[Operand Type=[type=2],Operand=AS00123F73CF5EdtMTSQJKVEAgxUwB]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=300574900],Operand Right=[Operand Type=[type=2],Operand=AS00123F73CF5EdtMTSQ0qJEAgsEwB]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=300574900],Operand Right=[Operand Type=[type=2],Operand=AS00123F73CF5EdtMTSQ5aREAgxEwB]],Operand Right=<null>]]]
+2018/06/19 11:26:47.016 [DETAIL] [Terms and Conditions Chunk 0] Data Transform Started...
+2018/06/19 11:26:47.017 [DETAIL] Add Project Variable [number [STRING]]
+2018/06/19 11:26:47.017 [DETAIL] Create SNow Lookup Query: number#!#number#!#
+2018/06/19 11:26:47.017 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/19 11:26:47.050 [DETAIL] Lookup Batch Retrieve-End
+2018/06/19 11:26:47.050 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/19 11:26:47.050 [DETAIL] [src=TAC000000000001] SNow Qual: vendor_contract=CAL.84746.B
+2018/06/19 11:26:47.476 [DETAIL] Lookup Batch Retrieve-End
+2018/06/19 11:26:47.478 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/19 11:26:47.478 [DETAIL] [src=TAC000000000001] SNow Qual: number=TAC000000000001
+2018/06/19 11:26:47.966 [DETAIL] Lookup Batch Retrieve-End
+2018/06/19 11:26:47.966 [DETAIL] [Terms and Conditions Chunk 0] Data Update Started...
+2018/06/19 11:26:47.966 [DETAIL] Batch Insert of 1 Entries Started
+2018/06/19 11:26:48.516 [DETAIL] Create entry complete [src=TAC000000000001 tgt=a79f186ddbf613007f3873278c961979]
+2018/06/19 11:26:48.516 [DETAIL] [Terms and Conditions Chunk 0] Attachment Migration Started...
+2018/06/19 11:26:48.516 [DETAIL] Source Attachment Info Loaded [1]
+2018/06/19 11:26:48.547 [DETAIL] Attachment Target Check Complete [new=0 updates=0 duplicates=0]
+2018/06/19 11:26:48.547 [DETAIL] Attachment Data Retrieve-Start
+2018/06/19 11:26:48.554 [DETAIL] Attachment Data Retrieve Complete [processed 0]
+2018/06/19 11:26:48.555 [DETAIL] Attachment Data Migration - Start [1 records, payload=3476]
+2018/06/19 11:26:49.036 [DETAIL] Create entry complete [src=73 tgt=b39f186ddbf613007f3873278c961983]
+2018/06/19 11:26:49.036 [DETAIL] Attachment PI_tables.sql added to entry b39f186ddbf613007f3873278c961983
+2018/06/19 11:26:49.036 [DETAIL] Attachments Migration Complete [success 1, error 0]
+2018/06/19 11:26:49.036 [DETAIL] Attachment Processing Queue Counts:- SRC: 0 TGTCHK: 0 GETDATA: 0 MIG: 0 DEL: 0
+2018/06/19 11:26:49.038 [INFO] Migration Completed 
+2018/06/19 11:26:49.038 [INFO] Summary...  Created:1 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/19 11:26:49.038 [INFO] [Terms and Conditions Contract Join] Key Mapping Cache CTR:Terms_Conditions -> Terms and Conditions [clm_m2m_contract_and_terms] Ready.
+2018/06/19 11:26:49.040 [INFO] [Terms and Conditions Contract Join] Migration in progress.
+2018/06/19 11:26:49.040 [DETAIL] [Terms and Conditions Contract Join Chunk 0] Data Retrieve Started...
+2018/06/19 11:26:49.040 [DETAIL] Create Inclusion Query: [Operation=1,Operand Left=[Operation=4,Operand Left=[Operation=6,Operand Left=[Operand Type=[type=1],Operand=300574900],Operand Right=[Operand Type=[type=2],Operand=null]],Operand Right=<null>],Operand Right=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=300574900],Operand Right=[Operand Type=[type=2],Operand=AS00123F73CF5Ed9MTSQkaVEAgxkwB]],Operand Right=<null>],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=300574900],Operand Right=[Operand Type=[type=2],Operand=AS00123F73CF5EddMTSQPKFEAgrUwB]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=300574900],Operand Right=[Operand Type=[type=2],Operand=AS00123F73CF5EdtMTSQVaJEAgrkwB]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=300574900],Operand Right=[Operand Type=[type=2],Operand=AS00123F73CF5EdtMTSQJKVEAgxUwB]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=300574900],Operand Right=[Operand Type=[type=2],Operand=AS00123F73CF5EdtMTSQ0qJEAgsEwB]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=300574900],Operand Right=[Operand Type=[type=2],Operand=AS00123F73CF5EdtMTSQ5aREAgxEwB]],Operand Right=<null>]]]
+2018/06/19 11:26:49.138 [DETAIL] [Terms and Conditions Contract Join Chunk 0] Data Transform Started...
+2018/06/19 11:26:49.139 [DETAIL] Add Project Variable [terms_and_conditions [STRING]]
+2018/06/19 11:26:49.139 [DETAIL] Add Project Variable [contract [STRING]]
+2018/06/19 11:26:49.139 [DETAIL] Create SNow Lookup Query: contract#!#contract#!#^terms_and_conditions#!#terms_and_conditions#!#
+2018/06/19 11:26:49.139 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/19 11:26:49.143 [DETAIL] Lookup Batch Retrieve-End
+2018/06/19 11:26:49.143 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/19 11:26:49.143 [DETAIL] [src=TAC000000000001] SNow Qual: vendor_contract=CAL.84746.B
+2018/06/19 11:26:49.572 [DETAIL] Lookup Batch Retrieve-End
+2018/06/19 11:26:49.573 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/19 11:26:49.573 [DETAIL] [src=TAC000000000001] SNow Qual: contract=d79f186ddbf613007f3873278c961943^terms_and_conditions=a79f186ddbf613007f3873278c961979
+2018/06/19 11:26:50.053 [DETAIL] Lookup Batch Retrieve-End
+2018/06/19 11:26:50.054 [DETAIL] [Terms and Conditions Contract Join Chunk 0] Data Update Started...
+2018/06/19 11:26:50.054 [DETAIL] Batch Insert of 1 Entries Started
+2018/06/19 11:26:50.636 [DETAIL] Create entry complete [src=TAC000000000001 tgt=c8af186ddbf613007f3873278c9619b7]
+2018/06/19 11:26:50.637 [DETAIL] [Terms and Conditions Contract Join Chunk 0] Attachment Migration Started...
+2018/06/19 11:26:50.637 [DETAIL] Source Attachment Info Loaded [1]
+2018/06/19 11:26:50.637 [DETAIL] Attachment Target Check Complete [new=0 updates=0 duplicates=0]
+2018/06/19 11:26:50.637 [DETAIL] Attachment Data Retrieve-Start
+2018/06/19 11:26:50.644 [DETAIL] Attachment Data Retrieve Complete [processed 0]
+2018/06/19 11:26:50.644 [DETAIL] Attachment Data Migration - Start [1 records, payload=3476]
+2018/06/19 11:26:51.104 [DETAIL] Create entry complete [src=74 tgt=54af186ddbf613007f3873278c9619c1]
+2018/06/19 11:26:51.104 [DETAIL] Attachment PI_tables.sql added to entry 54af186ddbf613007f3873278c9619c1
+2018/06/19 11:26:51.104 [DETAIL] Attachments Migration Complete [success 1, error 0]
+2018/06/19 11:26:51.104 [DETAIL] Attachment Processing Queue Counts:- SRC: 0 TGTCHK: 0 GETDATA: 0 MIG: 0 DEL: 0
+2018/06/19 11:26:51.106 [INFO] Migration Completed 
+2018/06/19 11:26:51.107 [INFO] Summary...  Created:1 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/19 11:26:51.108 [INFO] [Contract CI relationships] Key Mapping Cache CTR:Contract_Relationship -> Lease Instance Ready.
+2018/06/19 11:26:51.108 [INFO] [Contract CI relationships] Migration in progress.
+2018/06/19 11:26:51.108 [DETAIL] [Contract CI relationships Chunk 0] Data Retrieve Started...
+2018/06/19 11:26:51.108 [DETAIL] Create Inclusion Query: [Operation=1,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=303504000],Operand Right=[Operand Type=[type=2],Operand=6000]],Operand Right=<null>],Operand Right=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=303504500],Operand Right=[Operand Type=[type=2],Operand=AS00123F73CF5Ed9MTSQkaVEAgxkwB]],Operand Right=<null>],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=303504500],Operand Right=[Operand Type=[type=2],Operand=AS00123F73CF5EddMTSQPKFEAgrUwB]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=303504500],Operand Right=[Operand Type=[type=2],Operand=AS00123F73CF5EdtMTSQVaJEAgrkwB]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=303504500],Operand Right=[Operand Type=[type=2],Operand=AS00123F73CF5EdtMTSQJKVEAgxUwB]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=303504500],Operand Right=[Operand Type=[type=2],Operand=AS00123F73CF5EdtMTSQ0qJEAgsEwB]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=303504500],Operand Right=[Operand Type=[type=2],Operand=AS00123F73CF5EdtMTSQ5aREAgxEwB]],Operand Right=<null>]]]
+2018/06/19 11:26:51.184 [DETAIL] [Contract CI relationships Chunk 0] Data Transform Started...
+2018/06/19 11:26:51.186 [DETAIL] Add Project Variable [ast_contract [STRING]]
+2018/06/19 11:26:51.186 [DETAIL] Add Project Variable [ci_item [STRING]]
+2018/06/19 11:26:51.186 [DETAIL] Create SNow Lookup Query: ast_contract#!#ast_contract#!#^ci_item#!#ci_item#!#
+2018/06/19 11:26:51.186 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/19 11:26:51.199 [DETAIL] Lookup Batch Retrieve-End
+2018/06/19 11:26:51.199 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/19 11:26:51.199 [DETAIL] [src=CRE000000000001] SNow Qual: vendor_contract=CAL.023623
+2018/06/19 11:26:51.199 [DETAIL] [src=CRE000000000101] SNow Qual: vendor_contract=CAL.84746.B
+2018/06/19 11:26:51.633 [DETAIL] Lookup Batch Retrieve-End
+2018/06/19 11:26:51.633 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/19 11:26:51.645 [DETAIL] Lookup Batch Retrieve-End
+2018/06/19 11:26:51.645 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/19 11:26:51.645 [DETAIL] [src=null] SNow Qual: name=desktop-ienige3^serial_number=Default string
+2018/06/19 11:26:51.645 [DETAIL] [src=null] SNow Qual: name=Pentaho Data Integration on win-55d03vk7vvs^serial_numberISEMPTY
+2018/06/19 11:26:52.095 [DETAIL] Lookup Batch Retrieve-End
+2018/06/19 11:26:52.095 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/19 11:26:52.095 [DETAIL] [src=CRE000000000001] SNow Qual: ast_contract=079f186ddbf613007f3873278c961916^ci_item=39e1375ddb7613007f3873278c961954
+2018/06/19 11:26:52.095 [DETAIL] [src=CRE000000000101] SNow Qual: ast_contract=d79f186ddbf613007f3873278c961943^ci_item=77e1775ddb7613007f3873278c9619a8
+2018/06/19 11:26:52.585 [DETAIL] Lookup Batch Retrieve-End
+2018/06/19 11:26:52.585 [DETAIL] [Contract CI relationships Chunk 0] Data Update Started...
+2018/06/19 11:26:52.585 [DETAIL] Batch Insert of 2 Entries Started
+2018/06/19 11:26:53.034 [DETAIL] Create entry complete [src=CRE000000000001 tgt=f8af586ddbf613007f3873278c961902]
+2018/06/19 11:26:53.034 [DETAIL] Create entry complete [src=CRE000000000101 tgt=74af586ddbf613007f3873278c961904]
+2018/06/19 11:26:53.035 [INFO] Migration Completed 
+2018/06/19 11:26:53.035 [INFO] Summary...  Created:2 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/19 11:26:53.036 [INFO] [Expense Lines] Key Mapping Cache FIN:CostAssociationJoin -> Expense Line Ready.
+2018/06/19 11:26:53.036 [INFO] [Expense Lines] Migration in progress.
+2018/06/19 11:26:53.036 [DETAIL] [Expense Lines Chunk 0] Data Retrieve Started...
+2018/06/19 11:26:53.037 [DETAIL] Create Inclusion Query: [Operation=1,Operand Left=[Operation=1,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=301269500],Operand Right=[Operand Type=[type=2],Operand=0]],Operand Right=<null>],Operand Right=[Operation=1,Operand Left=[Operation=4,Operand Left=[Operation=4,Operand Left=[Operand Type=[type=1],Operand=7],Operand Right=[Operand Type=[type=2],Operand=2]],Operand Right=<null>],Operand Right=[Operation=2,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=270002019],Operand Right=[Operand Type=[type=2],Operand=Purchase Cost]],Operand Right=<null>],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=270002019],Operand Right=[Operand Type=[type=2],Operand=Renewal Cost]],Operand Right=<null>]]]],Operand Right=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=301403000],Operand Right=[Operand Type=[type=2],Operand=AS00123F73CF5Ed9MTSQkaVEAgxkwB]],Operand Right=<null>],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=301403000],Operand Right=[Operand Type=[type=2],Operand=AS00123F73CF5EddMTSQPKFEAgrUwB]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=301403000],Operand Right=[Operand Type=[type=2],Operand=AS00123F73CF5EdtMTSQVaJEAgrkwB]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=301403000],Operand Right=[Operand Type=[type=2],Operand=AS00123F73CF5EdtMTSQJKVEAgxUwB]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=301403000],Operand Right=[Operand Type=[type=2],Operand=AS00123F73CF5EdtMTSQ0qJEAgsEwB]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=301403000],Operand Right=[Operand Type=[type=2],Operand=AS00123F73CF5EdtMTSQ5aREAgxEwB]],Operand Right=<null>]]]
+2018/06/19 11:26:53.078 [DETAIL] [Expense Lines Chunk 0] Data Transform Started...
+2018/06/19 11:26:53.078 [DETAIL] Add Project Variable [date [DATE]]
+2018/06/19 11:26:53.078 [DETAIL] Add Project Variable [short_description [STRING]]
+2018/06/19 11:26:53.078 [DETAIL] Add Project Variable [contract [STRING]]
+2018/06/19 11:26:53.078 [DETAIL] Create SNow Lookup Query: contract#!#contract#!#^short_description#!#short_description#!#^date#!#date#!#
+2018/06/19 11:26:53.078 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/19 11:26:53.078 [DETAIL] [src=null] SNow Qual: code=225276-A
+2018/06/19 11:26:53.078 [DETAIL] [src=null] SNow Qual: code=225276-A
+2018/06/19 11:26:53.513 [DETAIL] Lookup Batch Retrieve-End
+2018/06/19 11:26:53.514 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/19 11:26:53.530 [DETAIL] Lookup Batch Retrieve-End
+2018/06/19 11:26:53.530 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/19 11:26:53.530 [DETAIL] [src=000000000000001|FNA000000000001] SNow Qual: vendor_contract=CAL.023623
+2018/06/19 11:26:53.530 [DETAIL] [src=000000000000102|FNA000000000103] SNow Qual: vendor_contractISEMPTY
+2018/06/19 11:26:53.778 [DETAIL] Lookup Batch Retrieve-End
+2018/06/19 11:26:53.778 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/19 11:26:53.779 [DETAIL] [src=000000000000001|FNA000000000001] SNow Qual: contract=079f186ddbf613007f3873278c961916^short_description=rrr^date=2018-06-17
+2018/06/19 11:26:53.779 [DETAIL] [src=000000000000102|FNA000000000103] SNow Qual: contractISEMPTY^short_description=fff^date=2018-06-19
+2018/06/19 11:26:54.285 [DETAIL] Lookup Batch Retrieve-End
+2018/06/19 11:26:54.285 [DETAIL] [Expense Lines Chunk 0] Data Update Started...
+2018/06/19 11:26:54.285 [DETAIL] Batch Insert of 1 Entries Started
+2018/06/19 11:26:54.883 [DETAIL] Create entry complete [src=000000000000001|FNA000000000001 tgt=d5af586ddbf613007f3873278c961959]
+2018/06/19 11:26:54.884 [INFO] Migration Completed 
+2018/06/19 11:26:54.884 [INFO] Summary...  Created:1 Updated:0 Skipped:1 Errors:0 [Warnings 0]
+2018/06/19 11:26:54.885 [INFO] [Contract Attachments] Key Mapping Cache CTR:WorkLog -> Contract Ready.
+2018/06/19 11:26:54.885 [INFO] [Contract Attachments] Migration in progress.
+2018/06/19 11:26:54.885 [DETAIL] [Contract Attachments Chunk 0] Data Retrieve Started...
+2018/06/19 11:26:54.975 [DETAIL] [Contract Attachments Chunk 0] Data Transform Started...
+2018/06/19 11:26:54.975 [DETAIL] [Contract Attachments Chunk 0] Data Update Started...
+2018/06/19 11:26:54.975 [DETAIL] [Contract Attachments Chunk 0] Attachment Migration Started...
+2018/06/19 11:26:54.975 [DETAIL] Source Attachment Info Loaded [0]
+2018/06/19 11:26:54.975 [DETAIL] Attachment Target Check Complete [new=0 updates=0 duplicates=0]
+2018/06/19 11:26:54.976 [DETAIL] Attachment Processing Queue Counts:- SRC: 0 TGTCHK: 0 GETDATA: 0 MIG: 0 DEL: 0
+2018/06/19 11:26:54.976 [INFO] Migration Completed 
+2018/06/19 11:26:54.976 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/19 11:26:54.976 [INFO] [Set Notification Group ] Key Mapping Cache CTR:ContractBase -> Contract Ready.
+2018/06/19 11:26:54.976 [INFO] [Set Notification Group ] Migration in progress.
+2018/06/19 11:26:54.976 [DETAIL] [Set Notification Group  Chunk 0] Data Retrieve Started...
+2018/06/19 11:26:54.991 [DETAIL] [Set Notification Group  Chunk 0] Data Transform Started...
+2018/06/19 11:26:54.991 [DETAIL] Add Project Variable [vendor_contract [STRING]]
+2018/06/19 11:26:54.993 [DETAIL] Create SNow Lookup Query: vendor_contract#!#vendor_contract#!#
+2018/06/19 11:26:54.993 [DETAIL] Lookup Batch Retrieve-Start
+2018/06/19 11:26:54.993 [DETAIL] [src=000000000000002] SNow Qual: vendor_contract=CAL.03355.1
+2018/06/19 11:26:54.993 [DETAIL] [src=000000000000003] SNow Qual: vendor_contract=CAL.023623
+2018/06/19 11:26:54.993 [DETAIL] [src=000000000000004] SNow Qual: vendor_contract=CAL.62333
+2018/06/19 11:26:54.993 [DETAIL] [src=000000000000005] SNow Qual: vendor_contract=CAL.64276.A
+2018/06/19 11:26:54.993 [DETAIL] [src=000000000000006] SNow Qual: vendor_contract=CAL.64276.B
+2018/06/19 11:26:54.993 [DETAIL] [src=000000000000007] SNow Qual: vendor_contract=CAL.84746.C
+2018/06/19 11:26:54.993 [DETAIL] [src=000000000000008] SNow Qual: vendor_contract=CAL.84746.A
+2018/06/19 11:26:54.993 [DETAIL] [src=000000000000009] SNow Qual: vendor_contract=CAL.84746.B
+2018/06/19 11:26:54.993 [DETAIL] [src=000000000000010] SNow Qual: vendor_contract=1000
+2018/06/19 11:26:55.258 [DETAIL] Lookup Batch Retrieve-End
+2018/06/19 11:26:55.259 [DETAIL] [Set Notification Group  Chunk 0] Data Update Started...
+2018/06/19 11:26:55.259 [DETAIL] Batch Update of 6 Entries Started
+2018/06/19 11:26:55.259 [DETAIL] Pre-Migration Task 0 Complete
+2018/06/19 11:26:55.432 [DETAIL] Update entry complete [src=000000000000002 tgt=4f9f186ddbf613007f3873278c96190b]
+2018/06/19 11:26:55.432 [DETAIL] Update entry complete [src=000000000000003 tgt=079f186ddbf613007f3873278c961916]
+2018/06/19 11:26:55.432 [DETAIL] Update entry complete [src=000000000000005 tgt=1b9f186ddbf613007f3873278c96191e]
+2018/06/19 11:26:55.433 [DETAIL] Update entry complete [src=000000000000007 tgt=539f186ddbf613007f3873278c961933]
+2018/06/19 11:26:55.433 [DETAIL] Update entry complete [src=000000000000008 tgt=179f186ddbf613007f3873278c96193b]
+2018/06/19 11:26:55.433 [DETAIL] Update entry complete [src=000000000000009 tgt=d79f186ddbf613007f3873278c961943]
+2018/06/19 11:26:55.433 [DETAIL] Post-Migration Task 0 Complete
+2018/06/19 11:26:55.442 [INFO] Migration Completed 
+2018/06/19 11:26:55.442 [INFO] Summary...  Created:0 Updated:6 Skipped:3 Errors:0 [Warnings 0]
+2018/06/19 11:26:55.444 [INFO] [Generic Software License] Key Mapping Cache AST:LicenseCertificates -> Generic Software License Ready.
+2018/06/19 11:26:55.444 [INFO] [Generic Software License] Migration in progress.
+2018/06/19 11:26:55.444 [DETAIL] [Generic Software License Chunk 0] Data Retrieve Started...
+2018/06/19 11:26:55.444 [DETAIL] Create Inclusion Query: [Operation=1,Operand Left=[Operation=4,Operand Left=[Operation=6,Operand Left=[Operand Type=[type=1],Operand=240001003],Operand Right=[Operand Type=[type=2],Operand=null]],Operand Right=<null>],Operand Right=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=2,Operand Left=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=260142100],Operand Right=[Operand Type=[type=2],Operand=CAL.84746.B]],Operand Right=<null>],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=260142100],Operand Right=[Operand Type=[type=2],Operand=CAL.64276.A]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=260142100],Operand Right=[Operand Type=[type=2],Operand=CAL.84746.A]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=260142100],Operand Right=[Operand Type=[type=2],Operand=CAL.023623]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=260142100],Operand Right=[Operand Type=[type=2],Operand=CAL.84746.C]],Operand Right=<null>]],Operand Right=[Operation=4,Operand Left=[Operation=1,Operand Left=[Operand Type=[type=1],Operand=260142100],Operand Right=[Operand Type=[type=2],Operand=CAL.03355.1]],Operand Right=<null>]]]
+2018/06/19 11:26:55.547 [DETAIL] [Generic Software License Chunk 0] Data Transform Started...
+2018/06/19 11:26:55.547 [DETAIL] [Generic Software License Chunk 0] Data Update Started...
+2018/06/19 11:26:55.547 [INFO] Migration Completed 
+2018/06/19 11:26:55.547 [INFO] Summary...  Created:0 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/19 11:26:55.548 [DETAIL] Closing Execution Task...
+2018/06/19 11:26:55.802 [INFO] Execution has completed [Execution ID=2018-06-19_11-25]
+2018/06/19 11:26:55.803 [INFO] --END OF LOG--

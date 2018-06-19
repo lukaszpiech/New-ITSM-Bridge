@@ -1,0 +1,4 @@
+"Timestamp","Target ID","Source ID","Result","Status","Message"
+"2018/06/18 16:40:10",,"PBI000000000026","Not Completed","Error","Error during insert of problem (PBI_CAL_1000025)"
+"2018/06/18 16:40:10",,"PBI000000000025","Not Completed","Error","Error during insert of problem (PBI_CAL_1000024)"
+"2018/06/18 16:40:10",,"PBI000000000012","Not Completed","Error","Error during insert of problem (PBI_CAL_1000011)"

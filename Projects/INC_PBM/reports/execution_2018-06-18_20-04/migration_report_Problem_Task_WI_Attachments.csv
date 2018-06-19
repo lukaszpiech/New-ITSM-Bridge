@@ -1,0 +1,6 @@
+"Timestamp","Target ID","Source ID","Result","Status","Message"
+"2018/06/18 20:06:00","69a14d51dbb213007f3873278c961992","000000000000303","Updated","Success","No Changes Made"
+"2018/06/18 20:06:00","69a14d51dbb213007f3873278c961992","000000000000401","Not Completed","Skip","Another source record is being migrated for this key"
+"2018/06/18 20:06:00","69a14d51dbb213007f3873278c961992","000000000000402","Not Completed","Skip","Another source record is being migrated for this key"
+"2018/06/18 20:06:00","d860c511dbb213007f3873278c96192d","000000000000406","Updated","Success","No Changes Made"
+"2018/06/18 20:06:00","d860c511dbb213007f3873278c96192d","000000000000407","Not Completed","Skip","Another source record is being migrated for this key"

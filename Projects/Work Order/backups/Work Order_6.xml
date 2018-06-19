@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Project AppVersion="3.7.14" Type="Standard">
+<version>6</version>
+<Connection ConnectionType="Source" ServerType="Remedy">
+<ServerName>localhost</ServerName>
+<Port>3636</Port>
+</Connection>
+<Connection ConnectionType="Target" ServerType="Service Now">
+<URL>https://dev54541.service-now.com</URL>
+</Connection>
+<DMDList>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Request">
+<TargetForm>sc_request</TargetForm>
+<SourceForm>WOI:WorkOrder</SourceForm>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>UPDATE</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<LookupQuery Type="Target" id="cmn_location">
+<Form>cmn_location</Form>
+<SearchQuery>[name] = #SRC.Site#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="sys_user">
+<Form>sys_user</Form>
+<SearchQuery>[email] = #SRC.Customer Internet E-mail#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>sc_request</TargetForm>
+<SourceForm>WOI:WorkOrder</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>number</TargetField>
+<SourceField>Work Order ID</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>short_description</TargetField>
+<SourceField>Summary</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>opened_by</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>due_date</TargetField>
+<SourceField>Scheduled End Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>description</TargetField>
+<SourceField>Detailed Description</SourceField>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>location</TargetField>
+<LookupQuery>cmn_location</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>requested_for</TargetField>
+<LookupQuery>sys_user</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+</DMDList>
+</Project>

@@ -1,0 +1,19 @@
+2018/06/19 09:46:39.378 [INFO] Log Level set to Information
+2018/06/19 09:46:39.378 [INFO] ITSM Bridge version 3.7.14
+2018/06/19 09:46:39.378 [INFO] Execution of Work Order version 6
+2018/06/19 09:46:39.380 [INFO] Execution started... [Execution ID=2018-06-19_09-46]
+2018/06/19 09:46:39.380 [INFO] Initialisation Step Started...
+2018/06/19 09:46:39.380 [INFO] Source Server Connected
+2018/06/19 09:46:39.605 [INFO] Target Server Connected
+2018/06/19 09:46:39.605 [INFO] Source Server Cache Initialised
+2018/06/19 09:46:39.605 [INFO] Target Server Cache Initialised
+2018/06/19 09:46:39.618 [INFO] Synchronising Scripted Web Service [u_itsmb_sc_request]
+2018/06/19 09:46:41.592 [INFO] Scripted Web Service is Synchronised [u_itsmb_sc_request]
+2018/06/19 09:46:42.031 [INFO] Initialisation 1 of 1 [Request] Completed
+2018/06/19 09:46:42.032 [INFO] ### Initialisation Step Complete
+2018/06/19 09:46:42.032 [INFO] [Request] Key Mapping Cache WOI:WorkOrder -> Request Ready.
+2018/06/19 09:46:42.032 [INFO] [Request] Migration in progress.
+2018/06/19 09:46:43.904 [INFO] Migration Completed 
+2018/06/19 09:46:43.905 [INFO] Summary...  Created:0 Updated:1 Skipped:0 Errors:0 [Warnings 0]
+2018/06/19 09:46:44.008 [INFO] Execution has completed [Execution ID=2018-06-19_09-46]
+2018/06/19 09:46:44.008 [INFO] --END OF LOG--

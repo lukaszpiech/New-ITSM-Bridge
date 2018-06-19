@@ -1,0 +1,47 @@
+2018/06/19 13:33:08.877 [INFO] Log Level set to Information
+2018/06/19 13:33:08.877 [INFO] ITSM Bridge version 3.7.14
+2018/06/19 13:33:08.877 [INFO] Execution of Work Order version 33
+2018/06/19 13:33:08.880 [INFO] Execution started... [Execution ID=2018-06-19_13-33]
+2018/06/19 13:33:08.881 [INFO] Initialisation Step Started...
+2018/06/19 13:33:08.881 [INFO] Source Server Connected
+2018/06/19 13:33:09.097 [INFO] Target Server Connected
+2018/06/19 13:33:09.097 [INFO] Source Server Cache Initialised
+2018/06/19 13:33:09.097 [INFO] Target Server Cache Initialised
+2018/06/19 13:33:09.106 [INFO] Synchronising Scripted Web Service [u_itsmb_sc_request]
+2018/06/19 13:33:11.152 [INFO] Scripted Web Service is Synchronised [u_itsmb_sc_request]
+2018/06/19 13:33:11.589 [INFO] Initialisation 1 of 5 [Request] Completed
+2018/06/19 13:33:11.602 [INFO] Synchronising Scripted Web Service [u_itsmb_sc_req_item]
+2018/06/19 13:33:13.793 [INFO] Scripted Web Service is Synchronised [u_itsmb_sc_req_item]
+2018/06/19 13:33:14.225 [INFO] Initialisation 2 of 5 [Requested Item ] Completed
+2018/06/19 13:33:14.247 [INFO] Synchronising Scripted Web Service [u_itsmb_sc_task]
+2018/06/19 13:33:16.194 [INFO] Scripted Web Service is Synchronised [u_itsmb_sc_task]
+2018/06/19 13:33:16.626 [INFO] Initialisation 3 of 5 [Catalog Task] Completed
+2018/06/19 13:33:16.720 [INFO] Synchronising Scripted Web Service [u_itsmb_sc_req_item]
+2018/06/19 13:33:18.667 [INFO] Scripted Web Service is Synchronised [u_itsmb_sc_req_item]
+2018/06/19 13:33:19.110 [INFO] Initialisation 4 of 5 [Requested Item Attachments] Completed
+2018/06/19 13:33:19.118 [INFO] Synchronising Scripted Web Service [u_itsmb_sys_journal_field]
+2018/06/19 13:33:19.716 [INFO] Scripted Web Service is Synchronised [u_itsmb_sys_journal_field]
+2018/06/19 13:33:20.159 [INFO] Initialisation 5 of 5 [Journal Entry RITM] Completed
+2018/06/19 13:33:20.160 [INFO] ### Initialisation Step Complete
+2018/06/19 13:33:20.161 [INFO] [Request] Key Mapping Cache WOI:WorkOrder -> Request Ready.
+2018/06/19 13:33:20.161 [INFO] [Request] Migration in progress.
+2018/06/19 13:33:21.660 [INFO] Migration Completed 
+2018/06/19 13:33:21.660 [INFO] Summary...  Created:0 Updated:2 Skipped:0 Errors:0 [Warnings 0]
+2018/06/19 13:33:21.661 [INFO] [Requested Item ] Key Mapping Cache WOI:WorkOrder -> Requested Item Ready.
+2018/06/19 13:33:21.661 [INFO] [Requested Item ] Migration in progress.
+2018/06/19 13:33:23.164 [INFO] Migration Completed 
+2018/06/19 13:33:23.164 [INFO] Summary...  Created:0 Updated:2 Skipped:0 Errors:0 [Warnings 0]
+2018/06/19 13:33:23.164 [INFO] [Catalog Task] Key Mapping Cache TMS:Task -> Catalog Task Ready.
+2018/06/19 13:33:23.164 [INFO] [Catalog Task] Migration in progress.
+2018/06/19 13:33:25.095 [INFO] Migration Completed 
+2018/06/19 13:33:25.095 [INFO] Summary...  Created:0 Updated:2 Skipped:0 Errors:0 [Warnings 0]
+2018/06/19 13:33:25.096 [INFO] [Requested Item Attachments] Key Mapping Cache WOI:WorkInfo -> Requested Item Ready.
+2018/06/19 13:33:25.096 [INFO] [Requested Item Attachments] Migration in progress.
+2018/06/19 13:33:25.977 [INFO] Migration Completed 
+2018/06/19 13:33:25.979 [INFO] Summary...  Created:0 Updated:2 Skipped:5 Errors:0 [Warnings 0]
+2018/06/19 13:33:25.985 [INFO] [Journal Entry RITM] Key Mapping Cache WOI:WorkInfo -> Journal Entry Ready.
+2018/06/19 13:33:25.985 [INFO] [Journal Entry RITM] Migration in progress.
+2018/06/19 13:33:27.058 [INFO] Migration Completed 
+2018/06/19 13:33:27.058 [INFO] Summary...  Created:7 Updated:0 Skipped:0 Errors:0 [Warnings 0]
+2018/06/19 13:33:27.066 [INFO] Execution has completed [Execution ID=2018-06-19_13-33]
+2018/06/19 13:33:27.066 [INFO] --END OF LOG--

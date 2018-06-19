@@ -1,0 +1,3 @@
+"Timestamp","Target ID","Source ID","Result","Status","Message"
+"2018/06/19 11:41:26","8af22ceddbf613007f3873278c961908","000000000000001|FNA000000000001","Created","Success",""
+"2018/06/19 11:41:26",,"000000000000102|FNA000000000103","Not Completed","Skip","No entry retrieved when running lookup query [AST:AssetSoftware]"

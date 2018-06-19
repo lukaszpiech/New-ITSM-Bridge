@@ -1,0 +1,33 @@
+2018/06/19 12:53:39.079 [INFO] Log Level set to Information
+2018/06/19 12:53:39.079 [INFO] ITSM Bridge version 3.7.14
+2018/06/19 12:53:39.079 [INFO] Execution of Work Order version 22
+2018/06/19 12:53:39.081 [INFO] Execution started... [Execution ID=2018-06-19_12-53]
+2018/06/19 12:53:39.081 [INFO] Initialisation Step Started...
+2018/06/19 12:53:39.081 [INFO] Source Server Connected
+2018/06/19 12:53:39.298 [INFO] Target Server Connected
+2018/06/19 12:53:39.298 [INFO] Source Server Cache Initialised
+2018/06/19 12:53:39.298 [INFO] Target Server Cache Initialised
+2018/06/19 12:53:39.304 [INFO] Synchronising Scripted Web Service [u_itsmb_sc_request]
+2018/06/19 12:53:41.105 [INFO] Scripted Web Service is Synchronised [u_itsmb_sc_request]
+2018/06/19 12:53:41.544 [INFO] Initialisation 1 of 3 [Request] Completed
+2018/06/19 12:53:41.550 [INFO] Synchronising Scripted Web Service [u_itsmb_sc_req_item]
+2018/06/19 12:53:43.376 [INFO] Scripted Web Service is Synchronised [u_itsmb_sc_req_item]
+2018/06/19 12:53:43.834 [INFO] Initialisation 2 of 3 [Requested Item ] Completed
+2018/06/19 12:53:43.845 [INFO] Synchronising Scripted Web Service [u_itsmb_sc_task]
+2018/06/19 12:53:45.598 [INFO] Scripted Web Service is Synchronised [u_itsmb_sc_task]
+2018/06/19 12:53:46.037 [INFO] Initialisation 3 of 3 [Catalog Task] Completed
+2018/06/19 12:53:46.037 [INFO] ### Initialisation Step Complete
+2018/06/19 12:53:46.037 [INFO] [Request] Key Mapping Cache WOI:WorkOrder -> Request Ready.
+2018/06/19 12:53:46.039 [INFO] [Request] Migration in progress.
+2018/06/19 12:53:47.674 [INFO] Migration Completed 
+2018/06/19 12:53:47.674 [INFO] Summary...  Created:0 Updated:1 Skipped:0 Errors:0 [Warnings 0]
+2018/06/19 12:53:47.676 [INFO] [Requested Item ] Key Mapping Cache WOI:WorkOrder -> Requested Item Ready.
+2018/06/19 12:53:47.676 [INFO] [Requested Item ] Migration in progress.
+2018/06/19 12:53:49.329 [INFO] Migration Completed 
+2018/06/19 12:53:49.329 [INFO] Summary...  Created:0 Updated:1 Skipped:0 Errors:0 [Warnings 0]
+2018/06/19 12:53:49.330 [INFO] [Catalog Task] Key Mapping Cache TMS:Task -> Catalog Task Ready.
+2018/06/19 12:53:49.330 [INFO] [Catalog Task] Migration in progress.
+2018/06/19 12:53:51.464 [INFO] Migration Completed 
+2018/06/19 12:53:51.465 [INFO] Summary...  Created:0 Updated:1 Skipped:0 Errors:0 [Warnings 0]
+2018/06/19 12:53:51.477 [INFO] Execution has completed [Execution ID=2018-06-19_12-53]
+2018/06/19 12:53:51.477 [INFO] --END OF LOG--

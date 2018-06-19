@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Project AppVersion="3.7.14" Type="Standard">
-<version>33</version>
+<version>56</version>
 <Notes>This template is used to migrate incident and problem data from BMC Remedy ITSM to Service Now.
 It can be used with most legacy ITSM versions including 764, 8.1 and 9.1 servers.
 It should be run AFTER the migration of all foundation data (see separate template for this).
@@ -27,7 +27,7 @@ R3: Added Company variable to support multi-tenancy migrations and updated sourc
 <Port>3636</Port>
 </Connection>
 <Connection ConnectionType="Target" ServerType="Service Now">
-<URL>https://dev54541.service-now.com/</URL>
+<URL>https://dev47087.service-now.com</URL>
 </Connection>
 <DMDList>
 <DataMappingsDefinition attachmentsOption="0" enabled="No" id="User Reference">
@@ -724,9 +724,9 @@ R3: Added Company variable to support multi-tenancy migrations and updated sourc
 <SourceForm>PBM:Problem Investigation</SourceForm>
 <SourceQuery>[Last Modified Date] &gt; #Modified Since Date# AND ((#Single Company# = TRUE AND [Contact Company] = #Company#) OR #Single Company# = FALSE)</SourceQuery>
 <BusinessHoursOption>NONE</BusinessHoursOption>
-<CreateOption>DEFAULT</CreateOption>
-<UpdateOption>DEFAULT</UpdateOption>
-<MigrateMethod>DEFAULT</MigrateMethod>
+<CreateOption>CREATE</CreateOption>
+<UpdateOption>UPDATE</UpdateOption>
+<MigrateMethod>DIRECT</MigrateMethod>
 <LookupQuery Type="Target" id="core_company">
 <Form>core_company</Form>
 <SearchQuery>[name] = #SRC.Contact Company#</SearchQuery>
@@ -742,6 +742,10 @@ R3: Added Company variable to support multi-tenancy migrations and updated sourc
 <LookupQuery Type="Source" id="PBM:Investigation WorkLog">
 <Form>PBM:Investigation WorkLog</Form>
 <SearchQuery>[Problem Investigation ID] = #Problem Investigation ID#</SearchQuery>
+</LookupQuery>
+<LookupQuery Type="Target" id="cmdb_ci">
+<Form>cmdb_ci</Form>
+<SearchQuery>[name] = #SRC.PBM_CI#</SearchQuery>
 </LookupQuery>
 <KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
 <TargetField>number</TargetField>
@@ -765,6 +769,13 @@ R3: Added Company variable to support multi-tenancy migrations and updated sourc
 <TargetField>assignment_group</TargetField>
 <SourceField>Assigned Group ID</SourceField>
 <RefMappingIdentifier>Group Reference</RefMappingIdentifier>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>cmdb_ci</TargetField>
+<LookupQuery>cmdb_ci</LookupQuery>
+<LookupField>sys_id</LookupField>
 <NoMatchAction>Set Null</NoMatchAction>
 <MultiMatchAction>Use First</MultiMatchAction>
 </FieldMapping>
@@ -988,7 +999,7 @@ R3: Added Company variable to support multi-tenancy migrations and updated sourc
 <Variable Type="STRING">!WorkLog Entries!</Variable>
 </VariableList>
 </DataMappingsDefinition>
-<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Problem Task">
+<DataMappingsDefinition attachmentsOption="2" enabled="Yes" id="Problem Task">
 <TargetForm>problem_task</TargetForm>
 <SourceForm>TMS:Task</SourceForm>
 <SourceQuery>[RootRequestFormName] = 'PBM:Problem Investigation'</SourceQuery>
@@ -1207,7 +1218,7 @@ R3: Added Company variable to support multi-tenancy migrations and updated sourc
 <BusinessHoursOption>NONE</BusinessHoursOption>
 <CreateOption>DEFAULT</CreateOption>
 <UpdateOption>DEFAULT</UpdateOption>
-<MigrateMethod>DEFAULT</MigrateMethod>
+<MigrateMethod>DIRECT</MigrateMethod>
 <LookupQuery Type="Target" id="core_company">
 <Form>core_company</Form>
 <SearchQuery>[name] = #SRC.Company#</SearchQuery>
@@ -1762,6 +1773,120 @@ R3: Added Company variable to support multi-tenancy migrations and updated sourc
 <ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
 <FieldMappingsDefinition>
 <TargetForm>incident_task</TargetForm>
+<SourceForm>TMS:WorkInfo</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>number</TargetField>
+<SourceField>TaskOrTaskGroupID</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>work_notes</TargetField>
+<SourceField>Summary</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="2" enabled="Yes" id="Problem_Attachments">
+<TargetForm>problem</TargetForm>
+<SourceForm>PBM:Investigation WorkLog</SourceForm>
+<SourceQuery>[Number of Attachments] != 0</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>CREATE</CreateOption>
+<UpdateOption>UPDATE</UpdateOption>
+<MigrateMethod>IMPORT_SET_NO_BR</MigrateMethod>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>problem</TargetForm>
+<SourceForm>PBM:Investigation WorkLog</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>number</TargetField>
+<SourceField>Problem Investigation ID</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="2" enabled="Yes" id="Problem Task WL">
+<TargetForm>sys_journal_field</TargetForm>
+<SourceForm>TMS:WorkInfo</SourceForm>
+<SourceQuery>[TaskOrTaskGroupID] LIKE 'TAS%'</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>CREATE</CreateOption>
+<UpdateOption>UPDATE</UpdateOption>
+<MigrateMethod>DIRECT</MigrateMethod>
+<LookupQuery Type="Target" id="problem_task">
+<Form>problem_task</Form>
+<SearchQuery>[number] = #SRC.TaskOrTaskGroupID#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>element</TargetField>
+<TargetField>element_id</TargetField>
+<TargetField>sys_created_by</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>sys_journal_field</TargetForm>
+<SourceForm>TMS:WorkInfo</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>name</TargetField>
+<DefaultValue>problem_task</DefaultValue>
+</FieldMapping>
+<FieldMapping Type="Lookup">
+<TargetField>element_id</TargetField>
+<LookupQuery>problem_task</LookupQuery>
+<LookupField>sys_id</LookupField>
+<NoMatchAction>Set Null</NoMatchAction>
+<MultiMatchAction>Use First</MultiMatchAction>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>value</TargetField>
+<SourceField>Summary</SourceField>
+</FieldMapping>
+<FieldMapping Type="Simple">
+<TargetField>sys_created_by</TargetField>
+<SourceField>Submit Date</SourceField>
+</FieldMapping>
+<FieldMapping Type="Value Match">
+<TargetField>element</TargetField>
+<SourceField>View Access</SourceField>
+<NoMatchAction>Set Null</NoMatchAction>
+<ValueMapping>
+<SourceValue>0</SourceValue>
+<TargetValue>work_notes</TargetValue>
+</ValueMapping>
+<ValueMapping>
+<SourceValue>1</SourceValue>
+<TargetValue>comments</TargetValue>
+</ValueMapping>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+<DataMappingsDefinition attachmentsOption="2" enabled="Yes" id="Problem Task_WI_Attachments">
+<TargetForm>problem_task</TargetForm>
+<SourceForm>TMS:WorkInfo</SourceForm>
+<SourceQuery>[TaskOrTaskGroupID] LIKE 'TAS%'</SourceQuery>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>CREATE</CreateOption>
+<UpdateOption>UPDATE</UpdateOption>
+<MigrateMethod>IMPORT_SET_NO_BR</MigrateMethod>
+<LookupQuery Type="Target" id="problem_task">
+<Form>problem_task</Form>
+<SearchQuery>[number] = #SRC.TaskOrTaskGroupID#</SearchQuery>
+</LookupQuery>
+<KeyMapping AllowNullKeyValues="No" LoadCache="No" Type="Mappings" multi_match_action="Use First">
+<TargetField>number</TargetField>
+</KeyMapping>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>problem_task</TargetForm>
 <SourceForm>TMS:WorkInfo</SourceForm>
 <FieldMapping Type="Simple">
 <TargetField>number</TargetField>

@@ -1,0 +1,4 @@
+"Timestamp","Target ID","Source ID","Result","Status","Message"
+"2018/06/19 13:01:59",,"CWL000000000001","Not Completed","Error","Entry contains a NULL key field value"
+"2018/06/19 13:01:59",,"CWL000000000002","Not Completed","Error","Entry contains a NULL key field value"
+"2018/06/19 13:01:59",,"CWL000000000003","Not Completed","Error","Entry contains a NULL key field value"

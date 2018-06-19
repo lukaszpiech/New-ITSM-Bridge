@@ -1,0 +1,9 @@
+2018/06/18 17:29:16.329 [INFO] Log Level set to Detail
+2018/06/18 17:29:16.330 [INFO] ITSM Bridge version 3.7.14
+2018/06/18 17:29:16.330 [INFO] Execution of INC_PBM version 43
+2018/06/18 17:29:16.330 [INFO] Set Variable Modified Since Date to value '2018-01-01 00:00:00'
+2018/06/18 17:29:16.330 [INFO] Set Variable Single Company to value 'FALSE'
+2018/06/18 17:29:16.330 [INFO] Set Variable Company to value 'Calbro Services'
+2018/06/18 17:29:16.332 [INFO] Execution started... [Execution ID=2018-06-18_17-29]
+2018/06/18 17:29:16.332 [INFO] Initialisation Step Started...
+2018/06/18 17:29:16.333 [INFO] Source Server Connected

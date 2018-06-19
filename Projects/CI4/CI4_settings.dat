@@ -16,7 +16,7 @@ Exec_Use_S2S_Attachment_Migration:TRUE
 Exec_Max_Attach_Size_MB:32
 Exec_Migrate_Chunk_Size:10000
 Exec_Refresh_Object_Cache:FALSE
-Last_Exec_Identifier:2018-06-18_11-21
+Last_Exec_Identifier:2018-06-19_07-57
 Last_Migration_Report:/Applications/ITSM Bridge/Template Development/R2S/R2S Collection CIs R2/reports/execution_2017-06-19_14-33/migration_report_CI_System_Hardware_Relationship.csv
 Last_TC_Report_Folder:
 Last_Diff_Report_Folder:

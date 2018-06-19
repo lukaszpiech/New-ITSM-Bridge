@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Project AppVersion="3.7.14" Type="Standard">
+<version>2</version>
+<Connection ConnectionType="Source" ServerType="Remedy">
+<ServerName>localhost</ServerName>
+<Port>3636</Port>
+</Connection>
+<Connection ConnectionType="Target" ServerType="Service Now">
+<URL>https://dev54541.service-now.com</URL>
+</Connection>
+<DMDList>
+<DataMappingsDefinition attachmentsOption="0" enabled="Yes" id="Request">
+<TargetForm>sc_request</TargetForm>
+<SourceForm>WOI:WorkOrder</SourceForm>
+<BusinessHoursOption>NONE</BusinessHoursOption>
+<CreateOption>DEFAULT</CreateOption>
+<UpdateOption>DEFAULT</UpdateOption>
+<MigrateMethod>DEFAULT</MigrateMethod>
+<KeyMapping Type="None"/>
+<DeleteOption Type="NONE">
+<DisplayFields/>
+</DeleteOption>
+<ValueSetInclusionFilter NullValueAction="EXCLUDE_ENTRY" Type="ALL"/>
+<FieldMappingsDefinition>
+<TargetForm>sc_request</TargetForm>
+<SourceForm>WOI:WorkOrder</SourceForm>
+<FieldMapping Type="Simple">
+<TargetField>number</TargetField>
+<SourceField>Work Order ID</SourceField>
+</FieldMapping>
+</FieldMappingsDefinition>
+</DataMappingsDefinition>
+</DMDList>
+</Project>

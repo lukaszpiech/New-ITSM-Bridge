@@ -1,0 +1,3 @@
+"Timestamp","Target ID","Source ID","Result","Status","Message"
+"2018/06/18 19:08:58","275d345ddb7213007f3873278c96195b","PIW000000000102","Updated","Success","No Changes Made"
+"2018/06/18 19:08:58","275d345ddb7213007f3873278c96195b","PIW000000000201","Not Completed","Skip","Another source record is being migrated for this key"

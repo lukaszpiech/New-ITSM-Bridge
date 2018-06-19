@@ -16,10 +16,10 @@ Exec_Use_S2S_Attachment_Migration:TRUE
 Exec_Max_Attach_Size_MB:44
 Exec_Migrate_Chunk_Size:10000
 Exec_Refresh_Object_Cache:FALSE
-Last_Exec_Identifier:2018-06-18_09-14
-Last_Migration_Report:C:\ITSM Bridge Projects\New-ITSM-Bridge\Projects\INC_PBM\reports\execution_2018-06-18_09-04\migration_report_Incident_Task_WL_Attachments.csv
+Last_Exec_Identifier:2018-06-19_09-16
+Last_Migration_Report:C:\ITSM Bridge Projects\New-ITSM-Bridge\Projects\INC_PBM\reports\execution_2018-06-18_19-19\migration_report_Known_Errors.csv
 Last_TC_Report_Folder:
 Last_Diff_Report_Folder:
       Variable_Value:Company=Calbro Services
       Variable_Value:Single Company=FALSE
-      Variable_Value:Modified Since Date=2018-01-01 00:00:00
+      Variable_Value:Modified Since Date=2000-01-01 00:00:00

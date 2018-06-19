@@ -1,0 +1,27 @@
+2018/06/19 09:02:17.310 [INFO] Log Level set to Detail
+2018/06/19 09:02:17.310 [INFO] ITSM Bridge version 3.7.14
+2018/06/19 09:02:17.310 [INFO] Execution of INC_PBM version 56
+2018/06/19 09:02:17.310 [INFO] Set Variable Modified Since Date to value '2000-01-01 00:00:00'
+2018/06/19 09:02:17.310 [INFO] Set Variable Single Company to value 'FALSE'
+2018/06/19 09:02:17.310 [INFO] Set Variable Company to value 'Calbro Services'
+2018/06/19 09:02:17.313 [INFO] Execution started... [Execution ID=2018-06-19_09-02]
+2018/06/19 09:02:17.313 [INFO] Initialisation Step Started...
+2018/06/19 09:02:17.314 [INFO] Source Server Connected
+2018/06/19 09:02:17.314 [DETAIL] Build Field Map [v_plugin] started...
+2018/06/19 09:02:19.359 [DETAIL] SNow: Build Field Map [v_plugin] complete, 25 entries
+2018/06/19 09:06:29.192 [WARNING] Execution Terminated
+2018/06/19 09:06:29.192 [INFO] Execution will terminate shortly. Please wait for confirmation
+2018/06/19 09:06:29.193 [INFO] Target Server Connected
+2018/06/19 09:06:29.194 [WARNING] Execution has been Cancelled 
+	java.lang.InterruptedException: Execution has been Cancelled 
+	[Execution ID=2018-06-19_09-02]
+		at u.f.t(ExecutionStep.java:217)
+		at u.g.b(InitialisationStep.java:106)
+		at s.c.call(ExecutionTask.java:274)
+		at javafx.concurrent.Task$TaskCallable.call(Task.java:1423)
+		at java.util.concurrent.FutureTask.run(Unknown Source)
+		at java.lang.Thread.run(Unknown Source)
+	
+2018/06/19 09:06:29.197 [DETAIL] Closing Execution Task...
+2018/06/19 09:06:29.237 [WARNING] Execution was cancelled before completion [Execution ID=2018-06-19_09-02]
+2018/06/19 09:06:29.237 [INFO] --END OF LOG--
